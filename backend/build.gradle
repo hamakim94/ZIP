@@ -1,0 +1,52 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'java'
+}
+
+group = 'com.ssafy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//MySQL
+	runtimeOnly 'mysql:mysql-connector-java'
+	//Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+	//Swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	//jjwt (JWT 생성 및 파싱, 검증)
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	//유효성 검사
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//SMTP
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//Gson - MM webhook
+	implementation 'com.google.code.gson:gson:2.9.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
