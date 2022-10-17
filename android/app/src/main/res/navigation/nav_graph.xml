@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/testFragment">
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.ssafy.zip.android.TestFragment"
+        android:label="fragment_test"
+        tools:layout="@layout/fragment_test" >
+        <action
+            android:id="@+id/action_testFragment_to_testFragment2"
+            app:destination="@id/testFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/testFragment2"
+        android:name="com.ssafy.zip.android.TestFragment2"
+        android:label="fragment_test2"
+        tools:layout="@layout/fragment_test2" >
+        <action
+            app:popUpTo="@id/testFragment"
+            android:id="@+id/action_testFragment2_to_testFragment3"
+            app:destination="@id/testFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/testFragment3"
+        android:name="com.ssafy.zip.android.TestFragment3"
+        android:label="fragment_test3"
+        tools:layout="@layout/fragment_test3" />
+</navigation>
