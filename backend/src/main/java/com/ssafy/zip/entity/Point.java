@@ -1,0 +1,31 @@
+package com.ssafy.zip.entity;
+
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "point")
+public class Point {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    LocalDateTime reg;
+
+    Long familyId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
+    @ManyToOne
+    @JoinColumn(name = "code")
+    CommonCode code;
+}
