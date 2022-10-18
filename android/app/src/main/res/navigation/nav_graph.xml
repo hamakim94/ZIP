@@ -22,6 +22,9 @@
             app:popUpTo="@id/testFragment"
             android:id="@+id/action_testFragment2_to_testFragment3"
             app:destination="@id/testFragment3" />
+        <argument
+            android:name="seValue"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/testFragment3"
