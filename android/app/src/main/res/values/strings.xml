@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">android</string>
+    <string name="home">홈</string>
+    <string name="record">기록</string>
+    <string name="calendar">캘린더</string>
+    <string name="notification">알림</string>
+    <string name="album">앨범</string>
+    <string name="board">게시판</string>
 </resources>
