@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/record_tap_nav_graph"
+    app:startDestination="@id/recordAlbumFragment">
+
+    <fragment
+        android:id="@+id/recordAlbumFragment"
+        android:name="com.ssafy.zip.android.RecordAlbumFragment"
+        android:label="fragment_record_album"
+        tools:layout="@layout/fragment_record_album" />
+    <fragment
+        android:id="@+id/recordBoardFragment"
+        android:name="com.ssafy.zip.android.RecordBoardFragment"
+        android:label="fragment_record_board"
+        tools:layout="@layout/fragment_record_board" />
+</navigation>
