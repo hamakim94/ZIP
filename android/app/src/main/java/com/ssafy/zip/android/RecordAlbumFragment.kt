@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.data.Album
 
 
@@ -16,6 +19,9 @@ class RecordAlbumFragment : Fragment() {
     private lateinit var albumList: ArrayList<Album>
     private lateinit var albumsAdapter: AlbumsAdapter
     private lateinit var activity: MainActivity
+    private lateinit var customAlertDialogView : View
+    private lateinit var albumTextField : TextInputLayout
+
 
     companion object {
         fun newInstance() : RecordAlbumFragment = RecordAlbumFragment()
@@ -41,6 +47,7 @@ class RecordAlbumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 앨범 목록 보여주기
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
@@ -50,6 +57,32 @@ class RecordAlbumFragment : Fragment() {
 
         albumsAdapter = AlbumsAdapter(albumList)
         recyclerView.adapter = albumsAdapter
+
+        // 앨범 추가 버튼
+        val fab: View = view.findViewById(R.id.add_album_fab)
+        fab.setOnClickListener { view ->
+            customAlertDialogView = LayoutInflater.from(activity)
+                .inflate(R.layout.dialog_add_album, null, false)
+
+            albumTextField = customAlertDialogView.findViewById(R.id.album_text_field)
+
+            MaterialAlertDialogBuilder(activity)
+                .setView(customAlertDialogView)
+                .setTitle(resources.getString(R.string.new_album))
+                .setMessage(R.string.add_album_msg)
+                .setPositiveButton(resources.getString(R.string.confirm)) { dialog, which ->
+                    val albumTitle = albumTextField.editText?.text.toString()
+
+                    // 확인 버튼 눌렀을 때 할 일
+
+
+                    dialog.dismiss()
+                }
+                .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 
     private fun addDataToList(){
