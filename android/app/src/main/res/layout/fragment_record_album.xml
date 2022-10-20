@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="GridLayoutManager"
-            tools:listitem="@layout/album_item" />
+            tools:listitem="@layout/album_item"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_album_fab"
             android:layout_width="wrap_content"
