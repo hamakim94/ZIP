@@ -26,6 +26,10 @@
     <string name="boardcontent2">I believe in myself.</string>
     <string name="boardcontent3">Each day is a new opportunity to grow and be a better version of myself.</string>
 
+    <!-- 게시판 답글수> -->
+    <string name="commentCount1">45</string>
+    <string name="commentCount2">23</string>
+    <string name="commentCount3">44</string>
 
 
 </resources>
