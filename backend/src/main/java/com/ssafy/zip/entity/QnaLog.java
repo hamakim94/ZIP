@@ -27,7 +27,9 @@ public class QnaLog {
     @JoinColumn(name = "user_id")
     User user;
 
-    Long qnaId;
+    @ManyToOne
+    @JoinColumn(name = "qna_id")
+    Qna qna;
 
     LocalDateTime reg;
 }
