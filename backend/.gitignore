@@ -36,3 +36,6 @@ application-secret.properties
 
 ### VS Code ###
 .vscode/
+
+### ###
+application-secret.properties

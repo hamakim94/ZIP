@@ -23,9 +23,9 @@ public class Board {
     @JoinColumn(name = "user_id")
     User user;
 
-    String title;
-
     String content;
+
+    String image;
 
     LocalDateTime reg;
 }
