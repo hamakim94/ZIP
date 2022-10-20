@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
-import java.util.regex.Pattern
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -51,7 +50,7 @@ class LoginFragment : Fragment() {
                 }
             }
             binding.editPassword.hint = resources.getString(R.string.password_hint)
-            binding.editPassword.setOnFocusChangeListener { _, hasfocus ->
+            binding.editPassword.setOnFocusChangeListener {_, hasfocus ->
                 if(hasfocus){
                     binding.editPassword.hint = ""
                 } else{
@@ -88,17 +87,6 @@ class LoginFragment : Fragment() {
             }
         }
     }
-
-//    private fun passwordRegex(password: String):Boolean{
-//        if(true){
-//            return true
-//        }
-//        return false
-//    }
-//
-//    private fun passwordListener()
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
