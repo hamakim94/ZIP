@@ -1,12 +1,12 @@
 package com.ssafy.zip.controller;
 
 import com.ssafy.zip.dto.UserDTO;
+import com.ssafy.zip.dto.request.LetterRequestDTO;
+import com.ssafy.zip.dto.request.QnaAnswerModifyRequestDTO;
 import com.ssafy.zip.dto.request.QnaAnswerRequestDTO;
-import com.ssafy.zip.dto.response.BoardDTO;
-import com.ssafy.zip.dto.response.BoardDetailDTO;
-import com.ssafy.zip.dto.response.QnaDTO;
-import com.ssafy.zip.dto.response.QnaDetailDTO;
+import com.ssafy.zip.dto.response.*;
 import com.ssafy.zip.service.BoardService;
+import com.ssafy.zip.service.LetterService;
 import com.ssafy.zip.service.QnaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +26,7 @@ public class PostController {
 
     private final QnaService qnaService;
     private final BoardService boardService;
+    private final LetterService letterService;
 
     @PostMapping("/qna")
     @ApiOperation("질문 등록")
@@ -52,6 +53,14 @@ public class PostController {
         qnaService.saveAnswer(user, qnaAnswerRequestDTO);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/qna/answer")
+    @ApiOperation("백문백답 수정")
+    ResponseEntity<?> modifyQnaAnswer(@AuthenticationPrincipal UserDTO userDTO, @RequestBody QnaAnswerModifyRequestDTO qnaAnswerModifyRequestDTO){
+        qnaService.modifyAnswer(userDTO, qnaAnswerModifyRequestDTO);
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping("/board")
     @ApiOperation("전체 게시글 조회")
@@ -112,6 +121,19 @@ public class PostController {
     ResponseEntity<?> deleteComment(@AuthenticationPrincipal UserDTO userDTO, @PathVariable Long commentId){
 
         boardService.deleteComment(userDTO, commentId);
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping("/letter")
+    @ApiOperation("편지 조회")
+    ResponseEntity<List<LetterResponseDTO>> listLetter(@AuthenticationPrincipal UserDTO userDTO){
+        return ResponseEntity.ok(letterService.listLetters(userDTO));
+    }
+
+    @PostMapping("/letter")
+    @ApiOperation("편지 보내기")
+    ResponseEntity<?> sendLetter(@AuthenticationPrincipal UserDTO userDTO, LetterRequestDTO letterRequestDTO){
+
+        letterService.sendLetter(userDTO, letterRequestDTO);
         return ResponseEntity.ok().build();
     }
 }
