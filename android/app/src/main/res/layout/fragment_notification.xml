@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="3px"
+    android:layout_margin="3dp"
     tools:context=".NotificationFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        app:layoutManager="GridLayoutManager"
-        tools:listitem="@layout/notification_item" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="628dp"
+            android:layout_margin="10dp"
+            app:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/notification_item" />
+
+
+
 </FrameLayout>
