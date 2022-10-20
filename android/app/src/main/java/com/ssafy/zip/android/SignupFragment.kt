@@ -111,8 +111,24 @@ class SignupFragment : Fragment() {
                     s.isEmpty() -> {
                         binding.signupPassword.error = "비밀번호를 입력해주세요."
                     }
+                    s.isNotEmpty() -> {
+                        binding.signupPassword.error = null
+                        passwordFlag = true
+                        when {
+                            binding.signupPasswordcheck.editText?.text.toString() != ""
+                                    && binding.signupPasswordcheck.editText?.text.toString() != binding.signupPasswordcheck.editText?.text.toString() -> {
+                                binding.signupPasswordcheck.error = "비밀번호가 일치하지 않습니다"
+                                passwordCheckFlag = false
+                                passwordFlag = true
+                            }
+                            else -> {
+                                binding.signupPasswordcheck.error = null
+                                passwordCheckFlag = true
+                            }
+                        }
+                    }
                     !passwordRegex(s.toString()) -> {
-                        binding.signupPassword.error = "비밀번호 양식을 지켜주세요."
+                        binding.signupPassword.error = "8~16자 영문, 숫자, 특수문자를 사용하세요."
                     }
                     else -> {
                         binding.signupPassword.error = null
