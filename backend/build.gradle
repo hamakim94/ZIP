@@ -23,6 +23,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -45,6 +46,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	//Gson - MM webhook
 	implementation 'com.google.code.gson:gson:2.9.0'
+	// https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 }
 
 tasks.named('test') {

@@ -1,6 +1,7 @@
 package com.ssafy.zip.service;
 
 import com.ssafy.zip.dto.UserDTO;
+import com.ssafy.zip.dto.request.QnaAnswerModifyRequestDTO;
 import com.ssafy.zip.dto.request.QnaAnswerRequestDTO;
 import com.ssafy.zip.dto.response.QnaAnswerResponseDTO;
 import com.ssafy.zip.dto.response.QnaDTO;
@@ -12,9 +13,9 @@ import com.ssafy.zip.repository.QnaLogRepository;
 import com.ssafy.zip.repository.QnaRepository;
 import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.QnaAnswerMapStruct;
-import com.ssafy.zip.util.UserResponseDTOMapStruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -43,7 +44,7 @@ public class QnaServiceImpl implements QnaService {
         List<QnaLog> list = qnaLogRepository.findByFamilyId(user.getFamilyId());
         Set<Long> qnaIdSet = new HashSet<>();
         List<QnaDTO> result = new ArrayList<>();
-        list.stream().forEach(o -> {
+        list.forEach(o -> {
             Qna qna = o.getQna();
             if(!qnaIdSet.contains(qna.getId())){
                 qnaIdSet.add(qna.getId());
@@ -59,14 +60,23 @@ public class QnaServiceImpl implements QnaService {
         if(qnaLogs.get(0)!=null) {
             Qna qna= qnaLogs.get(0).getQna();
             List<QnaAnswerResponseDTO> list= new ArrayList<>();
-            qnaLogs.stream().forEach(o-> list.add(QnaAnswerMapStruct.INSTANCE.mapToQnaAnswerDTO(o)));
+            qnaLogs.forEach(o-> list.add(QnaAnswerMapStruct.INSTANCE.mapToQnaAnswerDTO(o)));
             return new QnaDetailDTO(qna.getId(),qna.getQuestion(), list);
         }
         else return null;
 
     }
+    @Transactional
+    @Override
+    public void modifyAnswer(UserDTO user, QnaAnswerModifyRequestDTO qnaAnswerModifyRequestDTO) {
+        Optional<QnaLog> qnaLog = qnaLogRepository.findById(qnaAnswerModifyRequestDTO.qnaLogId());
+        if(qnaLog.isPresent()){
+            QnaLog log = qnaLog.get();
+            log.setContent(qnaAnswerModifyRequestDTO.content());
+        }
+    }
 
     Integer findAnswerCnt(Long qnaId, List<QnaLog> list){
-        return Math.toIntExact(list.stream().filter(o -> o.getQna().getId() == qnaId).count());
+        return Math.toIntExact(list.stream().filter(o -> o.getQna().getId().equals(qnaId)).count());
     }
 }
