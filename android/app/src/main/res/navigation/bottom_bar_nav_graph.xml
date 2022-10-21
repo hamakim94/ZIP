@@ -13,7 +13,11 @@
         android:id="@+id/recordFragment"
         android:name="com.ssafy.zip.android.RecordFragment"
         android:label="fragment_record"
-        tools:layout="@layout/fragment_record" />
+        tools:layout="@layout/fragment_record" >
+        <action
+            android:id="@+id/action_recordFragment_to_recordQuizFragment"
+            app:destination="@id/recordQuizFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.ssafy.zip.android.CalendarFragment"
@@ -24,4 +28,8 @@
         android:name="com.ssafy.zip.android.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/recordQuizFragment"
+        android:name="com.ssafy.zip.android.RecordQuizFragment"
+        android:label="RecordQuizFragment" />
 </navigation>

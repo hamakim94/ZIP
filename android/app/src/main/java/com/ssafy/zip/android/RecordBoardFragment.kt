@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.zip.android.adapter.BoardAdapter
@@ -43,7 +45,11 @@ class RecordBoardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_record_board, container, false)
+        val view = inflater.inflate(R.layout.fragment_record_board, container, false)
+        view.findViewById<Button>(R.id.quizButton).setOnClickListener{
+            view.findNavController().navigate(R.id.action_recordFragment_to_recordQuizFragment)
+        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

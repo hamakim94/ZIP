@@ -14,5 +14,7 @@
         android:id="@+id/recordBoardFragment"
         android:name="com.ssafy.zip.android.RecordBoardFragment"
         android:label="fragment_record_board"
-        tools:layout="@layout/fragment_record_board" />
+        tools:layout="@layout/fragment_record_board" >
+
+    </fragment>
 </navigation>
