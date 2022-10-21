@@ -14,6 +14,11 @@ class SignupFragment : Fragment() {
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
 
+    private var emailFlag = false
+    private var passwordFlag = false
+    private var passwordCheckFlag = false
+    private var nicknameFlag = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,7 +32,7 @@ class SignupFragment : Fragment() {
         initView()
     }
 
-    private fun initView(){
+   private fun initView(){
         binding.signupEmail.editText?.addTextChangedListener(emailListner)
         binding.editEmail.hint = resources.getString(R.string.email_hint)
         binding.editEmail.setOnFocusChangeListener {_,hasFocus ->
@@ -46,6 +51,7 @@ class SignupFragment : Fragment() {
                 binding.editPassword.hint = resources.getString(R.string.password_hint)
             }
         }
+       binding.signupPasswordcheck.editText?.addTextChangedListener(passwordcheckListener)
         binding.editPasswordcheck.hint = resources.getString(R.string.password_check)
         binding.editPasswordcheck.setOnFocusChangeListener { _, hasfocus ->
             if(hasfocus){
@@ -54,6 +60,7 @@ class SignupFragment : Fragment() {
                 binding.editPasswordcheck.hint = resources.getString(R.string.password_check)
             }
         }
+       binding.signupNickname.editText?.addTextChangedListener(nicknameListner)
         binding.editNickname.hint = resources.getString(R.string.nickname_hint)
         binding.editNickname.setOnFocusChangeListener { _, hasfocus ->
             if(hasfocus){
@@ -116,10 +123,13 @@ class SignupFragment : Fragment() {
                         passwordFlag = true
                         when {
                             binding.signupPasswordcheck.editText?.text.toString() != ""
-                                    && binding.signupPasswordcheck.editText?.text.toString() != binding.signupPasswordcheck.editText?.text.toString() -> {
+                                    && binding.signupPassword.editText?.text.toString() != binding.signupPasswordcheck.editText?.text.toString() -> {
                                 binding.signupPasswordcheck.error = "비밀번호가 일치하지 않습니다"
                                 passwordCheckFlag = false
                                 passwordFlag = true
+                            }
+                            !passwordRegex(s.toString()) -> {
+                                binding.signupPassword.error = "8~16자 영문, 숫자, 특수문자를 사용하세요."
                             }
                             else -> {
                                 binding.signupPasswordcheck.error = null
@@ -127,11 +137,50 @@ class SignupFragment : Fragment() {
                             }
                         }
                     }
-                    !passwordRegex(s.toString()) -> {
-                        binding.signupPassword.error = "8~16자 영문, 숫자, 특수문자를 사용하세요."
-                    }
                     else -> {
                         binding.signupPassword.error = null
+                    }
+                }
+            }
+        }
+    }
+
+    private val passwordcheckListener = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+        override fun afterTextChanged(s: Editable?) {
+            if (s != null) {
+                when {
+                    s.isEmpty() -> {
+                        binding.signupPasswordcheck.error = "비밀번호를 입력해주세요."
+                    }
+                    binding.signupPasswordcheck.editText?.text.toString() != ""
+                            && binding.signupPassword.editText?.text.toString() != binding.signupPasswordcheck.editText?.text.toString() -> {
+                        binding.signupPasswordcheck.error = "비밀번호가 일치하지 않습니다."
+                    }
+                    else -> {
+                        binding.signupPasswordcheck.error = null
+                    }
+                }
+            }
+        }
+    }
+
+    private val nicknameListner = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+        override fun afterTextChanged(s: Editable?) {
+            if (s != null) {
+                when {
+                    s.isEmpty() -> {
+                        binding.signupNickname.error = "애칭을 입력해주세요."
+                    }
+                    else -> {
+                        binding.signupNickname.error = null
                     }
                 }
             }
