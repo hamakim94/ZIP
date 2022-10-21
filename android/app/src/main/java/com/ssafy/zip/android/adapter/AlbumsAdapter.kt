@@ -24,7 +24,7 @@ class AlbumsAdapter(private val albumList:ArrayList<Album>) : RecyclerView.Adapt
         val album = albumList[position]
         holder.albumImage.setImageResource(album.image)
         holder.albumTitle.text = album.title
-        holder.albumNum.text = album.num.toString() + "개의 추억"
+        holder.albumNum.text = album.num.toString() + "시"
     }
 
     override fun getItemCount(): Int {
