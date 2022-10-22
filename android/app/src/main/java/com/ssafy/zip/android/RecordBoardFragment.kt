@@ -49,6 +49,9 @@ class RecordBoardFragment : Fragment() {
         view.findViewById<Button>(R.id.quizButton).setOnClickListener{
             view.findNavController().navigate(R.id.action_recordFragment_to_recordQuizFragment)
         }
+        view.findViewById<Button>(R.id.letterButton).setOnClickListener{
+            view.findNavController().navigate(R.id.action_recordFragment_to_recordLetterFragment)
+        }
         return view
     }
 
