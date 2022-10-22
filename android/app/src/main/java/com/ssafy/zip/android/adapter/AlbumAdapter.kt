@@ -47,6 +47,7 @@ class AlbumAdapter(private val albumList:ArrayList<Album>) : RecyclerView.Adapte
             // album item 클릭했을 때 실행
             val bundle = Bundle()
             bundle.putLong("albumId", album.id)
+            bundle.putString("albumTitle", album.title)
             it.findNavController().navigate(R.id.action_recordFragment_to_recordAlbumPicturesFragment2, bundle)
         }
 

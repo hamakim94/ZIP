@@ -122,8 +122,5 @@ class RecordAlbumFragment : Fragment() {
         albumList.add(Album(2, R.drawable.ex2, "속초", 45))
         albumList.add(Album(3, R.drawable.ex3, "강", 38))
         albumList.add(Album(4, R.drawable.ex4, "북한산", 56))
-        albumList.add(Album(5, R.drawable.ex5, "산", 6))
-        albumList.add(Album(6, R.drawable.ex6, "쌒마이걸", 7708))
-        albumList.add(Album(7, R.drawable.ex7, "나무", 4))
     }
 }

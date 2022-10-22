@@ -7,11 +7,10 @@
 <!--        <item name="colorOnPrimary">#ffffff</item>-->
 <!--    </style>-->
     <style name="AppMaterialTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#FF6200EE</item>
+        <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">#FF3700B3</item>
-        <item name="colorOnPrimary">#ffffff</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="colorButtonNormal">@color/white</item>
-
         <item name="materialAlertDialogTheme">@style/AlertDialogMaterialTheme</item>
     </style>
     <style name="AlertDialogMaterialTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
@@ -36,5 +35,11 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginEnd">10dp</item>
+    </style>
+    <style name="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="titleTextColor">@color/purple_500</item>
+        <item name="subtitleTextColor">@color/material_on_surface_emphasis_medium</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Surface</item>
     </style>
 </resources>
