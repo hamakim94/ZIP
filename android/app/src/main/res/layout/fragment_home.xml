@@ -1,13 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
+    <TextView
+        android:id="@+id/topText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="LOGO"
+        app:layout_constraintBottom_toTopOf="@+id/familyName"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/familyName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="home" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="행복한 우리 가조쿠"
+        app:layout_constraintBottom_toTopOf="@+id/home_house"
+        app:layout_constraintTop_toBottomOf="@+id/topText" />
 
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/home_house"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/familyMember"
+        app:layout_constraintTop_toBottomOf="@+id/familyName"
+        app:layout_constraintVertical_weight="4" />
+
+    <TextView
+        android:id="@+id/familyMember"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="우리 가족 구성원"
+        app:layout_constraintBottom_toTopOf="@id/home_recycler_view"
+        app:layout_constraintTop_toBottomOf="@id/home_house" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="GridLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/home_mission"
+        app:layout_constraintTop_toBottomOf="@id/familyMember"
+        android:overScrollMode="never"
+        tools:listitem="@layout/home_item"
+        />
+
+    <FrameLayout
+        android:id="@+id/home_mission"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_recycler_view"
+        app:layout_constraintVertical_weight="4">
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/mission_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mission_top"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@id/mission1"
+        app:layout_constraintTop_toTopOf="@+id/home_mission"></TextView>
+
+    <FrameLayout
+        android:id="@+id/mission1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/mission2"
+        app:layout_constraintEnd_toEndOf="@id/home_mission"
+        app:layout_constraintStart_toStartOf="@id/home_mission"
+        app:layout_constraintTop_toBottomOf="@id/mission_top"
+        app:layout_constraintVertical_weight="1"></FrameLayout>
+
+    <ImageView
+        android:id="@+id/mission1_point"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/mission1"
+        app:layout_constraintStart_toStartOf="@id/mission1"
+        app:layout_constraintTop_toTopOf="@id/mission1"></ImageView>
+
+    <TextView
+        android:id="@+id/mission1_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/mission1_title"
+        app:layout_constraintEnd_toEndOf="@id/mission1"
+        app:layout_constraintStart_toEndOf="@id/mission1_point"
+        app:layout_constraintTop_toTopOf="@id/mission1"
+        app:layout_constraintBottom_toTopOf="@id/mission1_content"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/mission1_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/mission1_content"
+        app:layout_constraintEnd_toEndOf="@id/mission1"
+        app:layout_constraintStart_toEndOf="@id/mission1_point"
+        app:layout_constraintTop_toBottomOf="@id/mission1_title"
+        app:layout_constraintBottom_toTopOf="@id/mission1_progress"></TextView>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/mission1_progress"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/mission1"
+        app:layout_constraintEnd_toEndOf="@id/mission1"
+        app:layout_constraintStart_toEndOf="@id/mission1_point"
+        app:layout_constraintTop_toBottomOf="@id/mission1_content"
+        android:progress="25"
+        android:scaleY="3"></ProgressBar>
+    <!--        <Button-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height=""></Button>-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height=""></TextView>-->
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height=""></TextView>-->
+
+    <FrameLayout
+        android:id="@+id/mission2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/home_mission"
+        app:layout_constraintTop_toBottomOf="@id/mission1"
+        app:layout_constraintVertical_weight="1"></FrameLayout>
+
+    <ImageView
+        android:id="@+id/mission2_point"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/mission2"
+        app:layout_constraintStart_toStartOf="@id/mission2"
+        app:layout_constraintTop_toTopOf="@id/mission2"></ImageView>
+
+    <TextView
+        android:id="@+id/mission2_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/mission2_title"
+        app:layout_constraintEnd_toEndOf="@id/mission2"
+        app:layout_constraintStart_toEndOf="@id/mission2_point"
+        app:layout_constraintTop_toTopOf="@id/mission2"
+        app:layout_constraintBottom_toTopOf="@id/mission2_content"></TextView>
+
+    <TextView
+        android:id="@+id/mission2_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/mission2_content"
+        app:layout_constraintEnd_toEndOf="@id/mission2"
+        app:layout_constraintStart_toEndOf="@id/mission2_point"
+        app:layout_constraintTop_toBottomOf="@id/mission2_title"
+        app:layout_constraintBottom_toTopOf="@id/mission2_progress"></TextView>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/mission2_progress"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/mission2"
+        app:layout_constraintEnd_toEndOf="@id/mission2"
+        app:layout_constraintStart_toEndOf="@id/mission2_point"
+        app:layout_constraintTop_toBottomOf="@id/mission2_content"
+        android:progress="25"
+        android:scaleY="3"></ProgressBar>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,8 +54,9 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_baseline_door_sliding_24"
-        app:layout_anchor="@id/bottomAppBar"
+        app:layout_anchor="@+id/bottomAppBar"
+        app:layout_anchorGravity="center"
         app:maxImageSize="32dp"
-        app:tint="#ffffff"/>
+        app:tint="#ffffff" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
