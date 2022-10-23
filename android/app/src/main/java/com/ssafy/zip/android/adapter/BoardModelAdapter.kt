@@ -10,9 +10,9 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.BoardModel
 
-class BoardModelAdapter :
+class BoardModelAdapter(private val adapterData: ArrayList<BoardModel>) :
     RecyclerView.Adapter<BoardModelAdapter.BoardModelAdapterViewHolder>() {
-    private val adapterData = mutableListOf<BoardModel>()
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
