@@ -20,6 +20,7 @@ public class SecurityConfig {
 
     private static final String[] PUBLIC_API_URI = {
             "/api/users/signup", "/api/users/login", "/api/users/duplication-check", "/api/users/password", "/api/users/reissue"
+            , "/api/**"
     };
 
     private static final String[] PUBLIC_WEB_URI = {
