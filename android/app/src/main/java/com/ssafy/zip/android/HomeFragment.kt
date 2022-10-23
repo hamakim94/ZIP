@@ -1,7 +1,6 @@
 package com.ssafy.zip.android
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,20 +26,28 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.homeRecyclerView.setHasFixedSize(true)
-        binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, 3)
 
         homeList = ArrayList()
         addDataToList()
 
         homeAdapter = HomeAdapter(homeList)
         binding.homeRecyclerView.adapter = homeAdapter
+
+        val cnt = when(homeAdapter.itemCount){
+            in 1..4 -> homeAdapter.itemCount
+            in 5..6 -> 3
+            else -> 4
+        }
+        binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
     }
 
     private fun addDataToList() {
-        homeList.add(Member(1, R.drawable.ic_baseline_home_24))
-        homeList.add(Member(2, R.drawable.ic_baseline_home_24))
-        homeList.add(Member(3, R.drawable.ic_baseline_home_24))
-        homeList.add(Member(4, R.drawable.ic_baseline_home_24))
+        homeList.add(Member(1, R.drawable.member1))
+        homeList.add(Member(2, R.drawable.member2))
+        homeList.add(Member(3, R.drawable.member3))
+        homeList.add(Member(4, R.drawable.member4))
+//        homeList.add(Member(5, R.drawable.member4))
+//        homeList.add(Member(6, R.drawable.member4))
     }
 
 }
