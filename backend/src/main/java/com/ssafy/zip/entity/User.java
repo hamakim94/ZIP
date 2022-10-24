@@ -1,6 +1,7 @@
 package com.ssafy.zip.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "user")
+@DynamicInsert
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +38,17 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "family_id")
     Family family;
+
+    public void setProfileImgAndNickname(String profileImg, String nickname){
+        this.profileImg = profileImg;
+        this.nickname = nickname;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public void emailVerifiedSuccess() {
+        this.isEmailVerified = true;
+    }
 }
