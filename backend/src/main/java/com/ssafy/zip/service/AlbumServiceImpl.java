@@ -44,7 +44,7 @@ public class AlbumServiceImpl implements AlbumService{
         List<Picture> pictureList = new ArrayList<>();
         for (PictureRequestDTO picture: pictures) {
             pictureList.add(Picture.builder()
-                    .fileName()
+                    .fileName("")
                     .album()
                     .fileName()
                     .directory()
