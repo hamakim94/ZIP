@@ -21,6 +21,7 @@ public class User {
 
     String nickname;
 
+    @Column(name = "profile_img")
     String profileImg;
 
     String email;
@@ -29,7 +30,10 @@ public class User {
 
     LocalDateTime reg;
 
+    @Column(name = "is_email_verified")
     Boolean isEmailVerified;
 
-    Long familyId;
+    @ManyToOne
+    @JoinColumn(name = "family_id")
+    Family family;
 }
