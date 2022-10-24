@@ -26,6 +26,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.webjars.npm:firebase__messaging:0.9.16'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -37,7 +38,7 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	//Spring Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	testImplementation 'org.springframework.security:spring-security-test'
+//	testImplementation 'org.springframework.security:spring-security-test'
 	//Swagger
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	//jjwt (JWT 생성 및 파싱, 검증)
@@ -51,12 +52,14 @@ dependencies {
 	//SMTP
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	//Gson - MM webhook
-	implementation 'com.google.code.gson:gson:2.9.0'
+//	implementation 'com.google.code.gson:gson:2.9.0'
 	// queryDsl
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 	// https://mvnrepository.com/artifact/org.mapstruct/mapstruct
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	// https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
+	implementation 'com.google.firebase:firebase-admin:9.1.0'
 }
 
 tasks.named('test') {
