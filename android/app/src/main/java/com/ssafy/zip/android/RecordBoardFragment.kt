@@ -2,17 +2,14 @@ package com.ssafy.zip.android
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.findNavController
+import android.widget.RadioButton
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ssafy.zip.android.adapter.BoardAdapter
 import com.ssafy.zip.android.adapter.BoardModelAdapter
-import com.ssafy.zip.android.data.Board
 import com.ssafy.zip.android.data.BoardModel
 
 
@@ -21,111 +18,71 @@ class RecordBoardFragment : Fragment() {
     private lateinit var adapter: BoardModelAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var boardModelArrayList: ArrayList<BoardModel>
-
-//    lateinit var userImageId: Array<Int>
-//    lateinit var userNickname: Array<String>
-//    lateinit var boardReg: Array<String>
-//    lateinit var boardImageId: Array<Int>
-//    lateinit var boardContent: Array<String>
-//    lateinit var commentCount : Array<String>
-//    lateinit var boards: Array<String>
-
-    companion object {
-        fun newInstance(): RecordBoardFragment = RecordBoardFragment()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+    private lateinit var filteredBoardModelArrayList: ArrayList<BoardModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_record_board, container, false)
-        view.findViewById<Button>(R.id.quizButton).setOnClickListener{
-            view.findNavController().navigate(R.id.action_recordFragment_to_recordQuizFragment)
+        view.findViewById<RadioButton>(R.id.allButton).setOnClickListener {
+            filteredBoardModelArrayList = boardModelArrayList
+            adapter = BoardModelAdapter(filteredBoardModelArrayList)
+            recyclerView.adapter = adapter
         }
-        view.findViewById<Button>(R.id.letterButton).setOnClickListener{
-            view.findNavController().navigate(R.id.action_recordFragment_to_recordLetterFragment)
+        view.findViewById<RadioButton>(R.id.boardButton).setOnClickListener {
+            filteredBoardModelArrayList =
+                boardModelArrayList.filter { it.javaClass.simpleName == "Board" } as ArrayList<BoardModel>
+            adapter = BoardModelAdapter(filteredBoardModelArrayList)
+            recyclerView.adapter = adapter
+        }
+        view.findViewById<RadioButton>(R.id.qnaButton).setOnClickListener {
+            filteredBoardModelArrayList =
+                boardModelArrayList.filter { it.javaClass.simpleName == "Qna" } as ArrayList<BoardModel>
+            adapter = BoardModelAdapter(filteredBoardModelArrayList)
+            recyclerView.adapter = adapter
+        }
+        view.findViewById<RadioButton>(R.id.letterButton).setOnClickListener {
+            filteredBoardModelArrayList =
+                boardModelArrayList.filter { it.javaClass.simpleName == "Letter" } as ArrayList<BoardModel>
+            adapter = BoardModelAdapter(filteredBoardModelArrayList)
+            recyclerView.adapter = adapter
         }
         return view
     }
 
+//    private val onCheckedChangeListener =
+//        RadioGroup.OnCheckedChangeListener { group, checkedId ->
+//            when (checkedId) {
+//                R.id.allButton -> {  filteredBoardModelArrayList = boardModelArrayList}
+//                R.id.boardButton -> {  filteredBoardModelArrayList = boardModelArrayList.filter { it.javaClass.simpleName == "Board"} as ArrayList<BoardModel>}
+//                R.id.qnaButton -> {filteredBoardModelArrayList = boardModelArrayList.filter { it.javaClass.simpleName == "Qna"} as ArrayList<BoardModel>}
+//                R.id.letterButton -> {filteredBoardModelArrayList = boardModelArrayList.filter { it.javaClass.simpleName == "Letter"} as ArrayList<BoardModel>}
+//            }
+//        }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         boardModelArrayList = getMockData()
-//        dataInitialize()
+        filteredBoardModelArrayList = ArrayList(boardModelArrayList)
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.board_recyclerview)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        adapter = BoardModelAdapter(boardModelArrayList)
+        adapter = BoardModelAdapter(filteredBoardModelArrayList)
         recyclerView.adapter = adapter
     }
 
-
-//    private fun dataInitialize() {
-//        boardsArrayList = arrayListOf<Board>()
-//
-//        userImageId = arrayOf(
-//            R.drawable.userimage1,
-//            R.drawable.userimage2,
-//            R.drawable.userimage3,
-//        )
-//        userNickname = arrayOf(
-//            getString(R.string.usernickname1),
-//            getString(R.string.usernickname2),
-//            getString(R.string.usernickname3),
-//        )
-//
-//        boardReg = arrayOf(
-//            getString(R.string.boardreg1),
-//            getString(R.string.boardreg2),
-//            getString(R.string.boardreg3),
-//        )
-//        boardImageId = arrayOf(
-//            R.drawable.boardimage1,
-//            R.drawable.boardimage2,
-//            R.drawable.boardimage3
-//        )
-//        boardContent = arrayOf(
-//            getString(R.string.boardcontent1),
-//            getString(R.string.boardcontent2),
-//            getString(R.string.boardcontent3),
-//        )
-//        commentCount = arrayOf(
-//            "3",
-//            "23",
-//            "45",
-//        )
-//
-//        for (i in userImageId.indices) {
-//            val board = Board(
-//                userImageId[i],
-//                userNickname[i],
-//                boardReg[i],
-//                boardImageId[i],
-//                boardContent[i],
-//                commentCount[i]
-//            )
-//            boardsArrayList.add(board)
-//        }
-//
-//
-//    }
-
-    private fun getMockData() : ArrayList<BoardModel> = arrayListOf(
+    private fun getMockData(): ArrayList<BoardModel> = arrayListOf(
         BoardModel.Board(
             userImage = R.drawable.userimage1,
             userNickname = getString(R.string.usernickname1),
             boardReg = getString(R.string.boardreg1),
-            boardImage =  R.drawable.boardimage1,
+            boardImage = R.drawable.boardimage1,
             boardContent = getString(R.string.boardcontent1),
             commentCount = "3",
         ),
@@ -133,7 +90,7 @@ class RecordBoardFragment : Fragment() {
             userImage = R.drawable.userimage2,
             userNickname = getString(R.string.usernickname2),
             boardReg = getString(R.string.boardreg2),
-            boardImage =  R.drawable.boardimage2,
+            boardImage = R.drawable.boardimage2,
             boardContent = getString(R.string.boardcontent2),
             commentCount = "23",
         ),
@@ -141,7 +98,7 @@ class RecordBoardFragment : Fragment() {
             userImage = R.drawable.userimage3,
             userNickname = getString(R.string.usernickname3),
             boardReg = getString(R.string.boardreg3),
-            boardImage =  R.drawable.boardimage3,
+            boardImage = R.drawable.boardimage3,
             boardContent = getString(R.string.boardcontent3),
             commentCount = "45",
         ),
@@ -177,5 +134,5 @@ class RecordBoardFragment : Fragment() {
         ),
 
 
-    )
+        )
 }

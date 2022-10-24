@@ -8,62 +8,77 @@
     tools:context=".RecordBoardFragment"
     android:orientation="vertical">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        >
 
-        <Button
-            android:id="@+id/allButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="전체"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/grey"
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/boardButton"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            ></Button>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/boardButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="게시판"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/quizButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/allButton"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            <RadioButton
+                android:id="@+id/allButton"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_selector"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:elevation="4dp"
+                android:onClick="onRadioButtonClicked"
+                android:text="전체"
+                android:textAlignment="center"
+                android:textColor="@drawable/text_color" />
 
-        <Button
-            android:id="@+id/quizButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="백문백답"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/letterButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/boardButton"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            <RadioButton
+                android:id="@+id/boardButton"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_selector"
+                android:button="@android:color/transparent"
+                android:elevation="4dp"
+                android:onClick="onRadioButtonClicked"
+                android:text="게시판"
+                android:textAlignment="center"
+                android:textColor="@drawable/text_color" />
 
-        <Button
-            android:id="@+id/letterButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="오늘의편지"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/quizButton"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            <RadioButton
+                android:id="@+id/qnaButton"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_selector"
+                android:button="@android:color/transparent"
+                android:elevation="4dp"
+                android:onClick="onRadioButtonClicked"
+                android:text="백문백답"
+                android:textAlignment="center"
+                android:textColor="@drawable/text_color" />
+
+            <RadioButton
+                android:id="@+id/letterButton"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_selector"
+                android:button="@android:color/transparent"
+                android:elevation="4dp"
+                android:onClick="onRadioButtonClicked"
+                android:text="오늘의 편지"
+                android:textAlignment="center"
+                android:textColor="@drawable/text_color" />
+
+        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

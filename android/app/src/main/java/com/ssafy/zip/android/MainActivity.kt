@@ -25,4 +25,5 @@ class MainActivity : AppCompatActivity() {
         // 바인딩
         binding.bottomNavigationView.setupWithNavController(navController)
     }
+
 }
