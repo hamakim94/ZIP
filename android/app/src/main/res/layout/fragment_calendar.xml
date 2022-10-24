@@ -21,13 +21,12 @@
         android:id="@+id/diaryTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="348dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="332dp"
         android:text="10월 24일"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintTop_toTopOf="@id/calendarView"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="9dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -38,6 +37,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
         tools:listitem="@layout/calendar_item" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_album_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        app:srcCompat="@drawable/ic_baseline_add_24"
+        app:tint="@color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="339dp"
+        tools:layout_editor_absoluteY="659dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

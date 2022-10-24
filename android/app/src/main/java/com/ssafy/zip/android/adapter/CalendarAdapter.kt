@@ -13,6 +13,7 @@ class CalendarAdapter(private val calendarList:ArrayList<Calendar>) : RecyclerVi
         val calendarImage : ImageView = itemView.findViewById(R.id.calendar_image)
         val calendarTitle : TextView = itemView.findViewById(R.id.calendar_title)
         val calendarNum : TextView = itemView.findViewById(R.id.calendar_num)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
