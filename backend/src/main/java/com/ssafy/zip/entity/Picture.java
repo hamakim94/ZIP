@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "image")
-public class Image {
+@Table(name = "picture")
+public class Picture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
