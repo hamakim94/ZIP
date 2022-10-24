@@ -1,12 +1,14 @@
 package com.ssafy.zip.android
 
-import android.app.Notification.Action
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,11 +16,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.zip.android.data.Photo
 
 
-class RecordAlbumPicturesFragment : Fragment() {
+class RecordAlbumPicturesFragment : Fragment(), photo_onClick_interface {
     private lateinit var recyclerView: RecyclerView
     private lateinit var photoList: ArrayList<Photo>
     private lateinit var photoAdapter: PhotoAdapter
     private lateinit var activity: MainActivity
+    var imageList: ArrayList<Uri> = ArrayList()
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == Activity.RESULT_OK) {
+            if (it.data!!.clipData != null) { // 멀티 이미지
+                val count = it.data!!.clipData!!.itemCount // 이미지 개수
+
+                for(index in 0 until count){
+                    val imageUri = it.data!!.clipData!!.getItemAt(index).uri // 이미지 담기
+                    imageList.add(imageUri) // 이미지 추가
+                }
+            } else { // 싱글 이미지
+                val imageUri = it.data!!.data
+                imageList.add(imageUri!!)
+            }
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,8 +63,15 @@ class RecordAlbumPicturesFragment : Fragment() {
         toolbar.setOnMenuItemClickListener{
             when(it.itemId) {
                 R.id.add_album_btn -> {
-                    println("add_album_btn")
+                    // 갤러리 호출
+                    val photoPickerIntent = Intent(Intent.ACTION_PICK)
+                    photoPickerIntent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    photoPickerIntent.type = "image/*"
+                    // 다중 선택 가능
+                    photoPickerIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    startForResult.launch(photoPickerIntent)
 //                    startActivity(Intent(context, SecondActivity::class.java))
+
                     true
                 }
                 else -> false
@@ -60,7 +86,7 @@ class RecordAlbumPicturesFragment : Fragment() {
         photoList = ArrayList()
         addDataToList()
 
-        photoAdapter = PhotoAdapter(photoList)
+        photoAdapter = PhotoAdapter(photoList, this)
         recyclerView.adapter = photoAdapter
     }
 
@@ -114,5 +140,10 @@ class RecordAlbumPicturesFragment : Fragment() {
         photoList.add(Photo(5, R.drawable.ex5))
         photoList.add(Photo(6, R.drawable.ex6))
         photoList.add(Photo(7, R.drawable.ex7))
+    }
+
+    // fragment에서 adapter에 data를 전달하기 위함
+    override fun onClickPhoto(): String? {
+        return arguments?.getString("albumTitle");
     }
 }

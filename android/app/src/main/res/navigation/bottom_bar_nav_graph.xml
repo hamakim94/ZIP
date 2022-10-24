@@ -32,5 +32,14 @@
         android:id="@+id/recordAlbumPicturesFragment2"
         android:name="com.ssafy.zip.android.RecordAlbumPicturesFragment"
         android:label="fragment_record_album_photo"
-        tools:layout="@layout/fragment_record_album_photo" />
+        tools:layout="@layout/fragment_record_album_photo" >
+        <action
+            android:id="@+id/action_recordAlbumPicturesFragment2_to_recordAlbumPhotoDetailFragment2"
+            app:destination="@id/recordAlbumPhotoDetailFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/recordAlbumPhotoDetailFragment2"
+        android:name="com.ssafy.zip.android.RecordAlbumPhotoDetailFragment"
+        android:label="fragment_record_album_photo_detail"
+        tools:layout="@layout/fragment_record_album_photo_detail" />
 </navigation>
