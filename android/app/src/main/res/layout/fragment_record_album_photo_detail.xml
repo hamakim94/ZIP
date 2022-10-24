@@ -47,7 +47,7 @@
     <ImageButton
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/next_btn"
+        android:id="@+id/forward_btn"
         android:padding="0dp"
         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
         app:layout_constraintTop_toTopOf="@id/photo_image"

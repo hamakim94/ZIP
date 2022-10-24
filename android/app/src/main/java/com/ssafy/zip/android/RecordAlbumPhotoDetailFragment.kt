@@ -1,15 +1,20 @@
 package com.ssafy.zip.android
 
+import android.gesture.GestureLibraries
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.View.OnTouchListener
 import android.widget.ImageView
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import com.ssafy.zip.android.data.Photo
+import kotlin.properties.Delegates
+
 
 class RecordAlbumPhotoDetailFragment : Fragment() {
+    var imageList : ArrayList<Photo> = ArrayList() // 후에는 Uri로 바뀔듯
+    private var position by Delegates.notNull<Int>() // 이미지 현재 위치
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,17 +30,35 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         // 앨범명으로 appbar title 지정
         toolbar.title = arguments?.getString("albumTitle")
 
-//        println("photoList: " + arguments?.getParcelableArrayList<Photo>("photoList"))
+        imageList = arguments?.getParcelableArrayList<Photo>("photoList") as ArrayList<Photo>
 
         val imageView : ImageView = view.findViewById(R.id.photo_image)
 
-        val img : Int
+        arguments?.getInt("photoImage")?.let { imageView.setImageResource(it) }
 
-        if(arguments?.getInt("photoImage") != null) img = arguments?.getInt("photoImage")!!
-        else img = -1
+        // list에서의 현재 이미지의 위치
+        position = imageList.indexOfFirst{
+            it.image == arguments?.getInt("photoImage")
+        }
 
-        println("img: " + img)
+        // 뒤로가기
+        val backBtn : View = view.findViewById(R.id.back_btn)
+        val forwardBtn : View = view.findViewById(R.id.forward_btn)
 
-        imageView.setImageResource(R.drawable.ex10)
+        backBtn.setOnClickListener{
+            if(position > 0){
+                position--
+                // 이미지 보여주기
+                imageView.setImageResource(imageList[position].image)
+            }
+        }
+
+        forwardBtn.setOnClickListener{
+            if(position < imageList.size-1){
+                position++
+                // 이미지 보여주기
+                imageView.setImageResource(imageList[position].image)
+            }
+        }
     }
 }
