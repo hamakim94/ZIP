@@ -12,14 +12,24 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @EnableScheduling
+@EnableAsync
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class BackendApplication {
 
+	@PostConstruct
+	public void started() {
+		// timezone UTC 셋팅
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+		Locale.setDefault(Locale.KOREA);
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}

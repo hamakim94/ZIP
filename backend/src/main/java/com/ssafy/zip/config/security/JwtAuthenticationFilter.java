@@ -25,5 +25,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Authentication authentication = jwtTokenProvider.getAuthentication(accessToken); // 인증처리된 Authentication을 생성
             SecurityContextHolder.getContext().setAuthentication(authentication); // 생성한 Authentication을 SecurityContextHolder에 저장
         }
+        filterChain.doFilter(request, response); // 스프링의 나머지 FilterChain들을 수행
     }
 }
