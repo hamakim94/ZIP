@@ -24,7 +24,7 @@ class CalendarAdapter(private val calendarList:ArrayList<Calendar>) : RecyclerVi
         val calendar = calendarList[position]
         holder.calendarImage.setImageResource(calendar.image)
         holder.calendarTitle.text = calendar.title
-        holder.calendarNum.text = calendar.num.toString() + "개의 추억"
+        holder.calendarNum.text = calendar.num.toString() + "시"
     }
 
     override fun getItemCount(): Int {

@@ -13,18 +13,31 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <TextView
+        android:id="@+id/diaryTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="348dp"
+        android:layout_marginStart="10dp"
+        android:text="10월 24일"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintTop_toTopOf="@id/calendarView"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="429dp"
-        android:layout_height="456dp"
-        android:layout_marginTop="377dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="380dp"
         app:layoutManager="GridLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-9dp"
-        tools:listitem="@layout/calendar_item"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/calendar_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
