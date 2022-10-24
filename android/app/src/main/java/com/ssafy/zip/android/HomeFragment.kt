@@ -1,10 +1,15 @@
 package com.ssafy.zip.android
 
 import android.os.Bundle
+import android.text.Layout.Directions
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
 
@@ -19,6 +24,15 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.mission1Btn.setOnClickListener{
+            val action = HomeFragmentDirections.actionHomeFragmentToRecordFragment()
+            binding.root.findNavController().navigate(action)
+        }
+
+        binding.mission2Btn.setOnClickListener{
+            val action = HomeFragmentDirections.actionHomeFragmentToRecordFragment()
+            binding.root.findNavController().navigate(action)
+        }
         return binding.root
     }
 
@@ -30,7 +44,7 @@ class HomeFragment : Fragment() {
         homeList = ArrayList()
         addDataToList()
 
-        homeAdapter = HomeAdapter(homeList)
+        homeAdapter = HomeAdapter(homeList, childFragmentManager)
         binding.homeRecyclerView.adapter = homeAdapter
 
         val cnt = when(homeAdapter.itemCount){
