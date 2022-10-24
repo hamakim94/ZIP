@@ -1,5 +1,7 @@
 package com.ssafy.zip.config.security;
 
+import com.ssafy.zip.dto.UserDTO;
+import com.ssafy.zip.service.UserService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +27,11 @@ public class JwtTokenProvider {
     private  String JWT_SECRET;
     private Key key;
 
-    private long accessExpirationInMs = 60 * 5 * 1000L;
+    private long accessExpirationInMs = 60 * 10 * 1000L;
     private long refreshExpirationInMs = 60 * 60 * 24 * 180 * 1000L;
 
 
-//    private final UserServiceImpl userServiceImpl;
+    private final UserService userService;
     private final RedisTemplate redisTemplate;
 
     @PostConstruct
@@ -105,16 +107,12 @@ public class JwtTokenProvider {
         }
     }
 
-    /**
-     UserDTO, userService 만든 후 수정 필요
-     */
     public Authentication getAuthentication(String token) {
         try{
-//            UserDTO userDTO = userServiceImpl.loadUserByUsername(getUserPk(token));
-//            log.info("getAuthentication user: " + userDTO);
+            UserDTO userDTO = userService.loadUserByUsername(getUserPk(token));
+            log.info("getAuthentication user: " + userDTO);
 
-//            return new UsernamePasswordAuthenticationToken(userDTO, null, userDTO.getAuthorities()); // 우리는 jwt 사용 -> credentials: null
-            return null;
+            return new UsernamePasswordAuthenticationToken(userDTO, null, userDTO.getAuthorities()); // 우리는 jwt 사용 -> credentials: null
         } catch (Exception e){
             log.error("getAuthentication user 못 가져옴");
 
