@@ -1,11 +1,13 @@
 package com.ssafy.zip.android
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
+
 
 class HomeAdapter(private val homeList:ArrayList<Member>, fragmentManager: FragmentManager) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     private var mFragmentManager : FragmentManager
@@ -30,6 +32,9 @@ class HomeAdapter(private val homeList:ArrayList<Member>, fragmentManager: Fragm
         holder.homeImage.setImageResource(homeImage.image)
         holder.homeImage.setOnClickListener {
             val dialog = CustomDialog()
+            val args = Bundle()
+            args.putParcelable("key", homeImage)
+            dialog.arguments = args
             dialog.show(mFragmentManager, "됐다")
         }
 

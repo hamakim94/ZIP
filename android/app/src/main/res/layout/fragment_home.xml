@@ -177,14 +177,6 @@
             app:layout_constraintStart_toEndOf="@id/mission1_point"
             app:layout_constraintTop_toBottomOf="@id/mission1_content"></ProgressBar>
 
-
-        <!--        <TextView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height=""></TextView>-->
-        <!--        <TextView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height=""></TextView>-->
-
         <FrameLayout
             android:id="@+id/mission2"
             android:layout_width="match_parent"

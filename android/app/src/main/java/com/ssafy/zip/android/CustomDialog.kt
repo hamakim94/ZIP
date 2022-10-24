@@ -1,6 +1,7 @@
 package com.ssafy.zip.android
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,14 @@ class CustomDialog : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentDialogBinding.inflate(inflater, container, false)
-
-        // 각 버튼 클릭 시 각각의 함수 호출
+        val data = requireArguments().getParcelable<Member>("key")
+        if (data != null) {
+            binding.dialogImage.setImageResource(data.image)
+            binding.dialogRightName.setText(data.name)
+            binding.dialogRightFamily.setText(data.family)
+            binding.dialogRightNickname.setText(data.nickname)
+        }
         binding.dialogButton.setOnClickListener {
-            buttonClickListener.onButton1Clicked()
             dismiss()
         }
 
@@ -27,14 +32,4 @@ class CustomDialog : DialogFragment() {
         super.onDestroyView()
         _binding = null
     }
-    // 인터페이스
-    interface OnButtonClickListener {
-        fun onButton1Clicked()
-    }
-    // 클릭 이벤트 설정
-    fun setButtonClickListener(buttonClickListener: OnButtonClickListener) {
-        this.buttonClickListener = buttonClickListener
-    }
-    // 클릭 이벤트 실행
-    private lateinit var buttonClickListener: OnButtonClickListener
 }
