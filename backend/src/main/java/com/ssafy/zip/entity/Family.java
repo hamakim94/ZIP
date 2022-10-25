@@ -32,4 +32,9 @@ public class Family {
     @ManyToOne
     @JoinColumn(name = "qna_id")
     Qna qna;
+
+    public void modifyFamily(String familyName, Integer memberNum){
+        this.familyName = familyName;
+        this.memberNum = memberNum;
+    }
 }
