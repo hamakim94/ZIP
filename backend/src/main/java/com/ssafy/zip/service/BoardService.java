@@ -3,7 +3,6 @@ package com.ssafy.zip.service;
 import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.response.BoardDTO;
 import com.ssafy.zip.dto.response.BoardDetailDTO;
-import com.ssafy.zip.entity.Board;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

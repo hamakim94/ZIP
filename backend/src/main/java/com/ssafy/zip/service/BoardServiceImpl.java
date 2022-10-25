@@ -54,13 +54,13 @@ public class BoardServiceImpl implements BoardService {
     // TODO : S3 연결 후 이미지 연결 로직 추가!!!!1
     @Transactional
     @Override
-    public BoardDetailDTO modifyBoard(UserDTO userDTO,Long boardId, String content, MultipartFile image) {
+    public BoardDetailDTO modifyBoard(UserDTO userDTO, Long boardId, String content, MultipartFile image) {
 
         Board board = boardRepository.getReferenceById(boardId);
         if(board.getUser().getId()==userDTO.getId()){
             if(!content.isBlank())
             board.setContent(content);
-            if(!image.isEmpty());//TODO 이미지 관련 처리
+            if(image!=null&&!image.isEmpty());//TODO 이미지 관련 처리
             List<Comment> commentList = commentRepository.findByBoardId(boardId);
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
                     commentList.stream().map(o->CommentDTOMapStruct.INSTANCE.mapToCommentDTO(o)).collect(Collectors.toList()));

@@ -11,6 +11,8 @@ import com.ssafy.zip.service.QnaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +81,7 @@ public class PostController {
 
     @PostMapping("/board")
     @ApiOperation("알반 게시물 작성")
-    ResponseEntity<?> writeBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @RequestPart String content, @RequestPart MultipartFile image){
+    ResponseEntity<?> writeBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @RequestPart String content, @RequestPart(required = false) MultipartFile image){
 
         boardService.writeBoard(userDTO, content, image);
 
@@ -88,7 +90,7 @@ public class PostController {
 
     @PutMapping("/board/{boardId}")
     @ApiOperation("게시글 수정")
-    ResponseEntity<BoardDetailDTO> modifyBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO,@PathVariable Long boardId, @RequestPart String content, @RequestPart MultipartFile image){
+    ResponseEntity<BoardDetailDTO> modifyBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long boardId, @RequestPart String content, @RequestPart(required = false) MultipartFile image){
 
         return ResponseEntity.ok(boardService.modifyBoard(userDTO,boardId,content,image));
     }
@@ -103,7 +105,7 @@ public class PostController {
 
     @PostMapping("/board/{boardId}")
     @ApiOperation("댓글 작성")
-    ResponseEntity<?> writeComment(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO,@PathVariable Long boardId, @RequestParam String content){
+    ResponseEntity<?> writeComment(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long boardId, @RequestParam String content){
 
         boardService.writeComment(userDTO, boardId, content);
         return ResponseEntity.ok().build();
@@ -132,9 +134,16 @@ public class PostController {
 
     @PostMapping("/letter")
     @ApiOperation("편지 보내기")
-    ResponseEntity<?> sendLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, LetterRequestDTO letterRequestDTO){
+    ResponseEntity<?> sendLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @RequestBody LetterRequestDTO letterRequestDTO){
 
         letterService.sendLetter(userDTO, letterRequestDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/letter/today")
+    @ApiOperation("오늘의 편지 조회")
+    ResponseEntity<LetterTodayResponseDTO> todayLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO){
+
+        return ResponseEntity.ok(letterService.getTodayLetter(userDTO));
     }
 }
