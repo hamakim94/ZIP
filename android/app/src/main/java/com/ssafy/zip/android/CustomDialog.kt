@@ -30,6 +30,12 @@ class CustomDialog : DialogFragment() {
         binding.dialogButton.setOnClickListener {
             if(binding.dialogButton.text.equals("닫기")) {
                 dismiss()
+            } else{
+                println(binding.dialogRightEditname.text)
+                if( data!= null){
+//               val modifyMember = Member(data.id, binding.dialogRightEditname.text
+
+                }
             }
         }
         binding.editBtn.setOnClickListener {
@@ -53,7 +59,32 @@ class CustomDialog : DialogFragment() {
                 binding.dialogButton.setText("닫기")
             }
         }
-    return binding.root
+        binding.dialogRightEditname.hint = binding.dialogRightName.text
+        binding.dialogRightEditfamily.hint = binding.dialogRightFamily.text
+        binding.dialogRightEditnickname.hint = binding.dialogRightNickname.text
+
+        binding.dialogRightEditname.setOnFocusChangeListener{_,hasFocus ->
+            if(hasFocus){
+                binding.dialogRightEditname.hint = ""
+            } else {
+                binding.dialogRightEditname.hint = binding.dialogRightName.text
+            }
+        }
+        binding.dialogRightEditfamily.setOnFocusChangeListener{_,hasFocus ->
+            if(hasFocus){
+                binding.dialogRightEditfamily.hint = ""
+            } else {
+                binding.dialogRightEditfamily.hint = binding.dialogRightFamily.text
+            }
+        }
+        binding.dialogRightEditnickname.setOnFocusChangeListener{_,hasFocus ->
+            if(hasFocus){
+                binding.dialogRightEditnickname.hint = ""
+            } else {
+                binding.dialogRightEditnickname.hint = binding.dialogRightNickname.text
+            }
+        }
+        return binding.root
 }
 
 override fun onDestroyView() {

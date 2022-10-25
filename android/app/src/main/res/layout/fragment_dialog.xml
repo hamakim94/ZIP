@@ -40,7 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="@string/dialog_name"
         android:textColor="@color/black"
@@ -52,9 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="24dp"
         android:textColor="@color/black"
-        android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/dialog_image"
         ></TextView>
@@ -64,16 +61,16 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="0dp"
+        app:hintEnabled="false"
         app:layout_constraintLeft_toRightOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/dialog_image">
+        app:layout_constraintTop_toBottomOf="@id/dialog_image"
+        android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialog_right_editname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="0dp"
             android:padding="4dp"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
@@ -87,81 +84,81 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
         android:text="@string/dialog_family"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/dialog_left_name"
         app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintBottom_toTopOf="@id/dialog_left_nickname"
         app:layout_constraintHorizontal_chainStyle="packed"></TextView>
     <TextView
         android:id="@+id/dialog_right_family"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/dialog_right_name"
         app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintBottom_toTopOf="@id/dialog_right_nickname"
         ></TextView>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_right_editfamily_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/dialog_right_editname_layout"
         android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialog_right_editfamily"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:padding="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             android:textSize="12dp"
             android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/dialog_left_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
         android:text="@string/dialog_nickname"
         android:textColor="@color/black"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintRight_toLeftOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/dialog_left_family"
-        app:layout_constraintHorizontal_chainStyle="packed"></TextView>
+        app:layout_constraintBottom_toTopOf="@id/dialog_button"></TextView>
     <TextView
         android:id="@+id/dialog_right_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/dialog_right_family"
+        app:layout_constraintBottom_toTopOf="@id/dialog_button"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         ></TextView>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_right_editnickname_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/dialog_right_editfamily_layout"
+        app:layout_constraintBottom_toTopOf="@id/dialog_button"
         android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dialog_right_editnickname"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:padding="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             android:textSize="12dp"
             android:singleLine="true"/>
 
@@ -170,9 +167,7 @@
         android:id="@+id/dialog_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="@string/cancel"
-        app:layout_constraintTop_toBottomOf="@id/dialog_left_nickname"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"></Button>
