@@ -29,10 +29,10 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val toolbar: Toolbar = view.findViewById(R.id.photo_appbar)
+        val toolbar: Toolbar = view.findViewById(R.id.photo_appbar)
 
         // 앨범명으로 appbar title 지정
-//        toolbar.title = arguments?.getString("albumTitle")
+        toolbar.title = arguments?.getString("albumTitle")
 
         imageList = arguments?.getParcelableArrayList<Photo>("photoList") as ArrayList<Photo>
         viewPager = view.findViewById(R.id.photo_viewpager)
