@@ -5,14 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.fragment.app.DialogFragment
 import com.ssafy.zip.android.databinding.FragmentDialogBinding
 
 class CustomDialog : DialogFragment() {
-    private var _binding : FragmentDialogBinding ? = null
+    private var _binding: FragmentDialogBinding? = null
     private val binding get() = _binding!!
+    private var editflag = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentDialogBinding.inflate(inflater, container, false)
         val data = requireArguments().getParcelable<Member>("key")
         if (data != null) {
@@ -22,14 +28,36 @@ class CustomDialog : DialogFragment() {
             binding.dialogRightNickname.setText(data.nickname)
         }
         binding.dialogButton.setOnClickListener {
-            dismiss()
+            if(binding.dialogButton.text.equals("닫기")) {
+                dismiss()
+            }
         }
+        binding.editBtn.setOnClickListener {
+            if (!editflag) {
+                editflag = true
+                binding.dialogRightName.isGone = true
+                binding.dialogRightEditnameLayout.isGone = false
+                binding.dialogRightFamily.isGone = true
+                binding.dialogRightEditfamilyLayout.isGone = false
+                binding.dialogRightNickname.isGone = true
+                binding.dialogRightEditnicknameLayout.isGone = false
+                binding.dialogButton.setText("수정하기")
+            } else {
+                editflag = false
+                binding.dialogRightName.isGone = false
+                binding.dialogRightEditnameLayout.isGone = true
+                binding.dialogRightFamily.isGone = false
+                binding.dialogRightEditfamilyLayout.isGone = true
+                binding.dialogRightNickname.isGone = false
+                binding.dialogRightEditnicknameLayout.isGone = true
+                binding.dialogButton.setText("닫기")
+            }
+        }
+    return binding.root
+}
 
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
+}
 }
