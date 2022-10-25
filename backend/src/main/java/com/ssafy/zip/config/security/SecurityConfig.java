@@ -35,7 +35,6 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)// JWT를 쓰기 위해 Spring Security에서 기본적으로 지원하는 Session 설정을 해제
                 .and().authorizeRequests()
                 .antMatchers(PUBLIC_API_URI).permitAll() // 이 api들은 인증 필요 없음.
-//                .antMatchers("/star/**").hasRole("STAR")
                 .anyRequest().authenticated() // 그 외에는 전부 인증 필요함.
                 .and().addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // UsernamePasswordAuthenticationFilter보다 먼저 실행된다
 

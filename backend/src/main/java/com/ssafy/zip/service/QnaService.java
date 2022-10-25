@@ -7,7 +7,6 @@ import com.ssafy.zip.dto.response.QnaDTO;
 import com.ssafy.zip.dto.response.QnaDetailDTO;
 import com.ssafy.zip.entity.Qna;
 import com.ssafy.zip.entity.QnaLog;
-import com.ssafy.zip.entity.User;
 
 import java.util.List;
 

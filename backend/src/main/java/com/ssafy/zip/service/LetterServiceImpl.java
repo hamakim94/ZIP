@@ -20,6 +20,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -31,20 +32,26 @@ public class LetterServiceImpl implements LetterService {
     private final LetterFromAndToRepository letterFromAndToRepository;
     private final UserRepository userRepository;
     private final CommonCodeRepository commonCodeRepository;
+    @PostConstruct
+    private void initial(){
+        scheduleLetterFromAndTo();
+    }
     @Override
     public List<LetterResponseDTO> listLetters(UserDTO userDTO) {
-        return letterRepository.findByUser_IdOrTo(userDTO.getId(), userDTO.getId())
+        return letterRepository.findByFrom_IdOrTo_Id(userDTO.getId(), userDTO.getId())
                 .stream().map(o-> LetterDTOMapStruct.INSTANCE.mapToLetterRequestDTO(o))
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     @Override
     public void sendLetter(UserDTO userDTO, LetterRequestDTO letterRequestDTO) {
+        User toUser = userRepository.getReferenceById(letterRequestDTO.toUserId());
         letterRepository.save(Letter.builder().content(letterRequestDTO.content())
-                .dateSent(LocalDateTime.now()).user(userRepository.getReferenceById(userDTO.getId()))
-                .to(letterRequestDTO.toUserId()).stationery(commonCodeRepository.findByCode(letterRequestDTO.stationery()))
+                .reg(LocalDateTime.now()).isRead(false).from(userRepository.getReferenceById(userDTO.getId()))
+                .to(toUser).stationery(commonCodeRepository.findByCode(letterRequestDTO.stationery()))
                 .build()
         );
+
     }
 
     @Override
@@ -54,8 +61,9 @@ public class LetterServiceImpl implements LetterService {
             Optional<User> userTmp = userRepository.findById(toUserId.get().getTo());
             if(userTmp.isPresent()){
                 UserResponseDTO user = UserResponseDTOMapStruct.INSTANCE.mapToUserResponseDTO(userTmp.get());
-                List<Letter> list = letterRepository.findByUser_FamilyIdAndDateSentEquals(userDTO.getFamilyId(), LocalDate.now());
-                Boolean isSent = list.stream().anyMatch(l->l.getUser().getId().equals(userDTO.getId()));
+
+                List<Letter> list = letterRepository.findByFrom_FamilyIdAndRegAfter(userDTO.getFamilyId(), LocalDate.now().atTime(0, 0, 0));
+                Boolean isSent = list.stream().anyMatch(l->l.getFrom().getId().equals(userDTO.getId()));
                 return  new LetterTodayResponseDTO(user,list.size(),isSent);
             }
         }
@@ -65,7 +73,6 @@ public class LetterServiceImpl implements LetterService {
     public void onSchedule(){
         scheduleLetterFromAndTo();
     }
-
     @Async
     @Transactional
     public void scheduleLetterFromAndTo(){
@@ -74,9 +81,9 @@ public class LetterServiceImpl implements LetterService {
         List<User> users = userRepository.findAll();
         Map<Long, List<User>> map = new HashMap<>();
         users.forEach(o->{
-            List<User> list = map.getOrDefault(o.getFamilyId(), new ArrayList<>());
+            List<User> list = map.getOrDefault(o.getFamily().getId(), new ArrayList<>());
             list.add(o);
-            map.put(o.getFamilyId(), list);
+            map.put(o.getFamily().getId(), list);
         });
         List<LetterFromAndTo> saveList = new ArrayList<>();
         for(Long famId : map.keySet()){
