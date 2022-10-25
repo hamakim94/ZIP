@@ -1,7 +1,11 @@
 package com.ssafy.zip.android.data
 
-sealed class BoardModel {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+sealed class BoardModel : Parcelable {
+
+    @Parcelize
     data class Board(
         var userImage: Int,
         var userNickname: String,
@@ -11,12 +15,14 @@ sealed class BoardModel {
         var commentCount: String,
     ) : BoardModel()
 
+    @Parcelize
     data class Qna (
         var qnaReg : String,
         var qnaContent : String,
         var qnaCommentCount : String,
     ) : BoardModel()
 
+    @Parcelize
     data class Letter(
         var letterTitle : String,
         var letterReg : String,

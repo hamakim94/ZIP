@@ -17,4 +17,8 @@
         tools:layout="@layout/fragment_record_board" >
 
     </fragment>
+    <fragment
+        android:id="@+id/recordBoardDetailFragment"
+        android:name="com.ssafy.zip.android.RecordBoardDetailFragment"
+        android:label="RecordBoardDetailFragment" />
 </navigation>

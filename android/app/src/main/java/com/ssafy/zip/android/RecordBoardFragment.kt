@@ -53,16 +53,6 @@ class RecordBoardFragment : Fragment() {
         return view
     }
 
-//    private val onCheckedChangeListener =
-//        RadioGroup.OnCheckedChangeListener { group, checkedId ->
-//            when (checkedId) {
-//                R.id.allButton -> {  filteredBoardModelArrayList = boardModelArrayList}
-//                R.id.boardButton -> {  filteredBoardModelArrayList = boardModelArrayList.filter { it.javaClass.simpleName == "Board"} as ArrayList<BoardModel>}
-//                R.id.qnaButton -> {filteredBoardModelArrayList = boardModelArrayList.filter { it.javaClass.simpleName == "Qna"} as ArrayList<BoardModel>}
-//                R.id.letterButton -> {filteredBoardModelArrayList = boardModelArrayList.filter { it.javaClass.simpleName == "Letter"} as ArrayList<BoardModel>}
-//            }
-//        }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
