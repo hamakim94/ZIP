@@ -21,13 +21,15 @@ public class Letter {
 
     Boolean isRead;
 
-    LocalDateTime dateSent;
+    LocalDateTime reg;
 
     @ManyToOne
-    @JoinColumn(name = "from")
-    User user;
+    @JoinColumn(name = "`from`")
+    User from;
 
-    Long to;
+    @ManyToOne
+    @JoinColumn(name = "`to`")
+    User to;
 
     @ManyToOne
     @JoinColumn(name = "stationery")
