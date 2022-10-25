@@ -33,8 +33,10 @@ class CustomDialog : DialogFragment() {
             } else{
                 println(binding.dialogRightEditname.text)
                 if( data!= null){
-//               val modifyMember = Member(data.id, binding.dialogRightEditname.text
-
+               val modifyMember = Member(data.id, binding.dialogRightEditname.text.toString(),
+                   binding.dialogRightFamily.text.toString(), binding.dialogRightEditnickname.text.toString(),
+                   data.image)
+                    println(modifyMember)
                 }
             }
         }
