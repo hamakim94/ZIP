@@ -24,7 +24,7 @@ import static com.google.common.io.Files.getFileExtension;
 public class AwsS3ServiceImpl implements AwsS3Service{
     private final AmazonS3Client amazonS3Client;
 
-    @Value("${clout.aws.s3.bucket}")
+    @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
 
