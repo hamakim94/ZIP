@@ -1,6 +1,7 @@
 package com.ssafy.zip.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "picture")
+@DynamicInsert
 public class Picture {
 
     @Id
