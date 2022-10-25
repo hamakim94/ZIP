@@ -16,8 +16,8 @@ import com.ssafy.zip.android.data.BoardModel
 class BoardModelAdapter(private val adapterData: ArrayList<BoardModel>) :
     RecyclerView.Adapter<BoardModelAdapter.BoardModelAdapterViewHolder>() {
 
-    class BoardModelViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
-        val profileImage : ImageView = itemView.findViewById(R.id.profileImage)
+    class BoardModelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val profileImage: ImageView = itemView.findViewById(R.id.profileImage)
     }
 
     override fun onCreateViewHolder(
@@ -47,32 +47,19 @@ class BoardModelAdapter(private val adapterData: ArrayList<BoardModel>) :
         holder.bind(adapterData[position])
         val boardItem = adapterData[position]
         // 게시글 바인딩 시켜야함
-        holder.itemView.setOnClickListener{
-            if(adapterData[position].javaClass.simpleName.equals("Board")){
+        holder.itemView.setOnClickListener {
+            if (adapterData[position].javaClass.simpleName.equals("Board")) {
                 val bundle = Bundle()
                 bundle.putParcelable("Board", adapterData[position])
-                it.findNavController().navigate(R.id.action_recordFragment_to_recordBoardFragment2, bundle)
+                it.findNavController()
+                    .navigate(R.id.action_recordFragment_to_recordBoardFragment2, bundle)
+            } else if (adapterData[position].javaClass.simpleName.equals("Qna")) {
+                val bundle = Bundle()
+                bundle.putParcelable("Qna", adapterData[position])
+                it.findNavController()
+                    .navigate(R.id.action_recordFragment_to_recordQnaDetailFragment, bundle)
             }
-//            it.findNavController().navigate(R.id.action_recordFragment_to_recordBoardFragment2)
         }
-//        itemView.findViewById<ShapeableImageView>(R.id.profileImage).setImageResource(item.userImage)
-//        itemView.findViewById<TextView>(R.id.userNickname).text = item.userNickname
-//        itemView.findViewById<TextView>(R.id.boardReg).text = item.boardReg
-//        itemView.findViewById<ImageView>(R.id.boardImage).setImageResource(item.boardImage)
-//        itemView.findViewById<TextView>(R.id.boardContent).text =  item.boardContent
-//        itemView.findViewById<TextView>(R.id.commentCount).text = item.commentCount
-//        holder.photoImage.setImageResource(photo.image)
-//
-//        holder.itemView.setOnClickListener{
-//            // photo item 클릭했을 때 실행
-//            val bundle = Bundle()
-//            bundle.putLong("photoId", photo.id)
-//            bundle.putInt("photoImage", photo.image)
-//            bundle.putString("albumTitle", photo_onClick_interface.onClickPhoto()) // 사진 상세 페이지의 appbar에 넣기 위해서 데이터 전달
-//            bundle.putParcelableArrayList("photoList", photoList) // Parcel에 객체를 write/read 하도록 만들어주는 인터페이스
-//            it.findNavController().navigate(R.id.action_recordAlbumPicturesFragment2_to_recordAlbumPhotoDetailFragment2, bundle)
-//        }
-
     }
 
     override fun getItemCount(): Int = adapterData.size
@@ -99,15 +86,16 @@ class BoardModelAdapter(private val adapterData: ArrayList<BoardModel>) :
         private const val TYPE_LETTER = 2
     }
 
-    class BoardModelAdapterViewHolder(itemView : View) :
+    class BoardModelAdapterViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         private fun bindBoard(item: BoardModel.Board) {
-            itemView.findViewById<ShapeableImageView>(R.id.profileImage).setImageResource(item.userImage)
+            itemView.findViewById<ShapeableImageView>(R.id.profileImage)
+                .setImageResource(item.userImage)
             itemView.findViewById<TextView>(R.id.userNickname).text = item.userNickname
             itemView.findViewById<TextView>(R.id.boardReg).text = item.boardReg
             itemView.findViewById<ImageView>(R.id.boardImage).setImageResource(item.boardImage)
-            itemView.findViewById<TextView>(R.id.boardContent).text =  item.boardContent
+            itemView.findViewById<TextView>(R.id.boardContent).text = item.boardContent
             itemView.findViewById<TextView>(R.id.commentCount).text = item.commentCount
 
         }
