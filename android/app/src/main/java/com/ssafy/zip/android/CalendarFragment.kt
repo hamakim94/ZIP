@@ -1,7 +1,14 @@
 package com.ssafy.zip.android
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.icu.text.DateFormat.Field.DAY_OF_MONTH
+import android.icu.text.DateFormat.Field.MONTH
+import android.icu.text.DateFormat.MONTH
+import android.icu.text.DateFormat.getInstance
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,15 +16,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.data.Calendar
 import java.text.DateFormat
+import java.text.DateFormat.Field.MONTH
+import java.text.DateFormat.getInstance
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Calendar.*
+import java.util.Currency.getInstance
 import kotlin.collections.ArrayList
+
 
 
 class CalendarFragment : Fragment() {
@@ -27,6 +41,10 @@ class CalendarFragment : Fragment() {
     private lateinit var activity: MainActivity
     private lateinit var customAlertDialogView : View
     private lateinit var calendarTextField : TextInputLayout
+
+
+
+
 
 
     companion object {
@@ -41,6 +59,7 @@ class CalendarFragment : Fragment() {
         super.onAttach(context)
 
         activity = context as MainActivity
+
     }
 
     override fun onCreateView(
@@ -49,6 +68,8 @@ class CalendarFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_calendar, container, false)
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,7 +101,9 @@ class CalendarFragment : Fragment() {
             var day: String = "${month+1}월 ${dayOfMonth}일"
 
             dayText.text = day
+
         }
+
 
 
         val fab: View = view.findViewById(R.id.add_calendar_fab)
@@ -102,7 +125,10 @@ class CalendarFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .show()
+
         }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -121,4 +147,7 @@ class CalendarFragment : Fragment() {
 
     }
 }
+
+
+
 
