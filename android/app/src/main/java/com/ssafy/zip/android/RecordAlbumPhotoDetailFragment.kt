@@ -56,25 +56,31 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         position = imageList.indexOfFirst{
             it.image == arguments?.getInt("photoImage")
         }
+        viewPager.setCurrentItem(position, false)
 
-//        // 뒤로가기
-//        val backBtn : View = view.findViewById(R.id.back_btn)
-//        val forwardBtn : View = view.findViewById(R.id.forward_btn)
-//
-//        backBtn.setOnClickListener{
-//            if(position > 0){
-//                position--
-//                // 이미지 보여주기
-////                imageView.setImageResource(imageList[position].image)
-//            }
-//        }
-//
-//        forwardBtn.setOnClickListener{
-//            if(position < imageList.size-1){
-//                position++
-//                // 이미지 보여주기
-////                imageView.setImageResource(imageList[position].image)
-//            }
-//        }
+
+        // 뒤로가기
+        val backBtn : View = view.findViewById(R.id.back_btn)
+        val forwardBtn : View = view.findViewById(R.id.forward_btn)
+
+        backBtn.setOnClickListener{
+            if(position > 0){
+                position--
+                // 이미지 보여주기
+                viewPager.setCurrentItem(position, false)
+
+//                imageView.setImageResource(imageList[position].image)
+            }
+        }
+
+        forwardBtn.setOnClickListener{
+            if(position < imageList.size-1){
+                position++
+                // 이미지 보여주기
+                viewPager.setCurrentItem(position, false)
+
+//                imageView.setImageResource(imageList[position].image)
+            }
+        }
     }
 }
