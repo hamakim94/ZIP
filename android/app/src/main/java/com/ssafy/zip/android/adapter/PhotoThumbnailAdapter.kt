@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.Photo
 
-class PhotoSlideAdapter(private val photoList : ArrayList<Photo>) : RecyclerView.Adapter<PhotoSlideAdapter.PhotoSlideViewHolder>(){
+class PhotoThumbnailAdapter(private val photoList : ArrayList<Photo>) : RecyclerView.Adapter<PhotoThumbnailAdapter.PhotoSlideViewHolder>(){
     inner class PhotoSlideViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val photoImage : ImageView = itemView.findViewById(R.id.photo_slide_image)
 
@@ -36,9 +36,9 @@ class PhotoSlideAdapter(private val photoList : ArrayList<Photo>) : RecyclerView
         holder.photoImage.setImageResource(
             photoList[position].image
         )
-//        holder.itemView.setOnClickListener{
-//
-//        }
+        holder.itemView.setOnClickListener{
+            println("클릭")
+        }
     }
 
     override fun getItemCount(): Int {
