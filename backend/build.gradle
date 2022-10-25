@@ -87,6 +87,8 @@ dependencies {
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 	// https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
 	implementation 'com.google.firebase:firebase-admin:9.1.0'
+	//s3
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
 }
 
 dependencyManagement {

@@ -16,7 +16,9 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Long familyId;
+    @ManyToOne
+    @JoinColumn(name = "family_id")
+    Family family;
 
     String name;
 }

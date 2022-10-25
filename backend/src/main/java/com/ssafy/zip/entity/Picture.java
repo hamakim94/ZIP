@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "image")
+@Table(name = "picture")
 public class Picture {
 
     @Id
