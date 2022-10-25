@@ -1,3 +1,4 @@
+# open jdk java 17 버전의 환경을 구성 with alpine linux
 FROM openjdk:17-jdk-alpine
 
 WORKDIR /
