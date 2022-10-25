@@ -67,9 +67,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             if(position > 0){
                 position--
                 // 이미지 보여주기
-                viewPager.setCurrentItem(position, false)
-
-//                imageView.setImageResource(imageList[position].image)
+                viewPager.setCurrentItem(position, true)
             }
         }
 
@@ -77,9 +75,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             if(position < imageList.size-1){
                 position++
                 // 이미지 보여주기
-                viewPager.setCurrentItem(position, false)
-
-//                imageView.setImageResource(imageList[position].image)
+                viewPager.setCurrentItem(position, true)
             }
         }
     }
