@@ -98,6 +98,7 @@ class RecordAlbumPicturesFragment : Fragment(), photo_onClick_interface {
         photoList.add(Photo(5, R.drawable.ex5))
         photoList.add(Photo(6, R.drawable.ex6))
         photoList.add(Photo(7, R.drawable.ex7))
+        photoList.add(Photo(8, R.drawable.ex30))
         photoList.add(Photo(11, R.drawable.ex))
         photoList.add(Photo(12, R.drawable.ex2))
         photoList.add(Photo(13, R.drawable.ex3))

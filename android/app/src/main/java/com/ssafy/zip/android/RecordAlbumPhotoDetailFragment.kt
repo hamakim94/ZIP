@@ -69,7 +69,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         recyclerView = view.findViewById(R.id.photo_recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = photoThumbnailAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // list에서의 현재 이미지의 위치 업데이트
         arguments?.getInt("photoImage")?.let { setPosition(it, false) }
