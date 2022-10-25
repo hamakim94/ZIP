@@ -6,12 +6,8 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.ssafy.zip.android.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
