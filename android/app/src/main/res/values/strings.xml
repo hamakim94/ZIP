@@ -6,6 +6,8 @@
     <string name="notification">알림</string>
     <string name="album">앨범</string>
     <string name="board">게시판</string>
+    <string name="new_calendar">할 일 추가</string><string name="start_calendar">시작 날짜</string>
+    <string name="add_calendar_hint">"일정을 입력하세요"</string>
     <string name="home_logo">ZIP</string>
     <string name="home_family_title">행복한 우리 가조쿠</string>
     <string name="home_member">우리 가족 구성원</string>
