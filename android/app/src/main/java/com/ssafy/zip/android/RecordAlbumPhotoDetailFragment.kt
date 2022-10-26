@@ -1,6 +1,7 @@
 package com.ssafy.zip.android
 
 import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.Toolbar
@@ -22,11 +23,13 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
     private lateinit var photoThumbnailAdapter: PhotoThumbnailAdapter
     private lateinit var recyclerView : RecyclerView
     private lateinit var activity: MainActivity
+    private var width by Delegates.notNull<Int>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         activity = context as MainActivity
+
     }
 
     override fun onCreateView(
@@ -34,6 +37,12 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 //        var view : View = inflater.inflate(R.layout.fragment_record_album_photo_detail, container, false)
+
+        // 디스플레이 가로 픽셀
+        val display = activity.windowManager.defaultDisplay
+        val size = Point()
+        display.getRealSize(size)
+        width = size.x
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_record_album_photo_detail, container, false)
@@ -106,6 +115,10 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         fun getPhoto(photo: Photo) {
             setPosition(photo.image, false)
         }
+
+        fun getItemWidth(){
+
+        }
     }
 
     private fun setPosition(image: Int, smoothScroller : Boolean) {
@@ -119,4 +132,17 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             it.image == image
         }
     }
+
+
+//    // selectedPosition: Recyclerview adapter 를 통해 받아온 클릭된(선택된) 아이템의 position
+//    private fun scrollSelectedItemToCenter(selectedPosition: Int) {
+//        val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
+//
+//        // 가운데로 스크롤할 아이템이 왼쪽으로부터 떨어진 거리.
+//        // == 스크린너비/2 - 아이템의너비/2
+//        val offset = (width / 2 - imageList[selectedPosition] / 2)
+//
+//        // [selectedPosition]번째 아이템을 왼쪽 가장자리에서 offset 만큼 떨어진 위치로 스크롤한다.
+//        layoutManager?.scrollToPositionWithOffset(selectedPosition, offset)
+//    }
 }

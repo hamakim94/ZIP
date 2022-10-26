@@ -38,7 +38,11 @@ class PhotoThumbnailAdapter(private val photoList : ArrayList<Photo>) : Recycler
         )
         holder.itemView.setOnClickListener{
             println("클릭: " + position)
+            // 아래 사진 바꾸기
+            // 스타일 적용 하기
         }
+
+        holder.photoImage.width
     }
 
     override fun getItemCount(): Int {
