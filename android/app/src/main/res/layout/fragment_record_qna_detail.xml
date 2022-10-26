@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_record_qna_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/qnaInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/qnaDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="오늘의 백문백답"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/qnaDetailReg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/qnaDetailReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/boardreg1"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qnaDetail"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/qnaContainer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qnaInfoContainer">
+
+        <TextView
+            android:id="@+id/qnaDetailContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Q. 냐냐!"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/qnaDetailDivider"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/qnaContainer"
+        app:layout_constraintTop_toBottomOf="@id/qnaContainer"></LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/member_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        app:layoutManager="GridLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qnaDetailDivider"
+        tools:listitem="@layout/qna_profile_item" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comment_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/member_recycler_view"
+        tools:listitem="@layout/qna_comment_item" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

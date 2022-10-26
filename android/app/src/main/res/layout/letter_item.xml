@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/letter_layout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/white"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
+    <!--    -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/letterInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 이제 여기서 3가지 경우의 수가 나뉜다
+               1.letterFrom == 나 ? letterTo에게 보낸 편지
+               2.letterTo == 나 ? letterFrom에게서 온 편지
+                  2-1. is_read ? 아직 안 읽은 편지함
+                  2-2. !is_read -> 읽은 편지함. -->
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/mailIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_baseline_mail_24"
+            app:layout_constraintBottom_toBottomOf="@id/letterInfoContainer"
+            app:layout_constraintStart_toStartOf="@id/letterInfoContainer">
+
+        </androidx.constraintlayout.utils.widget.ImageFilterButton>
+
+        <TextView
+            android:id="@+id/letterTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="해삼에게 보낸 편지"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/letterReg"
+            app:layout_constraintStart_toEndOf="@id/mailIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/letterReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/boardreg1"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mailIcon"
+            app:layout_constraintTop_toBottomOf="@+id/letterTitle"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/letterContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/letterInfoContainer">
+
+        <TextView
+            android:id="@+id/letterContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="안녕 현수야. 나는 민균이야. 우리 같이 해삼을 먹던 날이 그립구나. 나는 김민균이야. 매우 만나서 반가워. 현수의 긍정적인 사고방식과 늘 도전하는 그 마음을 잊지 못하겠어. 부디 앞으로도 힘들지만 아자아자아자아자아장자 화이티이이이잉!"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/qnaDivider"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/letterContentContainer"
+        app:layout_constraintTop_toBottomOf="@id/letterContentContainer"></LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
