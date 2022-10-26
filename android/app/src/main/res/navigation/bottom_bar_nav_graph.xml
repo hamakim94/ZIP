@@ -13,7 +13,11 @@
         android:id="@+id/recordFragment"
         android:name="com.ssafy.zip.android.RecordFragment"
         android:label="fragment_record"
-        tools:layout="@layout/fragment_record" />
+        tools:layout="@layout/fragment_record" >
+        <action
+            android:id="@+id/action_recordFragment_to_recordAlbumPicturesFragment2"
+            app:destination="@id/recordAlbumPicturesFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.ssafy.zip.android.CalendarFragment"
@@ -24,4 +28,18 @@
         android:name="com.ssafy.zip.android.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/recordAlbumPicturesFragment2"
+        android:name="com.ssafy.zip.android.RecordAlbumPicturesFragment"
+        android:label="fragment_record_album_photo"
+        tools:layout="@layout/fragment_record_album_photo" >
+        <action
+            android:id="@+id/action_recordAlbumPicturesFragment2_to_recordAlbumPhotoDetailFragment2"
+            app:destination="@id/recordAlbumPhotoDetailFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/recordAlbumPhotoDetailFragment2"
+        android:name="com.ssafy.zip.android.RecordAlbumPhotoDetailFragment"
+        android:label="fragment_record_album_photo_detail"
+        tools:layout="@layout/fragment_record_album_photo_detail" />
 </navigation>

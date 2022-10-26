@@ -6,6 +6,11 @@
     <string name="notification">알림</string>
     <string name="album">앨범</string>
     <string name="board">게시판</string>
+    <string name="new_album">새로운 앨범</string>
+    <string name="cancel">취소</string>
+    <string name="confirm">확인</string>
+    <string name="add_album_msg">새로운 앨범의 이름을 입력해주세요.</string>
+    <string name="add_album_hint">앨범명을 입력해주세요.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

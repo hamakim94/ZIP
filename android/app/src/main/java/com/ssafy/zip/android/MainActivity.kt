@@ -1,13 +1,13 @@
 package com.ssafy.zip.android
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.ssafy.zip.android.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -24,5 +24,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         // 바인딩
         binding.bottomNavigationView.setupWithNavController(navController)
+        // bottomtab 눌렀을 경우 이전 stack들 다 삭제
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController, false)
     }
 }
