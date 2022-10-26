@@ -20,7 +20,7 @@ import kotlin.collections.ArrayList
 
 
 
-class CalendarFragment : Fragment() {
+class CalendarChoiceFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var calendarList: ArrayList<Calendar>
     private lateinit var calendarAdapter: CalendarAdapter
@@ -108,7 +108,7 @@ class CalendarFragment : Fragment() {
 
 
         }
-        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

@@ -12,9 +12,8 @@
 <string name="add_album_msg">새로운 앨범의 이름을 입력해주세요.</string>
 <string name="add_album_hint">앨범명을 입력해주세요.</string>
 <string name="new_calendar">할 일 추가</string>
+    <string name="start_calendar">시작 날짜</string>
 <string name="add_calendar_hint">"일정을 입력하세요"</string>
-<string name="textView_start_date">"gg"</string>
-<string name="textView_end_date">"dd"</string>
 
 
 <!-- TODO: Remove or change this placeholder text -->
