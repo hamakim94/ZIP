@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_recordFragment_to_recordQnaDetailFragment"
             app:destination="@id/recordQnaDetailFragment" />
+        <action
+            android:id="@+id/action_recordFragment_to_recordAlbumPicturesFragment2"
+            app:destination="@id/recordAlbumPicturesFragment2" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -40,4 +43,18 @@
         android:id="@+id/recordQnaDetailFragment"
         android:name="com.ssafy.zip.android.RecordQnaDetailFragment"
         android:label="RecordQnaDetailFragment" />
+    <fragment
+        android:id="@+id/recordAlbumPicturesFragment2"
+        android:name="com.ssafy.zip.android.RecordAlbumPicturesFragment"
+        android:label="fragment_record_album_photo"
+        tools:layout="@layout/fragment_record_album_photo" >
+        <action
+            android:id="@+id/action_recordAlbumPicturesFragment2_to_recordAlbumPhotoDetailFragment2"
+            app:destination="@id/recordAlbumPhotoDetailFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/recordAlbumPhotoDetailFragment2"
+        android:name="com.ssafy.zip.android.RecordAlbumPhotoDetailFragment"
+        android:label="fragment_record_album_photo_detail"
+        tools:layout="@layout/fragment_record_album_photo_detail" />
 </navigation>

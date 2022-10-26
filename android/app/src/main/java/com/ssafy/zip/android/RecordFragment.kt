@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -37,8 +36,7 @@ class RecordFragment : Fragment() {
         tabLayout = view.findViewById(R.id.record_tablayout)
         viewPager = view.findViewById(R.id.record_viewpager)
 
-        val adapter = RecordFragmentViewPagerAdapter(this)
-        viewPager.adapter = adapter
+        viewPager.adapter = RecordFragmentViewPagerAdapter(this)
 
         val tabName = arrayOf<String>("앨범", "게시글")
 

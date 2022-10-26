@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_margin="3px"
     >
     <com.google.android.material.card.MaterialCardView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,31 +16,10 @@
         app:strokeColor="@color/lightgray"
         >
         <ImageView
-            android:id="@+id/album_image"
+            android:id="@+id/photo_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:background="@android:color/transparent"
-            android:alpha=".8"/>
-        <TextView
-            android:id="@+id/album_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:clickable="false">
-        </TextView>
-        <TextView
-            android:id="@+id/album_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:clickable="false"
-            android:layout_marginTop="8dp">
-        </TextView>
+            android:background="@android:color/transparent"/>
     </com.google.android.material.card.MaterialCardView>
 </com.ssafy.zip.android.SquareFrameLayout>
