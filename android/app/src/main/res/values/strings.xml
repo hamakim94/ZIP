@@ -6,13 +6,23 @@
     <string name="notification">알림</string>
     <string name="album">앨범</string>
     <string name="board">게시판</string>
+    <string name="home_logo">ZIP</string>
+    <string name="home_family_title">행복한 우리 가조쿠</string>
+    <string name="home_member">우리 가족 구성원</string>
+    <string name="mission_top">매일 가족과 함께 친목도 포인트도!!</string>
+    <string name="mission_btn">참여하러가기</string>
+    <string name="mission1_title">오늘의 백문백답</string>
+    <string name="mission1_content">백문백답 미션에 참여해보세요!</string>
+    <string name="mission2_title">오늘의 편지</string>
+    <string name="mission2_content">편지쓰기 미션을 해보세요!</string>
+    <string name="dialog_name">이름</string>
+    <string name="dialog_family">가족명</string>
+    <string name="dialog_nickname">나의 애칭</string>
     <string name="new_album">새로운 앨범</string>
     <string name="cancel">취소</string>
     <string name="confirm">확인</string>
     <string name="add_album_msg">새로운 앨범의 이름을 입력해주세요.</string>
     <string name="add_album_hint">앨범명을 입력해주세요.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--  유저 이름  -->
     <string name="usernickname1">유저1</string>
