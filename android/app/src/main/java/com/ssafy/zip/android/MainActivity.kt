@@ -27,4 +27,5 @@ class MainActivity : AppCompatActivity() {
         // bottomtab 눌렀을 경우 이전 stack들 다 삭제
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController, false)
     }
+
 }

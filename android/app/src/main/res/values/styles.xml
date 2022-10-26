@@ -42,4 +42,9 @@
         <item name="subtitleTextColor">@color/material_on_surface_emphasis_medium</item>
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Surface</item>
     </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

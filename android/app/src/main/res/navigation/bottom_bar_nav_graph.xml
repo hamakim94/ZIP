@@ -15,6 +15,12 @@
         android:label="fragment_record"
         tools:layout="@layout/fragment_record" >
         <action
+            android:id="@+id/action_recordFragment_to_recordBoardFragment2"
+            app:destination="@id/recordBoardFragment2" />
+        <action
+            android:id="@+id/action_recordFragment_to_recordQnaDetailFragment"
+            app:destination="@id/recordQnaDetailFragment" />
+        <action
             android:id="@+id/action_recordFragment_to_recordAlbumPicturesFragment2"
             app:destination="@id/recordAlbumPicturesFragment2" />
     </fragment>
@@ -28,6 +34,15 @@
         android:name="com.ssafy.zip.android.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/recordBoardFragment2"
+        android:name="com.ssafy.zip.android.RecordBoardDetailFragment"
+        android:label="fragment_record_board_detail"
+        tools:layout="@layout/fragment_record_board_detail" />
+    <fragment
+        android:id="@+id/recordQnaDetailFragment"
+        android:name="com.ssafy.zip.android.RecordQnaDetailFragment"
+        android:label="RecordQnaDetailFragment" />
     <fragment
         android:id="@+id/recordAlbumPicturesFragment2"
         android:name="com.ssafy.zip.android.RecordAlbumPicturesFragment"
