@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="40dp"
+    >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline"
+        app:layout_constraintGuide_percent="0.4"
+        android:orientation="vertical"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/edit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/white"
+        android:drawableEnd="@drawable/ic_outline_edit_24"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.AppCompatButton>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/dialog_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginHorizontal="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_btn"
+        ></de.hdodenhof.circleimageview.CircleImageView>
+    <TextView
+        android:id="@+id/dialog_left_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:text="@string/dialog_name"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/dialog_image"></TextView>
+    <TextView
+        android:id="@+id/dialog_right_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/dialog_image"
+        ></TextView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_right_editname_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:hintEnabled="false"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/dialog_image"
+        android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialog_right_editname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="0dp"
+            android:padding="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:singleLine="true"
+            android:textSize="12dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/dialog_left_family"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:text="@string/dialog_family"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/dialog_left_name"
+        app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintBottom_toTopOf="@id/dialog_left_nickname"
+        app:layout_constraintHorizontal_chainStyle="packed"></TextView>
+    <TextView
+        android:id="@+id/dialog_right_family"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/dialog_right_name"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintBottom_toTopOf="@id/dialog_right_nickname"
+        ></TextView>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_right_editfamily_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/dialog_right_editname_layout"
+        android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialog_right_editfamily"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:textSize="12dp"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/dialog_left_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:text="@string/dialog_nickname"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/dialog_left_family"
+        app:layout_constraintBottom_toTopOf="@id/dialog_button"></TextView>
+    <TextView
+        android:id="@+id/dialog_right_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/dialog_right_family"
+        app:layout_constraintBottom_toTopOf="@id/dialog_button"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        ></TextView>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_right_editnickname_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/dialog_right_editfamily_layout"
+        app:layout_constraintBottom_toTopOf="@id/dialog_button"
+        android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dialog_right_editnickname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:textSize="12dp"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/dialog_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"></Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
