@@ -10,18 +10,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-
+    val api = APIS.create();
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
         binding.btnLogin.setOnClickListener{
-            Log.d("login", "로그인 연동용")
+            api.requsetLogin(RequestLoginData(
+                email = binding.editEmail.text.toString(),
+                password = binding.editPassword.text.toString())).enqueue(object : Callback<RequestLoginData> {
+                override fun onResponse(call: Call<RequestLoginData>, response: Response<RequestLoginData>) {
+                    Log.d("log1", response.toString())
+                    Log.d("log2", response.headers().toString())
+                    Log.d("log3", response.code().toString())
+                }
+
+                override fun onFailure(call: Call<RequestLoginData>, t: Throwable) {
+                    // 실패
+                    Log.d("log3",t.message.toString())
+                    Log.d("log4","fail")
+                }
+            })
         }
         binding.signupText.setOnClickListener{
             val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
