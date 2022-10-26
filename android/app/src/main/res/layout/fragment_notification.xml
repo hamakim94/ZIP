@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NotificationFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="notification" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/notification_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:contentInsetStart="0dp"
+            >
 
-</FrameLayout>
+                <TextView
+                    android:id="@+id/notification_title_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="알림"
+
+                    android:textStyle="bold"
+
+                    />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/notification_toolbar"
+            app:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/notification_item" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
