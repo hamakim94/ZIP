@@ -125,8 +125,9 @@ public class UserServiceImpl implements UserService{
         return true;
     }
 
+    @Transactional
     @Override
-    public UserResponseDTO modifyUser(Long id, String nickname, MultipartFile profileImg) throws Exception{
+    public UserResponseDTO modifyUser(Long id, String nickname, MultipartFile profileImg, String familyName) throws Exception{
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User : " + id + " was not found"));
 
@@ -137,7 +138,9 @@ public class UserServiceImpl implements UserService{
             profileImgUrl = awsS3Service.uploadFiles("profiles", files).get(0)[0];
         }
         user.setProfileImgAndNickname(profileImgUrl, nickname);
-
+        Family family = user.getFamily();
+        family.modifyFamily(familyName, family.getMemberNum());
+        familyRepository.save(family); // family update
         userRepository.save(user); // user update
 
         return userToUserDto(user);
@@ -221,12 +224,14 @@ public class UserServiceImpl implements UserService{
     }
 
     private UserResponseDTO userToUserDto(User user){
+        Family family = user.getFamily();
         return UserResponseDTO.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .nickname(user.getNickname())
                 .profileImg(user.getProfileImg())
                 .hasFamily(user.getFamily()==null?false:true)
+                .familyResponseDTO(new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId()))
                 .build();
     }
 
