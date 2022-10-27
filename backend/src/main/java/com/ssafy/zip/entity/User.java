@@ -1,5 +1,6 @@
 package com.ssafy.zip.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -35,6 +36,7 @@ public class User {
     @Column(name = "is_email_verified")
     Boolean isEmailVerified;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "family_id")
     Family family;

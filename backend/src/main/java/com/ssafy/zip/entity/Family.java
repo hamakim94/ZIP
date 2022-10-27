@@ -1,5 +1,6 @@
 package com.ssafy.zip.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,6 +34,10 @@ public class Family {
     @ManyToOne
     @JoinColumn(name = "qna_id")
     Qna qna;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "family")
+    List<User> users;
 
     public void modifyFamily(String familyName, Integer memberNum){
         this.familyName = familyName;
