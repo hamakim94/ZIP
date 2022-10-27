@@ -24,7 +24,7 @@ public class FamilyRoomController {
 
     @PostMapping("/create")
     @ApiOperation(value = "가족방 생성") // 요청 URL에 매핑된 API에 대한 설명
-    public ResponseEntity<?> createFamilyRoom(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestBody FamilyRequestDTO familyRequestDTO){
+    public ResponseEntity<FamilyResponseDTO> createFamilyRoom(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestBody FamilyRequestDTO familyRequestDTO){
         try {
             FamilyResponseDTO familyResponseDTO = familyService.createFamilyRoom(user,familyRequestDTO);
             return new ResponseEntity<>(familyResponseDTO, HttpStatus.OK);
@@ -36,7 +36,7 @@ public class FamilyRoomController {
 
     @PutMapping("/enter")
     @ApiOperation(value = "가족방 입장") // 요청 URL에 매핑된 API에 대한 설명
-    public ResponseEntity<?> enterFamilyRoom(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestBody Integer code) {
+    public ResponseEntity<FamilyResponseDTO> enterFamilyRoom(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestBody Integer code) {
         try {
             FamilyResponseDTO familyResponseDTO = familyService.enterFamilyRoom(user, code);
             return new ResponseEntity<>(familyResponseDTO, HttpStatus.OK);
@@ -48,7 +48,7 @@ public class FamilyRoomController {
 
     @PutMapping("/modify")
     @ApiOperation(value = "가족방 수정") // 요청 URL에 매핑된 API에 대한 설명
-    public ResponseEntity<?> modifyFamilyRoom(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestBody FamilyRequestDTO familyRequestDTO){
+    public ResponseEntity<FamilyResponseDTO> modifyFamilyRoom(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestBody FamilyRequestDTO familyRequestDTO){
         try {
             FamilyResponseDTO familyResponseDTO = familyService.modifyFamilyRoom(user,familyRequestDTO);
             return new ResponseEntity<>(familyResponseDTO, HttpStatus.OK);

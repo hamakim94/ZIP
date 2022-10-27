@@ -69,7 +69,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "로그인") // 요청 URL에 매핑된 API에 대한 설명
-    public ResponseEntity<?> login(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
+    public ResponseEntity<UserResponseDTO> login(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
         try{
             UserResponseDTO userDTO = userService.login(userLoginRequestDTO, passwordEncoder);
 
@@ -80,7 +80,7 @@ public class UserController {
             return ResponseEntity.ok().header("ACCESSTOKEN", accessToken).header("REFRESHTOKEN", refreshToken).body(userDTO);
         } catch (Exception e){
             log.error("로그인 에러: " + e);
-            return new ResponseEntity<>("invalid ID", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -113,7 +113,7 @@ public class UserController {
 
     @PutMapping("/profiles")
     @ApiOperation(value = "회원정보 수정") // 요청 URL에 매핑된 API에 대한 설명
-    public ResponseEntity<?> editProfiles(@ApiIgnore @AuthenticationPrincipal UserDTO user,
+    public ResponseEntity<UserResponseDTO> editProfiles(@ApiIgnore @AuthenticationPrincipal UserDTO user,
                                           @RequestPart(value = "profileImg", required = false) MultipartFile profileImg, @Valid @RequestPart String nickname){
         UserResponseDTO changedUserDTO;
 
@@ -129,7 +129,7 @@ public class UserController {
 
     @GetMapping("/profiles")
     @ApiOperation(value = "회원정보 조회") // 요청 URL에 매핑된 API에 대한 설명
-    public ResponseEntity<?> getProfiles(@ApiIgnore @AuthenticationPrincipal UserDTO user){
+    public ResponseEntity<UserResponseDTO> getProfiles(@ApiIgnore @AuthenticationPrincipal UserDTO user){
         UserResponseDTO userResponseDTO = UserResponseDTO.builder()
                 .id(user.getId())
                 .hasFamily(user.getFamilyId()==null?false:true)

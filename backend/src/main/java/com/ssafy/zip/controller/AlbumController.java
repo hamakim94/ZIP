@@ -54,7 +54,7 @@ public class AlbumController {
 
     @PostMapping("/pictures")
     @ApiOperation(value = "사진 등록")
-    public ResponseEntity<?> uploadPictures(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestPart PictureRequestDTO pictureRequestDTO, @RequestPart List<MultipartFile> files) {
+    public ResponseEntity<List<PictureResponseDTO>> uploadPictures(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestPart PictureRequestDTO pictureRequestDTO, @RequestPart List<MultipartFile> files) {
         try{
             pictureRequestDTO.setUserId(user.getId());
             List<PictureResponseDTO> results = albumService.uploadPictures(pictureRequestDTO, files);
@@ -79,7 +79,7 @@ public class AlbumController {
 
     @GetMapping("/pictures")
     @ApiOperation(value = "전체 조회")
-    public ResponseEntity<?> listAll(@ApiIgnore @AuthenticationPrincipal UserDTO user) {
+    public ResponseEntity<List<PictureResponseDTO>> listAll(@ApiIgnore @AuthenticationPrincipal UserDTO user) {
         try{
             List<PictureResponseDTO> results = albumService.listAll(user.getId());
             return new ResponseEntity<>(results, HttpStatus.OK);
@@ -91,7 +91,7 @@ public class AlbumController {
 
     @PutMapping("/pictures")
     @ApiOperation(value = "사진 이동(앨범 이동)")
-    public ResponseEntity<?> movePictures(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestBody List<PictureRequestDTO> pictures, @RequestBody Long toAlbumId) {
+    public ResponseEntity<List<PictureResponseDTO>> movePictures(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestBody List<PictureRequestDTO> pictures, @RequestBody Long toAlbumId) {
         try{
             List<PictureResponseDTO> results = albumService.movePictures(pictures, toAlbumId);
             return new ResponseEntity<>(results, HttpStatus.OK);
@@ -102,13 +102,13 @@ public class AlbumController {
     }
 
     @GetMapping("/folders/{folderId}")
-    @ApiOperation(value = "특정폴더 조회")
+    @ApiOperation(value = "특정폴더 조회 - 사용 X")
     public ResponseEntity<?> listFolder() {
         return null;
     }
 
     @GetMapping("/pictures/{pictureId}")
-    @ApiOperation(value = "사진 세부사항 조회")
+    @ApiOperation(value = "사진 세부사항 조회 - 사용 X")
     public ResponseEntity<?> pictureDetail() {
         return null;
     }
