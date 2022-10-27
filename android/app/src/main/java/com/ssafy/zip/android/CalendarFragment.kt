@@ -56,8 +56,8 @@ class CalendarFragment : Fragment() {
             var mPickDateButton: ImageButton
             var mShowSelectedDateText: TextView
 
-            mPickDateButton = customChoiceDialogView.findViewById(R.id.calendar_start_btn)
-            mShowSelectedDateText = customChoiceDialogView.findViewById(R.id.textView_startDate)
+            mPickDateButton = customAlertDialogView.findViewById(R.id.calendar_start_btn)
+            mShowSelectedDateText = customAlertDialogView.findViewById(R.id.textView_startDate)
 
 
             val materialDateBuilder: MaterialDatePicker.Builder<*> =
