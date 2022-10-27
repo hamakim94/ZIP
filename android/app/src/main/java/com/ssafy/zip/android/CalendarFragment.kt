@@ -53,50 +53,11 @@ class CalendarFragment : Fragment() {
         setContentView(R.layout.dialog_add_calendar)
 
 
-            var mPickDateButton: ImageButton
-            var mShowSelectedDateText: TextView
-
-            mPickDateButton = customAlertDialogView.findViewById(R.id.calendar_start_btn)
-            mShowSelectedDateText = customAlertDialogView.findViewById(R.id.textView_startDate)
-
-
-            val materialDateBuilder: MaterialDatePicker.Builder<*> =
-                MaterialDatePicker.Builder.datePicker()
-
-            materialDateBuilder.setTitleText("SELECT A DATE")
-
-
-            val materialDatePicker = materialDateBuilder.build()
-
-
-            // material design date picker
-            mPickDateButton.setOnClickListener(
-                object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-
-                        materialDatePicker.show(
-                            activity!!.supportFragmentManager,
-                            "MATERIAL_DATE_PICKER"
-                        )
-                    }
-                })
-
-
-            materialDatePicker.addOnPositiveButtonClickListener {
-
-                mShowSelectedDateText.setText("Selected Date is : " + materialDatePicker.headerText)
-
-            }
-
-        }
+    }
 
     private fun setContentView(dialogAddCalendar: Int) {
 
     }
-
-
-
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -177,8 +138,38 @@ class CalendarFragment : Fragment() {
                 }
                 .show()
 
+            var mPickDateButton: ImageButton? = null
+            var mShowSelectedDateText: TextView? = null
 
-        }}
+            mPickDateButton = customAlertDialogView.findViewById(R.id.calendar_start_btn)
+            mShowSelectedDateText = customAlertDialogView.findViewById(R.id.textView_startDate)
+
+            var materialDateBuilder: MaterialDatePicker.Builder<*> =
+                MaterialDatePicker.Builder.datePicker()
+
+            materialDateBuilder.setTitleText("SELECT A DATE")
+
+            var materialDatePicker = materialDateBuilder.build()
+
+            // material design date picker
+            mPickDateButton.setOnClickListener(
+                object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+
+                        materialDatePicker.show(
+                            activity!!.supportFragmentManager,
+                            "MATERIAL_DATE_PICKER"
+                        )
+                    }
+                })
+
+
+            materialDatePicker.addOnPositiveButtonClickListener {
+                mShowSelectedDateText.setText( materialDatePicker.headerText)
+            }
+        }
+
+    }
 
 
 
