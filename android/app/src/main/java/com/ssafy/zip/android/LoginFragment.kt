@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
 import retrofit2.Call
@@ -17,14 +17,13 @@ import retrofit2.Response
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    val api = APIS.create();
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
         binding.btnLogin.setOnClickListener{
-            api.requsetLogin(RequestLoginData(
+            ApiService.getApiService.requsetLogin(RequestLoginData(
                 email = binding.editEmail.text.toString(),
                 password = binding.editPassword.text.toString())).enqueue(object : Callback<ResponseLoginData> {
                 override fun onResponse(
