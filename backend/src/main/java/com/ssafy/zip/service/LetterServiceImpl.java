@@ -81,9 +81,12 @@ public class LetterServiceImpl implements LetterService {
         List<User> users = userRepository.findAll();
         Map<Long, List<User>> map = new HashMap<>();
         users.forEach(o->{
-            List<User> list = map.getOrDefault(o.getFamily().getId(), new ArrayList<>());
-            list.add(o);
-            map.put(o.getFamily().getId(), list);
+            //TODO: 현수야 getFamily가 null일때 오류나서 그냥 넘어가도록 임시로 넣어놨으니 확인하고 수정해줘!
+            if (o.getFamily() != null) {
+                List<User> list = map.getOrDefault(o.getFamily().getId(), new ArrayList<>());
+                list.add(o);
+                map.put(o.getFamily().getId(), list);
+            }
         });
         List<LetterFromAndTo> saveList = new ArrayList<>();
         for(Long famId : map.keySet()){
