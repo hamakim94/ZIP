@@ -2,7 +2,9 @@ package com.ssafy.zip.service;
 
 import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.FamilyRequestDTO;
+import com.ssafy.zip.dto.response.FamilyMemberResponseDTO;
 import com.ssafy.zip.dto.response.FamilyResponseDTO;
+import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.entity.Family;
 import com.ssafy.zip.entity.User;
 import com.ssafy.zip.repository.FamilyRepository;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -54,6 +58,23 @@ public class FamilyServiceImpl implements FamilyService{
         familyRepository.save(family);
         FamilyResponseDTO familyResponseDTO = new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId());
         return familyResponseDTO;
+    }
+
+    @Override
+    public FamilyMemberResponseDTO getFamilyMembers(UserDTO userDTO) throws Exception {
+        Family family = familyRepository.findById(userDTO.getFamilyId()).get();
+        List<UserResponseDTO> userResponseDTOList = new ArrayList<>();
+        for (User user: family.getUsers()) {
+            userResponseDTOList.add(UserResponseDTO.builder()
+                    .id(user.getId())
+                    .nickname(user.getNickname())
+                    .hasFamily(true)
+                    .name(user.getName())
+                    .profileImg(user.getProfileImg())
+                    .build());
+        }
+        FamilyMemberResponseDTO familyMemberResponseDTO = new FamilyMemberResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId(), userResponseDTOList);
+        return familyMemberResponseDTO;
     }
 
     private int generateCode() throws NoSuchAlgorithmException {

@@ -4,11 +4,14 @@ import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.UserFindPWRequestDTO;
 import com.ssafy.zip.dto.request.UserLoginRequestDTO;
 import com.ssafy.zip.dto.request.UserSignupRequestDTO;
+import com.ssafy.zip.dto.response.FamilyResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.entity.EmailAuth;
+import com.ssafy.zip.entity.Family;
 import com.ssafy.zip.entity.User;
 import com.ssafy.zip.repository.EmailAuthRepository;
 import com.ssafy.zip.repository.EmailAuthRepositoryCustom;
+import com.ssafy.zip.repository.FamilyRepository;
 import com.ssafy.zip.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +39,7 @@ public class UserServiceImpl implements UserService{
     private final EmailAuthRepositoryCustom emailAuthRepositoryCustom;
     private final EmailService emailService;
     private final AwsS3Service awsS3Service;
+    private final FamilyRepository familyRepository;
 
 
     @Override
@@ -208,6 +212,12 @@ public class UserServiceImpl implements UserService{
                 .email(user.getEmail())
                 .familyId(user.getFamily()==null?null:user.getFamily().getId())
                 .build();
+    }
+
+    @Override
+    public FamilyResponseDTO getFamily(Long familyId) throws Exception {
+        Family family = familyRepository.findById(familyId).get();
+        return new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(),family.getQna().getId());
     }
 
     private UserResponseDTO userToUserDto(User user){

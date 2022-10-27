@@ -2,6 +2,7 @@ package com.ssafy.zip.controller;
 
 import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.FamilyRequestDTO;
+import com.ssafy.zip.dto.response.FamilyMemberResponseDTO;
 import com.ssafy.zip.dto.response.FamilyResponseDTO;
 import com.ssafy.zip.service.FamilyService;
 import io.swagger.annotations.Api;
@@ -54,6 +55,18 @@ public class FamilyRoomController {
             return new ResponseEntity<>(familyResponseDTO, HttpStatus.OK);
         } catch (Exception e) {
             log.error("가족방 수정 실패 : " + e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/")
+    @ApiOperation(value = "가족 조회")
+    public ResponseEntity<FamilyMemberResponseDTO> getFamilyMembers(@ApiIgnore @AuthenticationPrincipal UserDTO user){
+        try {
+            FamilyMemberResponseDTO familyMemberResponseDTO = familyService.getFamilyMembers(user);
+            return new ResponseEntity<>(familyMemberResponseDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("가족 조회 실패 : " + e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

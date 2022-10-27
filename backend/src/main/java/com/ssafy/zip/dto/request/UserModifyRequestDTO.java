@@ -14,6 +14,6 @@ import javax.validation.constraints.NotBlank;
 public class UserModifyRequestDTO {
     @NotBlank(message = "닉네임은 필수 입력값입니다.")
     private String nickname;
-
+    private String familyName;
     private String profileImg;
 }

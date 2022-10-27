@@ -136,14 +136,20 @@ public class UserController {
     @GetMapping("/profiles")
     @ApiOperation(value = "회원정보 조회") // 요청 URL에 매핑된 API에 대한 설명
     public ResponseEntity<UserResponseDTO> getProfiles(@ApiIgnore @AuthenticationPrincipal UserDTO user){
-        UserResponseDTO userResponseDTO = UserResponseDTO.builder()
-                .id(user.getId())
-                .hasFamily(user.getFamilyId()==null?false:true)
-                .name(user.getName())
-                .profileImg(user.getProfileImg())
-                .nickname(user.getNickname())
-                .build();
-        return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
+        try{
+            ;
+            UserResponseDTO userResponseDTO = UserResponseDTO.builder()
+                    .id(user.getId())
+                    .hasFamily(user.getFamilyId()==null?false:true)
+                    .name(user.getName())
+                    .profileImg(user.getProfileImg())
+                    .nickname(user.getNickname())
+                    .familyResponseDTO(userService.getFamily(user.getFamilyId()))
+                    .build();
+            return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/password")
