@@ -8,13 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class CalendarDialogAdapter(private val calendarFamilyList: ArrayList<Member>, fragmentManager: FragmentManager) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
-    private var mFragmentManager : FragmentManager
-
-    init {
-        mFragmentManager = fragmentManager
-    }
-
+class CalendarDialogAdapter(private val calendarFamilyList: ArrayList<Member>) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
     class CalendarFamilyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val familyImage: CircleImageView = itemView.findViewById(R.id.family_image)
     }
@@ -27,15 +21,11 @@ class CalendarDialogAdapter(private val calendarFamilyList: ArrayList<Member>, f
     }
 
     override fun onBindViewHolder(holder: CalendarFamilyViewHolder, position: Int) {
-        val familyImage = calendarFamilyList[position]
-        holder.familyImage.setImageResource(familyImage.image)
-
-
-
+        val member = calendarFamilyList[position]
+        holder.familyImage.setImageResource(member.image)
     }
 
     override fun getItemCount(): Int {
         return calendarFamilyList.size
     }
-
 }

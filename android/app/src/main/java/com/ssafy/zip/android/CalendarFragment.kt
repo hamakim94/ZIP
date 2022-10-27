@@ -86,22 +86,24 @@ class CalendarFragment : Fragment() {
 
         }
 
-        // dialog recycler view
-        dialogRecyclerView = view.findViewById(R.id.family_recycler_view)
-        dialogRecyclerView.setHasFixedSize(true)
-        calendarDialogAdapter = CalendarDialogAdapter(memberList, childFragmentManager)
-
-        val cnt = when(calendarDialogAdapter.itemCount){
-            in 1..4 -> calendarDialogAdapter.itemCount
-            in 5..6 -> 3
-            else -> 4
-        }
-        dialogRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
-
         val fab: View = view.findViewById(R.id.add_calendar_fab)
         fab.setOnClickListener { view ->
             customAlertDialogView = LayoutInflater.from(activity)
                 .inflate(R.layout.dialog_add_calendar, null, false)
+
+            // dialog recycler view
+            dialogRecyclerView = customAlertDialogView.findViewById(R.id.family_recycler_view)
+            dialogRecyclerView.setHasFixedSize(true)
+            calendarDialogAdapter = CalendarDialogAdapter(memberList)
+
+            val cnt = when(calendarDialogAdapter.itemCount){
+                in 1..4 -> calendarDialogAdapter.itemCount
+                in 5..6 -> 3
+                else -> 4
+            }
+
+            dialogRecyclerView.adapter = calendarDialogAdapter
+            dialogRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
 
             MaterialAlertDialogBuilder(activity)
                 .setView(customAlertDialogView)
