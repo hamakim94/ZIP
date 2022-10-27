@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService{
     private final EmailAuthRepository emailAuthRepository;
     private final EmailAuthRepositoryCustom emailAuthRepositoryCustom;
     private final EmailService emailService;
+    private final AwsS3Service awsS3Service;
 
 
     @Override
@@ -67,11 +68,17 @@ public class UserServiceImpl implements UserService{
         userSignupRequestDTO.setPassword(passwordEncoder.encode(userSignupRequestDTO.getPassword()));
 
         log.info("회원가입");
+        String profileImgUrl = null;
+        if (profileImg != null){
+            List<MultipartFile> files = new ArrayList<>();
+            files.add(profileImg);
+            profileImgUrl = awsS3Service.uploadFiles("profiles", files).get(0)[0];
+        }
         user = User.builder()
                 .name(userSignupRequestDTO.getName())
                 .nickname(userSignupRequestDTO.getNickname())
-                //TODO: S3업로드
-//                .profileImg(getFilePath(profileImg)) // null일수도
+
+                .profileImg(profileImgUrl)
                 .email(userSignupRequestDTO.getEmail())
                 .password(userSignupRequestDTO.getPassword())
                 .build();
@@ -114,16 +121,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseDTO modifyUser(Long id, String nickname, MultipartFile profileImg) {
+    public UserResponseDTO modifyUser(Long id, String nickname, MultipartFile profileImg) throws Exception{
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User : " + id + " was not found"));
 
-        // TODO: S3 파일 삭제
-//        if(user.getProfileImg() != null){
-//            deleteFile(user.getProfileImg());
-//        }
-        // TODO: S3 업로드
-        user.setProfileImgAndNickname(null, nickname);
+        String profileImgUrl = null;
+        if (profileImg != null){
+            List<MultipartFile> files = new ArrayList<>();
+            files.add(profileImg);
+            profileImgUrl = awsS3Service.uploadFiles("profiles", files).get(0)[0];
+        }
+        user.setProfileImgAndNickname(profileImgUrl, nickname);
 
         userRepository.save(user); // user update
 

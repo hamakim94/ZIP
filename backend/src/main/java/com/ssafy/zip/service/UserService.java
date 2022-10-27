@@ -19,7 +19,7 @@ public interface UserService {
     void signup(UserSignupRequestDTO userSignupRequestDTO, MultipartFile profileImg, PasswordEncoder passwordEncoder) throws Exception;
     UserResponseDTO login(UserLoginRequestDTO userLoginRequestDTO, PasswordEncoder passwordEncoder);
     boolean checkEmailDuplicate(String email);
-    UserResponseDTO modifyUser(Long id, String nickname, MultipartFile profileImg);
+    UserResponseDTO modifyUser(Long id, String nickname, MultipartFile profileImg) throws Exception;
     void updatePassword(UserFindPWRequestDTO userFindPWRequestDTO, PasswordEncoder passwordEncoder) throws Exception;
     void findPassword(String email, String name, PasswordEncoder passwordEncoder) throws Exception;
     void confirmEmail(String email, String authToken);
