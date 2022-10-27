@@ -188,10 +188,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTO loadUserByUsername(String userId) throws UsernameNotFoundException {
-        System.out.println(userId);
         User user = userRepository.findById(Long.parseLong(userId))
                 .orElseThrow(() -> new NoSuchElementException("User : " + userId + " was not found"));
-        System.out.println(123);
 
         return UserDTO.builder()
                 .id(user.getId())
