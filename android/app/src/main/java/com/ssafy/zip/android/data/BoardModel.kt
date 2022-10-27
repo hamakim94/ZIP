@@ -27,5 +27,7 @@ sealed class BoardModel : Parcelable {
         var letterTitle : String,
         var letterReg : String,
         var letterContent : String,
+        var letterFrom : String,
+        var letterTo : String,
     ) : BoardModel()
 }

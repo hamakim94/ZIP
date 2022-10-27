@@ -58,6 +58,10 @@ class BoardModelAdapter(private val adapterData: ArrayList<BoardModel>) :
                 bundle.putParcelable("Qna", adapterData[position])
                 it.findNavController()
                     .navigate(R.id.action_recordFragment_to_recordQnaDetailFragment, bundle)
+            } else if (adapterData[position].javaClass.simpleName.equals("Letter")){
+                val bundle = Bundle()
+                bundle.putParcelable("Letter", adapterData[position])
+                it.findNavController().navigate(R.id.action_recordFragment_to_recordLetterDetailFragment, bundle)
             }
         }
     }

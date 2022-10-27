@@ -111,16 +111,22 @@ class RecordBoardFragment : Fragment() {
             letterTitle = "민균이가 보나에게",
             letterReg = "2022/10/14",
             letterContent = "안녕하세요 편지내용1입니다 \n이 잘 들어갔으면 좋겠어요 \n 제발 이렇게 되기를?",
+            letterFrom = "민균",
+            letterTo="보나"
         ),
         BoardModel.Letter(
             letterTitle = "승연이가 도엽에게",
             letterReg = "2022/10/13",
             letterContent = "안녕하세요 편지내용2입니다 \n이 잘 들어갔으면 좋겠어요 \n 제발 이렇게 되기를?",
+            letterFrom = "승연",
+            letterTo = "도엽"
         ),
         BoardModel.Letter(
             letterTitle = "재순이가 현수에게",
             letterReg = "2022/10/20",
             letterContent = "안녕하세요 편지내용3입니다 \n이 잘 들어갔으면 좋겠어요 \n 제발 이렇게 되기를?",
+            letterFrom = "재순",
+            letterTo="현수"
         ),
 
 

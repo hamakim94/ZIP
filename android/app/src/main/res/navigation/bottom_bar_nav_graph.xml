@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_recordFragment_to_recordAlbumPicturesFragment2"
             app:destination="@id/recordAlbumPicturesFragment2" />
+        <action
+            android:id="@+id/action_recordFragment_to_recordLetterDetailFragment"
+            app:destination="@id/recordLetterDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -70,4 +73,8 @@
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/recordLetterDetailFragment"
+        android:name="com.ssafy.zip.android.RecordLetterDetailFragment"
+        android:label="RecordLetterDetailFragment" />
 </navigation>
