@@ -21,7 +21,7 @@ interface APIS {
     @POST("users/login")//Post Interface
     fun requsetLogin(
         @Body body : RequestLoginData
-    ): Call<ResponseLoginData> // 받을 데이터
+    ): Call<ResponseLoginData> // 받을 데이터 클래스
 
     @POST("users/reissue")
     fun requestReissue():Call<ResponseLoginData>
@@ -42,6 +42,7 @@ interface APIS {
         }
 
     }
+        // 인터셉터 설정을 위한 okhttp3
         val client = OkHttpClient.Builder()
             .addInterceptor(TokenInterceptor())
             .build()
