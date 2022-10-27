@@ -120,11 +120,11 @@ public class UserController {
     @PutMapping("/profiles")
     @ApiOperation(value = "회원정보 수정") // 요청 URL에 매핑된 API에 대한 설명
     public ResponseEntity<UserResponseDTO> editProfiles(@ApiIgnore @AuthenticationPrincipal UserDTO user,
-                                          @RequestPart(value = "profileImg", required = false) MultipartFile profileImg, @Valid @RequestPart String nickname){
+                                          @RequestPart(value = "profileImg", required = false) MultipartFile profileImg, @Valid @RequestPart String nickname, @RequestPart String familyName){
         UserResponseDTO changedUserDTO;
 
         try {
-            changedUserDTO = userService.modifyUser(user.getId(), nickname, profileImg);
+            changedUserDTO = userService.modifyUser(user.getId(), nickname, profileImg, familyName);
         } catch (Exception e){
             log.error("userProfileEdit user 조회 실패 : " + e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
