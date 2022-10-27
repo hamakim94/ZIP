@@ -1,4 +1,6 @@
 package com.ssafy.zip.dto.response;
 
-public class AlbumResponseDTO {
+import java.util.List;
+
+public record AlbumResponseDTO(Long id, String name, List<PictureResponseDTO> pictures) {
 }
