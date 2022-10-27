@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -78,6 +79,11 @@ public class UserController {
             String refreshToken = jwtTokenProvider.createRefreshToken(auth); // refresh token 발급
 
             return ResponseEntity.ok().header("ACCESSTOKEN", accessToken).header("REFRESHTOKEN", refreshToken).body(userDTO);
+        } catch (AuthException e) {
+            log.error("로그인 에러: " + e);
+            if (e.getMessage().equals("not verified")) return new ResponseEntity<>(HttpStatus.NETWORK_AUTHENTICATION_REQUIRED);
+            else if (e.getMessage().equals("wrong password")) return new ResponseEntity<>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e){
             log.error("로그인 에러: " + e);
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -120,7 +126,7 @@ public class UserController {
         try {
             changedUserDTO = userService.modifyUser(user.getId(), nickname, profileImg);
         } catch (Exception e){
-            log.error("userProfileEdit user 조회 실패");
+            log.error("userProfileEdit user 조회 실패 : " + e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
