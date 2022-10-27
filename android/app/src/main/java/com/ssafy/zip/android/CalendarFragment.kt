@@ -1,23 +1,34 @@
 package com.ssafy.zip.android
+import android.app.DatePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import android.widget.TextView
+import android.widget.*
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.data.Calendar
 import java.text.DateFormat
+import java.text.DateFormat.getInstance
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
+import java.util.Calendar.*
+import java.util.Currency.getInstance
+import android.annotation.SuppressLint;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 
 class CalendarFragment : Fragment() {
@@ -27,9 +38,11 @@ class CalendarFragment : Fragment() {
     private lateinit var calendarAdapter: CalendarAdapter
     private lateinit var activity: MainActivity
     private lateinit var customAlertDialogView: View
+    private lateinit var customChoiceDialogView: View
     private lateinit var calendarTextField: TextInputLayout
     private lateinit var memberList: ArrayList<Member>
     private lateinit var calendarDialogAdapter: CalendarDialogAdapter
+
 
     companion object {
         fun newInstance(): CalendarFragment = CalendarFragment()
@@ -37,7 +50,53 @@ class CalendarFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.dialog_add_calendar)
+
+
+            var mPickDateButton: ImageButton
+            var mShowSelectedDateText: TextView
+
+            mPickDateButton = customChoiceDialogView.findViewById(R.id.calendar_start_btn)
+            mShowSelectedDateText = customChoiceDialogView.findViewById(R.id.textView_startDate)
+
+
+            val materialDateBuilder: MaterialDatePicker.Builder<*> =
+                MaterialDatePicker.Builder.datePicker()
+
+            materialDateBuilder.setTitleText("SELECT A DATE")
+
+
+            val materialDatePicker = materialDateBuilder.build()
+
+
+            // material design date picker
+            mPickDateButton.setOnClickListener(
+                object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+
+                        materialDatePicker.show(
+                            activity!!.supportFragmentManager,
+                            "MATERIAL_DATE_PICKER"
+                        )
+                    }
+                })
+
+
+            materialDatePicker.addOnPositiveButtonClickListener {
+
+                mShowSelectedDateText.setText("Selected Date is : " + materialDatePicker.headerText)
+
+            }
+
+        }
+
+    private fun setContentView(dialogAddCalendar: Int) {
+
     }
+
+
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -96,7 +155,7 @@ class CalendarFragment : Fragment() {
             dialogRecyclerView.setHasFixedSize(true)
             calendarDialogAdapter = CalendarDialogAdapter(memberList)
 
-            val cnt = when(calendarDialogAdapter.itemCount){
+            val cnt = when (calendarDialogAdapter.itemCount) {
                 in 1..4 -> calendarDialogAdapter.itemCount
                 in 5..6 -> 3
                 else -> 4
@@ -117,8 +176,11 @@ class CalendarFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .show()
-        }
-    }
+
+
+        }}
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -136,8 +198,5 @@ class CalendarFragment : Fragment() {
         memberList.add(Member(4,"이보나", "행복한 우리 가조쿠", "귀요미 셋째 보나", R.drawable.member4))
     }
 }
-
-
-
 
 
