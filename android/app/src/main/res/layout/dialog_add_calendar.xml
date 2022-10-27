@@ -87,6 +87,15 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="함께하는 가족" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/family_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            app:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/family_item" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/calendar_text_field"

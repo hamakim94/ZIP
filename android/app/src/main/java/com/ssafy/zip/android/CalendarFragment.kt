@@ -22,12 +22,14 @@ import kotlin.collections.ArrayList
 
 class CalendarFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var dialogRecyclerView: RecyclerView
     private lateinit var calendarList: ArrayList<Calendar>
     private lateinit var calendarAdapter: CalendarAdapter
     private lateinit var activity: MainActivity
     private lateinit var customAlertDialogView: View
     private lateinit var calendarTextField: TextInputLayout
-
+    private lateinit var memberList: ArrayList<Member>
+    private lateinit var calendarDialogAdapter: CalendarDialogAdapter
 
     companion object {
         fun newInstance(): CalendarFragment = CalendarFragment()
@@ -56,11 +58,12 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // setContentView(R.layout.fragment_calendar)
 
-        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView = view.findViewById(R.id.calendar_recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(activity, 1)
 
         calendarList = ArrayList()
+        memberList = ArrayList()
         addDataToList()
 
         calendarAdapter = CalendarAdapter(calendarList)
@@ -83,12 +86,22 @@ class CalendarFragment : Fragment() {
 
         }
 
+        // dialog recycler view
+        dialogRecyclerView = view.findViewById(R.id.family_recycler_view)
+        dialogRecyclerView.setHasFixedSize(true)
+        calendarDialogAdapter = CalendarDialogAdapter(memberList, childFragmentManager)
+
+        val cnt = when(calendarDialogAdapter.itemCount){
+            in 1..4 -> calendarDialogAdapter.itemCount
+            in 5..6 -> 3
+            else -> 4
+        }
+        dialogRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
 
         val fab: View = view.findViewById(R.id.add_calendar_fab)
         fab.setOnClickListener { view ->
             customAlertDialogView = LayoutInflater.from(activity)
                 .inflate(R.layout.dialog_add_calendar, null, false)
-            calendarTextField = customAlertDialogView.findViewById(R.id.calendar_text_field)
 
             MaterialAlertDialogBuilder(activity)
                 .setView(customAlertDialogView)
@@ -102,13 +115,9 @@ class CalendarFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .show()
-
-
-
-
-
         }
-        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -118,6 +127,11 @@ class CalendarFragment : Fragment() {
         calendarList.add(Calendar(1, R.drawable.ex, "아침엔 티타임~", 10))
         calendarList.add(Calendar(2, R.drawable.ex2, "점심엔 짜장면~", 12))
         calendarList.add(Calendar(3, R.drawable.ex3, "저녁엔 삼겹살~", 6))
+
+        memberList.add(Member(1,"류현수", "행복한 우리 가조쿠", "귀요미 막둥이 현수", R.drawable.member1))
+        memberList.add(Member(2,"김민균", "행복한 우리 가조쿠", "귀요미 첫째 민균", R.drawable.member2))
+        memberList.add(Member(3,"이승연", "행복한 우리 가조쿠", "귀요미 둘째 승연", R.drawable.member3))
+        memberList.add(Member(4,"이보나", "행복한 우리 가조쿠", "귀요미 셋째 보나", R.drawable.member4))
     }
 }
 

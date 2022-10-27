@@ -56,7 +56,7 @@ class CalendarChoiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // setContentView(R.layout.fragment_calendar)
 
-        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView = view.findViewById(R.id.notification_recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(activity, 1)
 
