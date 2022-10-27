@@ -26,14 +26,24 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener{
             api.requsetLogin(RequestLoginData(
                 email = binding.editEmail.text.toString(),
-                password = binding.editPassword.text.toString())).enqueue(object : Callback<RequestLoginData> {
-                override fun onResponse(call: Call<RequestLoginData>, response: Response<RequestLoginData>) {
-                    Log.d("log1", response.toString())
-                    Log.d("log2", response.headers().toString())
-                    Log.d("log3", response.code().toString())
+                password = binding.editPassword.text.toString())).enqueue(object : Callback<ResponseLoginData> {
+                override fun onResponse(
+                    call: Call<ResponseLoginData>,
+                    response: Response<ResponseLoginData>
+                ) {
+                    if(response.code().toString().equals("200")) {
+                        val headers = response.headers()
+                        val accesstoken = headers.get("ACCESSTOKEN").toString()
+                        val refreshtoken = headers.get("REFRESHTOKEN").toString()
+                        App.prefs.setString("accesstoken", accesstoken)
+                        App.prefs.setString("refreshtoken", refreshtoken)
+                        Log.d("log1", response.toString())
+                        val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                        binding.root.findNavController().navigate(action)
+                    }
                 }
 
-                override fun onFailure(call: Call<RequestLoginData>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
                     // 실패
                     Log.d("log3",t.message.toString())
                     Log.d("log4","fail")
@@ -41,12 +51,35 @@ class LoginFragment : Fragment() {
             })
         }
         binding.signupText.setOnClickListener{
-            val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
-            binding.root.findNavController().navigate(action)
+//            val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
+//            binding.root.findNavController().navigate(action)
         }
         binding.passwordfindText.setOnClickListener{
-            val action = LoginFragmentDirections.actionLoginFragmentToPasswordfindFragment()
-            binding.root.findNavController().navigate(action)
+            // 토큰 잘 쓰는지 테스트용이였음
+//            api.requestReissue().enqueue(object : Callback<ResponseLoginData> {
+//                override fun onResponse(
+//                    call: Call<ResponseLoginData>,
+//                    response: Response<ResponseLoginData>
+//                ) {
+//                    Log.d("log1", response.toString())
+////                    if(response.code().toString().equals("200")) {
+////                        val headers = response.headers()
+////                        val accesstoken = headers.get("ACCESSTOKEN").toString()
+////                        val refreshtoken = headers.get("REFRESHTOKEN").toString()
+////                        App.prefs.setString("accesstoken", accesstoken)
+////                        App.prefs.setString("refreshtoken", refreshtoken)
+////                        Log.d("log1", response.toString())
+////                    }
+//                }
+//
+//                override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
+//                    // 실패
+//                    Log.d("log3",t.message.toString())
+//                    Log.d("log4","fail")
+//                }
+//            })
+//            val action = LoginFragmentDirections.actionLoginFragmentToPasswordfindFragment()
+//            binding.root.findNavController().navigate(action)
         }
         return binding.root
     }

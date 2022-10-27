@@ -119,17 +119,16 @@
             android:id="@+id/mission1_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="4dp"
-            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:elevation="15dp"
+            android:gravity="center_vertical"
             android:outlineProvider="none"
             android:text="@string/mission1_title"
             app:layout_constraintEnd_toStartOf="@id/mission1_btn"
             app:layout_constraintStart_toEndOf="@id/mission1_point"
             app:layout_constraintTop_toTopOf="@id/mission1"
-            app:layout_constraintVertical_chainStyle="packed"
-            ></TextView>
+            app:layout_constraintVertical_chainStyle="packed"></TextView>
         <TextView
             android:id="@+id/mission1_btn"
             android:layout_width="0dp"
