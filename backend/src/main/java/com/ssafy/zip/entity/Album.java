@@ -1,8 +1,11 @@
 package com.ssafy.zip.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,4 +24,8 @@ public class Album {
     Family family;
 
     String name;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "album")
+    List<Picture> pictures = new ArrayList<>();
 }

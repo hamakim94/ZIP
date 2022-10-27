@@ -2,6 +2,7 @@ package com.ssafy.zip.service;
 
 import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.PictureRequestDTO;
+import com.ssafy.zip.dto.response.AlbumResponseDTO;
 import com.ssafy.zip.dto.response.PictureResponseDTO;
 import com.ssafy.zip.entity.Album;
 import com.ssafy.zip.entity.Picture;
@@ -64,7 +65,7 @@ public class AlbumServiceImpl implements AlbumService{
         Long userId = user.getId();
         Long albumId = album.getId();
         for (Picture picture:list) {
-            results.add(new PictureResponseDTO(picture.getId(), userId, albumId, picture.getFileName(), picture.getDirectory()));
+            results.add(new PictureResponseDTO(picture.getId(), userId, albumId, picture.getFileName(), picture.getDirectory(), picture.getReg()));
         }
         return results;
     }
@@ -80,14 +81,18 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public List<PictureResponseDTO> listAll(long userId) throws Exception {
+    public List<AlbumResponseDTO> listAll(long userId) throws Exception {
         User user = userRepository.getReferenceById(userId);
-        List<Picture> list = pictureRepository.findAllByAlbum_FamilyIdOrderByAlbum(user.getFamily().getId());
-        List<PictureResponseDTO> results = new ArrayList<>();
-        for (Picture picture:list) {
-            results.add(new PictureResponseDTO(picture.getId(), picture.getUser().getId(), picture.getAlbum().getId(), picture.getFileName(), picture.getDirectory()));
+        List<Album> list = albumRepository.findAllByFamily_Id(user.getFamily().getId());
+        List<AlbumResponseDTO> albumResult = new ArrayList<>();
+        for (Album album:list) {
+            List<PictureResponseDTO> pictureResults= new ArrayList<>();
+            for (Picture picture: album.getPictures()) {
+                pictureResults.add(new PictureResponseDTO(picture.getId(), picture.getUser().getId(), album.getId(), picture.getFileName(), picture.getDirectory(), picture.getReg()));
+            }
+            albumResult.add(new AlbumResponseDTO(album.getId(), album.getName(), pictureResults));
         }
-        return results;
+        return albumResult;
     }
     @Transactional
     @Override
@@ -107,7 +112,7 @@ public class AlbumServiceImpl implements AlbumService{
         Long userId = list.get(0).getUser().getId();
         Long albumId = album.getId();
         for (Picture picture:list) {
-            results.add(new PictureResponseDTO(picture.getId(), userId, albumId, picture.getFileName(), picture.getDirectory()));
+            results.add(new PictureResponseDTO(picture.getId(), userId, albumId, picture.getFileName(), picture.getDirectory(), picture.getReg()));
         }
         return results;
     }
@@ -115,12 +120,21 @@ public class AlbumServiceImpl implements AlbumService{
 
     //필요 없는 메소드인듯
     @Override
-    public List<PictureResponseDTO> listFolder() throws Exception {
-        return null;
+    public AlbumResponseDTO listAlbum(UserDTO userDTO, Long albumId) throws Exception {
+        User user = userRepository.getReferenceById(userDTO.getId());
+        Album album = albumRepository.findByFamily_IdAndId(user.getFamily().getId(), albumId);
+        List<PictureResponseDTO> pictureResults= new ArrayList<>();
+        for (Picture picture: album.getPictures()) {
+            pictureResults.add(new PictureResponseDTO(picture.getId(), picture.getUser().getId(), album.getId(), picture.getFileName(), picture.getDirectory(), picture.getReg()));
+        }
+        AlbumResponseDTO albumResult = new AlbumResponseDTO(album.getId(), album.getName(), pictureResults);
+        return albumResult;
     }
     //필요 없는 메소드인듯2
     @Override
-    public PictureResponseDTO pictureDetail() throws Exception {
-        return null;
+    public PictureResponseDTO pictureDetail(UserDTO userDTO, Long pictureId) throws Exception {
+        User user = userRepository.getReferenceById(userDTO.getId());
+        Picture picture = pictureRepository.findByIdAndAlbum_FamilyId(pictureId, user.getFamily().getId());
+        return new PictureResponseDTO(picture.getId(), picture.getUser().getId(), picture.getAlbum().getId(), picture.getFileName(), picture.getDirectory(), picture.getReg());
     }
 }

@@ -1,5 +1,6 @@
 package com.ssafy.zip.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -24,6 +25,7 @@ public class Picture {
     @JoinColumn(name = "user_id")
     User user;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "album_id")
     Album album;

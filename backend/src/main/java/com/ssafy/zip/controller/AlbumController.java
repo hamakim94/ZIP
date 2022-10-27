@@ -2,6 +2,7 @@ package com.ssafy.zip.controller;
 
 import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.PictureRequestDTO;
+import com.ssafy.zip.dto.response.AlbumResponseDTO;
 import com.ssafy.zip.dto.response.PictureResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.service.AlbumService;
@@ -28,7 +29,7 @@ import java.util.List;
 public class AlbumController {
     private final AlbumService albumService;
 
-    @PostMapping("/folders")
+    @PostMapping("/")
     @ApiOperation(value = "앨범 생성")
     public ResponseEntity<?> createFolder(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestParam String name) {
         try{
@@ -40,7 +41,7 @@ public class AlbumController {
         }
     }
 
-    @DeleteMapping("/folders")
+    @DeleteMapping("/")
     @ApiOperation(value = "폴더 삭제")
     public ResponseEntity<?> deleteFolder(@ApiIgnore @AuthenticationPrincipal UserDTO user,@RequestParam Long albumId) {
         try{
@@ -77,11 +78,11 @@ public class AlbumController {
         }
     }
 
-    @GetMapping("/pictures")
+    @GetMapping("/")
     @ApiOperation(value = "전체 조회")
-    public ResponseEntity<List<PictureResponseDTO>> listAll(@ApiIgnore @AuthenticationPrincipal UserDTO user) {
+    public ResponseEntity<List<AlbumResponseDTO>> listAll(@ApiIgnore @AuthenticationPrincipal UserDTO user) {
         try{
-            List<PictureResponseDTO> results = albumService.listAll(user.getId());
+            List<AlbumResponseDTO> results = albumService.listAll(user.getId());
             return new ResponseEntity<>(results, HttpStatus.OK);
         } catch (Exception e){
             log.error("전체 조회 에러: " + e);
@@ -101,15 +102,27 @@ public class AlbumController {
         }
     }
 
-    @GetMapping("/folders/{folderId}")
-    @ApiOperation(value = "특정폴더 조회 - 사용 X")
-    public ResponseEntity<?> listFolder() {
-        return null;
+    @GetMapping("/{albumId}")
+    @ApiOperation(value = "특정폴더 조회")
+    public ResponseEntity<AlbumResponseDTO> listAlbum(@ApiIgnore @AuthenticationPrincipal UserDTO user, @PathVariable long albumId) {
+        try{
+            AlbumResponseDTO result = albumService.listAlbum(user, albumId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e){
+            log.error("사진 이동 에러: " + e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/pictures/{pictureId}")
-    @ApiOperation(value = "사진 세부사항 조회 - 사용 X")
-    public ResponseEntity<?> pictureDetail() {
-        return null;
+    @ApiOperation(value = "사진 세부사항 조회")
+    public ResponseEntity<PictureResponseDTO> pictureDetail(@ApiIgnore @AuthenticationPrincipal UserDTO user, @PathVariable long pictureId) {
+        try{
+            PictureResponseDTO result = albumService.pictureDetail(user, pictureId);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e){
+            log.error("사진 이동 에러: " + e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
