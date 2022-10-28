@@ -144,8 +144,8 @@ class CalendarFragment : Fragment() {
             var startPickDateButton: TextView? = null
             var startShowSelectedDateText: TextView? = null
 
-            startPickDateButton = customAlertDialogView.findViewById(R.id.calendar_start)
-            startShowSelectedDateText = customAlertDialogView.findViewById(R.id.textView_startDate)
+            startPickDateButton = customAlertDialogView.findViewById(R.id.btn_startDate)
+            startShowSelectedDateText = customAlertDialogView.findViewById(R.id.btn_startDate)
 
             var materialDateBuilder: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
@@ -174,8 +174,8 @@ class CalendarFragment : Fragment() {
             var endPickDateButton: TextView? = null
             var endShowSelectedDateText: TextView? = null
 
-            endPickDateButton = customAlertDialogView.findViewById(R.id.calendar_end)
-            endShowSelectedDateText = customAlertDialogView.findViewById(R.id.textView_endDate)
+            endPickDateButton = customAlertDialogView.findViewById(R.id.btn_endDate)
+            endShowSelectedDateText = customAlertDialogView.findViewById(R.id.btn_endDate)
 
             var materialDateBuilder2: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
@@ -200,11 +200,12 @@ class CalendarFragment : Fragment() {
             materialDatePicker2.addOnPositiveButtonClickListener {
                 endShowSelectedDateText.setText(materialDatePicker2.headerText)
             }
+
             var startPickTimeButton: TextView? = null
             var startShowSelectedTimeText: TextView? = null
 
             startPickTimeButton = customAlertDialogView.findViewById(R.id.btn_startTime)
-            startShowSelectedTimeText = customAlertDialogView.findViewById(R.id.textView_startTime)
+            startShowSelectedTimeText = customAlertDialogView.findViewById(R.id.btn_startTime)
 
             startPickTimeButton.setOnClickListener {
 
@@ -259,8 +260,67 @@ class CalendarFragment : Fragment() {
                     startShowSelectedTimeText.text = formattedTime
                 }
 
-        }
+                var endPickTimeButton: TextView? = null
+                var endShowSelectedTimeText: TextView? = null
 
+                endPickTimeButton = customAlertDialogView.findViewById(R.id.btn_endTime)
+                endShowSelectedTimeText = customAlertDialogView.findViewById(R.id.btn_endTime)
+
+                endPickTimeButton.setOnClickListener {
+
+                    val materialTimePicker2: MaterialTimePicker = MaterialTimePicker.Builder()
+
+                        .setTitleText("SELECT YOUR TIMING")
+
+                        .setHour(12)
+                        .setMinute(10)
+                        .setTimeFormat(TimeFormat.CLOCK_12H)
+                        .build()
+
+                    materialTimePicker2.show(activity!!.supportFragmentManager, "MainActivity")
+
+                    materialTimePicker2.addOnPositiveButtonClickListener {
+
+                        val pickedHour2: Int = materialTimePicker2.hour
+                        val pickedMinute2: Int = materialTimePicker2.minute
+
+                        val formattedTime: String = when {
+                            pickedHour2 > 12 -> {
+                                if (pickedMinute2 < 10) {
+                                    "${materialTimePicker2.hour - 12}:0${materialTimePicker2.minute} pm"
+                                } else {
+                                    "${materialTimePicker2.hour - 12}:${materialTimePicker2.minute} pm"
+                                }
+                            }
+                            pickedHour2 == 12 -> {
+                                if (pickedMinute2 < 10) {
+                                    "${materialTimePicker2.hour}:0${materialTimePicker2.minute} pm"
+                                } else {
+                                    "${materialTimePicker2.hour}:${materialTimePicker2.minute} pm"
+                                }
+                            }
+                            pickedHour2 == 0 -> {
+                                if (pickedMinute2 < 10) {
+                                    "${materialTimePicker2.hour + 12}:0${materialTimePicker2.minute} am"
+                                } else {
+                                    "${materialTimePicker2.hour + 12}:${materialTimePicker2.minute} am"
+                                }
+                            }
+                            else -> {
+                                if (pickedMinute2 < 10) {
+                                    "${materialTimePicker2.hour}:0${materialTimePicker2.minute} am"
+                                } else {
+                                    "${materialTimePicker2.hour}:${materialTimePicker2.minute} am"
+                                }
+                            }
+                        }
+
+                        // then update the preview TextView
+                        endShowSelectedTimeText.text = formattedTime
+                    }
+
+                }
+            }
 
 
     }
