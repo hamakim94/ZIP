@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Table(name = "common_code")
 public class CommonCode {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String code;
 
     String content;

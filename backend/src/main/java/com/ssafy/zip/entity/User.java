@@ -1,6 +1,8 @@
 package com.ssafy.zip.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "user")
+@DynamicInsert
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +24,7 @@ public class User {
 
     String nickname;
 
+    @Column(name = "profile_img")
     String profileImg;
 
     String email;
@@ -29,7 +33,24 @@ public class User {
 
     LocalDateTime reg;
 
+    @Column(name = "is_email_verified")
     Boolean isEmailVerified;
 
-    Long familyId;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "family_id")
+    Family family;
+
+    public void setProfileImgAndNickname(String profileImg, String nickname){
+        this.profileImg = profileImg;
+        this.nickname = nickname;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public void emailVerifiedSuccess() {
+        this.isEmailVerified = true;
+    }
 }
