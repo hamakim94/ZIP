@@ -48,7 +48,7 @@ public class QnaServiceImpl implements QnaService {
             Qna qna = o.getQna();
             if(!qnaIdSet.contains(qna.getId())){
                 qnaIdSet.add(qna.getId());
-                result.add(new QnaDTO(qna.getId(), qna.getQuestion(),findAnswerCnt(qna.getId(), list)));
+                result.add(new QnaDTO(qna.getId(), qna.getQuestion(),o.getReg().toLocalDate().atTime(0, 0),findAnswerCnt(qna.getId(), list)));
             }
         });
         return result;

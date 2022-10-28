@@ -15,5 +15,5 @@ public class UserResponseDTO {
     String nickname;
     String profileImg;
     boolean hasFamily;
-    FamilyResponseDTO familyResponseDTO;
+    FamilyResponseDTO family;
 }

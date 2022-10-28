@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDTO> listBoard(UserDTO userDTO) {
         return boardRepository.findByFamilyId(userDTO.getFamilyId()).stream()
-                .map(o->BoardMapStruct.INSTANCE.mapToBoardDTO(o)).collect(Collectors.toList());
+                .map(BoardMapStruct.INSTANCE::mapToBoardDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class BoardServiceImpl implements BoardService {
             Board board = boardOpt.get();
             List<Comment> commentList = commentRepository.findByBoardId(boardId);
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
-                    commentList.stream().map(o-> CommentDTOMapStruct.INSTANCE.mapToCommentDTO(o)).collect(Collectors.toList()));
+                    commentList.stream().map(CommentDTOMapStruct.INSTANCE::mapToCommentDTO).collect(Collectors.toList()));
         }
         return null;
     }
@@ -49,7 +49,8 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void writeBoard(UserDTO userDTO, String content, MultipartFile image) {
         User user = userRepository.getReferenceById(userDTO.getId());
-        boardRepository.save(new Board(null,userDTO.getFamilyId(),user,content,null, LocalDateTime.now()));
+        boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).reg(LocalDateTime.now()).build());
+
     }
     // TODO : S3 연결 후 이미지 연결 로직 추가!!!!1
     @Transactional
@@ -57,13 +58,13 @@ public class BoardServiceImpl implements BoardService {
     public BoardDetailDTO modifyBoard(UserDTO userDTO, Long boardId, String content, MultipartFile image) {
 
         Board board = boardRepository.getReferenceById(boardId);
-        if(board.getUser().getId()==userDTO.getId()){
+        if(board.getUser().getId().equals(userDTO.getId())){
             if(!content.isBlank())
             board.setContent(content);
             if(image!=null&&!image.isEmpty());//TODO 이미지 관련 처리
             List<Comment> commentList = commentRepository.findByBoardId(boardId);
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
-                    commentList.stream().map(o->CommentDTOMapStruct.INSTANCE.mapToCommentDTO(o)).collect(Collectors.toList()));
+                    commentList.stream().map(CommentDTOMapStruct.INSTANCE::mapToCommentDTO).collect(Collectors.toList()));
         }else{
          // TODO : 인가 관련 예외 처리.....
             return null;
@@ -73,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void deleteBoard(UserDTO userDTO, Long boardId) {
         Board board = boardRepository.getReferenceById(boardId);
-        if(board.getUser().getId()==userDTO.getId()){
+        if(board.getUser().getId().equals(userDTO.getId())){
             boardRepository.delete(board);
         }else {
             // TODO : 인가 관련 예외 처리.....
@@ -89,7 +90,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void modifyComment(UserDTO userDTO, Long commentId, String content) {
         Comment comment = commentRepository.getReferenceById(commentId);
-        if(comment.getUser().getId()==userDTO.getId())comment.setContent(content);
+        if(comment.getUser().getId().equals(userDTO.getId()))comment.setContent(content);
         else {
             // TODO : 인가 관련 예외 처리.....
         }
@@ -98,7 +99,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void deleteComment(UserDTO userDTO, Long commentId) {
         Comment comment = commentRepository.getReferenceById(commentId);
-        if(comment.getUser().getId()==userDTO.getId()){
+        if(comment.getUser().getId().equals(userDTO.getId())){
             commentRepository.deleteById(commentId);
         }else{
             // TODO : 인가 관련 예외 처리.....

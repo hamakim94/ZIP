@@ -231,7 +231,7 @@ public class UserServiceImpl implements UserService{
                 .nickname(user.getNickname())
                 .profileImg(user.getProfileImg())
                 .hasFamily(user.getFamily()==null?false:true)
-                .familyResponseDTO(new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId()))
+                .family(new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId()))
                 .build();
     }
 

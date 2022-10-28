@@ -144,7 +144,7 @@ public class UserController {
                     .name(user.getName())
                     .profileImg(user.getProfileImg())
                     .nickname(user.getNickname())
-                    .familyResponseDTO(userService.getFamily(user.getFamilyId()))
+                    .family(userService.getFamily(user.getFamilyId()))
                     .build();
             return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
         } catch (Exception e) {

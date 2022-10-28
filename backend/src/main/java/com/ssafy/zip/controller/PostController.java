@@ -7,6 +7,7 @@ import com.ssafy.zip.dto.request.QnaAnswerRequestDTO;
 import com.ssafy.zip.dto.response.*;
 import com.ssafy.zip.service.BoardService;
 import com.ssafy.zip.service.LetterService;
+import com.ssafy.zip.service.PostService;
 import com.ssafy.zip.service.QnaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,14 @@ public class PostController {
     private final QnaService qnaService;
     private final BoardService boardService;
     private final LetterService letterService;
+    private final PostService postService;
+
+    @GetMapping("")
+    @ApiOperation("전체 게시물 조회")
+    ResponseEntity<List<PostAllResponseDTO>> getPosts(@ApiIgnore @AuthenticationPrincipal UserDTO user){
+
+        return ResponseEntity.ok(postService.getAll(user));
+    }
 
     @PostMapping("/qna")
     @ApiOperation("질문 등록")
@@ -66,14 +75,14 @@ public class PostController {
 
 
     @GetMapping("/board")
-    @ApiOperation("전체 게시글 조회")
+    @ApiOperation("일반 게시글 조회")
     ResponseEntity<List<BoardDTO>> listBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO){
 
         return ResponseEntity.ok(boardService.listBoard(userDTO));
     }
 
     @GetMapping("/board/{boardId}")
-    @ApiOperation("게시글 상세 조회")
+    @ApiOperation("일반 게시글 상세 조회")
     ResponseEntity<BoardDetailDTO> getBoardDetial(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long boardId){
 
         return ResponseEntity.ok(boardService.getBoard(userDTO, boardId));
@@ -89,14 +98,14 @@ public class PostController {
     }
 
     @PutMapping("/board/{boardId}")
-    @ApiOperation("게시글 수정")
+    @ApiOperation("일반 게시글 수정")
     ResponseEntity<BoardDetailDTO> modifyBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long boardId, @RequestPart String content, @RequestPart(required = false) MultipartFile image){
 
         return ResponseEntity.ok(boardService.modifyBoard(userDTO,boardId,content,image));
     }
 
     @DeleteMapping("/board/{boardId}")
-    @ApiOperation("게시글 삭제")
+    @ApiOperation("일반 게시글 삭제")
     ResponseEntity<?> deleteBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long boardId){
 
         boardService.deleteBoard(userDTO, boardId);
@@ -104,7 +113,7 @@ public class PostController {
     }
 
     @PostMapping("/board/{boardId}")
-    @ApiOperation("댓글 작성")
+    @ApiOperation("일반 게시글 댓글 작성")
     ResponseEntity<?> writeComment(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long boardId, @RequestParam String content){
 
         boardService.writeComment(userDTO, boardId, content);
@@ -112,7 +121,7 @@ public class PostController {
     }
 
     @PutMapping("/board/{boardId}/comment/{commentId}")
-    @ApiOperation("댓글 수정")
+    @ApiOperation("일반 게시글 댓글 수정")
     ResponseEntity<?> modifyComment(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long commentId, @RequestParam String comment){
 
         boardService.modifyComment(userDTO, commentId, comment);
@@ -120,7 +129,7 @@ public class PostController {
     }
 
     @DeleteMapping("/board/{boardId}/comment/{commentId}")
-    @ApiOperation("댓글 삭제")
+    @ApiOperation("일반 게시글 댓글 삭제")
     ResponseEntity<?> deleteComment(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long commentId){
 
         boardService.deleteComment(userDTO, commentId);

@@ -1,6 +1,7 @@
 package com.ssafy.zip.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,4 +29,7 @@ public class Board {
     String image;
 
     LocalDateTime reg;
+
+    @Formula("(select count(*) from comment c where c.board_id = id)")
+    Integer commentCnt;
 }
