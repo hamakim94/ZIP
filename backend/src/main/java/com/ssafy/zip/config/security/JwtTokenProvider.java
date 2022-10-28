@@ -27,7 +27,7 @@ public class JwtTokenProvider {
     private  String JWT_SECRET;
     private Key key;
 
-    private long accessExpirationInMs = 60 * 10 * 1000L;
+    private long accessExpirationInMs = 60 * 1000000 * 1000L;
     private long refreshExpirationInMs = 60 * 60 * 24 * 180 * 1000L;
 
 
