@@ -21,13 +21,13 @@ class PhotoAdapter(private val photoList:ArrayList<Photo>, var photo_onClick_int
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photo = photoList[position]
-        holder.photoImage.setImageResource(photo.image)
+        holder.photoImage.setImageResource(photo.url)
 
         holder.itemView.setOnClickListener{
             // photo item 클릭했을 때 실행
             val bundle = Bundle()
             bundle.putLong("photoId", photo.id)
-            bundle.putInt("photoImage", photo.image)
+            bundle.putInt("photoImage", photo.url)
             bundle.putString("albumTitle", photo_onClick_interface.onClickPhoto()) // 사진 상세 페이지의 appbar에 넣기 위해서 데이터 전달
             bundle.putParcelableArrayList("photoList", photoList) // Parcel에 객체를 write/read 하도록 만들어주는 인터페이스
             it.findNavController().navigate(R.id.action_recordAlbumPicturesFragment2_to_recordAlbumPhotoDetailFragment2, bundle)

@@ -96,7 +96,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             if(position > 0){
                 position--
                 // 이미지 보여주기
-                setPosition(imageList[position].image, true)
+                setPosition(imageList[position].url, true)
 //                viewPager.setCurrentItem(position, true)
             }
         }
@@ -105,7 +105,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             if(position < imageList.size-1){
                 position++
                 // 이미지 보여주기
-                setPosition(imageList[position].image, true)
+                setPosition(imageList[position].url, true)
 //                viewPager.setCurrentItem(position, true)
             }
         }
@@ -113,7 +113,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
 
     inner class roomListAdapterToList {
         fun getPhoto(photo: Photo) {
-            setPosition(photo.image, false)
+            setPosition(photo.url, false)
         }
 
         fun getItemWidth(){
@@ -129,7 +129,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
 
     private fun getPosition(image: Int): Int {
         return imageList.indexOfFirst{
-            it.image == image
+            it.url == image
         }
     }
 

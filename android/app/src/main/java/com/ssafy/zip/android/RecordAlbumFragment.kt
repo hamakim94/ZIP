@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.data.Album
+import com.ssafy.zip.android.data.Photo
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class RecordAlbumFragment : Fragment() {
@@ -117,10 +120,20 @@ class RecordAlbumFragment : Fragment() {
 
     }
 
+    var p11 = Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5)
+    var p12 = Photo(2, "사진2", Date(), null, R.drawable.ex, 1, 5)
+    var p13 = Photo(3, "사진3", Date(), null, R.drawable.ex, 1, 5)
+    var p21 = Photo(4, "사진4", Date(), null, R.drawable.ex2, 2, 5)
+    var p22 = Photo(5, "사진5", Date(), null, R.drawable.ex2, 2, 5)
+    var p23 = Photo(6, "사진6", Date(), null, R.drawable.ex2, 2, 5)
+    var p31 = Photo(7, "사진7", Date(), null, R.drawable.ex3, 3, 5)
+    var p32 = Photo(8, "사진8", Date(), null, R.drawable.ex3, 3, 5)
+    var p41 = Photo(9, "사진9", Date(), null, R.drawable.ex4, 4, 5)
+
     private fun addDataToList(){
-        albumList.add(Album(1, R.drawable.ex, "괌 여행", 123))
-        albumList.add(Album(2, R.drawable.ex2, "속초", 45))
-        albumList.add(Album(3, R.drawable.ex3, "강", 38))
-        albumList.add(Album(4, R.drawable.ex4, "북한산", 56))
+        albumList.add(Album(1,"괌 여행", listOf(p11, p12, p13)))
+        albumList.add(Album(2,"속초", listOf(p21, p22, p23)))
+        albumList.add(Album(3,"강", listOf(p31, p32)))
+        albumList.add(Album(4,"북한산", listOf(p41)))
     }
 }
