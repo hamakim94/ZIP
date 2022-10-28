@@ -4,24 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.imageview.ShapeableImageView
-import com.ssafy.zip.android.adapter.CommentAdapter
 import com.ssafy.zip.android.adapter.CommentQnaAdapter
 import com.ssafy.zip.android.adapter.MemberAdapter
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.Comment
-import com.ssafy.zip.android.data.Member
+import com.ssafy.zip.android.data.User
 
 class RecordQnaDetailFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewComment: RecyclerView
-    private lateinit var memberList: ArrayList<Member>
+    private lateinit var userList: ArrayList<User>
     private lateinit var commentList: ArrayList<Comment>
     private lateinit var memberAdapter: MemberAdapter
     private lateinit var commentAdapter: CommentQnaAdapter
@@ -47,7 +44,7 @@ class RecordQnaDetailFragment : Fragment() {
         val qnaData = arguments?.getParcelable<BoardModel.Qna>("Qna")
         qnaDetailReg = view.findViewById(R.id.qnaDetailReg)
         qnaDetailContent = view.findViewById(R.id.qnaDetailContent)
-        memberAdapter = MemberAdapter(memberList)
+        memberAdapter = MemberAdapter(userList)
         commentAdapter = CommentQnaAdapter(commentList)
 
         val cnt = when(memberAdapter.itemCount){
@@ -75,11 +72,11 @@ class RecordQnaDetailFragment : Fragment() {
 
     }
     private fun dataInitialize() {
-        memberList = arrayListOf<Member>()
-        memberList.add(Member(1,"류현수", "행복한 우리 가조쿠", "귀요미 막둥이 현수", R.drawable.ex))
-        memberList.add(Member(2,"김민균", "행복한 우리 가조쿠", "귀요미 첫째 민균", R.drawable.ex2))
-        memberList.add(Member(3,"이승연", "행복한 우리 가조쿠", "귀요미 둘째 승연", R.drawable.ex3))
-        memberList.add(Member(4,"이보나", "행복한 우리 가조쿠", "귀요미 셋째 보나", R.drawable.ex4))
+        userList = arrayListOf<User>()
+        userList.add(Member(1,"류현수", "행복한 우리 가조쿠", "귀요미 막둥이 현수", R.drawable.ex))
+        userList.add(Member(2,"김민균", "행복한 우리 가조쿠", "귀요미 첫째 민균", R.drawable.ex2))
+        userList.add(Member(3,"이승연", "행복한 우리 가조쿠", "귀요미 둘째 승연", R.drawable.ex3))
+        userList.add(Member(4,"이보나", "행복한 우리 가조쿠", "귀요미 셋째 보나", R.drawable.ex4))
 
         commentList = arrayListOf<Comment>()
 
