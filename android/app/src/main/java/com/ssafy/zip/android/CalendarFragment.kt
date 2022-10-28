@@ -13,9 +13,11 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.data.Calendar
+import com.google.android.material.timepicker.TimeFormat
 import java.text.DateFormat
 import java.text.DateFormat.getInstance
 import java.text.SimpleDateFormat
@@ -138,11 +140,12 @@ class CalendarFragment : Fragment() {
                 }
                 .show()
 
-            var mPickDateButton: ImageButton? = null
-            var mShowSelectedDateText: TextView? = null
 
-            mPickDateButton = customAlertDialogView.findViewById(R.id.calendar_start_btn)
-            mShowSelectedDateText = customAlertDialogView.findViewById(R.id.textView_startDate)
+            var startPickDateButton: TextView? = null
+            var startShowSelectedDateText: TextView? = null
+
+            startPickDateButton = customAlertDialogView.findViewById(R.id.calendar_start)
+            startShowSelectedDateText = customAlertDialogView.findViewById(R.id.textView_startDate)
 
             var materialDateBuilder: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
@@ -152,7 +155,7 @@ class CalendarFragment : Fragment() {
             var materialDatePicker = materialDateBuilder.build()
 
             // material design date picker
-            mPickDateButton.setOnClickListener(
+            startPickDateButton.setOnClickListener(
                 object : View.OnClickListener {
                     override fun onClick(v: View?) {
 
@@ -165,13 +168,104 @@ class CalendarFragment : Fragment() {
 
 
             materialDatePicker.addOnPositiveButtonClickListener {
-                mShowSelectedDateText.setText( materialDatePicker.headerText)
+                startShowSelectedDateText.setText(materialDatePicker.headerText)
             }
+
+            var endPickDateButton: TextView? = null
+            var endShowSelectedDateText: TextView? = null
+
+            endPickDateButton = customAlertDialogView.findViewById(R.id.calendar_end)
+            endShowSelectedDateText = customAlertDialogView.findViewById(R.id.textView_endDate)
+
+            var materialDateBuilder2: MaterialDatePicker.Builder<*> =
+                MaterialDatePicker.Builder.datePicker()
+
+            materialDateBuilder2.setTitleText("SELECT A DATE")
+
+            var materialDatePicker2 = materialDateBuilder2.build()
+
+            // material design date picker
+            endPickDateButton.setOnClickListener(
+                object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+
+                        materialDatePicker2.show(
+                            activity!!.supportFragmentManager,
+                            "MATERIAL_DATE_PICKER"
+                        )
+                    }
+                })
+
+
+            materialDatePicker2.addOnPositiveButtonClickListener {
+                endShowSelectedDateText.setText(materialDatePicker2.headerText)
+            }
+            var startPickTimeButton: TextView? = null
+            var startShowSelectedTimeText: TextView? = null
+
+            startPickTimeButton = customAlertDialogView.findViewById(R.id.btn_startTime)
+            startShowSelectedTimeText = customAlertDialogView.findViewById(R.id.textView_startTime)
+
+            startPickTimeButton.setOnClickListener {
+
+                val materialTimePicker: MaterialTimePicker = MaterialTimePicker.Builder()
+
+                    .setTitleText("SELECT YOUR TIMING")
+
+                    .setHour(12)
+                    .setMinute(10)
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .build()
+
+                materialTimePicker.show(activity!!.supportFragmentManager, "MainActivity")
+
+                materialTimePicker.addOnPositiveButtonClickListener {
+
+                    val pickedHour: Int = materialTimePicker.hour
+                    val pickedMinute: Int = materialTimePicker.minute
+
+                    val formattedTime: String = when {
+                        pickedHour > 12 -> {
+                            if (pickedMinute < 10) {
+                                "${materialTimePicker.hour - 12}:0${materialTimePicker.minute} pm"
+                            } else {
+                                "${materialTimePicker.hour - 12}:${materialTimePicker.minute} pm"
+                            }
+                        }
+                        pickedHour == 12 -> {
+                            if (pickedMinute < 10) {
+                                "${materialTimePicker.hour}:0${materialTimePicker.minute} pm"
+                            } else {
+                                "${materialTimePicker.hour}:${materialTimePicker.minute} pm"
+                            }
+                        }
+                        pickedHour == 0 -> {
+                            if (pickedMinute < 10) {
+                                "${materialTimePicker.hour + 12}:0${materialTimePicker.minute} am"
+                            } else {
+                                "${materialTimePicker.hour + 12}:${materialTimePicker.minute} am"
+                            }
+                        }
+                        else -> {
+                            if (pickedMinute < 10) {
+                                "${materialTimePicker.hour}:0${materialTimePicker.minute} am"
+                            } else {
+                                "${materialTimePicker.hour}:${materialTimePicker.minute} am"
+                            }
+                        }
+                    }
+
+                    // then update the preview TextView
+                    startShowSelectedTimeText.text = formattedTime
+                }
+
         }
+
+
 
     }
 
-
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
