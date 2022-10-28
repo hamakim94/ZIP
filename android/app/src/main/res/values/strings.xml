@@ -62,6 +62,4 @@
     <string name="duplicate_check">중복확인</string>
     <string name="nickname">애칭</string>
     <string name="nickname_hint">늘곰, 귀요미 등</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

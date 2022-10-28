@@ -1,4 +1,4 @@
-package com.ssafy.zip.android.data
+package com.ssafy.zip.android
 
 import android.os.Bundle
 import android.view.LayoutInflater

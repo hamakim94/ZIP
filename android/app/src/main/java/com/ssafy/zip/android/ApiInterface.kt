@@ -1,5 +1,7 @@
 package com.ssafy.zip.android
 
+import com.ssafy.zip.android.data.request.RequestLoginData
+import com.ssafy.zip.android.data.response.ResponseLoginData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

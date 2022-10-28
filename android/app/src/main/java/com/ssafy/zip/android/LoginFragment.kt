@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.ssafy.zip.android.data.request.RequestLoginData
+import com.ssafy.zip.android.data.response.ResponseLoginData
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,9 +25,11 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
         binding.btnLogin.setOnClickListener{
-            ApiService.getApiService.requsetLogin(RequestLoginData(
+            ApiService.getApiService.requsetLogin(
+                RequestLoginData(
                 email = binding.editEmail.text.toString(),
-                password = binding.editPassword.text.toString())).enqueue(object : Callback<ResponseLoginData> {
+                password = binding.editPassword.text.toString())
+            ).enqueue(object : Callback<ResponseLoginData> {
                 override fun onResponse(
                     call: Call<ResponseLoginData>,
                     response: Response<ResponseLoginData>
@@ -36,9 +40,16 @@ class LoginFragment : Fragment() {
                         val refreshtoken = headers.get("REFRESHTOKEN").toString()
                         App.prefs.setString("accesstoken", accesstoken)
                         App.prefs.setString("refreshtoken", refreshtoken)
-                        Log.d("log1", response.toString())
-                        val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                        binding.root.findNavController().navigate(action)
+                        Log.d("log1", response.body().toString())
+                        var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                        if(App.prefs.getString("accesstoken", "").equals("")) {
+                            binding.root.findNavController().navigate(action)
+                        }
+                        else {
+                            action =
+                                LoginFragmentDirections.actionLoginFragmentToFamilyroomFragment()
+                            binding.root.findNavController().navigate(action)
+                        }
                     }
                 }
 
@@ -46,6 +57,7 @@ class LoginFragment : Fragment() {
                     // 실패
                     Log.d("log3",t.message.toString())
                     Log.d("log4","fail")
+                    Log.d("log5", t.toString())
                 }
             })
         }
