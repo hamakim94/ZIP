@@ -8,9 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
-import com.ssafy.zip.android.data.response.ResponseLoginData
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,10 +28,10 @@ class LoginFragment : Fragment() {
                 RequestLoginData(
                 email = binding.editEmail.text.toString(),
                 password = binding.editPassword.text.toString())
-            ).enqueue(object : Callback<ResponseLoginData> {
+            ).enqueue(object : Callback<User> {
                 override fun onResponse(
-                    call: Call<ResponseLoginData>,
-                    response: Response<ResponseLoginData>
+                    call: Call<User>,
+                    response: Response<User>
                 ) {
                     if(response.code().toString().equals("200")) {
                         val headers = response.headers()
@@ -41,19 +40,22 @@ class LoginFragment : Fragment() {
                         App.prefs.setString("accesstoken", accesstoken)
                         App.prefs.setString("refreshtoken", refreshtoken)
                         Log.d("log1", response.body().toString())
+                        val user = response.body()?.toString()
+                        App.prefs.setString("user", user.toString())
                         var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                         if(App.prefs.getString("accesstoken", "").equals("")) {
-                            binding.root.findNavController().navigate(action)
+//                            binding.root.findNavController().navigate(action)
                         }
                         else {
                             action =
                                 LoginFragmentDirections.actionLoginFragmentToFamilyroomFragment()
-                            binding.root.findNavController().navigate(action)
+//                          binding.root.findNavController().navigate(action)
+
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
+                override fun onFailure(call: Call<User>, t: Throwable) {
                     // 실패
                     Log.d("log3",t.message.toString())
                     Log.d("log4","fail")

@@ -11,6 +11,7 @@ import com.ssafy.zip.android.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding : ActivityMainBinding;
     private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,6 +35,10 @@ class MainActivity : AppCompatActivity() {
                 binding.fab.visibility = View.VISIBLE
             }
         }
+    }
+
+    fun getUserData() {
+
     }
 
 }

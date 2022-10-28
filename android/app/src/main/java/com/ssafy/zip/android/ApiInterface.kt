@@ -1,7 +1,7 @@
 package com.ssafy.zip.android
 
+import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
-import com.ssafy.zip.android.data.response.ResponseLoginData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -11,10 +11,10 @@ interface ApiInterface {
     @POST("users/login")//Post Interface
     fun requsetLogin(
         @Body body : RequestLoginData
-    ): Call<ResponseLoginData> // 받을 데이터 클래스
+    ): Call<User> // 받을 데이터 클래스
 
     @POST("users/reissue")
-    fun requestReissue():Call<ResponseLoginData>
+    fun requestReissue():Call<User>
 
 
 
