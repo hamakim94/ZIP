@@ -5,12 +5,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ResponseLoginData(
-    var familyResponseDTO : ResponseFamily,
-    var hasFamily : Boolean,
-    var id : Int,
-    var name : String,
+    var familyResponseDTO: ResponseFamily,
+    var hasFamily: Boolean,
+    var id: Int,
+    var name: String,
     var nickname: String,
-    var profileImg : String
-):Parcelable
+    var profileImg: String
+) : Parcelable
 
 

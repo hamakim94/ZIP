@@ -11,6 +11,6 @@ data class User(
     var id : Int,
     var name : String,
     var nickname: String,
-    var profileImg : String
+    var profileImg : String? // 추후 수정?
 ): Parcelable
 

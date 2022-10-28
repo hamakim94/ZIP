@@ -1,18 +1,26 @@
 package com.ssafy.zip.android.data
 
 import android.os.Parcelable
+import android.view.inspector.IntFlagMapping
 import kotlinx.parcelize.Parcelize
+import java.util.Date
 
 sealed class BoardModel : Parcelable {
-
+//    var category : Int,
     @Parcelize
     data class Board(
-        var userImage: Int,
-        var userNickname: String,
-        var boardReg: String,
-        var boardImage: Int,
-        var boardContent: String,
-        var commentCount: String,
+        var id : Long,
+        var familyId : Long,
+        var user : User,
+        var content : String,
+        var image : String?, // 추후 string
+        var reg : String
+//        var userImage: Int,
+//        var userNickname: String,
+//        var boardReg: String,
+//        var boardImage: Int,
+//        var boardContent: String,
+//        var commentCount: String,
     ) : BoardModel()
 
     @Parcelize

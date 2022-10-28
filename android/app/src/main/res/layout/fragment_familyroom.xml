@@ -5,14 +5,16 @@
     <variable
         name="responseLoginData"
         type="com.ssafy.zip.android.data.response.ResponseLoginData"/>
-</data><FrameLayout
+    </data>
+    <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FamilyroomFragment">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@{}"
+            ></TextView>
 </FrameLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@{}"
-        ></TextView>
+
 </layout>
