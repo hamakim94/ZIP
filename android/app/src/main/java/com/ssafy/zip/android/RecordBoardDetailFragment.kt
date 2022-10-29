@@ -54,7 +54,7 @@ class RecordBoardDetailFragment : Fragment() {
         if (boardData != null) {
 //            profileImage.setImageResource(boardData.userImage)
             userNickname.text = boardData.user.nickname
-            boardReg.text = boardData.reg
+            boardReg.text = boardData.reg.toString()
 //            boardImage.setImageResource(boardData.image)
 //            commentCountDetail.text = boardData.commentCount
         }

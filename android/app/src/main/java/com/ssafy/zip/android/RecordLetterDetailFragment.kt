@@ -37,9 +37,12 @@ class RecordLetterDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val letterData = arguments?.getParcelable<BoardModel.Letter>("Letter")
         if(letterData != null){
-            binding.letterUserNicknameDetail.text = letterData.letterTitle
-            binding.letterRegDetail.text = letterData.letterReg
-            binding.letterContentDetail.text = letterData.letterContent
+            binding.letterUserNicknameDetail.text = letterData.from.nickname + "에서" + letterData.to.nickname + "에게 보내는 편지"
+            binding.letterRegDetail.text = letterData.reg.toString()
+            binding.letterContentDetail.text = letterData.content
+//            itemView.findViewById<TextView>(R.id.letterTitle).text = letter.from.nickname + "에서" + letter.to.nickname + "에게 보내는 편지"
+//            itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg
+//            itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
         }
 
 

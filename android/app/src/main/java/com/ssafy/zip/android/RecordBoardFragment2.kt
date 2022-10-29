@@ -14,18 +14,12 @@ import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.databinding.FragmentRecordBoardBinding
 import java.util.Date
 import com.ssafy.zip.android.data.response.ResponseLoginData
-import kotlinx.coroutines.newFixedThreadPoolContext
-import kotlinx.coroutines.newSingleThreadContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.awaitResponse
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 
-class RecordBoardFragment : Fragment() {
+class RecordBoardFragment2 : Fragment() {
 
     private var _binding: FragmentRecordBoardBinding? = null
     private val binding get() = _binding!!
@@ -81,27 +75,23 @@ class RecordBoardFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-//    var family = Family(123, "a", 6, 5, 1, Date(2022, 10, 27, 4, 22, 39));
-//    var user_now = User(family, true, 5, "테스트", "테스트", null)
+    var family = Family(123, "a", 6, 5, 1, Date(2022, 10, 27, 4, 22, 39));
+    var user_now = User(family, true, 5, "테스트", "테스트", null)
 
 
     private fun getMockData() {
+        ApiService.getApiService.getBoard().enqueue(object : Callback<List<ResponseBoardAll>>{
+            override fun onResponse(call: Call<List<ResponseBoardAll>>, response: Response<List<ResponseBoardAll>>) {
+                println(response.body())
+                boardModelArrayList = response.body()!!
+                filteredBoardModelArrayList = ArrayList(boardModelArrayList)
 
-        val executorService:ExecutorService = Executors.newFixedThreadPool(1)
 
-        val countDownLatch:CountDownLatch = CountDownLatch(1)
-
-        executorService.execute {
-            val response = ApiService.getApiService.getBoard().execute()
-            println(response.body())
-            boardModelArrayList = response.body()!!
-            filteredBoardModelArrayList = ArrayList(boardModelArrayList)
-            countDownLatch.countDown()
-            
-        }
-
-        countDownLatch.await()
-
+            }
+            override fun onFailure(call: Call<List<ResponseBoardAll>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
 //    : ArrayList<BoardModel> = arrayListOf(
