@@ -2,7 +2,6 @@ package com.ssafy.zip.android.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.*
 
 @Parcelize
 data class Family(
@@ -11,5 +10,5 @@ data class Family(
     var id: Int,
     var memberNum: Int,
     var qnaId: Int,
-    var reg: Date
+    var reg: Int
 ) : Parcelable

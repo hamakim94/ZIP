@@ -13,6 +13,8 @@ class CalendarAdapter(private val calendarList:ArrayList<Calendar>) : RecyclerVi
         val calendarImage : ImageView = itemView.findViewById(R.id.calendar_image)
         val calendarTitle : TextView = itemView.findViewById(R.id.calendar_title)
         val calendarNum : TextView = itemView.findViewById(R.id.calendar_num)
+
+        //val calendarFamily : TextView = itemView.findViewById(R.id.calendar_family)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
@@ -22,9 +24,10 @@ class CalendarAdapter(private val calendarList:ArrayList<Calendar>) : RecyclerVi
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val calendar = calendarList[position]
-        holder.calendarImage.setImageResource(calendar.image)
-        holder.calendarTitle.text = calendar.title
-        holder.calendarNum.text = calendar.num.toString() + "시"
+        // holder.calendarImage.setImageResource(calendar.image)
+        //holder.calendarImage.setImageResource(arrayOf(calendar.users[img]))
+        holder.calendarTitle.text = calendar.content
+        // holder.calendarNum.text = calendar.num.toString() + "시"
     }
 
     override fun getItemCount(): Int {

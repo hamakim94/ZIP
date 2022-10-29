@@ -1,7 +1,5 @@
 package com.ssafy.zip.android
-import android.app.DatePickerDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -19,18 +16,12 @@ import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.data.Calendar
 import com.google.android.material.timepicker.TimeFormat
 import java.text.DateFormat
-import java.text.DateFormat.getInstance
 import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
-import java.util.Calendar.*
-import java.util.Currency.getInstance
-import android.annotation.SuppressLint;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.User
+import java.util.Date;
 
 
 class CalendarFragment : Fragment() {
@@ -40,9 +31,8 @@ class CalendarFragment : Fragment() {
     private lateinit var calendarAdapter: CalendarAdapter
     private lateinit var activity: MainActivity
     private lateinit var customAlertDialogView: View
-    private lateinit var customChoiceDialogView: View
     private lateinit var calendarTextField: TextInputLayout
-    private lateinit var memberList: ArrayList<Member>
+    private lateinit var memberList: ArrayList<User>
     private lateinit var calendarDialogAdapter: CalendarDialogAdapter
 
 
@@ -218,7 +208,7 @@ class CalendarFragment : Fragment() {
                     .setTimeFormat(TimeFormat.CLOCK_12H)
                     .build()
 
-                materialTimePicker.show(activity!!.supportFragmentManager, "MainActivity")
+                materialTimePicker.show(requireActivity().supportFragmentManager, "MainActivity")
 
                 materialTimePicker.addOnPositiveButtonClickListener {
 
@@ -277,7 +267,7 @@ class CalendarFragment : Fragment() {
                         .setTimeFormat(TimeFormat.CLOCK_12H)
                         .build()
 
-                    materialTimePicker2.show(activity!!.supportFragmentManager, "MainActivity")
+                    materialTimePicker2.show(requireActivity().supportFragmentManager, "MainActivity")
 
                     materialTimePicker2.addOnPositiveButtonClickListener {
 
@@ -332,15 +322,21 @@ class CalendarFragment : Fragment() {
 
     }
 
-    private fun addDataToList() {
-        calendarList.add(Calendar(1, R.drawable.ex, "아침엔 티타임~", 10))
-        calendarList.add(Calendar(2, R.drawable.ex2, "점심엔 짜장면~", 12))
-        calendarList.add(Calendar(3, R.drawable.ex3, "저녁엔 삼겹살~", 6))
+    var family1 = Family(1, "현수네", 1, 4, 1,  2022-10-28)
 
-        memberList.add(Member(1,"류현수", "행복한 우리 가조쿠", "귀요미 막둥이 현수", R.drawable.member1))
-        memberList.add(Member(2,"김민균", "행복한 우리 가조쿠", "귀요미 첫째 민균", R.drawable.member2))
-        memberList.add(Member(3,"이승연", "행복한 우리 가조쿠", "귀요미 둘째 승연", R.drawable.member3))
-        memberList.add(Member(4,"이보나", "행복한 우리 가조쿠", "귀요미 셋째 보나", R.drawable.member4))
+    var user1 = User(family1,true, 1, "현수", "귀요미 막내 현수", null, R.drawable.member1)
+    var user2 = User(family1,true, 2, "민균", "귀요미 첫째 민균", null, R.drawable.member2)
+    var user3 = User(family1,true, 3, "승연", "귀요미 둘째 승연", null, R.drawable.member3)
+    var user4 = User(family1,true, 4, "보나", "귀요미 셋째 보나", null, R.drawable.member4)
+
+
+
+    private fun addDataToList() {
+        calendarList.add(Calendar("가족 회식", 2022-10-29, 1, 2022-10-29, arrayListOf(user1, user2, user3, user4)))
+        calendarList.add(Calendar("여친이랑 데이트ㅋ",2022-10-29, 1, 2022-10-29, arrayListOf(user1)))
+        calendarList.add(Calendar("남치이랑 데이트ㅋ",2022-10-28, 1, 2022-10-29, arrayListOf(user1)))
+
+        memberList =  arrayListOf(user1, user2, user3, user4)
     }
 }
 

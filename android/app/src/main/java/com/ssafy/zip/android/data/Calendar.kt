@@ -5,11 +5,11 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-data class Calendar (
+data class Calendar(
     val content: String,
-    val endDate: Date,
+    val endDate: Int,   //Date
     val id: Long,
-    val startDate: Date,
+    val startDate: Int, //Date
     val user: ArrayList<User>
 
 ) : Parcelable
