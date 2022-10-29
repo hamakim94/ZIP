@@ -16,31 +16,53 @@ import java.util.*
 
 
 object ApiService {
-                    private const val BASE_URL = "http://k7a407.p.ssafy.io:8888/api/"
+    private const val BASE_URL = "http://k7a407.p.ssafy.io:8888/api/"
 
-                    class TokenInterceptor : Interceptor {
-                        override fun intercept(chain: Interceptor.Chain): Response {
-                            val request = chain.request().newBuilder()
-                                .addHeader("ACCESSTOKEN", App.prefs.getString("accesstoken", ""))
-                                .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
+    class TokenInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val request = chain.request().newBuilder()
+                .addHeader("ACCESSTOKEN", App.prefs.getString("accesstoken", ""))
+                .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
                 .build()
             return chain.proceed(request)
+        }
+    }
+
+    class RefreshInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val request = chain.request();
+            val response = chain.proceed(request);
+            when (response.code()) {
+                403 -> {
+                    App.prefs.setString("accesstoken", "")
+//                    CoroutineScope(Dispatchers.Default).launch {
+//                        println(getApiService.requestReissue())
+//                    }
+                }
+            }
+            return response
         }
     }
 
     //length 0 처리
     private val nullOnEmptyConverterFactory = object : Converter.Factory() {
         fun converterFactory() = this
-        override fun responseBodyConverter(type: Type, annotations: Array<out Annotation>, retrofit: Retrofit) = object : Converter<ResponseBody, Any?> {
-            val nextResponseBodyConverter = retrofit.nextResponseBodyConverter<Any?>(converterFactory(), type, annotations)
+        override fun responseBodyConverter(
+            type: Type,
+            annotations: Array<out Annotation>,
+            retrofit: Retrofit
+        ) = object : Converter<ResponseBody, Any?> {
+            val nextResponseBodyConverter =
+                retrofit.nextResponseBodyConverter<Any?>(converterFactory(), type, annotations)
+
             override fun convert(value: ResponseBody) = if (value.contentLength() != 0L) {
-                try{
+                try {
                     nextResponseBodyConverter.convert(value)
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                     null
                 }
-            } else{
+            } else {
                 null
             }
         }
@@ -49,9 +71,10 @@ object ApiService {
     // 인터셉터 설정을 위한 okhttp3
     val client = OkHttpClient.Builder()
         .addInterceptor(TokenInterceptor())
+        .addInterceptor(RefreshInterceptor())
         .build()
 
-    private val getApi by lazy{
+    private val getApi by lazy {
         val builder = GsonBuilder()
         builder.registerTypeAdapter(Date::class.java, GsonDateFormatAdapter())
         Retrofit.Builder()
@@ -62,7 +85,7 @@ object ApiService {
             .build()
     }
 
-    val getApiService : ApiInterface by lazy {
+    val getApiService: ApiInterface by lazy {
         getApi.create(ApiInterface::class.java)
     }
 
