@@ -3,20 +3,15 @@ package com.ssafy.zip.android
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -29,50 +24,58 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.btnLogin.setOnClickListener {
-            ApiService.getApiService.requsetLogin(
-                RequestLoginData(
+//            ApiService.getApiService.requsetLogin(
+//                RequestLoginData(
+//                    email = binding.editEmail.text.toString(),
+//                    password = binding.editPassword.text.toString()
+//                )
+//            ).(object : Callback<User> {
+//                override fun onResponse(
+//                    call: Call<User>,
+//                    response: Response<User>
+//                ) {
+//                    if (response.code().toString().equals("200")) {
+//                        val headers = response.headers()
+//                        val accesstoken = headers.get("ACCESSTOKEN").toString()
+//                        val refreshtoken = headers.get("REFRESHTOKEN").toString()
+//                        App.prefs.setString("accesstoken", accesstoken)
+//                        App.prefs.setString("refreshtoken", refreshtoken)
+//                        Log.d("log1", response.body().toString())
+//                        val user = response.body()?.toString()
+//                        App.prefs.setString("user", user.toString())
+//                        var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+//                        if (App.prefs.getString("accesstoken", "").equals("")) {
+////                            binding.root.findNavController().navigate(action)
+//                        } else {
+//                            action =
+//                                LoginFragmentDirections.actionLoginFragmentToFamilyroomFragment()
+////                          binding.root.findNavController().navigate(action)
+//
+//                        }
+////                        (activity as MainActivity).User
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<User>, t: Throwable) {
+//                    // 실패
+//                    Log.d("log3", t.message.toString())
+//                    Log.d("log4", "fail")
+//                    Log.d("log5", t.toString())
+//                }
+//            })
+            CoroutineScope(Dispatchers.IO).launch {
+            val response = ApiService.getApiService.requsetLogin( RequestLoginData(
                     email = binding.editEmail.text.toString(),
                     password = binding.editPassword.text.toString()
-                )
-            ).enqueue(object : Callback<User> {
-                override fun onResponse(
-                    call: Call<User>,
-                    response: Response<User>
-                ) {
-                    if (response.code().toString().equals("200")) {
-                        val headers = response.headers()
-                        val accesstoken = headers.get("ACCESSTOKEN").toString()
-                        val refreshtoken = headers.get("REFRESHTOKEN").toString()
-                        App.prefs.setString("accesstoken", accesstoken)
-                        App.prefs.setString("refreshtoken", refreshtoken)
-                        Log.d("log1", response.body().toString())
-                        val user = response.body()?.toString()
-                        App.prefs.setString("user", user.toString())
-                        var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                        if (App.prefs.getString("accesstoken", "").equals("")) {
-//                            binding.root.findNavController().navigate(action)
-                        } else {
-                            action =
-                                LoginFragmentDirections.actionLoginFragmentToFamilyroomFragment()
-//                          binding.root.findNavController().navigate(action)
+                ))
+                println(response.code())
+            }
 
-                        }
-                        (activity as MainActivity).User
-                    }
-                }
-
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    // 실패
-                    Log.d("log3", t.message.toString())
-                    Log.d("log4", "fail")
-                    Log.d("log5", t.toString())
-                }
-            })
         }
         binding.signupText.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                ApiService.getApiService.getBoard()
-            }
+//            CoroutineScope(Dispatchers.IO).launch {
+//                ApiService.getApiService.getBoard()
+//            }
         }
         binding.passwordfindText.setOnClickListener {
             // 토큰 잘 쓰는지 테스트용이였음

@@ -37,8 +37,8 @@ object ApiService {
             val response = chain.proceed(request);
             when(response.code()){
                 403 -> {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        println(getApiService.requestReissue().headers())
+                    CoroutineScope(Dispatchers.Default).launch {
+                        println(getApiService.requestReissue())
                     }
                 }
             }
