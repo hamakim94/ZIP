@@ -29,7 +29,7 @@ class RecordAlbumFragment : Fragment() {
     private lateinit var activity: MainActivity
     private lateinit var customAlertDialogView : View
     private lateinit var albumTextField : TextInputLayout
-    private lateinit var viewModel: AlbumViewModel
+    private val viewModel: AlbumViewModel by viewModels()
 //    var imageList: ArrayList<Uri> = ArrayList()
 
 //    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -55,7 +55,7 @@ class RecordAlbumFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(AlbumViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(AlbumViewModel::class.java)
 
         println("albumViewModel: " + viewModel.albumList)
     }
