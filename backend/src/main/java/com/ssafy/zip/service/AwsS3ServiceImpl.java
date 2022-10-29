@@ -52,6 +52,6 @@ public class AwsS3ServiceImpl implements AwsS3Service{
     }
 
     private String createFileName(String fileName) { // 파일 업로드 시, 파일명을 난수화.
-        return UUID.randomUUID().toString().concat(getFileExtension(fileName));
+        return UUID.randomUUID().toString().concat(".").concat(getFileExtension(fileName));
     }
 }
