@@ -21,7 +21,7 @@ interface ApiInterface {
 
     // 앨범 관련
     @GET("album")
-    fun getAllAlbumList() : Response<List<Album>>
+    suspend fun getAllAlbumList() : Response<ArrayList<Album>>
 
 
 

@@ -1,5 +1,6 @@
 package com.ssafy.zip.android
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,18 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.data.Album
-import com.ssafy.zip.android.data.Photo
 import com.ssafy.zip.android.databinding.FragmentRecordAlbumBinding
 import com.ssafy.zip.android.viewmodel.AlbumViewModel
-import java.util.*
 
 
 class RecordAlbumFragment : Fragment() {
@@ -29,7 +26,7 @@ class RecordAlbumFragment : Fragment() {
     private lateinit var activity: MainActivity
     private lateinit var customAlertDialogView : View
     private lateinit var albumTextField : TextInputLayout
-    private val viewModel: AlbumViewModel by viewModels()
+    private val viewModel by viewModels<AlbumViewModel>{AlbumViewModel.Factory(Application())}
 //    var imageList: ArrayList<Uri> = ArrayList()
 
 //    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -57,7 +54,8 @@ class RecordAlbumFragment : Fragment() {
 
 //        viewModel = ViewModelProvider(this).get(AlbumViewModel::class.java)
 
-        println("albumViewModel: " + viewModel.albumList)
+
+        println(viewModel)
     }
 
     override fun onAttach(context: Context) {

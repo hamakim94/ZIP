@@ -1,11 +1,9 @@
 package com.ssafy.zip.android.viewmodel
 
+import android.app.Application
 import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ssafy.zip.android.data.Album
 import com.ssafy.zip.android.repository.AlbumRepository
 import kotlinx.coroutines.launch
@@ -21,7 +19,14 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
         Log.d(TAG, "AlbumViewModel 생성자 호출")
         viewModelScope.launch {
             // .value : livedata가 가지고 있는 값으로 접근
-            _albumList.value = repository.getAllAlbumList()
+//            _albumList.value = repository.getAllAlbumList()
+            println(repository.getAllAlbumList())
+        }
+    }
+
+    class Factory(private val application : Application) : ViewModelProvider.Factory { // factory pattern
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return AlbumViewModel(AlbumRepository.getInstance(application)!!) as T
         }
     }
 }
