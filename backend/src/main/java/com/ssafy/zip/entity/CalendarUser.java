@@ -1,5 +1,6 @@
 package com.ssafy.zip.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,11 +11,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "calender_user")
-public class CalenderUser {
+@Table(name = "calendar_user")
+public class CalendarUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "calendar_id")
+    Calendar calendar;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

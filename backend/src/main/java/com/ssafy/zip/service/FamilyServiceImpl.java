@@ -4,6 +4,7 @@ import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.FamilyRequestDTO;
 import com.ssafy.zip.dto.response.FamilyMemberResponseDTO;
 import com.ssafy.zip.dto.response.FamilyResponseDTO;
+import com.ssafy.zip.dto.response.SimpleUserResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.entity.Family;
 import com.ssafy.zip.entity.User;
@@ -63,17 +64,16 @@ public class FamilyServiceImpl implements FamilyService{
     @Override
     public FamilyMemberResponseDTO getFamilyMembers(UserDTO userDTO) throws Exception {
         Family family = familyRepository.findById(userDTO.getFamilyId()).get();
-        List<UserResponseDTO> userResponseDTOList = new ArrayList<>();
+        List<SimpleUserResponseDTO> simpleUserResponseDTOList = new ArrayList<>();
         for (User user: family.getUsers()) {
-            userResponseDTOList.add(UserResponseDTO.builder()
+            simpleUserResponseDTOList.add(SimpleUserResponseDTO.builder()
                     .id(user.getId())
                     .nickname(user.getNickname())
-                    .hasFamily(true)
                     .name(user.getName())
                     .profileImg(user.getProfileImg())
                     .build());
         }
-        FamilyMemberResponseDTO familyMemberResponseDTO = new FamilyMemberResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId(), userResponseDTOList);
+        FamilyMemberResponseDTO familyMemberResponseDTO = new FamilyMemberResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId(), simpleUserResponseDTOList);
         return familyMemberResponseDTO;
     }
 
