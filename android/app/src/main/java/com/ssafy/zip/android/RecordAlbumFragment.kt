@@ -102,11 +102,9 @@ class RecordAlbumFragment : Fragment() {
                 .setMessage(R.string.add_album_msg)
                 .setPositiveButton(resources.getString(R.string.confirm)) { dialog, which ->
                     val albumTitle = albumTextField.editText?.text.toString()
-
                     // 확인 버튼 눌렀을 때 할 일
                     // 앨범 생성
-
-
+                    viewModel.addAlbum(albumTitle)
 
                     // 앨범 생성 후, 갤러리에서 사진 다중 선택
                     // 갤러리 호출
@@ -132,13 +130,15 @@ class RecordAlbumFragment : Fragment() {
     }
 
     fun observeViewModel() {
-        viewModel.albumList.observe(this, Observer { albumList ->
-            albumList?.let{
-                albumAdapter = AlbumAdapter(albumList)
-//        albumAdapter = viewModel.albumList.observe(this, Observer {  })
+        val observer = object : Observer<ArrayList<Album>> {
+            override fun onChanged(t: ArrayList<Album>?) {
+                println("observeViewModel onChanged")
+                albumAdapter = t?.let { it1 -> AlbumAdapter(it1) }!!
                 recyclerView.adapter = albumAdapter
             }
-        })
+        }
+
+        viewModel.albumList.observe(viewLifecycleOwner, observer)
     }
 
 //    var p11 = Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5)

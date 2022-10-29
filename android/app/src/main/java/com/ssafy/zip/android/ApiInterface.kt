@@ -8,6 +8,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiInterface {
 
@@ -20,6 +21,17 @@ interface ApiInterface {
     fun requestReissue():Call<ResponseLoginData>
 
     // 앨범 관련
+//    @POST("album/")
+//    suspend fun updateAlbum(
+//        @Query("name") title: String
+//    ) : Response<Album>
+
+    // 후에는 위에걸로 변경
+    @POST("album/")
+    suspend fun updateAlbum(
+        @Query("name") title: String
+    ) : Response<Any>
+
     @GET("album/")
     suspend fun getAllAlbumList() : Response<ArrayList<Album>>
 
