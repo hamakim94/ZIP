@@ -59,7 +59,6 @@
             app:layoutManager="GridLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/familyMember"
             tools:listitem="@layout/home_item" />
-
         <FrameLayout
             android:id="@+id/home_mission"
             android:layout_width="match_parent"
@@ -72,7 +71,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/home_recycler_view"
             app:layout_constraintBottom_toBottomOf="parent"></FrameLayout>
-
         <TextView
             android:id="@+id/mission_top"
             android:layout_width="match_parent"
