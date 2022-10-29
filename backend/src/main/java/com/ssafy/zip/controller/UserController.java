@@ -197,7 +197,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         log.error("token 재발급 실패");
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.GONE);
     }
 
     //TODO: 리다이렉트 위치 정하기 or 페이지 만들기
