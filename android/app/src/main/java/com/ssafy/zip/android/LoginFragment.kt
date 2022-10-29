@@ -3,10 +3,12 @@ package com.ssafy.zip.android
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
 import kotlinx.coroutines.CoroutineScope
@@ -63,12 +65,31 @@ class LoginFragment : Fragment() {
 //                    Log.d("log5", t.toString())
 //                }
 //            })
-            CoroutineScope(Dispatchers.IO).launch {
-            val response = ApiService.getApiService.requsetLogin( RequestLoginData(
-                    email = binding.editEmail.text.toString(),
-                    password = binding.editPassword.text.toString()
-                ))
-                println(response.code())
+            CoroutineScope(Dispatchers.Main).launch {
+                val response = ApiService.getApiService.requsetLogin(
+                    RequestLoginData(
+                        email = binding.editEmail.text.toString(),
+                        password = binding.editPassword.text.toString()
+                    )
+                )
+                if (response.isSuccessful) {
+                    val headers = response.headers()
+                    val accesstoken = headers.get("ACCESSTOKEN").toString()
+                    val refreshtoken = headers.get("REFRESHTOKEN").toString()
+                    App.prefs.setString("accesstoken", accesstoken)
+                    App.prefs.setString("refreshtoken", refreshtoken)
+                    Log.d("log1", response.body().toString())
+                    val user = response.body()?.toString()
+                    App.prefs.setString("user", user.toString())
+                    var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                    binding.root.findNavController().navigate(action)
+//                        if (!App.prefs.getString("accesstoken", "").equals("")) {
+//                        } else {
+//                            action =
+//                                LoginFragmentDirections.actionLoginFragmentToFamilyroomFragment()
+//                          binding.root.findNavController().navigate(action)
+//                        }
+                }
             }
 
         }

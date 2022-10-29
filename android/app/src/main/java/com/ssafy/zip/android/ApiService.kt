@@ -1,9 +1,6 @@
 package com.ssafy.zip.android
 
 import com.google.gson.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -31,15 +28,16 @@ object ApiService {
         }
     }
 
-    class RefreshInterceptor : Interceptor{
+    class RefreshInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
             val request = chain.request();
             val response = chain.proceed(request);
-            when(response.code()){
+            when (response.code()) {
                 403 -> {
-                    CoroutineScope(Dispatchers.Default).launch {
-                        println(getApiService.requestReissue())
-                    }
+                    App.prefs.setString("accesstoken", "")
+//                    CoroutineScope(Dispatchers.Default).launch {
+//                        println(getApiService.requestReissue())
+//                    }
                 }
             }
             return response
