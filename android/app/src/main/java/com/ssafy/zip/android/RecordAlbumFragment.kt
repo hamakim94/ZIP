@@ -3,18 +3,23 @@ package com.ssafy.zip.android
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.data.Album
 import com.ssafy.zip.android.data.Photo
+import com.ssafy.zip.android.databinding.FragmentRecordAlbumBinding
+import com.ssafy.zip.android.viewmodel.AlbumViewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class RecordAlbumFragment : Fragment() {
@@ -24,6 +29,7 @@ class RecordAlbumFragment : Fragment() {
     private lateinit var activity: MainActivity
     private lateinit var customAlertDialogView : View
     private lateinit var albumTextField : TextInputLayout
+    private lateinit var viewModel: AlbumViewModel
 //    var imageList: ArrayList<Uri> = ArrayList()
 
 //    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -48,6 +54,10 @@ class RecordAlbumFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(AlbumViewModel::class.java)
+
+        println("albumViewModel: " + viewModel.albumList)
     }
 
     override fun onAttach(context: Context) {
@@ -60,7 +70,12 @@ class RecordAlbumFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_record_album, container, false)
+        val binding: FragmentRecordAlbumBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_record_album, container, false
+        )
+        val view = binding.root
+        return view
+//        return inflater.inflate(R.layout.fragment_record_album, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,7 +87,7 @@ class RecordAlbumFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
 
         albumList = ArrayList()
-        addDataToList()
+//        addDataToList()
 
         albumAdapter = AlbumAdapter(albumList)
         recyclerView.adapter = albumAdapter
@@ -120,20 +135,20 @@ class RecordAlbumFragment : Fragment() {
 
     }
 
-    var p11 = Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5)
-    var p12 = Photo(2, "사진2", Date(), null, R.drawable.ex, 1, 5)
-    var p13 = Photo(3, "사진3", Date(), null, R.drawable.ex, 1, 5)
-    var p21 = Photo(4, "사진4", Date(), null, R.drawable.ex2, 2, 5)
-    var p22 = Photo(5, "사진5", Date(), null, R.drawable.ex2, 2, 5)
-    var p23 = Photo(6, "사진6", Date(), null, R.drawable.ex2, 2, 5)
-    var p31 = Photo(7, "사진7", Date(), null, R.drawable.ex3, 3, 5)
-    var p32 = Photo(8, "사진8", Date(), null, R.drawable.ex3, 3, 5)
-    var p41 = Photo(9, "사진9", Date(), null, R.drawable.ex4, 4, 5)
-
-    private fun addDataToList(){
-        albumList.add(Album(1,"괌 여행", listOf(p11, p12, p13)))
-        albumList.add(Album(2,"속초", listOf(p21, p22, p23)))
-        albumList.add(Album(3,"강", listOf(p31, p32)))
-        albumList.add(Album(4,"북한산", listOf(p41)))
-    }
+//    var p11 = Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5)
+//    var p12 = Photo(2, "사진2", Date(), null, R.drawable.ex, 1, 5)
+//    var p13 = Photo(3, "사진3", Date(), null, R.drawable.ex, 1, 5)
+//    var p21 = Photo(4, "사진4", Date(), null, R.drawable.ex2, 2, 5)
+//    var p22 = Photo(5, "사진5", Date(), null, R.drawable.ex2, 2, 5)
+//    var p23 = Photo(6, "사진6", Date(), null, R.drawable.ex2, 2, 5)
+//    var p31 = Photo(7, "사진7", Date(), null, R.drawable.ex3, 3, 5)
+//    var p32 = Photo(8, "사진8", Date(), null, R.drawable.ex3, 3, 5)
+//    var p41 = Photo(9, "사진9", Date(), null, R.drawable.ex4, 4, 5)
+//
+//    private fun addDataToList(){
+//        albumList.add(Album(1,"괌 여행", arrayListOf(p11, p12, p13)))
+//        albumList.add(Album(2,"속초", arrayListOf(p21, p22, p23)))
+//        albumList.add(Album(3,"강", arrayListOf(p31, p32)))
+//        albumList.add(Album(4,"북한산", arrayListOf(p41)))
+//    }
 }

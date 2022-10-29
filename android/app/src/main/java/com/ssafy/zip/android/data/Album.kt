@@ -7,5 +7,5 @@ data class Album (
     @SerializedName("name")
     val title: String,
     @SerializedName("pictures")
-    val photoList: List<Photo>
+    val photoList: ArrayList<Photo>
 )

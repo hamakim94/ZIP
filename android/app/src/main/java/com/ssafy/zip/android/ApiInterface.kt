@@ -1,9 +1,12 @@
 package com.ssafy.zip.android
 
+import com.ssafy.zip.android.data.Album
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.data.response.ResponseLoginData
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiInterface {
@@ -15,6 +18,10 @@ interface ApiInterface {
 
     @POST("users/reissue")
     fun requestReissue():Call<ResponseLoginData>
+
+    // 앨범 관련
+    @GET("album")
+    fun getAllAlbumList() : Response<List<Album>>
 
 
 
