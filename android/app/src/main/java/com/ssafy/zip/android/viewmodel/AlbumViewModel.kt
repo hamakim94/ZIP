@@ -19,8 +19,9 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
         Log.d(TAG, "AlbumViewModel 생성자 호출")
         viewModelScope.launch {
             // .value : livedata가 가지고 있는 값으로 접근
-//            _albumList.value = repository.getAllAlbumList()
-            println(repository.getAllAlbumList())
+            _albumList.value = repository.getAllAlbumList()
+            println("AlbumViewModel repository.getAllAlbumList()" + repository.getAllAlbumList())
+            println("AlbumViewModel repository.getAllAlbumList() _albumList.value" + _albumList.value)
         }
     }
 
@@ -29,4 +30,8 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
             return AlbumViewModel(AlbumRepository.getInstance(application)!!) as T
         }
     }
+
+//    fun getAlbumList() : ArrayList<Album>{
+//        return if(_albumList.value == null) ArrayList<Album>() else _albumList.value!!
+//    }
 }

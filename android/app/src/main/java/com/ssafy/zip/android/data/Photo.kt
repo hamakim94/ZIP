@@ -12,8 +12,8 @@ data class Photo (
     var fileName: String,
     var reg: Date,
     @SerializedName("url")
-    var imageUrl: String?,
-    var url: Int,
+    var url: String,
+//    var url: Int,
     var albumId: Long,
     var userId: Long
 ) : Parcelable

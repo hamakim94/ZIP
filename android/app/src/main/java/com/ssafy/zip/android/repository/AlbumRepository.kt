@@ -9,7 +9,8 @@ class AlbumRepository(application : Application) {
     // Retrofit 사용
     suspend fun getAllAlbumList(): ArrayList<Album> {
         val response = ApiService.getApiService.getAllAlbumList()
-        Log.d("log", response.body().toString())
+        println("AlbumRepository getAllAlbumList response: " + response)
+//        Log.d("log", response.body().toString())
         return if(response.isSuccessful) response.body() as ArrayList<Album> else ArrayList()
     }
 

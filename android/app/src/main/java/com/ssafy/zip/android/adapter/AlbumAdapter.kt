@@ -47,7 +47,7 @@ class AlbumAdapter(private val albumList:ArrayList<Album>) : RecyclerView.Adapte
         if(holder is AlbumViewHolder){
             val album = albumList[position]
             holder.binding.albumTitle.text = album.title
-            holder.binding.albumImage.setImageResource(album.photoList[0].url)
+//            holder.binding.albumImage.setImageResource(album.photoList[0].url)
             holder.binding.albumNum.text = album.photoList.size.toString() + "개의 추억"
 
             holder.itemView.setOnClickListener{

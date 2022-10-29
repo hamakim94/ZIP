@@ -33,9 +33,9 @@ class PhotoSlideAdapter(private val photoList : ArrayList<Photo>) : RecyclerView
     // ViewHolder 객체들의 레이아웃을 채우게 된다.
     // position 이라는 파라미터를 활용하여 데이터의 순서에 맞게 아이템 레이아웃을 바인딩
     override fun onBindViewHolder(holder: PhotoSlideViewHolder, position: Int) {
-        holder.photoImage.setImageResource(
-            photoList[position].url
-        )
+//        holder.photoImage.setImageResource(
+//            photoList[position].url
+//        )
 //        holder.itemView.setOnClickListener{
 //
 //        }

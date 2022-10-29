@@ -20,7 +20,7 @@ interface ApiInterface {
     fun requestReissue():Call<ResponseLoginData>
 
     // 앨범 관련
-    @GET("album")
+    @GET("album/")
     suspend fun getAllAlbumList() : Response<ArrayList<Album>>
 
 

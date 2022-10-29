@@ -93,15 +93,15 @@ class RecordAlbumPicturesFragment : Fragment(), photo_onClick_interface {
     }
 
     private fun addDataToList(){
-        photoList.add(Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5))
-        photoList.add(Photo(2, "사진2", Date(), null, R.drawable.ex, 1, 5))
-        photoList.add(Photo(3, "사진3", Date(), null, R.drawable.ex, 1, 5))
-        photoList.add(Photo(4, "사진4", Date(), null, R.drawable.ex2, 2, 5))
-        photoList.add(Photo(5, "사진5", Date(), null, R.drawable.ex2, 2, 5))
-        photoList.add(Photo(6, "사진6", Date(), null, R.drawable.ex2, 2, 5))
-        photoList.add(Photo(7, "사진7", Date(), null, R.drawable.ex3, 3, 5))
-        photoList.add(Photo(8, "사진8", Date(), null, R.drawable.ex3, 3, 5))
-        photoList.add(Photo(9, "사진9", Date(), null, R.drawable.ex4, 4, 5))
+//        photoList.add(Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5))
+//        photoList.add(Photo(2, "사진2", Date(), null, R.drawable.ex, 1, 5))
+//        photoList.add(Photo(3, "사진3", Date(), null, R.drawable.ex, 1, 5))
+//        photoList.add(Photo(4, "사진4", Date(), null, R.drawable.ex2, 2, 5))
+//        photoList.add(Photo(5, "사진5", Date(), null, R.drawable.ex2, 2, 5))
+//        photoList.add(Photo(6, "사진6", Date(), null, R.drawable.ex2, 2, 5))
+//        photoList.add(Photo(7, "사진7", Date(), null, R.drawable.ex3, 3, 5))
+//        photoList.add(Photo(8, "사진8", Date(), null, R.drawable.ex3, 3, 5))
+//        photoList.add(Photo(9, "사진9", Date(), null, R.drawable.ex4, 4, 5))
     }
 
     // fragment에서 adapter에 data를 전달하기 위함

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -49,14 +50,9 @@ class RecordAlbumFragment : Fragment() {
         fun newInstance() : RecordAlbumFragment = RecordAlbumFragment()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        viewModel = ViewModelProvider(this).get(AlbumViewModel::class.java)
-
-
-        println(viewModel)
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -71,6 +67,7 @@ class RecordAlbumFragment : Fragment() {
         val binding: FragmentRecordAlbumBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_record_album, container, false
         )
+        binding.viewmodel = viewModel
         val view = binding.root
         return view
 //        return inflater.inflate(R.layout.fragment_record_album, container, false)
@@ -84,12 +81,13 @@ class RecordAlbumFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
 
-        albumList = ArrayList()
+//        albumList = ArrayList()
 //        addDataToList()
-
-        albumAdapter = AlbumAdapter(albumList)
-        recyclerView.adapter = albumAdapter
-
+        println("RecordAlbumFragment onViewCreated viewModel.albumList.value " + viewModel.albumList)
+//        albumAdapter = viewModel.albumList.value?.let { AlbumAdapter(it) }!!
+////        albumAdapter = viewModel.albumList.observe(this, Observer {  })
+//        recyclerView.adapter = albumAdapter
+        observeViewModel()
         // 앨범 추가 버튼 눌렀을 때
         val fab: View = view.findViewById(R.id.add_album_fab)
         fab.setOnClickListener { view ->
@@ -131,6 +129,16 @@ class RecordAlbumFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
 
+    }
+
+    fun observeViewModel() {
+        viewModel.albumList.observe(this, Observer { albumList ->
+            albumList?.let{
+                albumAdapter = AlbumAdapter(albumList)
+//        albumAdapter = viewModel.albumList.observe(this, Observer {  })
+                recyclerView.adapter = albumAdapter
+            }
+        })
     }
 
 //    var p11 = Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5)
