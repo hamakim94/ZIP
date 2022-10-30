@@ -21,16 +21,10 @@ interface ApiInterface {
     fun requestReissue():Call<ResponseLoginData>
 
     // 앨범 관련
-//    @POST("album/")
-//    suspend fun updateAlbum(
-//        @Query("name") title: String
-//    ) : Response<Album>
-
-    // 후에는 위에걸로 변경
     @POST("album/")
     suspend fun updateAlbum(
         @Query("name") title: String
-    ) : Response<Any>
+    ) : Response<Album>
 
     @GET("album/")
     suspend fun getAllAlbumList() : Response<ArrayList<Album>>

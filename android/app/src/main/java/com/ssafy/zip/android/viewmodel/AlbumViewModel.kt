@@ -34,15 +34,10 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
     fun addAlbum(title : String){
         viewModelScope.launch {
             val album = repository.updateAlbum(title) // update album
-            val responseAlbum = Album(100, title, null)
             if (album != null) {
-                _albumList.value?.add(responseAlbum) // album list에 추가 (후에는 album추가로 변경)
+                _albumList.value?.add(album) // album list에 추가
                 _albumList.value = _albumList.value // list change 감지를 위해
             }
         }
     }
-
-//    fun getAlbumList() : ArrayList<Album>{
-//        return if(_albumList.value == null) ArrayList<Album>() else _albumList.value!!
-//    }
 }

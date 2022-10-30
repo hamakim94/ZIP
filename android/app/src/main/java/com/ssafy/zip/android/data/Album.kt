@@ -7,5 +7,5 @@ data class Album(
     @SerializedName("name")
     val title: String,
     @SerializedName("pictures")
-    val photoList: ArrayList<Photo>? // 후에 ? 없애야
+    val photoList: ArrayList<Photo>
 )

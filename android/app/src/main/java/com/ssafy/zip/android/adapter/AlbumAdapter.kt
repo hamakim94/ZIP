@@ -19,7 +19,7 @@ class AlbumAdapter(private val albumList:ArrayList<Album>) : RecyclerView.Adapte
 //        val albumImage : ImageView = itemView.findViewById(R.id.album_image)
 //        val albumTitle : TextView = itemView.findViewById(R.id.album_title)
 //        val albumNum : TextView = itemView.findViewById(R.id.album_num)
-
+//
 //        init {
 //            itemView.setOnClickListener{
 //                // album item 클릭했을 때 실행
@@ -69,7 +69,7 @@ class AlbumAdapter(private val albumList:ArrayList<Album>) : RecyclerView.Adapte
 //        holder.albumImage.setImageResource(album.photoList[0].url)
 //        holder.albumTitle.text = album.title
 //        holder.albumNum.text = album.photoList.size.toString() + "개의 추억"
-
+//
 //        holder.itemView.setOnClickListener{
 //            // album item 클릭했을 때 실행
 //            val bundle = Bundle()

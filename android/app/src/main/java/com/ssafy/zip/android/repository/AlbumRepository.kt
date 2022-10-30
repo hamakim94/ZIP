@@ -14,20 +14,12 @@ class AlbumRepository(application : Application) {
         return if(response.isSuccessful) response.body() as ArrayList<Album> else null
     }
 
-    // 후에는 아래걸로 바꿔야
-    suspend fun updateAlbum(title: String): String? {
+    suspend fun updateAlbum(title: String): Album? {
         val response = ApiService.getApiService.updateAlbum(title)
-        println("AlbumRepository updateAlbum response: " + response)
+        println("AlbumRepository updateAlbum response: " + response.body())
 
-        return if(response.isSuccessful) "success" else null
+        return if(response.isSuccessful) response.body() as Album else null
     }
-
-//    suspend fun updateAlbum(title: String): Album? {
-//        val response = ApiService.getApiService.updateAlbum(title)
-//        println("AlbumRepository updateAlbum response: " + response)
-//
-//        return if(response.isSuccessful) response.body() as Album else null
-//    }
 
     // 싱글톤
     companion object {
