@@ -13,7 +13,6 @@ import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.databinding.FragmentRecordBoardBinding
 import java.util.Date
-import com.ssafy.zip.android.data.response.ResponseLoginData
 import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.newSingleThreadContext
 import retrofit2.Call
