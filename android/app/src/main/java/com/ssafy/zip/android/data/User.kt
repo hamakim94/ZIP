@@ -6,7 +6,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(
-    @SerializedName("familyResponseDTO")
     var family : Family,
     var hasFamily : Boolean,
     var id : Long,
