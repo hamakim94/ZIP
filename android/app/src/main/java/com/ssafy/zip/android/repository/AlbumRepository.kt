@@ -5,7 +5,7 @@ import android.util.Log
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.Album
 
-class AlbumRepository(application : Application) {
+class AlbumRepository private constructor(application : Application) {
     // Retrofit 사용
     suspend fun getAllAlbumList(): ArrayList<Album>? {
         val response = ApiService.getApiService.getAllAlbumList()

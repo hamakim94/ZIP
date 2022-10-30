@@ -21,12 +21,12 @@ interface ApiInterface {
     fun requestReissue():Call<ResponseLoginData>
 
     // 앨범 관련
-    @POST("album/")
+    @POST("album")
     suspend fun updateAlbum(
         @Query("name") title: String
     ) : Response<Album>
 
-    @GET("album/")
+    @GET("album")
     suspend fun getAllAlbumList() : Response<ArrayList<Album>>
 
 

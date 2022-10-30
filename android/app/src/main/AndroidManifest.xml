@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!-- 외부 통신 -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 갤러리 접근 허용 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
     <application
         android:name="com.ssafy.zip.android.App"
         android:allowBackup="true"
@@ -30,6 +33,4 @@
                 android:value="" />
         </activity>
     </application>
-    <!-- 갤러리 접근 허용 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.Album
 import com.ssafy.zip.android.databinding.AlbumItemBinding
 
@@ -47,7 +48,16 @@ class AlbumAdapter(private val albumList:ArrayList<Album>) : RecyclerView.Adapte
         if(holder is AlbumViewHolder){
             val album = albumList[position]
             holder.binding.albumTitle.text = album.title
-//            holder.binding.albumImage.setImageResource(album.photoList[0].url)
+            if(album.photoList.size > 0){
+                Glide.with(holder.itemView)
+                    .load(album.photoList[album.photoList.size-1].url)
+                    .into(holder.binding.albumImage)
+            } else {
+                Glide.with(holder.itemView)
+                    .load(R.drawable.album)
+                    .into(holder.binding.albumImage)
+            }
+
             holder.binding.albumNum.text = (if(album.photoList != null) album.photoList.size.toString() else "0") + "개의 추억"
 
             holder.itemView.setOnClickListener{
