@@ -4,13 +4,14 @@ import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.PictureRequestDTO;
 import com.ssafy.zip.dto.response.AlbumResponseDTO;
 import com.ssafy.zip.dto.response.PictureResponseDTO;
+import com.ssafy.zip.entity.Album;
 import com.ssafy.zip.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface AlbumService {
-    void createFolder(long  userId, String name) throws Exception;
+    AlbumResponseDTO createFolder(long  userId, String name) throws Exception;
     void deleteFolder(UserDTO user, long albumId) throws Exception;
 
     List<PictureResponseDTO> uploadPictures(PictureRequestDTO pictureRequestDTO, List<MultipartFile> pictures) throws Exception;

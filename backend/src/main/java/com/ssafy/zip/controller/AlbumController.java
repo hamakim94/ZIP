@@ -29,19 +29,19 @@ import java.util.List;
 public class AlbumController {
     private final AlbumService albumService;
 
-    @PostMapping("/")
+    @PostMapping
     @ApiOperation(value = "앨범 생성")
-    public ResponseEntity<?> createFolder(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestParam String name) {
+    public ResponseEntity<AlbumResponseDTO> createFolder(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestParam String name) {
         try{
-            albumService.createFolder(user.getId(), name);
-            return new ResponseEntity<>(HttpStatus.OK);
+            AlbumResponseDTO result = albumService.createFolder(user.getId(), name);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e){
             log.error("앨범 생성 에러: " + e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping
     @ApiOperation(value = "폴더 삭제")
     public ResponseEntity<?> deleteFolder(@ApiIgnore @AuthenticationPrincipal UserDTO user,@RequestParam Long albumId) {
         try{
@@ -78,7 +78,7 @@ public class AlbumController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping
     @ApiOperation(value = "전체 조회")
     public ResponseEntity<List<AlbumResponseDTO>> listAll(@ApiIgnore @AuthenticationPrincipal UserDTO user) {
         try{

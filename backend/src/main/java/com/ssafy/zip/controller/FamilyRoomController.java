@@ -59,7 +59,7 @@ public class FamilyRoomController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping
     @ApiOperation(value = "가족 조회")
     public ResponseEntity<FamilyMemberResponseDTO> getFamilyMembers(@ApiIgnore @AuthenticationPrincipal UserDTO user){
         try {

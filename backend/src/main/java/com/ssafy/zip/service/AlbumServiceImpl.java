@@ -29,13 +29,14 @@ public class AlbumServiceImpl implements AlbumService{
     private final AwsS3Service awsS3Service;
 
     @Override
-    public void createFolder(long userId, String name) throws Exception {
+    public AlbumResponseDTO createFolder(long userId, String name) throws Exception {
         User user = userRepository.findById(userId).get();
         Album album = Album.builder()
                 .name(name)
                 .family(user.getFamily())
                 .build();
         albumRepository.save(album);
+        return new AlbumResponseDTO(album.getId(), album.getName(), new ArrayList<>());
     }
 
     @Transactional
