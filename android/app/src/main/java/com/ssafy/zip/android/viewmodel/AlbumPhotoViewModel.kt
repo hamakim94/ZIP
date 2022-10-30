@@ -43,16 +43,11 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
         val imageList = ArrayList<MultipartBody.Part>()
         val contentResolver : ContentResolver = context.contentResolver
 
-        // 파일 경로 만듦
-        val fileName = System.currentTimeMillis().toString()
-        val filePath : String = (context.applicationInfo.dataDir + File.separator + fileName)
-        val file = File(filePath)
-        println("images: " + images.toString())
-        println("filePath: " + filePath)
-        println("file: " + file)
-
         for(index in 0 until images.size) {
             try {
+                val fileName = System.currentTimeMillis().toString()
+                val filePath : String = (context.applicationInfo.dataDir + File.separator + fileName)
+                val file = File(filePath)
                 // 매개변수로 받은 uri를 통해 이미지에 필요한 데이터를 불러들임
                 val inputStream = contentResolver.openInputStream(images[index])
                 // 이미지 데이터를 다시 내보내면서 file 객체에 만들었던 경로를 이용
@@ -65,9 +60,8 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
                     inputStream.close()
                 }
                 outputStream.close()
-//                file.absoluteFile
                 val requestBody = RequestBody.create(MediaType.parse("image/*"), file)
-                val body = MultipartBody.Part.createFormData("uploaded_files", fileName, requestBody)
+                val body = MultipartBody.Part.createFormData("files", fileName, requestBody)
 
                 imageList.add(body)
             } catch (ignore : IOException){
@@ -75,7 +69,7 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
         }
 
         viewModelScope.launch {
-            repository.uploadPhotos(imageList, albumId, pictureId)
+            repository.uploadPhotos(imageList.toList(), albumId, pictureId)
         }
     }
 }

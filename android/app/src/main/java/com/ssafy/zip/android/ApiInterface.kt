@@ -43,9 +43,9 @@ interface ApiInterface {
     @Multipart
     @POST("album/pictures")
     suspend fun uploadPhotos(
-        @Part files : ArrayList<MultipartBody.Part>,
+        @Part files : List<MultipartBody.Part>,
         @Part("pictureRequestDTO") photoList : RequestPhoto
-    ) : Response<ArrayList<Photo>>
+    ) : Response<List<Photo>>
 
 
 

@@ -16,7 +16,7 @@ import java.util.*
 
 
 object ApiService {
-        private const val BASE_URL = "http://k7a407.p.ssafy.io:8888/api/"
+        private const val BASE_URL = "https://k7a407.p.ssafy.io/api/"
 
         class TokenInterceptor : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {

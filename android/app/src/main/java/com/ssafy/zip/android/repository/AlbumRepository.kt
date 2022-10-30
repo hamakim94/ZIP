@@ -39,12 +39,11 @@ class AlbumRepository private constructor(application : Application) {
         return if(response.isSuccessful) response.body() else null
     }
 
-    suspend fun uploadPhotos(images : ArrayList<MultipartBody.Part>, albumId : Long?, pictureId : Long?) : ArrayList<Photo>? {
-        println("RequestPhoto(albumId = albumId, pictureId = pictureId).toString(): " + RequestPhoto(albumId = albumId, pictureId = pictureId).toString())
+    suspend fun uploadPhotos(images : List<MultipartBody.Part>, albumId : Long?, pictureId : Long?) : List<Photo>? {
         val response = ApiService.getApiService.uploadPhotos(images,  RequestPhoto(albumId, pictureId))
         println("AlbumRepository uploadPhotos response: " + response)
 
-        return if(response.isSuccessful) response.body() as ArrayList<Photo> else null
+        return if(response.isSuccessful) response.body() as List<Photo> else null
     }
 
     // 싱글톤
