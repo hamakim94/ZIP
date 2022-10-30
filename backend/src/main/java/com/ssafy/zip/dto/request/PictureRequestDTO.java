@@ -13,6 +13,5 @@ import javax.annotation.Nullable;
 @ToString
 public class PictureRequestDTO {
     Long albumId;
-    Long userId;
     Long pictureId;
 }
