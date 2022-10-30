@@ -1,9 +1,13 @@
 package com.ssafy.zip.android.repository
 
 import android.app.Application
-import android.util.Log
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.Album
+import com.ssafy.zip.android.data.Photo
+import com.ssafy.zip.android.data.request.RequestPhoto
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class AlbumRepository private constructor(application : Application) {
     // Retrofit 사용
@@ -26,6 +30,14 @@ class AlbumRepository private constructor(application : Application) {
         println("AlbumRepository getAlbumById response: " + response.body())
 
         return if(response.isSuccessful) response.body() as Album else null
+    }
+
+    suspend fun uploadPhotos(images : ArrayList<MultipartBody.Part>, albumId : Long?, pictureId : Long?) : ArrayList<Photo>? {
+        println("RequestPhoto(albumId = albumId, pictureId = pictureId).toString(): " + RequestPhoto(albumId = albumId, pictureId = pictureId).toString())
+        val response = ApiService.getApiService.uploadPhotos(images,  RequestPhoto(albumId, pictureId))
+        println("AlbumRepository uploadPhotos response: " + response)
+
+        return if(response.isSuccessful) response.body() as ArrayList<Photo> else null
     }
 
     // 싱글톤

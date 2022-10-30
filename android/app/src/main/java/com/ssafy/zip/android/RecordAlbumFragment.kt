@@ -132,8 +132,10 @@ class RecordAlbumFragment : Fragment() {
 
     fun observeViewModel() {
         val observer = object : Observer<ArrayList<Album>> {
-            override fun onChanged(t: ArrayList<Album>?) {
-                albumAdapter = t?.let { it -> AlbumAdapter(it) }!!
+            override fun onChanged(albumList: ArrayList<Album>?) {
+                if(albumList != null) albumAdapter = AlbumAdapter(albumList)
+                else albumAdapter = AlbumAdapter(ArrayList())
+//                albumAdapter = t?.let { it -> AlbumAdapter(it) }!!
                 recyclerView.adapter = albumAdapter
             }
         }

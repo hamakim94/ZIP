@@ -23,6 +23,7 @@ object ApiService {
                 val request = chain.request().newBuilder()
                     .addHeader("ACCESSTOKEN", App.prefs.getString("accesstoken", ""))
                     .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
+                    .addHeader("Connection", "close")
                 .build()
             return chain.proceed(request)
         }

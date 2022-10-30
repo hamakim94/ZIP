@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class RequestPhoto(
-    var albumId : Long?,
-    var pictureId : Long?
+    var albumId: Long?,
+    var pictureId: Long?
 //    "albumId": 0,
 //    "pictureId": 0,
 //    "userId": 0

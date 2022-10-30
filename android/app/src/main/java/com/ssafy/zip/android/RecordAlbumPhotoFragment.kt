@@ -27,7 +27,6 @@ import kotlin.collections.ArrayList
 
 class RecordAlbumPhotoFragment : Fragment(), photo_onClick_interface {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var photoList: ArrayList<Photo>
     private lateinit var photoAdapter: PhotoAdapter
     private lateinit var activity: MainActivity
     private val viewModel by viewModels<AlbumPhotoViewModel>{ AlbumPhotoViewModel.Factory(Application(), arguments?.getLong("albumId"))}
@@ -46,6 +45,12 @@ class RecordAlbumPhotoFragment : Fragment(), photo_onClick_interface {
                 val imageUri = it.data!!.data
                 imageList.add(imageUri!!)
             }
+
+            viewModel.addPhotos(imageList, arguments?.getLong("albumId"), null, activity)
+//            for(index in 0 until imageList.size) {
+//
+//            }
+//            println(imageList)
         }
     }
 

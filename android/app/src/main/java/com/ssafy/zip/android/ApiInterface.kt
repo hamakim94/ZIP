@@ -1,8 +1,12 @@
 package com.ssafy.zip.android
 
 import com.ssafy.zip.android.data.Album
+import com.ssafy.zip.android.data.Photo
 import com.ssafy.zip.android.data.request.RequestLoginData
+import com.ssafy.zip.android.data.request.RequestPhoto
 import com.ssafy.zip.android.data.response.ResponseLoginData
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -31,6 +35,12 @@ interface ApiInterface {
         @Path("albumId") id: Long
     ) : Response<Album>
 
+    @Multipart
+    @POST("album/pictures")
+    suspend fun uploadPhotos(
+        @Part files : ArrayList<MultipartBody.Part>,
+        @Part("pictureRequestDTO") photoList : RequestPhoto
+    ) : Response<ArrayList<Photo>>
 //    companion object {// Retrofit 객체 초기화 인터셉터 설정
 //    private const val BASE_URL = "http://k7a407.p.ssafy.io:8888/api/"
 //

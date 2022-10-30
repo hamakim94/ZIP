@@ -20,8 +20,7 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
         viewModelScope.launch {
             // .value : livedata가 가지고 있는 값으로 접근
             _albumList.value = repository.getAllAlbumList()
-            println("AlbumViewModel repository.getAllAlbumList()" + repository.getAllAlbumList())
-            println("AlbumViewModel repository.getAllAlbumList() _albumList.value" + _albumList.value)
+            println("AlbumViewModel repository.getAllAlbumList() " + repository.getAllAlbumList())
         }
     }
 
