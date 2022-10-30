@@ -37,7 +37,7 @@ public class FamilyServiceImpl implements FamilyService{
         User user = userRepository.findById(userDTO.getId()).get();
         user.setFamily(familyRepository.save(family));
         userRepository.save(user);
-        FamilyResponseDTO familyResponseDTO = new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId());
+        FamilyResponseDTO familyResponseDTO = new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), 1L);
         return familyResponseDTO;
     }
     @Transactional
@@ -77,12 +77,16 @@ public class FamilyServiceImpl implements FamilyService{
         return familyMemberResponseDTO;
     }
 
-    private int generateCode() throws NoSuchAlgorithmException {
+    private int generateCode() throws NoSuchAlgorithmException, Exception {
         int code = 0;
         SecureRandom random = SecureRandom.getInstanceStrong();
+        int temp = 0;
         while (true) {
             code = random.nextInt(1000000);
-            if (familyRepository.findByCode(code) == null) break;;
+            System.out.println(code);
+            Family family = familyRepository.findByCode(code);
+            if (family == null) break;
+            else if(temp++>100) throw new Exception();
         }
         return code;
     }
