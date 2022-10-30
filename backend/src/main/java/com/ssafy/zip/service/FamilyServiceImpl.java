@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @Service
@@ -81,7 +82,7 @@ public class FamilyServiceImpl implements FamilyService{
         System.out.println(1);
         int code = 0;
         System.out.println(2);
-        SecureRandom random = SecureRandom.getInstanceStrong();
+        Random random = new Random();
         System.out.println(3);
         int temp = 0;
         System.out.println(4);
