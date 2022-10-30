@@ -40,6 +40,16 @@ public class PostController {
         return ResponseEntity.ok(postService.getAll(user));
     }
 
+    @GetMapping("/missions")
+    @ApiOperation("오늘의 미션 현황")
+    ResponseEntity<TodayMissionResponseDTO> getTodayMission(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO){
+
+        LetterTodayResponseDTO letterTodayResponseDTO = letterService.getTodayLetter(userDTO);
+        QnaDTO qnaDTO = qnaService.getTodayQna(userDTO);
+
+        return ResponseEntity.ok(new TodayMissionResponseDTO(qnaDTO,letterTodayResponseDTO));
+    }
+
     @PostMapping("/qna")
     @ApiOperation("질문 등록")
     ResponseEntity<?>  registerQuestion(String question){

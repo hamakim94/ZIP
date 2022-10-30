@@ -6,9 +6,11 @@ import com.ssafy.zip.dto.request.QnaAnswerRequestDTO;
 import com.ssafy.zip.dto.response.QnaAnswerResponseDTO;
 import com.ssafy.zip.dto.response.QnaDTO;
 import com.ssafy.zip.dto.response.QnaDetailDTO;
+import com.ssafy.zip.entity.Family;
 import com.ssafy.zip.entity.Qna;
 import com.ssafy.zip.entity.QnaLog;
 import com.ssafy.zip.entity.User;
+import com.ssafy.zip.repository.FamilyRepository;
 import com.ssafy.zip.repository.QnaLogRepository;
 import com.ssafy.zip.repository.QnaRepository;
 import com.ssafy.zip.repository.UserRepository;
@@ -26,6 +28,7 @@ public class QnaServiceImpl implements QnaService {
     private final UserRepository userRepository;
     private final QnaRepository qnaRepository;
     private final QnaLogRepository qnaLogRepository;
+    private final FamilyRepository familyRepository;
     @Override
     public Qna saveQuestion(String question) {
         return qnaRepository.save(new Qna(null, question));
@@ -52,6 +55,17 @@ public class QnaServiceImpl implements QnaService {
             }
         });
         return result;
+    }
+
+    @Override
+    public QnaDTO getTodayQna(UserDTO user) {
+        Optional<Family> familyOpt = familyRepository.findById(user.getFamilyId());
+        if(familyOpt.isPresent()){
+            Qna qna = familyOpt.get().getQna();
+            List<QnaLog> list = qnaLogRepository.findByFamilyIdAndQnaId(familyOpt.get().getId(), qna.getId());
+            return new QnaDTO(qna.getId(), qna.getQuestion(), LocalDateTime.now().toLocalDate().atTime(0,0), list.size()==0?0:list.size());
+        }
+        return null;
     }
 
     @Override
