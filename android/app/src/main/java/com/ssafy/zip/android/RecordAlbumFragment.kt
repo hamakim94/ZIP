@@ -28,6 +28,7 @@ class RecordAlbumFragment : Fragment() {
     private lateinit var customAlertDialogView : View
     private lateinit var albumTextField : TextInputLayout
     private val viewModel by viewModels<AlbumViewModel>{AlbumViewModel.Factory(Application())}
+    var link = RecordAlbumAdapter()
 //    var imageList: ArrayList<Uri> = ArrayList()
 
 //    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -88,7 +89,7 @@ class RecordAlbumFragment : Fragment() {
 //        albumAdapter = viewModel.albumList.value?.let { AlbumAdapter(it) }!!
 ////        albumAdapter = viewModel.albumList.observe(this, Observer {  })
 //        recyclerView.adapter = albumAdapter
-        observeViewModel()
+        observeViewModel(activity)
         // 앨범 추가 버튼 눌렀을 때
         val fab: View = view.findViewById(R.id.add_album_fab)
         fab.setOnClickListener { view ->
@@ -124,23 +125,24 @@ class RecordAlbumFragment : Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-
-    }
-
-    fun observeViewModel() {
+    fun observeViewModel(activity: MainActivity) {
         val observer = object : Observer<ArrayList<Album>> {
             override fun onChanged(albumList: ArrayList<Album>?) {
-                if(albumList != null) albumAdapter = AlbumAdapter(albumList)
-                else albumAdapter = AlbumAdapter(ArrayList())
+                if(albumList != null) albumAdapter = AlbumAdapter(albumList, link, activity)
+                else albumAdapter = AlbumAdapter(ArrayList(), link, activity)
 //                albumAdapter = t?.let { it -> AlbumAdapter(it) }!!
                 recyclerView.adapter = albumAdapter
             }
         }
 
         viewModel.albumList.observe(viewLifecycleOwner, observer)
+    }
+
+    // 해당 Fragment의 다른 함수를 받아주기 위해서는 class가 아닌 inner class여야 함
+    inner class RecordAlbumAdapter{
+        fun deleteAlbum(album : Album){
+            viewModel.deleteAlbum(album)
+        }
     }
 
 //    var p11 = Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5)

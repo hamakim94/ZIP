@@ -32,6 +32,13 @@ class AlbumRepository private constructor(application : Application) {
         return if(response.isSuccessful) response.body() as Album else null
     }
 
+    suspend fun deleteAlbum(id: Long): String? {
+        val response = ApiService.getApiService.deleteAlbum(id)
+        println("AlbumRepository deleteAlbum response: " + response.body())
+
+        return if(response.isSuccessful) response.body() else null
+    }
+
     suspend fun uploadPhotos(images : ArrayList<MultipartBody.Part>, albumId : Long?, pictureId : Long?) : ArrayList<Photo>? {
         println("RequestPhoto(albumId = albumId, pictureId = pictureId).toString(): " + RequestPhoto(albumId = albumId, pictureId = pictureId).toString())
         val response = ApiService.getApiService.uploadPhotos(images,  RequestPhoto(albumId, pictureId))

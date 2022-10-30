@@ -10,10 +10,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.data.Album
 import com.ssafy.zip.android.databinding.AlbumItemBinding
 
-class AlbumAdapter(private val albumList:ArrayList<Album>) : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>(){
+class AlbumAdapter(private val albumList:ArrayList<Album>, var link:RecordAlbumFragment.RecordAlbumAdapter, var activity: MainActivity) : RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>(){
     private lateinit var albumItemBinding: AlbumItemBinding
 
     inner class AlbumViewHolder(val binding: AlbumItemBinding) : RecyclerView.ViewHolder(binding.root){
@@ -70,7 +71,21 @@ class AlbumAdapter(private val albumList:ArrayList<Album>) : RecyclerView.Adapte
 
             holder.itemView.setOnLongClickListener{
                 // album item을 길게 클릭했을 때 실행
-                // album 삭체
+                MaterialAlertDialogBuilder(activity)
+//                    .setView(customAlertDialogView)
+//                    .setTitle(resources.getString(R.string.new_album))
+                    .setMessage("해당 앨범을 삭제하시겠습니까?")
+                    .setPositiveButton("확인") { dialog, which ->
+                        // album 삭체
+                        link.deleteAlbum(album)
+
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton("취소") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
+
                 return@setOnLongClickListener true
             }
         }

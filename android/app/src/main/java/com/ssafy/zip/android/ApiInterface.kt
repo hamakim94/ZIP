@@ -30,6 +30,11 @@ interface ApiInterface {
     @GET("album")
     suspend fun getAllAlbumList() : Response<ArrayList<Album>>
 
+    @DELETE("album")
+    suspend fun deleteAlbum(
+        @Query("albumId") id: Long
+    ) : Response<String>
+
     @GET("album/{albumId}")
     suspend fun getAlbumById(
         @Path("albumId") id: Long
@@ -41,6 +46,10 @@ interface ApiInterface {
         @Part files : ArrayList<MultipartBody.Part>,
         @Part("pictureRequestDTO") photoList : RequestPhoto
     ) : Response<ArrayList<Photo>>
+
+
+
+
 //    companion object {// Retrofit 객체 초기화 인터셉터 설정
 //    private const val BASE_URL = "http://k7a407.p.ssafy.io:8888/api/"
 //

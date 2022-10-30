@@ -39,4 +39,13 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
             }
         }
     }
+
+    fun deleteAlbum(album : Album) {
+        viewModelScope.launch {
+            val response = repository.deleteAlbum(album.id)
+            _albumList.value?.remove(album)
+            _albumList.value = _albumList.value
+            println("AlbumViewModel deleteAlbum response: " + response)
+        }
+    }
 }
