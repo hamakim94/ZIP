@@ -13,7 +13,7 @@ class CalendarAdapter(private val calendarList:ArrayList<Calendar>) : RecyclerVi
     class CalendarViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
         val calendarStart: TextView = itemView.findViewById(R.id.calendar_start_time)
         val calendarEnd: TextView = itemView.findViewById(R.id.calendar_end_time)
-        // val calendarImage : ImageView = itemView.findViewById(R.id.calendar_image)
+        val calendarImage : ImageView = itemView.findViewById(R.id.calendar_image)
         val calendarTitle : TextView = itemView.findViewById(R.id.calendar_title)
         // val calendarNum : TextView = itemView.findViewById(R.id.calendar_num)
 
@@ -28,7 +28,7 @@ class CalendarAdapter(private val calendarList:ArrayList<Calendar>) : RecyclerVi
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val calendar = calendarList[position]
-        // holder.calendarImage.setImageResource(calendar.user[img])
+        holder.calendarImage.setImageResource(calendar.user)
         holder.calendarTitle.text = calendar.content
         // holder.calendarNum.text = calendar.num.toString() + "시"
         holder.calendarStart.text = calendar.startDate.toString()

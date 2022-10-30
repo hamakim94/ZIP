@@ -21,10 +21,13 @@ import kotlin.collections.ArrayList
 import android.widget.TextView;
 import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.User
+import com.ssafy.zip.android.databinding.FragmentCalendarBinding
+import com.ssafy.zip.android.databinding.FragmentDialogBinding
 import java.util.Date;
 
 
 class CalendarFragment : Fragment() {
+    private lateinit var binding : FragmentDialogBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var dialogRecyclerView: RecyclerView
     private lateinit var calendarList: ArrayList<Calendar>
@@ -109,6 +112,7 @@ class CalendarFragment : Fragment() {
             dialogRecyclerView.setHasFixedSize(true)
             calendarDialogAdapter = CalendarDialogAdapter(memberList)
 
+
             val cnt = when (calendarDialogAdapter.itemCount) {
                 in 1..4 -> calendarDialogAdapter.itemCount
                 in 5..6 -> 3
@@ -118,12 +122,15 @@ class CalendarFragment : Fragment() {
             dialogRecyclerView.adapter = calendarDialogAdapter
             dialogRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
 
-            MaterialAlertDialogBuilder(activity)
+
+
+        MaterialAlertDialogBuilder(activity)
                 .setView(customAlertDialogView)
                 .setTitle(resources.getString(R.string.new_calendar))
                 .setPositiveButton(resources.getString(R.string.confirm)) { dialog, which ->
                     val calendarContent = calendarTextField.editText?.text.toString()
-                    val calendarStartDate =
+
+                    Toast.makeText(activity,"추가", Toast.LENGTH_SHORT).show()
 
                         dialog.dismiss()
                 }
@@ -131,6 +138,7 @@ class CalendarFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .show()
+
 
             // 시작 날짜
             var startPickDateButton: TextView? = null
@@ -316,10 +324,9 @@ class CalendarFragment : Fragment() {
                 }
             }
 
+        }}
 
-    }
 
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -348,5 +355,6 @@ class CalendarFragment : Fragment() {
 
 
 }
+
 
 
