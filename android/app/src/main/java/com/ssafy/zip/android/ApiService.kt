@@ -30,6 +30,22 @@ object ApiService {
         }
     }
 
+    class RefreshInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val request = chain.request();
+            val response = chain.proceed(request);
+            when (response.code()) {
+                403 -> {
+                    App.prefs.setString("accesstoken", "")
+//                    CoroutineScope(Dispatchers.Default).launch {
+//                        println(getApiService.requestReissue())
+//                    }
+                }
+            }
+            return response
+        }
+    }
+
     //length 0 처리
     private val nullOnEmptyConverterFactory = object : Converter.Factory() {
         fun converterFactory() = this
@@ -57,6 +73,7 @@ object ApiService {
     // 인터셉터 설정을 위한 okhttp3
     val client = OkHttpClient.Builder()
         .addInterceptor(TokenInterceptor())
+        .addInterceptor(RefreshInterceptor())
         .build()
 
     private val getApi by lazy {

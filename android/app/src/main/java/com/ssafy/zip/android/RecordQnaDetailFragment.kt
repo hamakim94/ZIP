@@ -57,8 +57,8 @@ class RecordQnaDetailFragment : Fragment() {
         }
         // 데이터 넣기
         if(qnaData != null){
-            qnaDetailReg.text = qnaData.reg.toString()
-            qnaDetailContent.text = qnaData.question
+            qnaDetailReg.text = qnaData.qnaReg
+            qnaDetailContent.text = qnaData.qnaContent
         }
 
         val layoutManager = GridLayoutManager(context,cnt )
