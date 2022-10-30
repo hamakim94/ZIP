@@ -41,7 +41,7 @@ class PhotoAdapter(private val photoList:ArrayList<Photo>, var photo_onClick_int
             val bundle = Bundle()
             bundle.putLong("photoId", photo.id)
 //            bundle.putString("photoImage", photo.url)
-            bundle.putInt("photoImage", R.drawable.ex2)
+            bundle.putString("photoImage", photo.url)
 
             bundle.putString("albumTitle", photo_onClick_interface.onClickPhoto()) // 사진 상세 페이지의 appbar에 넣기 위해서 데이터 전달
             bundle.putParcelableArrayList("photoList", photoList) // Parcel에 객체를 write/read 하도록 만들어주는 인터페이스

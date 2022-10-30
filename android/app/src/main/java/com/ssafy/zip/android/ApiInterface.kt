@@ -49,7 +49,6 @@ interface ApiInterface {
 
 
 
-
 //    companion object {// Retrofit 객체 초기화 인터셉터 설정
 //    private const val BASE_URL = "http://k7a407.p.ssafy.io:8888/api/"
 //
