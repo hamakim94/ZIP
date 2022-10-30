@@ -40,7 +40,7 @@ object ApiService {
                     App.prefs.setString("accesstoken", "")
                     CoroutineScope(Dispatchers.Default).launch {
                         if(response.isSuccessful) {
-                            val response = getApiService.requestReissue()
+                            val response = getApiService.tokenReissue()
                             val headers = response.headers()
                             val accesstoken = headers.get("ACCESSTOKEN").toString()
                             App.prefs.setString("accesstoken", accesstoken)
@@ -50,7 +50,6 @@ object ApiService {
                 410 -> {
                     App.prefs.setString("accesstoken", "")
                     App.prefs.setString("refreshtoken", "")
-
                 }
             }
             return response

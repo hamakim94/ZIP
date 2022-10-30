@@ -40,13 +40,12 @@ class LoginFragment : Fragment() {
                     if (loginData.hasFamily) {
                         binding.root.findNavController().navigate(action)
                     } else {
-                        action = LoginFragmentDirections.actionLoginFragmentToFamilyroomFragment()
+                        action = LoginFragmentDirections.actionLoginFragmentToFamilyEnterFragment()
                         binding.root.findNavController().navigate(action)
                     }
                 } else {
                     println(loginData)
                 }
-//
             }
 
         }
@@ -76,8 +75,8 @@ class LoginFragment : Fragment() {
             }
         }
         binding.editPassword.hint = resources.getString(R.string.password_hint)
-        binding.editPassword.setOnFocusChangeListener { _, hasfocus ->
-            if (hasfocus) {
+        binding.editPassword.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
                 binding.editPassword.hint = ""
             } else {
                 binding.editPassword.hint = resources.getString(R.string.password_hint)

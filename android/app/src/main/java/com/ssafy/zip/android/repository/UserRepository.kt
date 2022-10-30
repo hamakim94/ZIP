@@ -3,27 +3,63 @@ package com.ssafy.zip.android.repository
 import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.App
+import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
+import com.ssafy.zip.android.data.request.RequestSignup
+import okhttp3.MultipartBody
 
 class UserRepository private constructor(application: Application) {
 
     suspend fun login(
         requestLoginData: RequestLoginData,
     ): Any? {
-        val response = ApiService.getApiService.requsetLogin(requestLoginData)
+        val response = ApiService.getApiService.userLogin(requestLoginData)
         var returnData: Any?
-        if (response.code()==200) {
+        returnData = if (response.code()==200) {
             val headers = response.headers()
             val accesstoken = headers.get("ACCESSTOKEN").toString()
             val refreshtoken = headers.get("REFRESHTOKEN").toString()
             App.prefs.setString("accesstoken", accesstoken)
             App.prefs.setString("refreshtoken", refreshtoken)
-            returnData = response.body() as User
+            response.body() as User
         } else {
-            returnData = response.code()
+            response.code()
         }
 
+        return returnData
+    }
+
+    suspend fun signUp(
+        img: MultipartBody.Part?,
+        requestSignup: RequestSignup,
+    ): String?{
+        val response = ApiService.getApiService.userSignup(img, requestSignup)
+        var returnData : String?
+        returnData = response.code().toString()
+        return returnData
+    }
+
+    suspend fun emailCheck(
+        email : String,
+    ) : String?{
+        val response = ApiService.getApiService.emailCheck(email)
+        var returnData : String?
+        returnData = response.code().toString()
+        return returnData
+    }
+
+    suspend fun enterRoom(
+        code: Int,
+    )
+    : Any?{
+        val response = ApiService.getApiService.enterRoom(code)
+        var returnData : Any?
+        returnData = if(response.isSuccessful) {
+            response.body() as Family
+        } else {
+            response.code()
+        }
         return returnData
     }
 
