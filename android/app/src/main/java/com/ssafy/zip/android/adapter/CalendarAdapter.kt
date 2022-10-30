@@ -7,30 +7,39 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.zip.android.data.Calendar
+import com.ssafy.zip.android.data.User
 
 class CalendarAdapter(private val calendarList:ArrayList<Calendar>) : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>(){
     class CalendarViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
-        val calendarImage : ImageView = itemView.findViewById(R.id.calendar_image)
+        val calendarStart: TextView = itemView.findViewById(R.id.calendar_start_time)
+        val calendarEnd: TextView = itemView.findViewById(R.id.calendar_end_time)
+        // val calendarImage : ImageView = itemView.findViewById(R.id.calendar_image)
         val calendarTitle : TextView = itemView.findViewById(R.id.calendar_title)
-        val calendarNum : TextView = itemView.findViewById(R.id.calendar_num)
+        // val calendarNum : TextView = itemView.findViewById(R.id.calendar_num)
 
         //val calendarFamily : TextView = itemView.findViewById(R.id.calendar_family)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.calendar_item, parent, false)
+
         return CalendarViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val calendar = calendarList[position]
-        // holder.calendarImage.setImageResource(calendar.image)
-        //holder.calendarImage.setImageResource(arrayOf(calendar.users[img]))
+        // holder.calendarImage.setImageResource(calendar.user[img])
         holder.calendarTitle.text = calendar.content
         // holder.calendarNum.text = calendar.num.toString() + "시"
+        holder.calendarStart.text = calendar.startDate.toString()
+        holder.calendarEnd.text = calendar.endDate.toString()
+
     }
 
     override fun getItemCount(): Int {
         return calendarList.size
     }
+
 }
+
+

@@ -98,6 +98,7 @@ class CalendarFragment : Fragment() {
 
         }
 
+        // + 버튼 눌렀을 때
         val fab: View = view.findViewById(R.id.add_calendar_fab)
         fab.setOnClickListener { view ->
             customAlertDialogView = LayoutInflater.from(activity)
@@ -121,16 +122,17 @@ class CalendarFragment : Fragment() {
                 .setView(customAlertDialogView)
                 .setTitle(resources.getString(R.string.new_calendar))
                 .setPositiveButton(resources.getString(R.string.confirm)) { dialog, which ->
-                    val calendarTitle = calendarTextField.editText?.text.toString()
+                    val calendarContent = calendarTextField.editText?.text.toString()
+                    val calendarStartDate =
 
-                    dialog.dismiss()
+                        dialog.dismiss()
                 }
                 .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
 
-
+            // 시작 날짜
             var startPickDateButton: TextView? = null
             var startShowSelectedDateText: TextView? = null
 
@@ -157,6 +159,7 @@ class CalendarFragment : Fragment() {
                 })
 
 
+            // 종료 날짜
             materialDatePicker.addOnPositiveButtonClickListener {
                 startShowSelectedDateText.setText(materialDatePicker.headerText)
             }
@@ -186,7 +189,7 @@ class CalendarFragment : Fragment() {
                     }
                 })
 
-
+            // 시작 시간
             materialDatePicker2.addOnPositiveButtonClickListener {
                 endShowSelectedDateText.setText(materialDatePicker2.headerText)
             }
@@ -250,6 +253,7 @@ class CalendarFragment : Fragment() {
                     startShowSelectedTimeText.text = formattedTime
                 }
 
+                // 종료 시간
                 var endPickTimeButton: TextView? = null
                 var endShowSelectedTimeText: TextView? = null
 
@@ -332,12 +336,17 @@ class CalendarFragment : Fragment() {
 
 
     private fun addDataToList() {
-        calendarList.add(Calendar("가족 회식", 2022-10-29, 1, 2022-10-29, arrayListOf(user1, user2, user3, user4)))
-        calendarList.add(Calendar("여친이랑 데이트ㅋ",2022-10-29, 1, 2022-10-29, arrayListOf(user1)))
-        calendarList.add(Calendar("남치이랑 데이트ㅋ",2022-10-28, 1, 2022-10-29, arrayListOf(user1)))
+        calendarList.add(Calendar("가족 회식", Date(), 1, Date(), arrayListOf(user1, user2, user3, user4)))
+        calendarList.add(Calendar("여친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
+        calendarList.add(Calendar("남치이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
 
         memberList =  arrayListOf(user1, user2, user3, user4)
+
+
     }
+
+
+
 }
 
 
