@@ -1,6 +1,9 @@
 package com.ssafy.zip.android
 
 import com.google.gson.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -35,9 +38,19 @@ object ApiService {
             when (response.code()) {
                 403 -> {
                     App.prefs.setString("accesstoken", "")
-//                    CoroutineScope(Dispatchers.Default).launch {
-//                        println(getApiService.requestReissue())
-//                    }
+                    CoroutineScope(Dispatchers.Default).launch {
+                        if(response.isSuccessful) {
+                            val response = getApiService.requestReissue()
+                            val headers = response.headers()
+                            val accesstoken = headers.get("ACCESSTOKEN").toString()
+                            App.prefs.setString("accesstoken", accesstoken)
+                        }
+                    }
+                }
+                410 -> {
+                    App.prefs.setString("accesstoken", "")
+                    App.prefs.setString("refreshtoken", "")
+
                 }
             }
             return response
