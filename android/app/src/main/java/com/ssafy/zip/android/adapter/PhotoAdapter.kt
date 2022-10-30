@@ -5,24 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.Photo
+import com.ssafy.zip.android.databinding.PhotoItemBinding
 
 class PhotoAdapter(private val photoList:ArrayList<Photo>, var photo_onClick_interface: photo_onClick_interface) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>(){
-    class PhotoViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
-        val photoImage : ImageView = itemView.findViewById(R.id.photo_image)
+    private lateinit var photoItemBinding : PhotoItemBinding
+
+    inner class PhotoViewHolder(val binding: PhotoItemBinding) : RecyclerView.ViewHolder(binding.root){
+
     }
 
+//    class PhotoViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
+//        val photoImage : ImageView = itemView.findViewById(R.id.photo_image)
+//    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.photo_item, parent, false)
-        return PhotoViewHolder(view)
+        photoItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.photo_item, parent, false)
+//        val view = LayoutInflater.from(parent.context).inflate(R.layout.photo_item, parent, false)
+        return PhotoViewHolder(photoItemBinding)
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photo = photoList[position]
-//        holder.photoImage.setImageResource(photo.url)
-        holder.photoImage.setImageResource(R.drawable.ex)
+
+        Glide.with(holder.itemView)
+            .load(photo.url)
+            .into(holder.binding.photoImage)
 
         holder.itemView.setOnClickListener{
             // photo item 클릭했을 때 실행

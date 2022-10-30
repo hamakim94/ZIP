@@ -69,6 +69,7 @@ class RecordAlbumFragment : Fragment() {
         )
         binding.viewmodel = viewModel
         val view = binding.root
+
         return view
 //        return inflater.inflate(R.layout.fragment_record_album, container, false)
     }
@@ -132,8 +133,7 @@ class RecordAlbumFragment : Fragment() {
     fun observeViewModel() {
         val observer = object : Observer<ArrayList<Album>> {
             override fun onChanged(t: ArrayList<Album>?) {
-                println("observeViewModel onChanged")
-                albumAdapter = t?.let { it1 -> AlbumAdapter(it1) }!!
+                albumAdapter = t?.let { it -> AlbumAdapter(it) }!!
                 recyclerView.adapter = albumAdapter
             }
         }

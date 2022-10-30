@@ -21,6 +21,13 @@ class AlbumRepository private constructor(application : Application) {
         return if(response.isSuccessful) response.body() as Album else null
     }
 
+    suspend fun getAlbumById(id: Long): Album? {
+        val response = ApiService.getApiService.getAlbumById(id)
+        println("AlbumRepository getAlbumById response: " + response.body())
+
+        return if(response.isSuccessful) response.body() as Album else null
+    }
+
     // 싱글톤
     companion object {
         private var instance: AlbumRepository? = null

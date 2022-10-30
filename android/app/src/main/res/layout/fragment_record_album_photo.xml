@@ -1,42 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RecordAlbumPicturesFragment">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.ssafy.zip.android.viewmodel.AlbumPhotoViewModel" />
+    </data>
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="match_parent"
+        tools:context=".RecordAlbumPhotoFragment">
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/album_appbar"
-                style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:minHeight="48dp"
-                app:maxButtonHeight="48dp"
-                app:menu="@menu/album_top_app_bar"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:titleCentered="true"/>
-        </com.google.android.material.appbar.AppBarLayout>
+                android:layout_height="wrap_content">
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/album_appbar"
+                    style="@style/Widget.MaterialComponents.Toolbar.Surface"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    app:maxButtonHeight="48dp"
+                    app:menu="@menu/album_top_app_bar"
+                    app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:titleCentered="true"/>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_margin="1dp"
-            >
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/album_photo_recycler_view"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="GridLayoutManager"
-                tools:listitem="@layout/photo_item"
-                />
-        </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</FrameLayout>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_margin="1dp"
+                >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/album_photo_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="GridLayoutManager"
+                    tools:listitem="@layout/photo_item"
+                    />
+            </androidx.core.widget.NestedScrollView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
+</layout>

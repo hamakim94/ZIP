@@ -5,10 +5,7 @@ import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.data.response.ResponseLoginData
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiInterface {
 
@@ -29,7 +26,10 @@ interface ApiInterface {
     @GET("album")
     suspend fun getAllAlbumList() : Response<ArrayList<Album>>
 
-
+    @GET("album/{albumId}")
+    suspend fun getAlbumById(
+        @Path("albumId") id: Long
+    ) : Response<Album>
 
 //    companion object {// Retrofit 객체 초기화 인터셉터 설정
 //    private const val BASE_URL = "http://k7a407.p.ssafy.io:8888/api/"
