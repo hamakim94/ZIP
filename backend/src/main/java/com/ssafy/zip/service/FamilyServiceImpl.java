@@ -85,13 +85,14 @@ public class FamilyServiceImpl implements FamilyService{
         System.out.println(3);
         int temp = 0;
         System.out.println(4);
-        while (true) {
+        while (temp<100) {
             code = random.nextInt(1000000);
             System.out.println(code);
             Family family = familyRepository.findByCode(code);
             if (family == null) break;
-            else if(temp++>100) throw new Exception();
+            temp++;
         }
+        if (temp>=100) throw new Exception();
         System.out.println(5);
         return code;
     }
