@@ -1,7 +1,6 @@
 package com.ssafy.zip.android
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,12 @@ import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.databinding.FragmentRecordBoardBinding
 import java.util.Date
-import com.ssafy.zip.android.data.response.ResponseLoginData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class RecordBoardFragment2 : Fragment() {
+class RecordBoardFragmentEnque : Fragment() {
 
     private var _binding: FragmentRecordBoardBinding? = null
     private val binding get() = _binding!!
