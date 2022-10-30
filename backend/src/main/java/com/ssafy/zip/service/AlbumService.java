@@ -14,7 +14,7 @@ public interface AlbumService {
     AlbumResponseDTO createFolder(long  userId, String name) throws Exception;
     void deleteFolder(UserDTO user, long albumId) throws Exception;
 
-    List<PictureResponseDTO> uploadPictures(PictureRequestDTO pictureRequestDTO, List<MultipartFile> pictures) throws Exception;
+    List<PictureResponseDTO> uploadPictures(UserDTO userDTO, PictureRequestDTO pictureRequestDTO, List<MultipartFile> pictures) throws Exception;
 
     void deletePictures(List<PictureRequestDTO> pictures) throws Exception;
     List<AlbumResponseDTO> listAll(long userId) throws Exception;

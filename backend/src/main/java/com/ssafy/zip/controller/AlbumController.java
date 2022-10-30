@@ -57,8 +57,7 @@ public class AlbumController {
     @ApiOperation(value = "사진 등록")
     public ResponseEntity<List<PictureResponseDTO>> uploadPictures(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestPart PictureRequestDTO pictureRequestDTO, @RequestPart List<MultipartFile> files) {
         try{
-            pictureRequestDTO.setUserId(user.getId());
-            List<PictureResponseDTO> results = albumService.uploadPictures(pictureRequestDTO, files);
+            List<PictureResponseDTO> results = albumService.uploadPictures(user, pictureRequestDTO, files);
             return new ResponseEntity<>(results, HttpStatus.OK);
         } catch (Exception e){
             log.error("사진 등록 에러: " + e);

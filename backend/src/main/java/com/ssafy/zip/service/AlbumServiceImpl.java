@@ -48,11 +48,11 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Transactional
     @Override
-    public List<PictureResponseDTO> uploadPictures(PictureRequestDTO pictureRequestDTO, List<MultipartFile> pictures) throws Exception {
+    public List<PictureResponseDTO> uploadPictures(UserDTO userDTO, PictureRequestDTO pictureRequestDTO, List<MultipartFile> pictures) throws Exception {
         List<Picture> pictureList = new ArrayList<>();
         List<PictureResponseDTO> results = new ArrayList<>();
         Album album = albumRepository.getReferenceById(pictureRequestDTO.getAlbumId());
-        User user = userRepository.getReferenceById(pictureRequestDTO.getUserId());
+        User user = userRepository.getReferenceById(userDTO.getId());
         List<String[]> uploadResults = awsS3Service.uploadFiles("album",pictures);
         for (String[] result: uploadResults) {
             pictureList.add(Picture.builder()
