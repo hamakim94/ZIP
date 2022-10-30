@@ -78,9 +78,13 @@ public class FamilyServiceImpl implements FamilyService{
     }
 
     private int generateCode() throws NoSuchAlgorithmException, Exception {
+        System.out.println(1);
         int code = 0;
+        System.out.println(2);
         SecureRandom random = SecureRandom.getInstanceStrong();
+        System.out.println(3);
         int temp = 0;
+        System.out.println(4);
         while (true) {
             code = random.nextInt(1000000);
             System.out.println(code);
@@ -88,6 +92,7 @@ public class FamilyServiceImpl implements FamilyService{
             if (family == null) break;
             else if(temp++>100) throw new Exception();
         }
+        System.out.println(5);
         return code;
     }
 }
