@@ -59,7 +59,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         photoSlideAdapter = PhotoSlideAdapter(imageList)
         photoThumbnailAdapter = PhotoThumbnailAdapter(imageList)
 
-        position = arguments?.getInt("photoImage")?.let { getPosition(it) }!!
+        position = arguments?.getString("photoImage")?.let { getPosition(it) }!!
 
         viewPager = view.findViewById(R.id.photo_viewpager)
         viewPager.adapter = photoSlideAdapter
@@ -81,7 +81,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // list에서의 현재 이미지의 위치 업데이트
-        arguments?.getInt("photoImage")?.let { setPosition(it, false) }
+        arguments?.getString("photoImage")?.let { setPosition(it, false) }
 
 //        val imageView : ImageView = view.findViewById(R.id.photo_image)
 //
@@ -96,7 +96,10 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             if(position > 0){
                 position--
                 // 이미지 보여주기
-                setPosition(imageList[position].image, true)
+//                setPosition(imageList[position].url, true)
+                setPosition(imageList[position].url, true)
+
+
 //                viewPager.setCurrentItem(position, true)
             }
         }
@@ -105,15 +108,22 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             if(position < imageList.size-1){
                 position++
                 // 이미지 보여주기
-                setPosition(imageList[position].image, true)
+                setPosition(imageList[position].url, true)
 //                viewPager.setCurrentItem(position, true)
             }
+        }
+
+        val fab: View = view.findViewById(R.id.download_fab)
+        fab.setOnClickListener { view ->
+
+            println("position: " + position)
+
         }
     }
 
     inner class roomListAdapterToList {
         fun getPhoto(photo: Photo) {
-            setPosition(photo.image, false)
+            setPosition(photo.url, false)
         }
 
         fun getItemWidth(){
@@ -121,19 +131,21 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         }
     }
 
-    private fun setPosition(image: Int, smoothScroller : Boolean) {
+    private fun setPosition(image: String, smoothScroller : Boolean) {
         val position = getPosition(image)
         viewPager.setCurrentItem(position, smoothScroller)
         recyclerView.scrollToPosition(position)
     }
 
-    private fun getPosition(image: Int): Int {
+    private fun getPosition(image: String): Int {
         return imageList.indexOfFirst{
-            it.image == image
+            it.url == image
         }
     }
 
+    private fun downloadPhoto(position : Int){
 
+    }
 //    // selectedPosition: Recyclerview adapter 를 통해 받아온 클릭된(선택된) 아이템의 position
 //    private fun scrollSelectedItemToCenter(selectedPosition: Int) {
 //        val layoutManager = recyclerView.layoutManager as? LinearLayoutManager

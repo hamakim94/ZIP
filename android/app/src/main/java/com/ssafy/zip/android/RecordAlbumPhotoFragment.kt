@@ -1,6 +1,7 @@
 package com.ssafy.zip.android
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -10,20 +11,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.zip.android.data.Album
 import com.ssafy.zip.android.data.Photo
+import com.ssafy.zip.android.databinding.FragmentRecordAlbumPhotoBinding
+import com.ssafy.zip.android.viewmodel.AlbumPhotoViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class RecordAlbumPicturesFragment : Fragment(), photo_onClick_interface {
+class RecordAlbumPhotoFragment : Fragment(), photo_onClick_interface {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var photoList: ArrayList<Photo>
     private lateinit var photoAdapter: PhotoAdapter
     private lateinit var activity: MainActivity
-    var imageList: ArrayList<Uri> = ArrayList()
+    private val viewModel by viewModels<AlbumPhotoViewModel>{ AlbumPhotoViewModel.Factory(Application(), arguments?.getLong("albumId"))}
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        var imageList: ArrayList<Uri> = ArrayList() // 업로드할 사진 uri list
         if(it.resultCode == Activity.RESULT_OK) {
             if (it.data!!.clipData != null) { // 멀티 이미지
                 val count = it.data!!.clipData!!.itemCount // 이미지 개수
@@ -36,6 +45,8 @@ class RecordAlbumPicturesFragment : Fragment(), photo_onClick_interface {
                 val imageUri = it.data!!.data
                 imageList.add(imageUri!!)
             }
+
+            viewModel.addPhotos(imageList, arguments?.getLong("albumId"), null, activity)
         }
     }
 
@@ -49,8 +60,14 @@ class RecordAlbumPicturesFragment : Fragment(), photo_onClick_interface {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // xml에서 layout, data 설정해야됨
+        val binding: FragmentRecordAlbumPhotoBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_record_album_photo, container, false
+        )
+        binding.viewmodel = viewModel
+        val view = binding.root
 
-        return inflater.inflate(R.layout.fragment_record_album_photo, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,68 +100,39 @@ class RecordAlbumPicturesFragment : Fragment(), photo_onClick_interface {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(activity, 4)
 
-        photoList = ArrayList()
-        addDataToList()
+//        photoList = ArrayList()
+//        addDataToList()
+        observeViewModel(this)
 
-        photoAdapter = PhotoAdapter(photoList, this)
-        recyclerView.adapter = photoAdapter
+//        photoAdapter = PhotoAdapter(photoList, this)
+//        recyclerView.adapter = photoAdapter
     }
 
-    private fun addDataToList(){
-        photoList.add(Photo(1, R.drawable.ex))
-        photoList.add(Photo(2, R.drawable.ex2))
-        photoList.add(Photo(3, R.drawable.ex3))
-        photoList.add(Photo(4, R.drawable.ex4))
-        photoList.add(Photo(5, R.drawable.ex5))
-        photoList.add(Photo(6, R.drawable.ex6))
-        photoList.add(Photo(7, R.drawable.ex7))
-        photoList.add(Photo(8, R.drawable.ex30))
-        photoList.add(Photo(11, R.drawable.ex))
-        photoList.add(Photo(12, R.drawable.ex2))
-        photoList.add(Photo(13, R.drawable.ex3))
-        photoList.add(Photo(14, R.drawable.ex4))
-        photoList.add(Photo(15, R.drawable.ex5))
-        photoList.add(Photo(16, R.drawable.ex6))
-        photoList.add(Photo(17, R.drawable.ex7))
-        photoList.add(Photo(21, R.drawable.ex))
-        photoList.add(Photo(22, R.drawable.ex2))
-        photoList.add(Photo(23, R.drawable.ex3))
-        photoList.add(Photo(24, R.drawable.ex4))
-        photoList.add(Photo(25, R.drawable.ex5))
-        photoList.add(Photo(26, R.drawable.ex6))
-        photoList.add(Photo(27, R.drawable.ex7))
-        photoList.add(Photo(31, R.drawable.ex))
-        photoList.add(Photo(32, R.drawable.ex2))
-        photoList.add(Photo(33, R.drawable.ex3))
-        photoList.add(Photo(34, R.drawable.ex4))
-        photoList.add(Photo(35, R.drawable.ex5))
-        photoList.add(Photo(36, R.drawable.ex6))
-        photoList.add(Photo(37, R.drawable.ex7))
-        photoList.add(Photo(41, R.drawable.ex))
-        photoList.add(Photo(42, R.drawable.ex2))
-        photoList.add(Photo(43, R.drawable.ex3))
-        photoList.add(Photo(44, R.drawable.ex4))
-        photoList.add(Photo(45, R.drawable.ex5))
-        photoList.add(Photo(46, R.drawable.ex6))
-        photoList.add(Photo(47, R.drawable.ex7))
-        photoList.add(Photo(51, R.drawable.ex))
-        photoList.add(Photo(52, R.drawable.ex2))
-        photoList.add(Photo(53, R.drawable.ex3))
-        photoList.add(Photo(54, R.drawable.ex4))
-        photoList.add(Photo(55, R.drawable.ex5))
-        photoList.add(Photo(56, R.drawable.ex6))
-        photoList.add(Photo(57, R.drawable.ex7))
-        photoList.add(Photo(61, R.drawable.ex))
-        photoList.add(Photo(62, R.drawable.ex2))
-        photoList.add(Photo(63, R.drawable.ex3))
-        photoList.add(Photo(64, R.drawable.ex4))
-        photoList.add(Photo(65, R.drawable.ex5))
-        photoList.add(Photo(66, R.drawable.ex6))
-        photoList.add(Photo(67, R.drawable.ex7))
-    }
+//    private fun addDataToList(){
+////        photoList.add(Photo(1, "사진1", Date(), null, R.drawable.ex, 1, 5))
+////        photoList.add(Photo(2, "사진2", Date(), null, R.drawable.ex, 1, 5))
+////        photoList.add(Photo(3, "사진3", Date(), null, R.drawable.ex, 1, 5))
+////        photoList.add(Photo(4, "사진4", Date(), null, R.drawable.ex2, 2, 5))
+////        photoList.add(Photo(5, "사진5", Date(), null, R.drawable.ex2, 2, 5))
+////        photoList.add(Photo(6, "사진6", Date(), null, R.drawable.ex2, 2, 5))
+////        photoList.add(Photo(7, "사진7", Date(), null, R.drawable.ex3, 3, 5))
+////        photoList.add(Photo(8, "사진8", Date(), null, R.drawable.ex3, 3, 5))
+////        photoList.add(Photo(9, "사진9", Date(), null, R.drawable.ex4, 4, 5))
+//    }
 
     // fragment에서 adapter에 data를 전달하기 위함
     override fun onClickPhoto(): String? {
         return arguments?.getString("albumTitle");
+    }
+
+    fun observeViewModel(photo_onClick_interface : photo_onClick_interface) {
+        val observer = object : Observer<Album> {
+            override fun onChanged(t: Album?) {
+                photoAdapter = t?.let { it -> PhotoAdapter(it.photoList, photo_onClick_interface) }!!
+                recyclerView.adapter = photoAdapter
+            }
+        }
+
+        viewModel.album.observe(viewLifecycleOwner, observer)
     }
 }

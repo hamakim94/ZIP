@@ -61,7 +61,7 @@
         android:label="RecordQnaDetailFragment" />
     <fragment
         android:id="@+id/recordAlbumPicturesFragment2"
-        android:name="com.ssafy.zip.android.RecordAlbumPicturesFragment"
+        android:name="com.ssafy.zip.android.RecordAlbumPhotoFragment"
         android:label="fragment_record_album_photo"
         tools:layout="@layout/fragment_record_album_photo" >
         <action
