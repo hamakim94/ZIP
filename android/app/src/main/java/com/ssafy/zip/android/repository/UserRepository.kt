@@ -3,7 +3,7 @@ package com.ssafy.zip.android.repository
 import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.App
-import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.UserFamily
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.data.request.RequestSignup
@@ -56,7 +56,7 @@ class UserRepository private constructor(application: Application) {
         val response = ApiService.getApiService.enterRoom(code)
         var returnData : Any?
         returnData = if(response.isSuccessful) {
-            response.body() as Family
+            response.body() as UserFamily
         } else {
             response.code()
         }

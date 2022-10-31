@@ -1,6 +1,8 @@
 package com.ssafy.zip.android
 
 import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.Missions
+import com.ssafy.zip.android.data.UserFamily
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestFamilyroom
 import com.ssafy.zip.android.data.request.RequestLoginData
@@ -34,10 +36,16 @@ interface ApiInterface {
     @PUT("rooms/enter")
     suspend fun enterRoom(
         @Body code: Int,
-    ):Response<Family>
+    ):Response<UserFamily>
 
     @POST("rooms/create")
     suspend fun createFamily(
         @Body body: RequestFamilyroom
-    ) : Response<Family>
+    ) : Response<UserFamily>
+
+    @GET("rooms")
+    suspend fun getFamily():Response<Family>
+
+    @GET("post/missions")
+    suspend fun getMission():Response<Missions>
 }
