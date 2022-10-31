@@ -11,4 +11,8 @@
     <color name="lightgray">#E3E3E3</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#6200EE</color>
+    <color name="letter_color_yellow">#FFFBD9</color>
+    <color name="letter_color_red">#FFE5E5</color>
+    <color name="letter_color_green">#F4FFDC</color>
+
 </resources>

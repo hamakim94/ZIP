@@ -27,6 +27,18 @@
         <action
             android:id="@+id/action_recordFragment_to_recordAlbumPicturesFragment2"
             app:destination="@id/recordAlbumPicturesFragment2" />
+        <action
+            android:id="@+id/action_recordFragment_to_recordLetterDetailFragment"
+            app:destination="@id/recordLetterDetailFragment" />
+        <action
+            android:id="@+id/action_recordFragment_to_recordBoardCreateFragment"
+            app:destination="@id/recordBoardCreateFragment" />
+        <action
+            android:id="@+id/action_recordFragment_to_recordQnaCreateFragment"
+            app:destination="@id/recordQnaCreateFragment" />
+        <action
+            android:id="@+id/action_recordFragment_to_recordLetterCreateFragment"
+            app:destination="@id/recordLetterCreateFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -74,8 +86,26 @@
             app:destination="@id/familyroomFragment" />
     </fragment>
     <fragment
+        android:id="@+id/recordLetterDetailFragment"
+        android:name="com.ssafy.zip.android.RecordLetterDetailFragment"
+        android:label="RecordLetterDetailFragment" />
+    <fragment
         android:id="@+id/familyroomFragment"
         android:name="com.ssafy.zip.android.FamilyroomFragment"
         android:label="fragment_familyroom"
         tools:layout="@layout/fragment_familyroom" />
+    <fragment
+        android:id="@+id/recordBoardCreateFragment"
+        android:name="com.ssafy.zip.android.RecordBoardCreateFragment"
+        android:label="fragment_record_board_create"
+        tools:layout="@layout/fragment_record_board_create" />
+    <fragment
+        android:id="@+id/recordLetterCreateFragment"
+        android:name="com.ssafy.zip.android.RecordLetterCreateFragment"
+        android:label="fragment_record_letter_create"
+        tools:layout="@layout/fragment_record_letter_create" />
+    <fragment
+        android:id="@+id/recordQnaCreateFragment"
+        android:name="com.ssafy.zip.android.RecordQnaCreateFragment"
+        android:label="RecordQnaCreateFragment" />
 </navigation>

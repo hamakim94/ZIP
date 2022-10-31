@@ -13,7 +13,10 @@ import com.ssafy.zip.android.adapter.CommentQnaAdapter
 import com.ssafy.zip.android.adapter.MemberAdapter
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.Comment
+import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.User
+import java.util.*
+import kotlin.collections.ArrayList
 
 class RecordQnaDetailFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -54,8 +57,8 @@ class RecordQnaDetailFragment : Fragment() {
         }
         // 데이터 넣기
         if(qnaData != null){
-            qnaDetailReg.text = qnaData.qnaReg
-            qnaDetailContent.text = qnaData.qnaContent
+            qnaDetailReg.text = qnaData.reg.toString()
+            qnaDetailContent.text =qnaData.question
         }
 
         val layoutManager = GridLayoutManager(context,cnt )
@@ -72,11 +75,18 @@ class RecordQnaDetailFragment : Fragment() {
 
     }
     private fun dataInitialize() {
+        var family = Family(123, "a", 6, 5, 1, Date(2022, 10, 27,4, 22, 39));
+        var user_now = User(family, true, 5, "테스트", "테스트", null)
         userList = arrayListOf<User>()
-//        userList.add(Member(1,"류현수", "행복한 우리 가조쿠", "귀요미 막둥이 현수", R.drawable.ex))
-//        userList.add(Member(2,"김민균", "행복한 우리 가조쿠", "귀요미 첫째 민균", R.drawable.ex2))
-//        userList.add(Member(3,"이승연", "행복한 우리 가조쿠", "귀요미 둘째 승연", R.drawable.ex3))
-//        userList.add(Member(4,"이보나", "행복한 우리 가조쿠", "귀요미 셋째 보나", R.drawable.ex4))
+//        userList.add(User(1,"류현수", "행복한 우리 가조쿠", "귀요미 막둥이 현수", R.drawable.ex))
+//        userList.add(User(2,"김민균", "행복한 우리 가조쿠", "귀요미 첫째 민균", R.drawable.ex2))
+//        userList.add(User(3,"이승연", "행복한 우리 가조쿠", "귀요미 둘째 승연", R.drawable.ex3))
+//        userList.add(User(4,"이보나", "행복한 우리 가조쿠", "귀요미 셋째 보나", R.drawable.ex4))
+
+        userList.add(User( family, true, 1,"1", "귀요미 막둥이 현수", null))
+        userList.add(User(family, true,2,"김민균", "귀요미 첫째 민균",  null))
+        userList.add(User(family, true,3,"이승연", "귀요미 둘째 승연",  null))
+        userList.add(User(family, true,4,"이보나", "귀요미 셋째 보나", null))
 
         commentList = arrayListOf<Comment>()
 

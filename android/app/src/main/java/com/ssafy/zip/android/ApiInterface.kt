@@ -2,6 +2,8 @@ package com.ssafy.zip.android
 
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
+import com.ssafy.zip.android.data.response.ResponseBoardAll
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,7 +20,7 @@ interface ApiInterface {
     suspend fun requestReissue(): Response<Any>
 
     @GET("post")
-    suspend fun getBoard(): Response<Any>
+    fun getBoard() : Call<List<ResponseBoardAll>>
 
 
 //    companion object {// Retrofit 객체 초기화 인터셉터 설정

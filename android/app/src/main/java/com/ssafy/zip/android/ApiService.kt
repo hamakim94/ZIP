@@ -1,6 +1,8 @@
 package com.ssafy.zip.android
 
 import com.google.gson.*
+import com.ssafy.zip.android.data.BoardModel
+import com.ssafy.zip.android.data.response.ResponseBoardAll
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -76,7 +78,9 @@ object ApiService {
 
     private val getApi by lazy {
         val builder = GsonBuilder()
-        builder.registerTypeAdapter(Date::class.java, GsonDateFormatAdapter())
+        builder
+            .registerTypeAdapter(Date::class.java, GsonDateFormatAdapter())
+            .registerTypeAdapter(ResponseBoardAll::class.java, GsonBoardFormatAdapter())
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
@@ -117,6 +121,29 @@ object ApiService {
             } catch (e: ParseException) {
                 throw JsonParseException(e)
             }
+        }
+    }
+
+    class GsonBoardFormatAdapter : JsonDeserializer<ResponseBoardAll> {
+
+        @Synchronized
+        override fun deserialize(
+            jsonElement: JsonElement,
+            type: Type,
+            context: JsonDeserializationContext
+        ): ResponseBoardAll {
+            val category = jsonElement.asJsonObject.get("category").asInt
+            val data: JsonElement = jsonElement.asJsonObject.get("data")
+            val parsedData =
+                when (category) {
+                    0 -> context.deserialize<BoardModel.Board>(data, BoardModel.Board::class.java)
+                    1 -> context.deserialize<BoardModel.Qna>(data, BoardModel.Qna::class.java)
+                    2 -> context.deserialize<BoardModel.Letter>(data, BoardModel.Letter::class.java)
+                    else -> throw IllegalArgumentException()
+                }
+
+            return ResponseBoardAll(category, parsedData)
+
         }
     }
 
