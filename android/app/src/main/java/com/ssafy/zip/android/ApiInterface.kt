@@ -1,21 +1,24 @@
 package com.ssafy.zip.android
 
+import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
-import com.ssafy.zip.android.data.response.ResponseLoginData
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiInterface {
 
     @POST("users/login")//Post Interface
-    fun requsetLogin(
-        @Body body : RequestLoginData
-    ): Call<ResponseLoginData> // 받을 데이터 클래스
+    suspend fun requsetLogin(
+        @Body body: RequestLoginData
+    ): Response<User> // 받을 데이터 클래스
 
     @POST("users/reissue")
-    fun requestReissue():Call<ResponseLoginData>
+    suspend fun requestReissue(): Response<Any>
 
+    @GET("post")
+    suspend fun getBoard(): Response<Any>
 
 
 //    companion object {// Retrofit 객체 초기화 인터셉터 설정

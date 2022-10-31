@@ -84,27 +84,13 @@ class CalendarFragment : Fragment() {
         recyclerView.adapter = calendarAdapter
 
         // 구분선
-
 //        val dividerItemDecoration =
 //            DividerItemDecoration(recyclerView.context, LinearLayoutManager(context).orientation)
 //
 //        recyclerView.addItemDecoration(dividerItemDecoration)
-//
-//
-//        recyclerView2 = recyclerView.findViewById(R.id.calendar_image)
-//        recyclerView2.setHasFixedSize(true)
-//
-//        val cnt2 = when (calendarMemberAdapter.itemCount) {
-//            in 1..4 -> calendarMemberAdapter.itemCount
-//            in 5..6 -> 3
-//            else -> 4
-//        }
-////
-//        recyclerView2.layoutManager = GridLayoutManager(activity, cnt2)
-//        calendarMemberAdapter = CalendarMemberAdapter(memberList)
-//        recyclerView2.adapter = calendarMemberAdapter
 
 
+        // 날짜 표시
         val dayText: TextView = view.findViewById(R.id.day_text)
         val calendarView: CalendarView = view.findViewById(R.id.calendarView)
 
@@ -119,6 +105,9 @@ class CalendarFragment : Fragment() {
 
             dayText.text = day
         }
+
+        // 날짜-일정 연결
+
 
         // + 버튼 눌렀을 때
         val fab: View = view.findViewById(R.id.add_calendar_fab)
