@@ -8,9 +8,9 @@ data class User(
     @SerializedName("family")
     var userFamily : UserFamily,
     var hasFamily : Boolean,
-    var id : Int,
+    var id : Long,
     var name : String,
     var nickname: String,
-    var profileImg : String
+    var profileImg : String? // 추후 수정?
 ): Parcelable
 

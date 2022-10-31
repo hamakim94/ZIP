@@ -29,7 +29,7 @@ class MemberAdapter (private val userList :ArrayList<User>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: MemberViewHolder, position: Int) {
         val memberImage = userList[position]
-        holder.memberImage.setImageResource(memberImage.profileImg.toInt())
+        holder.memberImage.setImageResource(0)
         holder.memberImage.setOnClickListener {
 //            val dialog = CustomDialog()
             val args = Bundle()

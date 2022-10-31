@@ -6,6 +6,8 @@ import com.ssafy.zip.android.data.UserFamily
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestFamilyroom
 import com.ssafy.zip.android.data.request.RequestLoginData
+import com.ssafy.zip.android.data.response.ResponseBoardAll
+import retrofit2.Call
 import com.ssafy.zip.android.data.request.RequestSignup
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -28,6 +30,8 @@ interface ApiInterface {
         @Part("userDTO") userDTO : RequestSignup
     ):Response<String>
 
+    @GET("post")
+    fun getBoard() : Call<List<ResponseBoardAll>>
     @GET("users/duplication-check")
     suspend fun emailCheck(
         @Query(value = "email") email : String,
