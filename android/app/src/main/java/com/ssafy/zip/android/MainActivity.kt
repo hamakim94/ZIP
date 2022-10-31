@@ -23,18 +23,18 @@ class MainActivity : AppCompatActivity() {
         // 네비게이션 컨트롤러 (네비게이션 그래프 정보를 바탕으로 네비게이션 간 이동을 담당)
         val navController = navHostFragment.navController
         // 자동 로그인
-        if(!App.prefs.getString("accesstoken","").equals("")) {
-            val navGraph = navController.navInflater.inflate(R.navigation.bottom_bar_nav_graph)
-            navGraph.setStartDestination(R.id.homeFragment)
-            navController.setGraph(navGraph, null)
-        }
+//        if(!App.prefs.getString("accesstoken","").equals("")) {
+//            val navGraph = navController.navInflater.inflate(R.navigation.bottom_bar_nav_graph)
+//            navGraph.setStartDestination(R.id.homeFragment)
+//            navController.setGraph(navGraph, null)
+//        }
         // 바인딩
         binding.bottomNavigationView.setupWithNavController(navController)
         // bottomtab 눌렀을 경우 이전 stack들 다 삭제
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController, false)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // 특정화면에서 하단바 없애기
-            if (destination.id == R.id.loginFragment) {
+            if (destination.id == R.id.loginFragment || destination.id == R.id.signupFragment || destination.id == R.id.signUpCompleteFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
                 binding.fab.visibility = View.GONE

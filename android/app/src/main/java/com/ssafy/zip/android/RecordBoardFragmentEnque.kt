@@ -73,7 +73,7 @@ class RecordBoardFragmentEnque : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    var family = Family(123, "a", 6, 5, 1, Date(2022, 10, 27, 4, 22, 39));
+    var family = UserFamily(123, "a", 6, 5, 1, Date(2022, 10, 27, 4, 22, 39));
     var user_now = User(family, true, 5, "테스트", "테스트", null)
 
 

@@ -11,10 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.zip.android.adapter.CommentQnaAdapter
 import com.ssafy.zip.android.adapter.MemberAdapter
-import com.ssafy.zip.android.data.BoardModel
-import com.ssafy.zip.android.data.Comment
-import com.ssafy.zip.android.data.Family
-import com.ssafy.zip.android.data.User
+import com.ssafy.zip.android.data.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -75,7 +72,7 @@ class RecordQnaDetailFragment : Fragment() {
 
     }
     private fun dataInitialize() {
-        var family = Family(123, "a", 6, 5, 1, Date(2022, 10, 27,4, 22, 39));
+        var family = UserFamily(123, "a", 6, 5, 1, Date(2022, 10, 27,4, 22, 39));
         var user_now = User(family, true, 5, "테스트", "테스트", null)
         userList = arrayListOf<User>()
 //        userList.add(User(1,"류현수", "행복한 우리 가조쿠", "귀요미 막둥이 현수", R.drawable.ex))
