@@ -2,30 +2,28 @@ package com.ssafy.zip.android
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CalendarView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
-import com.ssafy.zip.android.data.Calendar
+import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import kotlin.collections.ArrayList
-import android.widget.TextView;
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.ssafy.zip.android.data.Calendar
 import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.User
-import com.ssafy.zip.android.databinding.FragmentCalendarBinding
-import com.ssafy.zip.android.databinding.FragmentDialogBinding
-import java.util.Date;
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CalendarFragment : Fragment() {
@@ -51,12 +49,6 @@ class CalendarFragment : Fragment() {
         //initRecycler()
 //      setContentView(R.layout.dialog_add_calendar)
     }
-
-
-
-
-
-
 
 //    private fun setContentView(dialogAddCalendar: Int) {
 //    }
@@ -90,6 +82,13 @@ class CalendarFragment : Fragment() {
 
         calendarAdapter = CalendarAdapter(calendarList)
         recyclerView.adapter = calendarAdapter
+
+        // 구분선
+
+//        val dividerItemDecoration =
+//            DividerItemDecoration(recyclerView.context, LinearLayoutManager(context).orientation)
+//
+//        recyclerView.addItemDecoration(dividerItemDecoration)
 //
 //
 //        recyclerView2 = recyclerView.findViewById(R.id.calendar_image)
@@ -119,7 +118,6 @@ class CalendarFragment : Fragment() {
             var day: String = "${month + 1}월 ${dayOfMonth}일"
 
             dayText.text = day
-
         }
 
         // + 버튼 눌렀을 때
@@ -360,8 +358,8 @@ class CalendarFragment : Fragment() {
     var user2 = User(family1,true, 2, "민균", "귀요미 첫째 민균", null, R.drawable.member2)
     var user3 = User(family1,true, 3, "승연", "귀요미 둘째 승연", null, R.drawable.member3)
     var user4 = User(family1,true, 4, "보나", "귀요미 셋째 보나", null, R.drawable.member4)
-    var user5 = User(family1,true, 5, "보나", "귀요미 셋째 보나", null, R.drawable.member4)
-    var user6 = User(family1,true, 6, "보나", "귀요미 셋째 보나", null, R.drawable.member4)
+    var user5 = User(family1,true, 5, "보나", "귀요미 넷째 재순", null, R.drawable.member3)
+    var user6 = User(family1,true, 6, "보나", "귀요미 다섯째 도엽", null, R.drawable.member4)
 
 
 
@@ -369,7 +367,7 @@ class CalendarFragment : Fragment() {
     private fun addDataToList() {
         calendarList.add(Calendar("가족 회식", Date(), 1, Date(), arrayListOf(user1, user2, user3, user4, user5, user6)))
         calendarList.add(Calendar("여친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user3)))
-        calendarList.add(Calendar("남치이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
+        calendarList.add(Calendar("남친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
 
         memberList =  arrayListOf(user1, user2, user3, user4)
 
