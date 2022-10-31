@@ -1,18 +1,22 @@
 package com.ssafy.zip.android
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.PopupMenu
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.zip.android.adapter.BoardModelAdapter
 import com.ssafy.zip.android.data.response.ResponseBoardAll
+import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.databinding.FragmentRecordBoardBinding
+import com.ssafy.zip.android.viewmodel.BoardViewModel
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -24,8 +28,10 @@ class RecordBoardFragment : Fragment() {
     private lateinit var activity: MainActivity
     private lateinit var adapter: BoardModelAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var boardModelArrayList: List<ResponseBoardAll>
-    private lateinit var filteredBoardModelArrayList: List<ResponseBoardAll>
+//    private lateinit var boardModelArrayList: ArrayList<ResponseBoardAll>
+    private lateinit var filteredBoardModelArrayList: ArrayList<ResponseBoardAll>
+    private val viewModel by viewModels<BoardViewModel>{BoardViewModel.Factory(Application())}
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,63 +42,69 @@ class RecordBoardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRecordBoardBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_record_board, container, false)
+        binding.viewmodel = viewModel
+
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getMockData()
+//        getMockData()
+        observeViewModel(activity)
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.board_recyclerview)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        adapter = BoardModelAdapter(filteredBoardModelArrayList as ArrayList<ResponseBoardAll>)
+//        boardModelArrayList = viewModel.boardList
+//        println("RecordBoardFragment onViewCreated viewModel.boardList.value " + viewModel.boardList)
+
+        adapter = BoardModelAdapter(ArrayList())
         recyclerView.adapter = adapter
 
         // 그냥 뿌리기
         binding.allButton.setOnClickListener {
-            adapter = BoardModelAdapter(boardModelArrayList as ArrayList<ResponseBoardAll>)
+            adapter = BoardModelAdapter(viewModel.boardList.value!!)
             recyclerView.adapter = adapter
         }
         // 필터링 해서 뿌려주기
         binding.boardButton.setOnClickListener {
             filteredBoardModelArrayList =
-                boardModelArrayList.filter { it.category == 0 } as ArrayList<ResponseBoardAll>
-            adapter = BoardModelAdapter(filteredBoardModelArrayList as ArrayList<ResponseBoardAll>)
+                viewModel.boardList.value!!.filter { it.category == 0 } as ArrayList<ResponseBoardAll>
+            adapter = BoardModelAdapter(filteredBoardModelArrayList )
             recyclerView.adapter = adapter
         }
         binding.qnaButton.setOnClickListener {
             filteredBoardModelArrayList =
-                boardModelArrayList.filter { it.category == 1 } as ArrayList<ResponseBoardAll>
-            adapter = BoardModelAdapter(filteredBoardModelArrayList as ArrayList<ResponseBoardAll>)
+                viewModel.boardList.value!!.filter { it.category == 1 } as ArrayList<ResponseBoardAll>
+            adapter = BoardModelAdapter(filteredBoardModelArrayList )
             recyclerView.adapter = adapter
         }
         binding.letterButton.setOnClickListener {
             filteredBoardModelArrayList =
-                boardModelArrayList.filter { it.category == 2 } as ArrayList<ResponseBoardAll>
-            adapter = BoardModelAdapter(filteredBoardModelArrayList as ArrayList<ResponseBoardAll>)
+                viewModel.boardList.value!!.filter { it.category == 2 } as ArrayList<ResponseBoardAll>
+            adapter = BoardModelAdapter(filteredBoardModelArrayList)
             recyclerView.adapter = adapter
         }
 
         binding.boardFab.setOnClickListener { showPopup(binding.boardFab) }
     }
 
-    private fun getMockData() {
-        val executorService: ExecutorService = Executors.newFixedThreadPool(1)
-        val countDownLatch: CountDownLatch = CountDownLatch(1)
-        executorService.execute {
-            val response = ApiService.getApiService.getBoard().execute()
-            println(response.body())
-            boardModelArrayList = response.body()!!
-            filteredBoardModelArrayList = ArrayList(boardModelArrayList)
-            countDownLatch.countDown()
+    private fun observeViewModel(activity: MainActivity){
+        val observer = object  : Observer<ArrayList<ResponseBoardAll>>{
+            override fun onChanged(boardList: ArrayList<ResponseBoardAll>?) {
+                if(boardList != null){
+                    adapter = BoardModelAdapter(boardList)
+                }
+                recyclerView.adapter = adapter
+            }
+
         }
-
-        countDownLatch.await()
-
+        viewModel.boardList.observe(viewLifecycleOwner, observer)
     }
+
 
     //    팝업 메뉴 보여주는 커스텀 메소드
     private fun showPopup(v: View) {

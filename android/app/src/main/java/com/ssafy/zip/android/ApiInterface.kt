@@ -76,9 +76,11 @@ interface ApiInterface {
     @GET("rooms")
     suspend fun getFamily():Response<Family>
 
-    @GET("post")
-    fun getBoard() : Call<List<ResponseBoardAll>>
-
     @GET("post/missions")
     suspend fun getMission():Response<Missions>
+
+    // 게시글 관련
+    @GET("post")
+//    fun getBoard() : Call<List<ResponseBoardAll>>
+    suspend fun getBoardAll():Response<ArrayList<ResponseBoardAll>>
 }

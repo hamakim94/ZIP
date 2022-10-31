@@ -63,7 +63,7 @@ class RecordBoardFragmentEnque : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getMockData()
+//        getMockData()
 //        getMockData()
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.board_recyclerview)
@@ -77,20 +77,20 @@ class RecordBoardFragmentEnque : Fragment() {
     var user_now = User(family, true, 5, "테스트", "테스트", null)
 
 
-    private fun getMockData() {
-        ApiService.getApiService.getBoard().enqueue(object : Callback<List<ResponseBoardAll>>{
-            override fun onResponse(call: Call<List<ResponseBoardAll>>, response: Response<List<ResponseBoardAll>>) {
-                println(response.body())
-                boardModelArrayList = response.body()!!
-                filteredBoardModelArrayList = ArrayList(boardModelArrayList)
-
-
-            }
-            override fun onFailure(call: Call<List<ResponseBoardAll>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
+//    private fun getMockData() {
+//        ApiService.getApiService.getBoard().enqueue(object : Callback<List<ResponseBoardAll>>{
+//            override fun onResponse(call: Call<List<ResponseBoardAll>>, response: Response<List<ResponseBoardAll>>) {
+//                println(response.body())
+//                boardModelArrayList = response.body()!!
+//                filteredBoardModelArrayList = ArrayList(boardModelArrayList)
+//
+//
+//            }
+//            override fun onFailure(call: Call<List<ResponseBoardAll>>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//        })
+//    }
 
 //    : ArrayList<BoardModel> = arrayListOf(
 //        BoardModel.Board(
