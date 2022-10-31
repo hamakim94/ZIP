@@ -18,7 +18,8 @@ open class BoardModel : Parcelable {
         var user : User,
         var content : String?,
         var image : String?, // 추후 string
-        var reg : Date
+        var reg : Date,
+        var commentCnt : Long
 //        var userImage: Int,
 //        var userNickname: String,
 //        var boardReg: String,

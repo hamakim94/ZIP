@@ -106,6 +106,7 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
                 itemView.findViewById<TextView>(R.id.boardReg).text = board.reg.toString()
                 itemView.findViewById<ImageView>(R.id.boardImage).setImageResource(0)
                 itemView.findViewById<TextView>(R.id.boardContent).text = board.content
+                itemView.findViewById<TextView>(R.id.commentCnt).text = board.commentCnt.toString()
             }
 //            itemView.findViewById<TextView>(R.id.commentCount).text = item.
 
