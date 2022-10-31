@@ -19,6 +19,8 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 import android.widget.TextView;
+import androidx.databinding.DataBindingUtil.setContentView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.databinding.FragmentCalendarBinding
@@ -27,7 +29,7 @@ import java.util.Date;
 
 
 class CalendarFragment : Fragment() {
-    private lateinit var binding : FragmentDialogBinding
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var dialogRecyclerView: RecyclerView
     private lateinit var calendarList: ArrayList<Calendar>
@@ -37,7 +39,8 @@ class CalendarFragment : Fragment() {
     private lateinit var calendarTextField: TextInputLayout
     private lateinit var memberList: ArrayList<User>
     private lateinit var calendarDialogAdapter: CalendarDialogAdapter
-
+    private lateinit var calendarMemberAdapter: CalendarMemberAdapter
+    private lateinit var recyclerView2: RecyclerView
 
     companion object {
         fun newInstance(): CalendarFragment = CalendarFragment()
@@ -45,14 +48,18 @@ class CalendarFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dialog_add_calendar)
-
-
+        //initRecycler()
+//      setContentView(R.layout.dialog_add_calendar)
     }
 
-    private fun setContentView(dialogAddCalendar: Int) {
 
-    }
+
+
+
+
+
+//    private fun setContentView(dialogAddCalendar: Int) {
+//    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -83,6 +90,20 @@ class CalendarFragment : Fragment() {
 
         calendarAdapter = CalendarAdapter(calendarList)
         recyclerView.adapter = calendarAdapter
+//
+//
+//        recyclerView2 = recyclerView.findViewById(R.id.calendar_image)
+//        recyclerView2.setHasFixedSize(true)
+//
+//        val cnt2 = when (calendarMemberAdapter.itemCount) {
+//            in 1..4 -> calendarMemberAdapter.itemCount
+//            in 5..6 -> 3
+//            else -> 4
+//        }
+////
+//        recyclerView2.layoutManager = GridLayoutManager(activity, cnt2)
+//        calendarMemberAdapter = CalendarMemberAdapter(memberList)
+//        recyclerView2.adapter = calendarMemberAdapter
 
 
         val dayText: TextView = view.findViewById(R.id.day_text)
@@ -124,7 +145,7 @@ class CalendarFragment : Fragment() {
 
 
 
-        MaterialAlertDialogBuilder(activity)
+            MaterialAlertDialogBuilder(activity)
                 .setView(customAlertDialogView)
                 .setTitle(resources.getString(R.string.new_calendar))
                 .setPositiveButton(resources.getString(R.string.confirm)) { dialog, which ->
@@ -132,7 +153,7 @@ class CalendarFragment : Fragment() {
 
                     Toast.makeText(activity,"추가", Toast.LENGTH_SHORT).show()
 
-                        dialog.dismiss()
+                    dialog.dismiss()
                 }
                 .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
                     dialog.dismiss()
@@ -339,12 +360,15 @@ class CalendarFragment : Fragment() {
     var user2 = User(family1,true, 2, "민균", "귀요미 첫째 민균", null, R.drawable.member2)
     var user3 = User(family1,true, 3, "승연", "귀요미 둘째 승연", null, R.drawable.member3)
     var user4 = User(family1,true, 4, "보나", "귀요미 셋째 보나", null, R.drawable.member4)
+    var user5 = User(family1,true, 5, "보나", "귀요미 셋째 보나", null, R.drawable.member4)
+    var user6 = User(family1,true, 6, "보나", "귀요미 셋째 보나", null, R.drawable.member4)
+
 
 
 
     private fun addDataToList() {
-        calendarList.add(Calendar("가족 회식", Date(), 1, Date(), arrayListOf(user1, user2, user3, user4)))
-        calendarList.add(Calendar("여친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
+        calendarList.add(Calendar("가족 회식", Date(), 1, Date(), arrayListOf(user1, user2, user3, user4, user5, user6)))
+        calendarList.add(Calendar("여친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user3)))
         calendarList.add(Calendar("남치이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
 
         memberList =  arrayListOf(user1, user2, user3, user4)
@@ -353,8 +377,8 @@ class CalendarFragment : Fragment() {
     }
 
 
-
 }
+
 
 
 
