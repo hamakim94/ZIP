@@ -70,4 +70,17 @@
         android:scaleType="fitCenter"
         app:tint="@color/white"
         android:alpha="0.8" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/download_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_baseline_file_download_24"
+        app:maxImageSize="32dp"
+        app:tint="@color/white"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,11 @@
 package com.ssafy.zip.android.data
 
-data class Album (
+import com.google.gson.annotations.SerializedName
+
+data class Album(
     val id: Long,
-    val image: Int,
+    @SerializedName("name")
     val title: String,
-    val num: Int
+    @SerializedName("pictures")
+    val photoList: ArrayList<Photo>
 )
