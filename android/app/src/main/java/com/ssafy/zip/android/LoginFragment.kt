@@ -1,96 +1,60 @@
 package com.ssafy.zip.android
 
+import android.app.Application
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
-import com.ssafy.zip.android.data.response.ResponseLoginData
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.ssafy.zip.android.repository.UserRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater,container,false)
-        binding.btnLogin.setOnClickListener{
-            ApiService.getApiService.requsetLogin(
-                RequestLoginData(
-                email = binding.editEmail.text.toString(),
-                password = binding.editPassword.text.toString())
-            ).enqueue(object : Callback<ResponseLoginData> {
-                override fun onResponse(
-                    call: Call<ResponseLoginData>,
-                    response: Response<ResponseLoginData>
-                ) {
-                    if(response.code().toString().equals("200")) {
-                        val headers = response.headers()
-                        val accesstoken = headers.get("ACCESSTOKEN").toString()
-                        val refreshtoken = headers.get("REFRESHTOKEN").toString()
-                        App.prefs.setString("accesstoken", accesstoken)
-                        App.prefs.setString("refreshtoken", refreshtoken)
-                        Log.d("log1", response.body().toString())
-                        var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                        if(App.prefs.getString("accesstoken", "").equals("")) {
-                            binding.root.findNavController().navigate(action)
-                        }
-                        else {
-                            action =
-                                LoginFragmentDirections.actionLoginFragmentToFamilyroomFragment()
-                            binding.root.findNavController().navigate(action)
-                        }
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding.btnLogin.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                val instance = UserRepository.getInstance(Application())
+                var loginData = instance?.login(
+                    RequestLoginData(
+                        email = binding.editEmail.text.toString(),
+                        password = binding.editPassword.text.toString()
+                    )
+                )
+                if (loginData is User) {
+                    var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                    if (loginData.hasFamily) {
+                        binding.root.findNavController().navigate(action)
+                    } else {
+                        action = LoginFragmentDirections.actionLoginFragmentToFamilyEnterFragment()
+                        binding.root.findNavController().navigate(action)
                     }
+                } else {
+                    println(loginData)
                 }
+            }
 
-                override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
-                    // 실패
-                    Log.d("log3",t.message.toString())
-                    Log.d("log4","fail")
-                    Log.d("log5", t.toString())
-                }
-            })
         }
-        binding.signupText.setOnClickListener{
-//            val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
-//            binding.root.findNavController().navigate(action)
+        binding.signupText.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
+            binding.root.findNavController().navigate(action)
         }
-        binding.passwordfindText.setOnClickListener{
-            // 토큰 잘 쓰는지 테스트용이였음
-//            api.requestReissue().enqueue(object : Callback<ResponseLoginData> {
-//                override fun onResponse(
-//                    call: Call<ResponseLoginData>,
-//                    response: Response<ResponseLoginData>
-//                ) {
-//                    Log.d("log1", response.toString())
-////                    if(response.code().toString().equals("200")) {
-////                        val headers = response.headers()
-////                        val accesstoken = headers.get("ACCESSTOKEN").toString()
-////                        val refreshtoken = headers.get("REFRESHTOKEN").toString()
-////                        App.prefs.setString("accesstoken", accesstoken)
-////                        App.prefs.setString("refreshtoken", refreshtoken)
-////                        Log.d("log1", response.toString())
-////                    }
-//                }
-//
-//                override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
-//                    // 실패
-//                    Log.d("log3",t.message.toString())
-//                    Log.d("log4","fail")
-//                }
-//            })
-//            val action = LoginFragmentDirections.actionLoginFragmentToPasswordfindFragment()
-//            binding.root.findNavController().navigate(action)
+        binding.passwordfindText.setOnClickListener {
+
         }
         return binding.root
     }
@@ -101,27 +65,27 @@ class LoginFragment : Fragment() {
     }
 
     private fun initView() {
-            binding.loginEmail.editText?.addTextChangedListener(emailListner)
-            binding.editEmail.hint = resources.getString(R.string.email_hint)
-            binding.editEmail.setOnFocusChangeListener {_,hasFocus ->
-                if(hasFocus){
-                    binding.editEmail.hint = ""
-                } else{
-                    binding.editEmail.hint = resources.getString(R.string.email_hint)
-                }
+        binding.loginEmail.editText?.addTextChangedListener(emailListner)
+        binding.editEmail.hint = resources.getString(R.string.email_hint)
+        binding.editEmail.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.editEmail.hint = ""
+            } else {
+                binding.editEmail.hint = resources.getString(R.string.email_hint)
             }
-            binding.editPassword.hint = resources.getString(R.string.password_hint)
-            binding.editPassword.setOnFocusChangeListener {_, hasfocus ->
-                if(hasfocus){
-                    binding.editPassword.hint = ""
-                } else{
-                    binding.editPassword.hint = resources.getString(R.string.password_hint)
-                }
+        }
+        binding.editPassword.hint = resources.getString(R.string.password_hint)
+        binding.editPassword.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.editPassword.hint = ""
+            } else {
+                binding.editPassword.hint = resources.getString(R.string.password_hint)
             }
+        }
     }
 
-    private fun emailRegex(email: String):Boolean{
-        if(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+    private fun emailRegex(email: String): Boolean {
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             return true
         }
         return false
@@ -130,8 +94,10 @@ class LoginFragment : Fragment() {
     private val emailListner = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
+
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
+
         override fun afterTextChanged(s: Editable?) {
             if (s != null) {
                 when {

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.DialogFragment
+import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.databinding.FragmentDialogBinding
 
 class CustomDialog : DialogFragment() {
@@ -19,23 +20,23 @@ class CustomDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDialogBinding.inflate(inflater, container, false)
-        val data = requireArguments().getParcelable<Member>("key")
-        if (data != null) {
-            binding.dialogImage.setImageResource(data.image)
-            binding.dialogRightName.setText(data.name)
-            binding.dialogRightFamily.setText(data.family)
-            binding.dialogRightNickname.setText(data.nickname)
-        }
+        val data = requireArguments().getParcelable<User>("key")
+//        if (data != null) {
+//            binding.dialogImage.setImageResource(data.profileImg)
+//            binding.dialogRightName.setText(data.name)
+//            binding.dialogRightFamily.setText(data.family)
+//            binding.dialogRightNickname.setText(data.nickname)
+//        }
         binding.dialogButton.setOnClickListener {
             if(binding.dialogButton.text.equals("닫기")) {
                 dismiss()
             } else{
                 println(binding.dialogRightEditname.text)
                 if( data!= null){
-               val modifyMember = Member(data.id, binding.dialogRightEditname.text.toString(),
-                   binding.dialogRightFamily.text.toString(), binding.dialogRightEditnickname.text.toString(),
-                   data.image)
-                    println(modifyMember)
+//               val modifyMember = User(data.id, binding.dialogRightEditname.text.toString(),
+//                   binding.dialogRightFamily.text.toString(), binding.dialogRightEditnickname.text.toString(),
+//                   data.image)
+//                    println(modifyMember)
                 }
             }
         }

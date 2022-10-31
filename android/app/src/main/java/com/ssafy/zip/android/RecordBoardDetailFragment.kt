@@ -52,11 +52,11 @@ class RecordBoardDetailFragment : Fragment() {
         // 요기서, view.findViewById를 활용해, 기본 게시글 복사하자
         // arguments 이용!
         if (boardData != null) {
-            profileImage.setImageResource(boardData.userImage)
-            userNickname.text = boardData.userNickname
-            boardReg.text = boardData.boardReg
-            boardImage.setImageResource(boardData.boardImage)
-            commentCountDetail.text = boardData.commentCount
+//            profileImage.setImageResource(boardData.userImage)
+            userNickname.text = boardData.user.nickname
+            boardReg.text = boardData.reg.toString()
+//            boardImage.setImageResource(boardData.image)
+//            commentCountDetail.text = boardData.commentCount
         }
 
         val layoutManager = LinearLayoutManager(context)
