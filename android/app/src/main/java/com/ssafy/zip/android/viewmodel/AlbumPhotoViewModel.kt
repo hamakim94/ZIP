@@ -46,12 +46,12 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
         for(index in 0 until images.size) {
             try {
                 val fileName = System.currentTimeMillis().toString()
-                val filePath : String = (context.applicationInfo.dataDir + File.separator + fileName)
+                val filePath : String = context.applicationInfo.dataDir + File.separator + fileName
                 val file = File(filePath)
                 // 매개변수로 받은 uri를 통해 이미지에 필요한 데이터를 불러들임
                 val inputStream = contentResolver.openInputStream(images[index])
                 // 이미지 데이터를 다시 내보내면서 file 객체에 만들었던 경로를 이용
-                val outputStream = FileOutputStream(file)
+                val outputStream = FileOutputStream(file) // 파일을 쓸 수 있는 스트림 생성
                 val buf = ByteArray(1024)
                 var len : Int
                 if (inputStream != null) {
@@ -69,7 +69,15 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
         }
 
         viewModelScope.launch {
-            repository.uploadPhotos(imageList.toList(), albumId, pictureId)
+            val photoList = repository.uploadPhotos(imageList.toList(), albumId, pictureId)
+
+            if (photoList != null) {
+                for(index in 0 until photoList.size){
+                    _album.value?.photoList?.add(photoList[index])
+                }
+
+                _album.value = _album.value
+            }
         }
     }
 }

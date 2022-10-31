@@ -2,7 +2,6 @@ package com.ssafy.zip.android
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +21,6 @@ import com.ssafy.zip.android.viewmodel.AlbumViewModel
 
 class RecordAlbumFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var albumList: ArrayList<Album>
     private lateinit var albumAdapter: AlbumAdapter
     private lateinit var activity: MainActivity
     private lateinit var customAlertDialogView : View

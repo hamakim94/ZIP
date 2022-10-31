@@ -30,9 +30,9 @@ class RecordAlbumPhotoFragment : Fragment(), photo_onClick_interface {
     private lateinit var photoAdapter: PhotoAdapter
     private lateinit var activity: MainActivity
     private val viewModel by viewModels<AlbumPhotoViewModel>{ AlbumPhotoViewModel.Factory(Application(), arguments?.getLong("albumId"))}
-    var imageList: ArrayList<Uri> = ArrayList()
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        var imageList: ArrayList<Uri> = ArrayList() // 업로드할 사진 uri list
         if(it.resultCode == Activity.RESULT_OK) {
             if (it.data!!.clipData != null) { // 멀티 이미지
                 val count = it.data!!.clipData!!.itemCount // 이미지 개수
@@ -47,10 +47,6 @@ class RecordAlbumPhotoFragment : Fragment(), photo_onClick_interface {
             }
 
             viewModel.addPhotos(imageList, arguments?.getLong("albumId"), null, activity)
-//            for(index in 0 until imageList.size) {
-//
-//            }
-//            println(imageList)
         }
     }
 

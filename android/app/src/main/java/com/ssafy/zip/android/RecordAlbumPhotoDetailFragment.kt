@@ -112,6 +112,13 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
 //                viewPager.setCurrentItem(position, true)
             }
         }
+
+        val fab: View = view.findViewById(R.id.download_fab)
+        fab.setOnClickListener { view ->
+
+            println("position: " + position)
+
+        }
     }
 
     inner class roomListAdapterToList {
@@ -136,7 +143,9 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
         }
     }
 
+    private fun downloadPhoto(position : Int){
 
+    }
 //    // selectedPosition: Recyclerview adapter 를 통해 받아온 클릭된(선택된) 아이템의 position
 //    private fun scrollSelectedItemToCenter(selectedPosition: Int) {
 //        val layoutManager = recyclerView.layoutManager as? LinearLayoutManager
