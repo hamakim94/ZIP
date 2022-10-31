@@ -1,8 +1,15 @@
 package com.ssafy.zip.android.data
 
-data class Calendar (
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import java.util.*
+
+@Parcelize
+data class Calendar(
+    val content: String,
+    val endDate: Date,   //Date
     val id: Long,
-    val image: Int,
-    val title: String,
-    val num: Int
-)
+    val startDate: Date, //Date
+    val user: ArrayList<User>
+
+) : Parcelable
