@@ -22,7 +22,7 @@ class CalendarMemberAdapter(private val memberList:ArrayList<User>) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = memberList[position]
-        holder.imageView.setImageResource(0)
+        holder.imageView.setImageResource(0) //member.img
 
 
     }

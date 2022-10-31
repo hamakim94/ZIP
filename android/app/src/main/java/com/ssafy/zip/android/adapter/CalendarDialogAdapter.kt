@@ -21,7 +21,7 @@ class CalendarDialogAdapter(private val memberList: ArrayList<User>) : RecyclerV
 
     override fun onBindViewHolder(holder: CalendarFamilyViewHolder, position: Int) {
         val member = memberList[position]
-        holder.familyImage.setImageResource(0)
+        holder.familyImage.setImageResource(0) //member.img
         holder.familyImage.setOnClickListener {
             itemClickListener.onClick(it, position)
         }
