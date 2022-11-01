@@ -154,12 +154,12 @@ public class CalendarServiceImpl implements CalendarServcie {
     private CalendarResponseDTO calendarToCalendarResponseDTO(Calendar calendar){
         List<SimpleUserResponseDTO> list = new ArrayList<>();
         for (CalendarUser calendarUser: calendar.getCalendarUsers()) {
-            SimpleUserResponseDTO.builder()
+            list.add(SimpleUserResponseDTO.builder()
                     .id(calendarUser.getUser().getId())
                     .name(calendarUser.getUser().getName())
                     .nickname(calendarUser.getUser().getNickname())
                     .profileImg(calendarUser.getUser().getProfileImg())
-                    .build();
+                    .build());
         }
         return CalendarResponseDTO.builder()
                 .id(calendar.getId())
