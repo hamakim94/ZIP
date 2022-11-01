@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @Service
@@ -37,7 +38,7 @@ public class FamilyServiceImpl implements FamilyService{
         User user = userRepository.findById(userDTO.getId()).get();
         user.setFamily(familyRepository.save(family));
         userRepository.save(user);
-        FamilyResponseDTO familyResponseDTO = new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId());
+        FamilyResponseDTO familyResponseDTO = new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), 1L);
         return familyResponseDTO;
     }
     @Transactional
@@ -77,13 +78,23 @@ public class FamilyServiceImpl implements FamilyService{
         return familyMemberResponseDTO;
     }
 
-    private int generateCode() throws NoSuchAlgorithmException {
+    private int generateCode() throws NoSuchAlgorithmException, Exception {
+        System.out.println(1);
         int code = 0;
-        SecureRandom random = SecureRandom.getInstanceStrong();
-        while (true) {
+        System.out.println(2);
+        Random random = new Random();
+        System.out.println(3);
+        int temp = 0;
+        System.out.println(4);
+        while (temp<100) {
             code = random.nextInt(1000000);
-            if (familyRepository.findByCode(code) == null) break;;
+            System.out.println(code);
+            Family family = familyRepository.findByCode(code);
+            if (family == null) break;
+            temp++;
         }
+        if (temp>=100) throw new Exception();
+        System.out.println(5);
         return code;
     }
 }

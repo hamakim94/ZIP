@@ -56,6 +56,9 @@ public class AlbumController {
     @PostMapping("/pictures")
     @ApiOperation(value = "사진 등록")
     public ResponseEntity<List<PictureResponseDTO>> uploadPictures(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestPart PictureRequestDTO pictureRequestDTO, @RequestPart List<MultipartFile> files) {
+        System.out.println("upload start");
+        System.out.println("file size" + files.size());
+        System.out.println(files);
         try{
             List<PictureResponseDTO> results = albumService.uploadPictures(user, pictureRequestDTO, files);
             return new ResponseEntity<>(results, HttpStatus.OK);
