@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +28,7 @@ public class BoardServiceImpl implements BoardService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final AwsS3Service awsS3Service;
 
     @Override
     public List<BoardDTO> listBoard(UserDTO userDTO) {
@@ -45,23 +47,31 @@ public class BoardServiceImpl implements BoardService {
         }
         return null;
     }
-    // TODO : S3 연결 후 이미지 연결 로직 추가!!!!1
     @Override
-    public void writeBoard(UserDTO userDTO, String content, MultipartFile image) {
+    public void writeBoard(UserDTO userDTO, String content, MultipartFile image) throws Exception {
         User user = userRepository.getReferenceById(userDTO.getId());
-        boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).reg(LocalDateTime.now()).build());
+        String imageUrl = null;
+        if(image!=null&&!image.isEmpty()){
+            List<MultipartFile> files = new ArrayList<>();
+            files.add(image);
+            imageUrl = awsS3Service.uploadFiles("board", files).get(0)[0];
+        }
+
+        boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).image(imageUrl).reg(LocalDateTime.now()).build());
 
     }
-    // TODO : S3 연결 후 이미지 연결 로직 추가!!!!1
     @Transactional
     @Override
-    public BoardDetailDTO modifyBoard(UserDTO userDTO, Long boardId, String content, MultipartFile image) {
+    public BoardDetailDTO modifyBoard(UserDTO userDTO, Long boardId, String content, MultipartFile image) throws Exception {
 
         Board board = boardRepository.getReferenceById(boardId);
         if(board.getUser().getId().equals(userDTO.getId())){
-            if(!content.isBlank())
-            board.setContent(content);
-            if(image!=null&&!image.isEmpty());//TODO 이미지 관련 처리
+            if(content!=null&&!content.isBlank())board.setContent(content);
+            if(image!=null&&!image.isEmpty()){
+                List<MultipartFile> files = new ArrayList<>();
+                files.add(image);
+                board.setImage(awsS3Service.uploadFiles("board", files).get(0)[0]);
+            }
             List<Comment> commentList = commentRepository.findByBoardId(boardId);
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
                     commentList.stream().map(CommentDTOMapStruct.INSTANCE::mapToCommentDTO).collect(Collectors.toList()));

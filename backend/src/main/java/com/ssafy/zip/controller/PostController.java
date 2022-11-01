@@ -100,7 +100,7 @@ public class PostController {
 
     @PostMapping("/board")
     @ApiOperation("알반 게시물 작성")
-    ResponseEntity<?> writeBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @RequestPart String content, @RequestPart(required = true) MultipartFile image){
+    ResponseEntity<?> writeBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @RequestPart String content, @RequestPart(required = false) MultipartFile image) throws Exception {
 
         boardService.writeBoard(userDTO, content, image);
 
@@ -109,7 +109,7 @@ public class PostController {
 
     @PutMapping("/board/{boardId}")
     @ApiOperation("일반 게시글 수정")
-    ResponseEntity<BoardDetailDTO> modifyBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long boardId, @RequestPart String content, @RequestPart(required = false) MultipartFile image){
+    ResponseEntity<BoardDetailDTO> modifyBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long boardId, @RequestPart String content, @RequestPart(required = false) MultipartFile image) throws Exception {
 
         return ResponseEntity.ok(boardService.modifyBoard(userDTO,boardId,content,image));
     }

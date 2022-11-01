@@ -38,4 +38,4 @@ application-secret.properties
 .vscode/
 
 ### ###
-application-secret.properties
+firebase-service-account.json
