@@ -2,9 +2,7 @@ package com.ssafy.zip.android.repository
 
 import android.app.Application
 import com.ssafy.zip.android.ApiService
-import com.ssafy.zip.android.data.BoardModel
-import com.ssafy.zip.android.data.Family
-import com.ssafy.zip.android.data.request.RequestSignup
+import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -17,6 +15,16 @@ class BoardRepository private constructor(application: Application) {
         println("BoardRepository getBoard response: " + response)
         return if(response.isSuccessful) response.body() as ArrayList<ResponseBoardAll> else null
     }
+
+    suspend fun getBoardDetailById(
+        id : Long
+    ) : BoardDetail? {
+        val response = ApiService.getApiService.getBoardDetailById(id)
+        println("BoardRepository getBoardDetail response: " + response)
+        return if(response.isSuccessful) response.body() as BoardDetail else null
+    }
+
+
 
     suspend fun postBoard(
         image : MultipartBody.Part?,

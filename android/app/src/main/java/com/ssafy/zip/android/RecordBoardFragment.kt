@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -52,6 +53,7 @@ class RecordBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 //        getMockData()
         viewModel.getBoardAll()
         observeViewModel(activity)
@@ -59,8 +61,6 @@ class RecordBoardFragment : Fragment() {
         recyclerView = view.findViewById(R.id.board_recyclerview)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-//        boardModelArrayList = viewModel.boardList
-//        println("RecordBoardFragment onViewCreated viewModel.boardList.value " + viewModel.boardList)
 
         adapter = BoardModelAdapter(ArrayList())
         recyclerView.adapter = adapter
@@ -74,13 +74,13 @@ class RecordBoardFragment : Fragment() {
         binding.boardButton.setOnClickListener {
             filteredBoardModelArrayList =
                 viewModel.boardList.value!!.filter { it.category == 0 } as ArrayList<ResponseBoardAll>
-            adapter = BoardModelAdapter(filteredBoardModelArrayList )
+            adapter = BoardModelAdapter(filteredBoardModelArrayList)
             recyclerView.adapter = adapter
         }
         binding.qnaButton.setOnClickListener {
             filteredBoardModelArrayList =
                 viewModel.boardList.value!!.filter { it.category == 1 } as ArrayList<ResponseBoardAll>
-            adapter = BoardModelAdapter(filteredBoardModelArrayList )
+            adapter = BoardModelAdapter(filteredBoardModelArrayList)
             recyclerView.adapter = adapter
         }
         binding.letterButton.setOnClickListener {

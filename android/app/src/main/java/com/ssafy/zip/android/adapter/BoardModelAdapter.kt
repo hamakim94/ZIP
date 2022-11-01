@@ -1,7 +1,8 @@
 package com.ssafy.zip.android.adapter
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +14,15 @@ import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.BoardModel
-import com.ssafy.zip.android.data.BoardTest
 import com.ssafy.zip.android.data.response.ResponseBoardAll
+
 
 class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
     RecyclerView.Adapter<BoardModelAdapter.BoardModelAdapterViewHolder>() {
 
-    class BoardModelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val profileImage: ImageView = itemView.findViewById(R.id.profileImage)
-    }
+//    class BoardModelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        val profileImage: ImageView = itemView.findViewById(R.id.profileImage)
+//    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -51,7 +52,6 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
         val boardItem = adapterData[position]
         // 게시글 바인딩 시켜야함
         holder.itemView.setOnClickListener {
-            println("지금 되나? " + adapterData[position])
             when (adapterData[position].data.javaClass.simpleName.toString()) {
                 "Board" -> {
                     val bundle = Bundle()
@@ -106,6 +106,7 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
                 itemView.findViewById<TextView>(R.id.boardReg).text = board.reg.toString()
                 //Glide 쓰기..
                 if(board.image != null ) {
+                    itemView.findViewById<ImageView>(R.id.boardImage).layoutParams.height = 800
                     Glide.with(itemView)
                         .load(board.image)
                         .into(itemView.findViewById<ImageView>(R.id.boardImage))

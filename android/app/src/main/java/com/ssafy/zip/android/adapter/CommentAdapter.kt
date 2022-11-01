@@ -23,9 +23,9 @@ class CommentAdapter(private val commentList: ArrayList<Comment>) : RecyclerView
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val currentItem = commentList[position]
-        holder.commentUser.text = currentItem.commentUser
-        holder.commentReg.text = currentItem.commentReg
-        holder.commentContent.text = currentItem.commentContent
+        holder.commentUser.text = currentItem.user.nickname
+        holder.commentReg.text = currentItem.reg.toString()
+        holder.commentContent.text = currentItem.content
     }
 
     override fun getItemCount(): Int {

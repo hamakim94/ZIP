@@ -16,14 +16,6 @@ class BoardViewModel(private val repository: BoardRepository) : ViewModel() {
     private val _boardList = MutableLiveData<ArrayList<ResponseBoardAll>>()
     val boardList: LiveData<ArrayList<ResponseBoardAll>> get() = _boardList
 
-//    init {
-//        Log.d("생성", "BoardViewModel 생성자 호출")
-//        viewModelScope.launch {
-//            _boardList.value = repository.getBoardAll()
-//            println("BoardViewModel repository.getBoard() " + repository.getBoardAll())
-//        }
-//    }
-
     class Factory(private val application: Application) :
         ViewModelProvider.Factory { // factory pattern
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -37,12 +29,4 @@ class BoardViewModel(private val repository: BoardRepository) : ViewModel() {
         }
     }
 
-    fun postBoard(
-        image: MultipartBody.Part?,
-        content: RequestBody
-    ) {
-        viewModelScope.launch {
-            repository.postBoard(image, content)
-        }
-    }
 }

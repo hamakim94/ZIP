@@ -1,17 +1,11 @@
 package com.ssafy.zip.android
 
-import com.ssafy.zip.android.data.Album
-import com.ssafy.zip.android.data.Photo
-import com.ssafy.zip.android.data.Family
-import com.ssafy.zip.android.data.Missions
-import com.ssafy.zip.android.data.UserFamily
-import com.ssafy.zip.android.data.User
+import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.request.RequestFamilyroom
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.data.request.RequestPhoto
 import okhttp3.MultipartBody
 import com.ssafy.zip.android.data.response.ResponseBoardAll
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 import com.ssafy.zip.android.data.request.RequestSignup
@@ -83,6 +77,19 @@ interface ApiInterface {
     // 게시글 관련
     @GET("post")
     suspend fun getBoardAll():Response<ArrayList<ResponseBoardAll>>
+
+    // 게시글 상세
+    @GET("post/board/{boardId}")
+    suspend fun getBoardDetailById(
+        @Path("boardId") id : Long
+    ) : Response<BoardDetail>
+
+    // 백문백답 상세
+    @GET("post/qna/{qnaId}")
+    suspend fun getQnaById(
+        @Query("qnaId") id : Long
+    ) : Response<QnaDetail>
+
 
     @Multipart
     @POST("post/board")

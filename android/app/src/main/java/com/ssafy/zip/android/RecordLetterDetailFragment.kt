@@ -17,12 +17,6 @@ class RecordLetterDetailFragment : Fragment() {
     private var _binding: FragmentRecordLetterDetailBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var letterImageDetail : ShapeableImageView
-    lateinit var letterUserNicknameDetail: TextView
-    lateinit var letterRegDetail : TextView
-    lateinit var letterContentDetail : TextView
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,9 +34,6 @@ class RecordLetterDetailFragment : Fragment() {
             binding.letterUserNicknameDetail.text = letterData.from.nickname + "에서" + letterData.to.nickname + "에게 보내는 편지"
             binding.letterRegDetail.text = letterData.reg.toString()
             binding.letterContentDetail.text = letterData.content
-//            itemView.findViewById<TextView>(R.id.letterTitle).text = letter.from.nickname + "에서" + letter.to.nickname + "에게 보내는 편지"
-//            itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg
-//            itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
         }
 
 

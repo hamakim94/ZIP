@@ -23,9 +23,9 @@ class CommentQnaAdapter(private val commentList: ArrayList<Comment>) : RecyclerV
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val currentItem = commentList[position]
-        holder.commentQnaUserNickname.text = currentItem.commentUser
-        holder.commentQnaReg.text = currentItem.commentReg
-        holder.commentQnaContent.text = currentItem.commentContent
+        holder.commentQnaUserNickname.text = currentItem.user.nickname
+        holder.commentQnaReg.text = currentItem.reg.toString()
+        holder.commentQnaContent.text = currentItem.content
     }
 
     override fun getItemCount(): Int {

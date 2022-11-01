@@ -40,12 +40,12 @@ class RecordQnaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataInitialize()
+//        dataInitialize()
         val qnaData = arguments?.getParcelable<BoardModel.Qna>("Qna")
         qnaDetailReg = view.findViewById(R.id.qnaDetailReg)
         qnaDetailContent = view.findViewById(R.id.qnaDetailContent)
-        memberAdapter = MemberAdapter(userList)
-        commentAdapter = CommentQnaAdapter(commentList)
+//        memberAdapter = MemberAdapter(userList)
+//        commentAdapter = CommentQnaAdapter(commentList)
 
         val cnt = when(memberAdapter.itemCount){
             in 1..4 -> memberAdapter.itemCount
@@ -104,13 +104,13 @@ class RecordQnaDetailFragment : Fragment() {
             "끼요오오옹오오오오옷",
         )
 
-        for (i in commentUser.indices) {
-            val letter = Comment(
-                commentUser[i],
-                commentReg[i],
-                commentcontent[i],
-            )
-            commentList.add(letter)
-        }
+//        for (i in commentUser.indices) {
+//            val letter = Comment(
+//                commentUser[i],
+//                commentReg[i],
+//                commentcontent[i],
+//            )
+//            commentList.add(letter)
+//        }
     }
 }
