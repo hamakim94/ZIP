@@ -73,7 +73,7 @@ public class AlbumServiceImpl implements AlbumService{
             results.add(new PictureResponseDTO(picture.getId(), userId, albumId, picture.getFileName(), picture.getDirectory(), picture.getReg()));
         }
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.PictureUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.PictureUploaded.getLink(), userDTO.getProfileImg(),false),
-                userRepository.findByFamily_id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
+                userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
 
         return results;
     }
