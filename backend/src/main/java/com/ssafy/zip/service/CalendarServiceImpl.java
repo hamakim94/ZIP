@@ -4,14 +4,13 @@ import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.CalendarRequestDTO;
 import com.ssafy.zip.dto.response.CalendarResponseDTO;
 import com.ssafy.zip.dto.response.SimpleUserResponseDTO;
-import com.ssafy.zip.entity.Calendar;
-import com.ssafy.zip.entity.CalendarUser;
-import com.ssafy.zip.entity.Family;
-import com.ssafy.zip.entity.User;
+import com.ssafy.zip.entity.*;
 import com.ssafy.zip.repository.CalendarRepository;
 import com.ssafy.zip.repository.CalendarUserRepository;
 import com.ssafy.zip.repository.UserRepository;
+import com.ssafy.zip.util.NotificationEnum;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +19,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,7 +29,7 @@ public class CalendarServiceImpl implements CalendarServcie {
     private final CalendarRepository calendarRepository;
     private final CalendarUserRepository calendarUserRepository;
     private final UserRepository userRepository;
-
+    private final NotificationServiceImpl notificationService;
     @Override
     public List<CalendarResponseDTO> getListByMonth(UserDTO userDTO, int year, int month) throws Exception {
         List<CalendarResponseDTO> results = new ArrayList<>();
@@ -106,7 +107,12 @@ public class CalendarServiceImpl implements CalendarServcie {
                     .build());
 
         }
+        Set<Long> setParticipants = calendarRequestDTO.getUserIds().stream().collect(Collectors.toSet());
         calendarUserRepository.saveAll(calendarUserList);
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.ScheduleRegistered.getMessage(), userDTO.getNickname()),NotificationEnum.ScheduleRegistered.getLink(), userDTO.getProfileImg(),false),
+                userRepository.findByFamily_id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())&&!setParticipants.contains(o.getId())).map(o->o.getId()).collect(Collectors.toList()));
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.ScheduleRegistedForMe.getMessage(), userDTO.getNickname()),NotificationEnum.ScheduleRegistedForMe.getLink(), userDTO.getProfileImg(),false),
+                setParticipants.stream().toList());
         return null;
     }
 

@@ -5,11 +5,13 @@ import com.ssafy.zip.dto.request.PictureRequestDTO;
 import com.ssafy.zip.dto.response.AlbumResponseDTO;
 import com.ssafy.zip.dto.response.PictureResponseDTO;
 import com.ssafy.zip.entity.Album;
+import com.ssafy.zip.entity.Notification;
 import com.ssafy.zip.entity.Picture;
 import com.ssafy.zip.entity.User;
 import com.ssafy.zip.repository.AlbumRepository;
 import com.ssafy.zip.repository.PictureRepository;
 import com.ssafy.zip.repository.UserRepository;
+import com.ssafy.zip.util.NotificationEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,6 +30,7 @@ public class AlbumServiceImpl implements AlbumService{
     private final PictureRepository pictureRepository;
     private final UserRepository userRepository;
     private final AwsS3Service awsS3Service;
+    private final NotificationServiceImpl notificationService;
 
     @Override
     public AlbumResponseDTO createFolder(long userId, String name) throws Exception {
@@ -68,6 +72,9 @@ public class AlbumServiceImpl implements AlbumService{
         for (Picture picture:list) {
             results.add(new PictureResponseDTO(picture.getId(), userId, albumId, picture.getFileName(), picture.getDirectory(), picture.getReg()));
         }
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.PictureUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.PictureUploaded.getLink(), userDTO.getProfileImg(),false),
+                userRepository.findByFamily_id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
+
         return results;
     }
 

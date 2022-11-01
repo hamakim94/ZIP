@@ -7,11 +7,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@RequiredArgsConstructor
 @Table(name = "notification")
-public class Notification {
+public class Notification{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -22,5 +21,8 @@ public class Notification {
 
     String link;
 
+    String image;
+
     Boolean isRead;
+
 }

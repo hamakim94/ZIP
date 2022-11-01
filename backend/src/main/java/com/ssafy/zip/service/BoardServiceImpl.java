@@ -5,6 +5,7 @@ import com.ssafy.zip.dto.response.BoardDTO;
 import com.ssafy.zip.dto.response.BoardDetailDTO;
 import com.ssafy.zip.entity.Board;
 import com.ssafy.zip.entity.Comment;
+import com.ssafy.zip.entity.Notification;
 import com.ssafy.zip.entity.User;
 import com.ssafy.zip.exception.ResourceNotFoundException;
 import com.ssafy.zip.exception.UnauthorizedRequestException;
@@ -14,7 +15,9 @@ import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.BoardMapStruct;
 import com.ssafy.zip.util.CommentDTOMapStruct;
 import com.ssafy.zip.exception.ErrorCode;
+import com.ssafy.zip.util.NotificationEnum;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +35,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
     private final AwsS3Service awsS3Service;
+    private final NotificationServiceImpl notificationService;
 
     @Override
     public List<BoardDTO> listBoard(UserDTO userDTO) {
@@ -39,12 +43,15 @@ public class BoardServiceImpl implements BoardService {
                 .map(BoardMapStruct.INSTANCE::mapToBoardDTO).collect(Collectors.toList());
     }
 
+    @SneakyThrows
     @Override
     public BoardDetailDTO getBoard(UserDTO userDTO, Long boardId) {
         Optional<Board> boardOpt = boardRepository.findById(boardId);
         if(boardOpt.isPresent()){
             Board board = boardOpt.get();
             List<Comment> commentList = commentRepository.findByBoardId(boardId);
+            notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false),
+                    userRepository.findByFamily_id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
                     commentList.stream().map(CommentDTOMapStruct.INSTANCE::mapToCommentDTO).collect(Collectors.toList()));
         }

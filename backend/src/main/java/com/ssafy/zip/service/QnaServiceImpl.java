@@ -6,10 +6,7 @@ import com.ssafy.zip.dto.request.QnaAnswerRequestDTO;
 import com.ssafy.zip.dto.response.QnaAnswerResponseDTO;
 import com.ssafy.zip.dto.response.QnaDTO;
 import com.ssafy.zip.dto.response.QnaDetailDTO;
-import com.ssafy.zip.entity.Family;
-import com.ssafy.zip.entity.Qna;
-import com.ssafy.zip.entity.QnaLog;
-import com.ssafy.zip.entity.User;
+import com.ssafy.zip.entity.*;
 import com.ssafy.zip.exception.ResourceNotFoundException;
 import com.ssafy.zip.exception.UnauthorizedRequestException;
 import com.ssafy.zip.repository.FamilyRepository;
@@ -17,8 +14,10 @@ import com.ssafy.zip.repository.QnaLogRepository;
 import com.ssafy.zip.repository.QnaRepository;
 import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.exception.ErrorCode;
+import com.ssafy.zip.util.NotificationEnum;
 import com.ssafy.zip.util.QnaAnswerMapStruct;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,11 +34,13 @@ public class QnaServiceImpl implements QnaService {
     private final QnaRepository qnaRepository;
     private final QnaLogRepository qnaLogRepository;
     private final FamilyRepository familyRepository;
+    private final NotificationServiceImpl notificationService;
     @Override
     public Qna saveQuestion(String question) {
         return qnaRepository.save(new Qna(null, question));
     }
 
+    @SneakyThrows
     @Transactional
     @Override
     public void saveAnswer(UserDTO user, QnaAnswerRequestDTO dto) {
@@ -46,6 +48,8 @@ public class QnaServiceImpl implements QnaService {
         Qna qna = qnaRepository.getReferenceById(dto.qnaId());
         if(qnaLogRepository.existsByUser_IdAndQna_id(user.getId(), dto.qnaId())) throw new UnauthorizedRequestException("이미 답변을 했습니다.", ErrorCode.ANSWER_MORE_THAN_ONCE_ERROR);
         qnaLogRepository.save(new QnaLog(null, dto.content(), user.getFamilyId(), userTmp, qna, LocalDateTime.now()));
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaAnswered.getMessage(), user.getNickname()),NotificationEnum.QnaAnswered.getLink(), user.getProfileImg(),false),
+                userRepository.findByFamily_id(user.getFamilyId()).stream().filter(o->!o.getId().equals(user.getId())).map(o->o.getId()).collect(Collectors.toList()));
     }
 
     @Override

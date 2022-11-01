@@ -7,14 +7,17 @@ import com.ssafy.zip.dto.response.LetterTodayResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.entity.Letter;
 import com.ssafy.zip.entity.LetterFromAndTo;
+import com.ssafy.zip.entity.Notification;
 import com.ssafy.zip.entity.User;
 import com.ssafy.zip.repository.CommonCodeRepository;
 import com.ssafy.zip.repository.LetterFromAndToRepository;
 import com.ssafy.zip.repository.LetterRepository;
 import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.LetterDTOMapStruct;
+import com.ssafy.zip.util.NotificationEnum;
 import com.ssafy.zip.util.UserResponseDTOMapStruct;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,7 @@ public class LetterServiceImpl implements LetterService {
     private final LetterFromAndToRepository letterFromAndToRepository;
     private final UserRepository userRepository;
     private final CommonCodeRepository commonCodeRepository;
+    private final NotificationServiceImpl notificationService;
     @PostConstruct
     private void initial(){
         scheduleLetterFromAndTo();
@@ -42,6 +46,7 @@ public class LetterServiceImpl implements LetterService {
                 .stream().map(o-> LetterDTOMapStruct.INSTANCE.mapToLetterRequestDTO(o))
                 .collect(Collectors.toList());
     }
+    @SneakyThrows
     @Transactional
     @Override
     public void sendLetter(UserDTO userDTO, LetterRequestDTO letterRequestDTO) {
@@ -51,6 +56,9 @@ public class LetterServiceImpl implements LetterService {
                 .to(toUser).stationery(commonCodeRepository.findByCode(letterRequestDTO.stationery()))
                 .build()
         );
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterSentTome.getLink(), userDTO.getProfileImg(),false),
+                List.of(letterRequestDTO.toUserId()));
+
 
     }
 
