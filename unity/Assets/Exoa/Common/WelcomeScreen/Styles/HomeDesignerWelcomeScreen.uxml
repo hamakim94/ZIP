@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd"
+>
+  <engine:Template path="Assets/Exoa/Common/WelcomeScreen/Styles/Articles/HDB.uxml" name="HDB" />
+  <engine:Template path="Assets/Exoa/Common/WelcomeScreen/Styles/Articles/FMD.uxml" name="FMD" />
+  <engine:Template path="Assets/Exoa/Common/WelcomeScreen/Styles/Articles/ID.uxml" name="ID" />
+  <engine:Template path="Assets/Exoa/Common/WelcomeScreen/Styles/Articles/BD.uxml" name="BD" />
+  <engine:Template path="Assets/Exoa/Common/WelcomeScreen/Styles/Articles/TCP.uxml" name="TCP" />
+  <engine:Template path="Assets/Exoa/Common/WelcomeScreen/Styles/Articles/About.uxml" name="About" />
+
+  <engine:ScrollView>
+
+    <engine:Header>
+      <engine:Label text="Home Designer Suite - Welcome Screen" />
+      <engine:Toggle label="Do not show at startup" name="not_show_at_startup" />
+    </engine:Header>
+
+    <engine:Main>
+      <engine:Div class="row">
+
+        <engine:Div class="col-md-12"  style="height:200px">
+          <engine:Image style="background-image: url( '/Assets/Exoa/Common/WelcomeScreen/Textures/KeyImage.png' );" class="featured" />
+        </engine:Div>
+
+        <engine:Instance class="col-md-8" template="About" name="main" />
+        <engine:Div class="col-md-4">
+
+
+          <engine:Label class="box" text="Plugins" />
+          <editor:BindableButton class="list" text="Home Designer Bundle" path="HDB" target="main" />
+          <editor:BindableButton class="list" text="Home Designer" path="ID" target="main" />
+          <editor:BindableButton class="list" text="Floor Map Designer" path="FMD" target="main" />
+          <editor:BindableButton class="list" text="Building Designer" path="BD" target="main" />
+          <editor:BindableButton class="list" text="Touch Camera Pro" path="TCP" target="main" />
+     
+          
+
+        </engine:Div>
+      </engine:Div>
+    </engine:Main>
+
+    <engine:Footer>
+      <engine:Label class="copy" text="Copyright © 2022 exoa.fr All Rights Reserved" />
+    </engine:Footer>
+
+
+  </engine:ScrollView>
+</engine:UXML>

@@ -1,0 +1,17 @@
+{
+    "name": "Exoa.TouchCameraPro.Scripts",
+    "references": [
+        "GUID:36da71912cb4ce946ab87239cdafa6a9",
+        "GUID:381b6854dedde5f429be7aebb3bb8a16",
+        "GUID:55d4ebc18afaa8c4ea710172e9d660bd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
