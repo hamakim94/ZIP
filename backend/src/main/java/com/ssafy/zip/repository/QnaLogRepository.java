@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface QnaLogRepository extends JpaRepository<QnaLog, Long> {
     List<QnaLog> findByFamilyId(Long familyId);
-    List<QnaLog> findByFamilyIdAndQnaId(Long familyId, Long QnaId);
+    List<QnaLog> findByFamilyIdAndQnaId(Long familyId, Long anaId);
+    Boolean existsByUser_IdAndQna_id(Long userId, Long qnaId);
 }

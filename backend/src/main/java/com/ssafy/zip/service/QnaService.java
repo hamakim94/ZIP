@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface QnaService {
     Qna saveQuestion(String question);
-    QnaLog saveAnswer(UserDTO user, QnaAnswerRequestDTO qnaAnswerRequestDTO);
+    void saveAnswer(UserDTO user, QnaAnswerRequestDTO qnaAnswerRequestDTO);
     List<QnaDTO> listQna(UserDTO user);
     QnaDTO getTodayQna(UserDTO user);
     QnaDetailDTO getQnaDetail(UserDTO user, Long QnaId);

@@ -6,11 +6,14 @@ import com.ssafy.zip.dto.response.BoardDetailDTO;
 import com.ssafy.zip.entity.Board;
 import com.ssafy.zip.entity.Comment;
 import com.ssafy.zip.entity.User;
+import com.ssafy.zip.exception.ResourceNotFoundException;
+import com.ssafy.zip.exception.UnauthorizedRequestException;
 import com.ssafy.zip.repository.BoardRepository;
 import com.ssafy.zip.repository.CommentRepository;
 import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.BoardMapStruct;
 import com.ssafy.zip.util.CommentDTOMapStruct;
+import com.ssafy.zip.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,8 +48,9 @@ public class BoardServiceImpl implements BoardService {
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
                     commentList.stream().map(CommentDTOMapStruct.INSTANCE::mapToCommentDTO).collect(Collectors.toList()));
         }
-        return null;
+        throw new ResourceNotFoundException("게시글을 찾을 수 없습니다.", ErrorCode.RESOURCE_GONE);
     }
+    @Transactional
     @Override
     public void writeBoard(UserDTO userDTO, String content, MultipartFile image) throws Exception {
         User user = userRepository.getReferenceById(userDTO.getId());
@@ -76,8 +80,7 @@ public class BoardServiceImpl implements BoardService {
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
                     commentList.stream().map(CommentDTOMapStruct.INSTANCE::mapToCommentDTO).collect(Collectors.toList()));
         }else{
-         // TODO : 인가 관련 예외 처리.....
-            return null;
+            throw new UnauthorizedRequestException("작성자만 게시글을 수정할 수 있습니다.", ErrorCode.MODIFY_ONLY_MINE_ERROR);
         }
     }
 
@@ -87,7 +90,7 @@ public class BoardServiceImpl implements BoardService {
         if(board.getUser().getId().equals(userDTO.getId())){
             boardRepository.delete(board);
         }else {
-            // TODO : 인가 관련 예외 처리.....
+            throw new UnauthorizedRequestException("작성자만 게시글을 삭제할 수 있습니다.", ErrorCode.MODIFY_ONLY_MINE_ERROR);
         }
     }
 
@@ -102,7 +105,7 @@ public class BoardServiceImpl implements BoardService {
         Comment comment = commentRepository.getReferenceById(commentId);
         if(comment.getUser().getId().equals(userDTO.getId()))comment.setContent(content);
         else {
-            // TODO : 인가 관련 예외 처리.....
+            throw new UnauthorizedRequestException("작성자만 댓글을 수정할 수 있습니다.", ErrorCode.MODIFY_ONLY_MINE_ERROR);
         }
     }
 
@@ -112,7 +115,7 @@ public class BoardServiceImpl implements BoardService {
         if(comment.getUser().getId().equals(userDTO.getId())){
             commentRepository.deleteById(commentId);
         }else{
-            // TODO : 인가 관련 예외 처리.....
+            throw new UnauthorizedRequestException("작성자만 댓글을 삭제할 수 있습니다.", ErrorCode.MODIFY_ONLY_MINE_ERROR);
         }
 
     }

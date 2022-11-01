@@ -10,10 +10,13 @@ import com.ssafy.zip.entity.Family;
 import com.ssafy.zip.entity.Qna;
 import com.ssafy.zip.entity.QnaLog;
 import com.ssafy.zip.entity.User;
+import com.ssafy.zip.exception.ResourceNotFoundException;
+import com.ssafy.zip.exception.UnauthorizedRequestException;
 import com.ssafy.zip.repository.FamilyRepository;
 import com.ssafy.zip.repository.QnaLogRepository;
 import com.ssafy.zip.repository.QnaRepository;
 import com.ssafy.zip.repository.UserRepository;
+import com.ssafy.zip.exception.ErrorCode;
 import com.ssafy.zip.util.QnaAnswerMapStruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,12 +37,13 @@ public class QnaServiceImpl implements QnaService {
         return qnaRepository.save(new Qna(null, question));
     }
 
-
+    @Transactional
     @Override
-    public QnaLog saveAnswer(UserDTO user, QnaAnswerRequestDTO dto) {
+    public void saveAnswer(UserDTO user, QnaAnswerRequestDTO dto) {
         User userTmp = userRepository.getReferenceById(user.getId());
         Qna qna = qnaRepository.getReferenceById(dto.qnaId());
-        return qnaLogRepository.save(new QnaLog(null, dto.content(), user.getFamilyId(), userTmp, qna, LocalDateTime.now()));
+        if(qnaLogRepository.existsByUser_IdAndQna_id(user.getId(), dto.qnaId())) throw new UnauthorizedRequestException("이미 답변을 했습니다.", ErrorCode.ANSWER_MORE_THAN_ONCE_ERROR);
+        qnaLogRepository.save(new QnaLog(null, dto.content(), user.getFamilyId(), userTmp, qna, LocalDateTime.now()));
     }
 
     @Override
@@ -65,7 +69,7 @@ public class QnaServiceImpl implements QnaService {
             List<QnaLog> list = qnaLogRepository.findByFamilyIdAndQnaId(familyOpt.get().getId(), qna.getId());
             return new QnaDTO(qna.getId(), qna.getQuestion(), LocalDateTime.now().toLocalDate().atTime(0,0), list.size()==0?0:list.size());
         }
-        return null;
+        else throw new ResourceNotFoundException("사용자가 가족에 속해있지 않습니다.", ErrorCode.NOT_FOUND) ;
     }
 
     @Override
@@ -77,7 +81,7 @@ public class QnaServiceImpl implements QnaService {
             qnaLogs.forEach(o-> list.add(QnaAnswerMapStruct.INSTANCE.mapToQnaAnswerDTO(o)));
             return new QnaDetailDTO(qna.getId(),qna.getQuestion(), list);
         }
-        else return null;
+        else throw new ResourceNotFoundException("백문백답 게시글을 찾을 수 없습니다.", ErrorCode.RESOURCE_GONE);
 
     }
     @Transactional
@@ -86,8 +90,9 @@ public class QnaServiceImpl implements QnaService {
         Optional<QnaLog> qnaLog = qnaLogRepository.findById(qnaAnswerModifyRequestDTO.qnaLogId());
         if(qnaLog.isPresent()){
             QnaLog log = qnaLog.get();
+            if(log.getUser().getId()!=user.getId()) throw new UnauthorizedRequestException("내 답변만 수정할 수 있습니다.", ErrorCode.MODIFY_ONLY_MINE_ERROR);
             log.setContent(qnaAnswerModifyRequestDTO.content());
-        }
+        }else throw new ResourceNotFoundException("답변이 존재하지 않습니다.", ErrorCode.NOT_FOUND);
     }
 
     Integer findAnswerCnt(Long qnaId, List<QnaLog> list){
