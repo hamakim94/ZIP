@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
+>
+  <engine:Label class="box" text="Touch Camera Pro" />
+  <engine:Article>
+    <engine:Label text="A really easy to use mobile+desktop camera controller with perspective switching and a tone of features!" />
+
+    <editor:BindableButton class="list" text="Asset Store Page" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/tcp-store" />
+    <editor:BindableButton class="list" text="Manual" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/tcp-manual" />
+    <editor:BindableButton class="list" text="Video Intro" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/tcp-video" />
+    <editor:BindableButton class="list" text="Support Forums" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/tcp-forum" />
+        
+  </engine:Article>
+    
+</engine:UXML>

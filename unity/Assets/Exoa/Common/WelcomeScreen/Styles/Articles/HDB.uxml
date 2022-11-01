@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
+>
+  <engine:Label class="box" text="Home Designer - Full Suite Bundle" />
+  <engine:Article>
+    <engine:Label text="The Home Designer suite bundle contains all the current and future modules to build your own real time home/room/level editor!" />
+
+    <editor:BindableButton class="list" text="Asset Store Page" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/hdb-store" />
+    <editor:BindableButton class="list" text="Video Intro" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/hdb-video" />
+    <editor:BindableButton class="list" text="Support Forums" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/hdb-forum" />
+        
+  </engine:Article>
+    
+</engine:UXML>

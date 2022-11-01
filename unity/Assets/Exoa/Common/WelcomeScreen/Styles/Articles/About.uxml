@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
+>
+  <engine:Label class="box" text="Welcome!" />
+  <engine:Article>
+    <engine:Label text="Welcome to Home Designer Suite! This welcome screen will help you find the manuals, video tutorials and forum links for each plugin! It will be updated regularly and each time a new plugin is added to it." />
+    <engine:Label text="Select a plugin in the list to unfold the associated links." />
+   
+  </engine:Article>
+    
+</engine:UXML>
