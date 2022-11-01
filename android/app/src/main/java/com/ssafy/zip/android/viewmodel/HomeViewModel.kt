@@ -17,8 +17,10 @@ class HomeViewModel(private val repository: HomeRepository): ViewModel(){
     init {
         Log.d("TAG", "HomeViewModel 생성자 호출")
         viewModelScope.launch {
+
             _familyData.value = repository.getFamily()
             _missions.value = repository.getMission()
+            println(familyData.value)
         }
     }
 
