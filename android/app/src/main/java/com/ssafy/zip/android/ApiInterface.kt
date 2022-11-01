@@ -15,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 import com.ssafy.zip.android.data.request.RequestSignup
+import okhttp3.RequestBody
 
 interface ApiInterface {
     @POST("users/login")//Post Interface
@@ -81,6 +82,13 @@ interface ApiInterface {
 
     // 게시글 관련
     @GET("post")
-//    fun getBoard() : Call<List<ResponseBoardAll>>
     suspend fun getBoardAll():Response<ArrayList<ResponseBoardAll>>
+
+    @Multipart
+    @POST("post/board")
+    suspend fun postBoard(
+        @Part("content") content : RequestBody,
+        @Part image : MultipartBody.Part?
+    ) :Response<String>
+
 }

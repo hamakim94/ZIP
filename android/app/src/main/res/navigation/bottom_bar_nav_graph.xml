@@ -132,7 +132,12 @@
         android:id="@+id/recordBoardCreateFragment"
         android:name="com.ssafy.zip.android.RecordBoardCreateFragment"
         android:label="fragment_record_board_create"
-        tools:layout="@layout/fragment_record_board_create" />
+        tools:layout="@layout/fragment_record_board_create" >
+        <action
+            android:id="@+id/action_recordBoardCreateFragment_pop"
+            app:popUpTo="@id/recordBoardCreateFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/recordLetterCreateFragment"
         android:name="com.ssafy.zip.android.RecordLetterCreateFragment"

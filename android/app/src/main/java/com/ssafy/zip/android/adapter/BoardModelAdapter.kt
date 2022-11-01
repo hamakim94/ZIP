@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.BoardModel
@@ -99,12 +100,17 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
         private fun bindBoard(item: ResponseBoardAll) {
             var board: BoardModel.Board = item.data as BoardModel.Board
             if (board != null) {
-                Log.d("binding board", board.toString())
                 itemView.findViewById<ShapeableImageView>(R.id.profileImage)
                     .setImageResource(0)
                 itemView.findViewById<TextView>(R.id.userNickname).text = board.user.nickname
                 itemView.findViewById<TextView>(R.id.boardReg).text = board.reg.toString()
-                itemView.findViewById<ImageView>(R.id.boardImage).setImageResource(0)
+                //Glide 쓰기..
+                if(board.image != null ) {
+                    Glide.with(itemView)
+                        .load(board.image)
+                        .into(itemView.findViewById<ImageView>(R.id.boardImage))
+                }
+//                itemView.findViewById<ImageView>(R.id.boardImage).setImageResource(0)
                 itemView.findViewById<TextView>(R.id.boardContent).text = board.content
                 itemView.findViewById<TextView>(R.id.commentCnt).text = board.commentCnt.toString()
             }

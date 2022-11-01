@@ -4,7 +4,10 @@ import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.request.RequestSignup
 import com.ssafy.zip.android.data.response.ResponseBoardAll
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class BoardRepository private constructor(application: Application) {
 
@@ -14,6 +17,19 @@ class BoardRepository private constructor(application: Application) {
         println("BoardRepository getBoard response: " + response)
         return if(response.isSuccessful) response.body() as ArrayList<ResponseBoardAll> else null
     }
+
+    suspend fun postBoard(
+        image : MultipartBody.Part?,
+        content : RequestBody
+    ) : String?{
+        println("postBoard" + image)
+        println("postBaord" + content)
+        val response = ApiService.getApiService.postBoard(content, image)
+        var returnData : String?
+        returnData = response.code().toString()
+        return returnData
+    }
+
 
     companion object {
         private var instance: BoardRepository? = null

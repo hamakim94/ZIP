@@ -53,6 +53,7 @@ class RecordBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        getMockData()
+        viewModel.getBoardAll()
         observeViewModel(activity)
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.board_recyclerview)

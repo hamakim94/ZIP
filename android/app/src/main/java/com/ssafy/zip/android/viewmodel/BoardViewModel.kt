@@ -8,23 +8,41 @@ import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.repository.AlbumRepository
 import com.ssafy.zip.android.repository.BoardRepository
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class BoardViewModel(private val repository: BoardRepository) : ViewModel() {
 
     private val _boardList = MutableLiveData<ArrayList<ResponseBoardAll>>()
-    val boardList : LiveData<ArrayList<ResponseBoardAll>> get() = _boardList
+    val boardList: LiveData<ArrayList<ResponseBoardAll>> get() = _boardList
 
-    init {
-        Log.d("생성", "BoardViewModel 생성자 호출")
-        viewModelScope.launch {
-            _boardList.value = repository.getBoardAll()
-            println("BoardViewModel repository.getBoard() " + repository.getBoardAll())
+//    init {
+//        Log.d("생성", "BoardViewModel 생성자 호출")
+//        viewModelScope.launch {
+//            _boardList.value = repository.getBoardAll()
+//            println("BoardViewModel repository.getBoard() " + repository.getBoardAll())
+//        }
+//    }
+
+    class Factory(private val application: Application) :
+        ViewModelProvider.Factory { // factory pattern
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return BoardViewModel(BoardRepository.getInstance(application)!!) as T
         }
     }
 
-    class Factory(private val application : Application) : ViewModelProvider.Factory { // factory pattern
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return BoardViewModel(BoardRepository.getInstance(application)!!) as T
+    fun getBoardAll() {
+        viewModelScope.launch {
+            _boardList.value = repository.getBoardAll()
+        }
+    }
+
+    fun postBoard(
+        image: MultipartBody.Part?,
+        content: RequestBody
+    ) {
+        viewModelScope.launch {
+            repository.postBoard(image, content)
         }
     }
 }
