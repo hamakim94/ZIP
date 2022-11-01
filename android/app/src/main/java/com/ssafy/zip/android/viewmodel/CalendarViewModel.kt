@@ -60,9 +60,6 @@ class CalendarViewModel(private val repository: CalendarRepository?) : ViewModel
     }
 }
 
-
-
-//
 //    fun getCalendarDetail(calendar: Calendar) {
 //        viewModelScope.launch {
 //            val response = repository.getCalendarDetail(calendar.id)

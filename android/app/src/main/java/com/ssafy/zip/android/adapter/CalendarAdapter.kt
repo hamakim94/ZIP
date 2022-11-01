@@ -30,8 +30,9 @@ class CalendarAdapter(
         val calendar = calendarList[position]
         // holder.calendarImage.setImageResource(calendar.user)
         holder.calendarTitle.text = calendar.content
-      //  holder.calendarStart.text = calendar.startDate.toString()
-        //holder.calendarEnd.text = calendar.endDate.toString()
+       // holder.calendarStart.text = calendar.startDate.toString()
+        holder.calendarStart.text = calendar.startDate.hours.toString() + ":" + calendar.startDate.minutes.toString()
+        holder.calendarEnd.text = calendar.endDate.hours.toString() + ":" + calendar.endDate.minutes.toString()
         calendarMemberAdapter = CalendarMemberAdapter(calendar.users)
         val cnt2 = when (calendarMemberAdapter.itemCount) {
             in 1..4 -> calendarMemberAdapter.itemCount
@@ -44,9 +45,9 @@ class CalendarAdapter(
         }
     }
     class CalendarViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
-       // val calendarStart: TextView = itemView.findViewById(R.id.calendar_start_time)
-        //val calendarEnd: TextView = itemView.findViewById(R.id.calendar_end_time)
-//        val calendarImage : ImageView = itemView.findViewById(R.id.calendar_image)
+        val calendarStart: TextView = itemView.findViewById(R.id.calendar_start_time)
+        val calendarEnd: TextView = itemView.findViewById(R.id.calendar_end_time)
+        // val calendarImage : ImageView = itemView.findViewById(R.id.calendar_image)
         val calendarTitle : TextView = itemView.findViewById(R.id.calendar_title)
         // val calendarNum : TextView = itemView.findViewById(R.id.calendar_num)
         // val calendarFamily : TextView = itemView.findViewById(R.id.calendar_family)

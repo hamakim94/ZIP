@@ -32,18 +32,31 @@ class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?) : 
                 .load(member.profileImg)
                 .into(holder.familyImage)
         }
+
+        // 함께하는 멤버들 id 담을 리스트 생성, 클릭하면 리스트에 담게끔, dialog-fragment로 보내기
+
+        var withUserId = ArrayList<Int>()
         var checkflag = true
         holder.familyImage.setOnClickListener {
             if(checkflag) {
-                println("더하기")
+                if (member != null) {
+                    withUserId.add(member.id.toInt())
+                }
                 checkflag = false
+                println("더하기"+withUserId)
             }
             else{
-                println("뺴기")
+                if (member != null) {
+                    withUserId.remove(member.id.toInt())
+                }
                 checkflag = true
+                println("뺴기"+withUserId)
             }
         }
     }
+
+
+
     // (2) 리스너 인터페이스
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
