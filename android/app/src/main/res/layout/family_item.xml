@@ -8,6 +8,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/family_image"
+        android:alpha="0.6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

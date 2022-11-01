@@ -50,6 +50,9 @@ class CalendarFragment : Fragment() {
     private var curMonth by Delegates.notNull<Int>() // 현재 캘린더에서 선택된 월
     private var curDay by Delegates.notNull<Int>() // 현재 캘린더에서 선택된 날짜
     private val viewModel by viewModels<CalendarViewModel> { CalendarViewModel.Factory(Application()) }
+    private var selectedMemberList: ArrayList<Long> = ArrayList() //선택된 가족 멤버들 id 담을 리스트
+    var link = MemberSelectAdapter()
+
 //    var link = CalendarAdapter(calendar)
 
     companion object {
@@ -89,7 +92,7 @@ class CalendarFragment : Fragment() {
 
             dialogRecyclerView = customAlertDialogView.findViewById(R.id.family_recycler_view)
             dialogRecyclerView.setHasFixedSize(true)
-            calendarDialogAdapter = CalendarDialogAdapter(viewModel.calendarFamilyData.value)
+            calendarDialogAdapter = CalendarDialogAdapter(viewModel.calendarFamilyData.value, link)
             dialogRecyclerView.adapter = calendarDialogAdapter
 
             val cnt = when (calendarDialogAdapter.itemCount) {
@@ -182,7 +185,7 @@ class CalendarFragment : Fragment() {
             dialogRecyclerView = customAlertDialogView.findViewById(R.id.family_recycler_view)
             dialogRecyclerView.setHasFixedSize(true)
             //api 연결 Family.familyList
-            calendarDialogAdapter = CalendarDialogAdapter(viewModel.calendarFamilyData.value)
+            calendarDialogAdapter = CalendarDialogAdapter(viewModel.calendarFamilyData.value, link)
 
             val cnt = when (calendarDialogAdapter.itemCount) {
                 in 1..4 -> calendarDialogAdapter.itemCount
@@ -396,6 +399,7 @@ class CalendarFragment : Fragment() {
                     }
 
                 }
+
             }
 
         }
@@ -449,12 +453,20 @@ class CalendarFragment : Fragment() {
         return dayCalendarList
     }
 
-
     // 해당 Fragment의 다른 함수를 받아주기 위해서는 class가 아닌 inner class여야 함
-//    inner class CalendarAdapter{
-//       // fun getCalendarDetail(calendar : Calendar){
-//            //viewModel.getCalendarDetail(calendar)
-//        }
+    inner class MemberSelectAdapter{
+        // 선택된 가족들 모아주기
+        // 있으면 뺴고, 없으면 넣어서 넘겨주기
+        fun selectMember(id: Long) {
+            if (selectedMemberList.contains(id)) { // 리스트에 해당 가족이 있으면,
+                selectedMemberList.remove(id)
+            } else {
+                selectedMemberList.add(id)
+            }
+
+            println("selectedMemberList: " + selectedMemberList)
+        }
+    }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)

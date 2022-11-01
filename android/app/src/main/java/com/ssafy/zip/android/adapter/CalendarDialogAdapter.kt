@@ -11,7 +11,7 @@ import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.User
 
 
-class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
+class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?, var link:CalendarFragment.MemberSelectAdapter) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
 
     class CalendarFamilyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val familyImage: ImageView = itemView.findViewById(R.id.family_image)
@@ -35,22 +35,22 @@ class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?) : 
 
         // 함께하는 멤버들 id 담을 리스트 생성, 클릭하면 리스트에 담게끔, dialog-fragment로 보내기
 
-        var withUserId = ArrayList<Int>()
-        var checkflag = true
+//        var withUserId = ArrayList<Int>()
+        var checkflag = true // 함께할 가족 선택 유무
         holder.familyImage.setOnClickListener {
             if(checkflag) {
                 if (member != null) {
-                    withUserId.add(member.id.toInt())
+                    link.selectMember(member.id)
                 }
                 checkflag = false
-                println("더하기"+withUserId)
+                holder.familyImage.setAlpha(1f)
             }
             else{
                 if (member != null) {
-                    withUserId.remove(member.id.toInt())
+                    link.selectMember(member.id)
                 }
                 checkflag = true
-                println("뺴기"+withUserId)
+                holder.familyImage.setAlpha(0.6f)
             }
         }
     }

@@ -53,28 +53,15 @@ class CalendarViewModel(private val repository: CalendarRepository?) : ViewModel
         }
     }
 
-    fun addCalendar(requestCalendar: RequestCalendar){
+    fun addCalendar(requestCalendar: RequestCalendar) {
         viewModelScope.launch {
+            val plan = repository?.addCalendar(requestCalendar)
             _calendarList.value = repository?.addCalendar(requestCalendar) as List<Calendar>
         }
     }
 }
 
-//    fun getCalendarDetail(calendar: Calendar) {
-//        viewModelScope.launch {
-//            val response = repository.getCalendarDetail(calendar.id)
-//            _calendarList.value?.remove(calendar)
-//            _calendarList.value = _calendarList.value
-//            println("CalendarViewModel getCalendarDetail response: " + response)
-//        }
-//    }
-//
-//    fun getCalendarMonthList(year: Int, month: Int) {
-//        viewModelScope.launch {
-//            val calendar = repository.getCalendarMonthList(year) // update album
-//            if (calendar != null) {
-//                _calendarList.value?.add(calendar) // album list에 추가
-//                _calendarList.value = _calendarList.value // list change 감지를 위해
+
 
 
 
