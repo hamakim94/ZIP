@@ -78,14 +78,17 @@ public class CalendarServiceImpl implements CalendarServcie {
         return calendarToCalendarResponseDTO(calendar);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public CalendarResponseDTO addSchedule(UserDTO userDTO, CalendarRequestDTO calendarRequestDTO) throws Exception {
         CalendarResponseDTO result;
 
         User user = userRepository.findById(userDTO.getId()).get();
         Family family = user.getFamily();
-
+        HashSet<Long> userIdSet = new HashSet<>();
+        for (User familyUser: family.getUsers()) {
+            userIdSet.add(familyUser.getId());
+        }
         Calendar calendar = Calendar.builder()
                 .family(family)
                 .startDate(calendarRequestDTO.getStartDate())
@@ -96,6 +99,7 @@ public class CalendarServiceImpl implements CalendarServcie {
 
         List<CalendarUser> calendarUserList = new ArrayList<>();
         for (Long id: calendarRequestDTO.getUserIds()) {
+            if (!userIdSet.contains(id)) throw new Exception();
             calendarUserList.add(CalendarUser.builder()
                     .user(userRepository.getReferenceById(id))
                     .calendar(calendar)
@@ -106,14 +110,17 @@ public class CalendarServiceImpl implements CalendarServcie {
         return null;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public CalendarResponseDTO editSchedule(UserDTO userDTO, long calendarId, CalendarRequestDTO calendarRequestDTO) throws Exception {
         List<CalendarResponseDTO> results = new ArrayList<>();
 
         User user = userRepository.findById(userDTO.getId()).get();
         Family family = user.getFamily();
-
+        HashSet<Long> userIdSet = new HashSet<>();
+        for (User familyUser: family.getUsers()) {
+            userIdSet.add(familyUser.getId());
+        }
         Calendar calendar = calendarRepository.findById(calendarId).get();
 
         if (calendar.getFamily().getId() != family.getId()) throw new Exception();
@@ -135,6 +142,7 @@ public class CalendarServiceImpl implements CalendarServcie {
         List<CalendarUser> calendarUserList = new ArrayList<>();
         for (Long userId: requestSet) {
             if (existSet.contains(userId)) continue;
+            if (!userIdSet.contains(userId)) throw new Exception();
             else calendarUserList.add(CalendarUser.builder()
                     .user(userRepository.getReferenceById(userId))
                     .calendar(calendar)
