@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.zip.android.data.Calendar
-import com.ssafy.zip.android.repository.CalendarRepository
+import com.ssafy.zip.android.data.FamilyMember
 
 class CalendarAdapter(
-    private val calendarList: ArrayList<Calendar>
+    private val calendarList: List<Calendar>,
+    childFragmentManager: FragmentManager
 ) : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>(){
     private val viewPool = RecyclerView.RecycledViewPool()
     private lateinit var calendarMemberAdapter : CalendarMemberAdapter
@@ -30,7 +32,7 @@ class CalendarAdapter(
         holder.calendarTitle.text = calendar.content
       //  holder.calendarStart.text = calendar.startDate.toString()
         //holder.calendarEnd.text = calendar.endDate.toString()
-        calendarMemberAdapter = CalendarMemberAdapter(calendar.user)
+        calendarMemberAdapter = CalendarMemberAdapter(calendar.users)
         val cnt2 = when (calendarMemberAdapter.itemCount) {
             in 1..4 -> calendarMemberAdapter.itemCount
            // in 5..6 -> 4

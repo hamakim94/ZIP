@@ -8,9 +8,9 @@ import java.util.*
 @Parcelize
 data class Calendar(
     val content: String,
-    val endDate: LocalDate,   //Date
-    val id: Int,
-    val startDate: LocalDate, //Date
-    val user: ArrayList<User>
+    val endDate: Date,
+    val id: Long,
+    val startDate: Date,
+    val users: ArrayList<FamilyMember>
 
 ) : Parcelable

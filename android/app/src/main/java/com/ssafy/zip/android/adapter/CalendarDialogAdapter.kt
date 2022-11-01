@@ -5,10 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.User
 
 
-class CalendarDialogAdapter(private val memberList: ArrayList<User>) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
+class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
+
     class CalendarFamilyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val familyImage: ImageView = itemView.findViewById(R.id.family_image)
     }
@@ -20,10 +24,24 @@ class CalendarDialogAdapter(private val memberList: ArrayList<User>) : RecyclerV
     }
 
     override fun onBindViewHolder(holder: CalendarFamilyViewHolder, position: Int) {
-        val member = memberList[position]
-        holder.familyImage.setImageResource(0) //member.img
+        val member = memberList?.get(position)
+        if (member?.profileImg == null) {
+            holder.familyImage.setImageResource(R.drawable.ex2)
+        } else {
+            Glide.with(holder.itemView)
+                .load(member.profileImg)
+                .into(holder.familyImage)
+        }
+        var checkflag = true
         holder.familyImage.setOnClickListener {
-            itemClickListener.onClick(it, position)
+            if(checkflag) {
+                println("더하기")
+                checkflag = false
+            }
+            else{
+                println("뺴기")
+                checkflag = true
+            }
         }
     }
     // (2) 리스너 인터페이스
@@ -40,7 +58,7 @@ class CalendarDialogAdapter(private val memberList: ArrayList<User>) : RecyclerV
 
 
     override fun getItemCount(): Int {
-        return memberList.size
+        return memberList?.size ?: 0
 
     }
 }

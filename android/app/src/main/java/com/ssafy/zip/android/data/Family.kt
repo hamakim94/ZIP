@@ -13,6 +13,6 @@ data class Family(
     var memberNum: Int,
     var qnaId: Int,
     var reg: Date,
-    @SerializedName("simplyUserResponseDTOList")
-    var familyList : FamilyMember
+    @SerializedName("simpleUserResponseDTOList")
+    var familyList : ArrayList<FamilyMember>
 ):Parcelable

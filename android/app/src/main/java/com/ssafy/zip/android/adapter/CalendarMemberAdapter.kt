@@ -6,10 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.Calendar
+import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.User
 
-class CalendarMemberAdapter(private val memberList:ArrayList<User>) : RecyclerView.Adapter<CalendarMemberAdapter.ViewHolder>(){
+class CalendarMemberAdapter(private val memberList:ArrayList<FamilyMember>) : RecyclerView.Adapter<CalendarMemberAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.calendar_member_item, parent, false)
@@ -22,8 +24,13 @@ class CalendarMemberAdapter(private val memberList:ArrayList<User>) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = memberList[position]
-        holder.imageView.setImageResource(0) //member.img
-
+        if (user.profileImg == null) {
+            holder.imageView.setImageResource(R.drawable.ex2)
+        } else {
+            Glide.with(holder.itemView)
+                .load(user.profileImg)
+                .into(holder.imageView)
+        }
 
     }
 

@@ -3,6 +3,10 @@ package com.ssafy.zip.android.repository
 import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.Calendar
+import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.FamilyMember
+import com.ssafy.zip.android.data.request.RequestCalendar
+import com.ssafy.zip.android.data.request.RequestLoginData
 
 
 class CalendarRepository private constructor(application: Application) {
@@ -13,13 +17,23 @@ class CalendarRepository private constructor(application: Application) {
 //        return if(response.isSuccessful) response.body() as Calendar else null
 //    }
 
-    suspend fun getCalendarMonthList(year: Int, month: Int): ArrayList<Calendar>? {
+    suspend fun getCalendarMonthList(year: Int, month: Int): Any? {
         val response = ApiService.getApiService.getCalendarMonthList(year, month)
-//        var returnData : Int?
-//        returnData = response.code()
-        return if(response.isSuccessful) response.body() as ArrayList<Calendar> else null
+        println(response)
+        println(response.body())
+        return if(response.isSuccessful) response.body() as List<Calendar> else null
     }
 
+    suspend fun addCalendar(requestCalendar: RequestCalendar): List<Calendar>? {
+        val response = ApiService.getApiService.addCalendar(requestCalendar)
+        return if(response.isSuccessful) response.body() else null
+    }
+
+    suspend fun getFamilyData(): ArrayList<FamilyMember>?{
+        val response = ApiService.getApiService.getFamily()
+        println("HomeRepository getFamily response: " + response)
+        return if(response.isSuccessful) response.body()?.familyList as ArrayList<FamilyMember> else null
+    }
 
     companion object {
         private var instance: CalendarRepository? = null
