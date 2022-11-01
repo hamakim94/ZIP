@@ -100,7 +100,7 @@ public class PostController {
 
     @PostMapping("/board")
     @ApiOperation("알반 게시물 작성")
-    ResponseEntity<?> writeBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @RequestPart String content, @RequestPart(required = false) MultipartFile image){
+    ResponseEntity<?> writeBoard(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @RequestPart String content, @RequestPart(required = true) MultipartFile image){
 
         boardService.writeBoard(userDTO, content, image);
 
