@@ -25,8 +25,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CalendarServiceImpl implements CalendarServcie {
-    private CalendarRepository calendarRepository;
-    private CalendarUserRepository calendarUserRepository;
+    private final CalendarRepository calendarRepository;
+    private final CalendarUserRepository calendarUserRepository;
     private final UserRepository userRepository;
 
     @Override
