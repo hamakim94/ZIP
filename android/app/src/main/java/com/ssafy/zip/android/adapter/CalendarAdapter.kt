@@ -1,19 +1,17 @@
 package com.ssafy.zip.android
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.zip.android.data.Calendar
-import com.ssafy.zip.android.data.User
+import com.ssafy.zip.android.repository.CalendarRepository
 
-class CalendarAdapter(private val calendarList:ArrayList<Calendar>) : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>(){
+class CalendarAdapter(
+    private val calendarList: ArrayList<Calendar>
+) : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>(){
     private val viewPool = RecyclerView.RecycledViewPool()
     private lateinit var calendarMemberAdapter : CalendarMemberAdapter
 

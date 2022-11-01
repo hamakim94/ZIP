@@ -1,20 +1,12 @@
 package com.ssafy.zip.android
 
-import com.ssafy.zip.android.data.Album
-import com.ssafy.zip.android.data.Photo
-import com.ssafy.zip.android.data.Family
-import com.ssafy.zip.android.data.Missions
-import com.ssafy.zip.android.data.UserFamily
-import com.ssafy.zip.android.data.User
-import com.ssafy.zip.android.data.request.RequestFamilyroom
-import com.ssafy.zip.android.data.request.RequestLoginData
-import com.ssafy.zip.android.data.request.RequestPhoto
+import com.ssafy.zip.android.data.*
+import com.ssafy.zip.android.data.request.*
 import okhttp3.MultipartBody
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
-import com.ssafy.zip.android.data.request.RequestSignup
 
 interface ApiInterface {
     @POST("users/login")//Post Interface
@@ -81,4 +73,28 @@ interface ApiInterface {
 
     @GET("post/missions")
     suspend fun getMission():Response<Missions>
+
+    // 캘린더 관련
+
+    //일정 조회(월별)
+    @GET("calendar/list")
+    suspend fun getCalendarMonthList(
+        @Query(value = "year") year : Int,
+        @Query(value = "month") month : Int,
+    ): Response<List<Calendar>>
+
+    // 일정 추가
+    @POST("calendar/add")
+    suspend fun addCalendar(
+        @Body body: RequestCalendar
+    ) : Response<List<Calendar>>
+
+    // 일정 조회(상세)
+//    @GET("calendar/detail/{calendarId}")
+//    suspend fun getCalendarDetail(
+//        @Path("calendarId") id: Long
+//    ) : Response<Calendar>
+
+
+
 }

@@ -1,6 +1,6 @@
 package com.ssafy.zip.android
+import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -18,14 +21,17 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.ssafy.zip.android.data.Calendar
 import com.ssafy.zip.android.data.User
-import com.ssafy.zip.android.data.UserFamily
+import com.ssafy.zip.android.databinding.FragmentCalendarBinding
+import com.ssafy.zip.android.viewmodel.CalendarViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 
 class CalendarFragment : Fragment() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var dialogRecyclerView: RecyclerView
     private lateinit var calendarList: ArrayList<Calendar>
@@ -37,32 +43,41 @@ class CalendarFragment : Fragment() {
     private lateinit var calendarDialogAdapter: CalendarDialogAdapter
     private lateinit var calendarMemberAdapter: CalendarMemberAdapter
     private lateinit var recyclerView2: RecyclerView
+    private var curYear by Delegates.notNull<Int>() // 현재 캘린더에서 선택된 년도
+    private var curMonth by Delegates.notNull<Int>() // 현재 캘린더에서 선택된 월
+    private var curDay by Delegates.notNull<Int>() // 현재 캘린더에서 선택된 날짜
+    private val viewModel by viewModels<CalendarViewModel>{ CalendarViewModel.Factory(Application())}
+//    var link = CalendarAdapter(calendar)
 
     companion object {
-        fun newInstance(): CalendarFragment = CalendarFragment()
+        fun newInstance():CalendarFragment = CalendarFragment()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //initRecycler()
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        initRecycler()
 //      setContentView(R.layout.dialog_add_calendar)
-    }
+//    }
 
 //    private fun setContentView(dialogAddCalendar: Int) {
 //    }
 
-    override fun onAttach(context: Context) {
+    override fun onAttach(context: Context)  {
         super.onAttach(context)
 
         activity = context as MainActivity
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        val binding: FragmentCalendarBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_calendar, container, false
+        )
+        binding.viewmodel = viewModel
+
+        return binding.root
     }
 
 
@@ -74,11 +89,13 @@ class CalendarFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(activity, 1)
 
-        calendarList = ArrayList()
-        memberList = ArrayList()
-        addDataToList()
+//        calendarList = ArrayList()
+//        memberList = ArrayList()
+//        addDataToList()
 
-        calendarAdapter = CalendarAdapter(calendarList)
+        println("CalendarFragment onViewCreated viewModel.calendarList.value " + viewModel.calendarList)
+        observeViewModel(activity)
+        calendarAdapter = CalendarAdapter(ArrayList())
         recyclerView.adapter = calendarAdapter
 
         // 구분선
@@ -98,10 +115,20 @@ class CalendarFragment : Fragment() {
 
         dayText.text = dataFormat.format(date)
 
-        calendarView.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
-            var day: String = "${month + 1}월 ${dayOfMonth}일"
 
-            dayText.text = day
+
+        calendarView.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
+
+            val curYear = year
+            val curMonth = month
+            val curDay = dayOfMonth
+            // 캘린더에서 선택한 년도, 월에 따라서 calendar list 업데이트
+            if(!(year == curYear && month == curMonth)) viewModel.updateCalendarList(year, month)
+
+
+            var date: String = "${curMonth + 1}월 ${curDay}일"
+
+            dayText.text = date
         }
 
         // 날짜-일정 연결
@@ -332,37 +359,68 @@ class CalendarFragment : Fragment() {
 
         }}
 
+    private fun observeViewModel(activity: MainActivity) {
+        val observer =
+            Observer<ArrayList<Calendar>> { calendarList ->
+                if(calendarList != null) {
+                    val dayCalendarList = getDayCalendarList(curYear, curMonth, curDay, calendarList) // 날짜 필터링
+                    var adapter = CalendarAdapter(dayCalendarList)
+                    recyclerView.adapter = adapter
+                }
+            }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
+        viewModel.calendarList.observe(viewLifecycleOwner, observer)
     }
 
-    var family1 = UserFamily(1, "현수네", 1, 4, 1,  Date())
+    // 선택된 날짜에 해당하는 일정 list return
+    private fun getDayCalendarList(year : Int, month : Int, day : Int, calendarList : ArrayList<Calendar>) : ArrayList<Calendar>{
+        var curDate = LocalDate.of(year, month, day) // 캘린더에서 선택된 날짜
+        val dayCalendarList : ArrayList<Calendar> = ArrayList()
+        for(index in 0 until calendarList.size){ // 해당 월의 전체 리스트
+            if(calendarList[index].startDate.isBefore(curDate) && calendarList[index].endDate.isAfter(curDate)){
+                dayCalendarList.add(calendarList[index])
+            }
+        }
 
-    var user1 = User(family1,true, 1, "현수", "귀요미 막내 현수", null)
-    var user2 = User(family1,true, 2, "민균", "귀요미 첫째 민균", null)
-    var user3 = User(family1,true, 3, "승연", "귀요미 둘째 승연", null)
-    var user4 = User(family1,true, 4, "보나", "귀요미 셋째 보나", null)
-    var user5 = User(family1,true, 5, "보나", "귀요미 넷째 재순", null)
-    var user6 = User(family1,true, 6, "보나", "귀요미 다섯째 도엽", null)
-
-
-
-
-    private fun addDataToList() {
-        calendarList.add(Calendar("가족 회식", Date(), 1, Date(), arrayListOf(user1, user2, user3, user4, user5, user6)))
-        calendarList.add(Calendar("여친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user3)))
-        calendarList.add(Calendar("남친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
-
-        memberList =  arrayListOf(user1, user2, user3, user4)
-
-
+        return dayCalendarList
     }
 
 
-}
+    // 해당 Fragment의 다른 함수를 받아주기 위해서는 class가 아닌 inner class여야 함
+//    inner class CalendarAdapter{
+//       // fun getCalendarDetail(calendar : Calendar){
+//            //viewModel.getCalendarDetail(calendar)
+//        }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//    }
+
+//    var family1 = UserFamily(1, "현수네", 1, 4, 1,  Date())
+//
+//    var user1 = User(family1,true, 1, "현수", "귀요미 막내 현수", null)
+//    var user2 = User(family1,true, 2, "민균", "귀요미 첫째 민균", null)
+//    var user3 = User(family1,true, 3, "승연", "귀요미 둘째 승연", null)
+//    var user4 = User(family1,true, 4, "보나", "귀요미 셋째 보나", null)
+//    var user5 = User(family1,true, 5, "보나", "귀요미 넷째 재순", null)
+//    var user6 = User(family1,true, 6, "보나", "귀요미 다섯째 도엽", null)
+//
+//
+//
+//
+//    private fun addDataToList() {
+//        calendarList.add(Calendar("가족 회식", Date(), 1, Date(), arrayListOf(user1, user2, user3, user4, user5, user6)))
+//        calendarList.add(Calendar("여친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user3)))
+//        calendarList.add(Calendar("남친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
+//
+//        memberList =  arrayListOf(user1, user2, user3, user4)
+
+
+    }
+
+
+
 
 
 
