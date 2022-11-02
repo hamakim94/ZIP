@@ -3,11 +3,12 @@ package com.ssafy.zip.android.repository
 import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.App
-import com.ssafy.zip.android.data.UserFamily
 import com.ssafy.zip.android.data.User
+import com.ssafy.zip.android.data.UserFamily
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.data.request.RequestSignup
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class UserRepository private constructor(application: Application) {
 
@@ -57,6 +58,21 @@ class UserRepository private constructor(application: Application) {
         var returnData : Any?
         returnData = if(response.isSuccessful) {
             response.body() as UserFamily
+        } else {
+            response.code()
+        }
+        return returnData
+    }
+
+    suspend fun modifyUser(
+        profileImg: MultipartBody.Part?,
+        familyName : RequestBody,
+        nickname : RequestBody
+    ) : Any?{
+        val response = ApiService.getApiService.modifyUser(profileImg, familyName, nickname)
+        var returnData : Any?
+        returnData = if(response.isSuccessful) {
+            response.body() as User
         } else {
             response.code()
         }

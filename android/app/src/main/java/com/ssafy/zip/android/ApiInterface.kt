@@ -12,6 +12,7 @@ import com.ssafy.zip.android.data.request.RequestSignup
 import okhttp3.RequestBody
 
 interface ApiInterface {
+    // 유저 관련(초기화면)
     @POST("users/login")//Post Interface
     suspend fun userLogin(
         @Body body: RequestLoginData
@@ -31,6 +32,16 @@ interface ApiInterface {
     suspend fun emailCheck(
         @Query(value = "email") email : String,
     ):Response<String>
+
+    @PUT("rooms/enter")
+    suspend fun enterRoom(
+        @Body code: Int,
+    ):Response<UserFamily>
+
+    @POST("rooms/create")
+    suspend fun createFamily(
+        @Body body: RequestFamilyroom
+    ) : Response<UserFamily>
 
     // 앨범 관련
     @POST("album")
@@ -58,21 +69,20 @@ interface ApiInterface {
         @Part("pictureRequestDTO") photoList : RequestPhoto
     ) : Response<List<Photo>>
 
-    @PUT("rooms/enter")
-    suspend fun enterRoom(
-        @Body code: Int,
-    ):Response<UserFamily>
-
-    @POST("rooms/create")
-    suspend fun createFamily(
-        @Body body: RequestFamilyroom
-    ) : Response<UserFamily>
-
+    // 홈 화면 관련
     @GET("rooms")
     suspend fun getFamily():Response<Family>
 
     @GET("post/missions")
     suspend fun getMission():Response<Missions>
+
+    @Multipart
+    @PUT("users/profiles")
+    suspend fun modifyUser(
+        @Part profileImg: MultipartBody.Part?,
+        @Part("familyName") familyName : RequestBody,
+        @Part("nickname") nickname : RequestBody
+    ): Response<User>
 
     // 게시글 관련
     @GET("post")
