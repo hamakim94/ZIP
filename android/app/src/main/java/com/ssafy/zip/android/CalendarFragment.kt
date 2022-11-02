@@ -70,7 +70,7 @@ class CalendarFragment : Fragment() {
 //    }
 
 //    private fun setContentView(dialogAddCalendar: Int) {
-//    }
+//    }Fise
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -468,13 +468,27 @@ class CalendarFragment : Fragment() {
         var curDate = LocalDate.of(year, month + 1, day) // 캘린더에서 선택된 날짜
         val dayCalendarList: ArrayList<Calendar> = ArrayList()
         for (index in 0 until calendarList.size) { // 해당 월의 전체 리스트
-            if (calendarList[index].startDate.toInstant().atZone(ZoneId.systemDefault())
+            if (
+                calendarList[index].startDate.toInstant().atZone(ZoneId.systemDefault())
                     .toLocalDate().isBefore(curDate) && calendarList[index].endDate.toInstant()
                     .atZone(ZoneId.systemDefault()).toLocalDate()
-                    .isAfter(curDate) || calendarList[index].startDate.toInstant()
+                    .isEqual(curDate)
+                ||
+                calendarList[index].startDate.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate().isBefore(curDate) && calendarList[index].endDate.toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDate().isAfter(curDate)
+                ||
+                calendarList[index].startDate.toInstant()
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate().isEqual(curDate) && calendarList[index].endDate.toInstant()
                     .atZone(ZoneId.systemDefault()).toLocalDate().isEqual(curDate)
+                ||
+                calendarList[index].startDate.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate().isEqual(curDate) && calendarList[index].endDate.toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDate().isAfter(curDate)
+
             ) {
                 dayCalendarList.add(calendarList[index])
             } else {
