@@ -93,8 +93,8 @@ interface ApiInterface {
 
    // 백문백답 상세
     @GET("post/qna/{qnaId}")
-    suspend fun getQnaById(
-        @Query("qnaId") id : Long
+    suspend fun getQnaDetailById(
+        @Path("qnaId") id : Long
     ) : Response<QnaDetail>
 
 

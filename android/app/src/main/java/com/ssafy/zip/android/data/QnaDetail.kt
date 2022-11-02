@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class QnaDetail(
     val Id : Long,
-    val answers : Comment,
+    val answers : ArrayList<Comment>,
     val question : String,
 
 ) : Parcelable

@@ -51,7 +51,7 @@ class RecordBoardDetailFragment : Fragment() {
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_record_board_detail, container, false)
         binding.viewmodel = viewModel
-
+        // 순수하게, id만 가져오고 싶어서 이거 쓰는거
         val boardData = arguments?.getParcelable<BoardModel.Board>("Board")
         // 이제 여기서 post 관련
         binding.commentPostBtn.setOnClickListener{
@@ -77,9 +77,8 @@ class RecordBoardDetailFragment : Fragment() {
 
         // 게시글 ID 들어왔으면 viewModel에 있는 게시글 상세 가져오기 API 실행
         if (boardData != null) {
+            println("현재 들어온 정보 " + boardData)
             viewModel.getBoardDetail(boardData.id)
-            onUpdateBoardDetail()
-
         }
 
     }
@@ -114,9 +113,6 @@ class RecordBoardDetailFragment : Fragment() {
         }
         //게시글 내용
         binding.boardContent.text = boardDetail?.board?.content
-        println("게시글 내용 : " + boardDetail?.board?.content)
-        // 댓글 수
-
         // 댓글
         recyclerView = binding.commentRecyclerview
         val layoutManager = LinearLayoutManager(context)
