@@ -87,7 +87,7 @@ public class QnaServiceImpl implements QnaService {
             Qna qna= qnaLogs.get(0).getQna();
             List<QnaAnswerResponseDTO> list= new ArrayList<>();
             qnaLogs.forEach(o-> list.add(QnaAnswerMapStruct.INSTANCE.mapToQnaAnswerDTO(o)));
-            return new QnaDetailDTO(qna.getId(),qna.getQuestion(), list);
+            return new QnaDetailDTO(qna.getId(),qna.getQuestion(), qnaLogs.get(0).getReg().toLocalDate().atTime(0, 0), list);
         }
         else throw new ResourceNotFoundException("백문백답 게시글을 찾을 수 없습니다.", ErrorCode.RESOURCE_GONE);
 
