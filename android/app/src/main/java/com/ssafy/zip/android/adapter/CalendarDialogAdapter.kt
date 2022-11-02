@@ -35,7 +35,7 @@ class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?, va
 
         // 함께하는 멤버들 id 담을 리스트 생성, 클릭하면 리스트에 담게끔, dialog-fragment로 보내기
 
-//        var withUserId = ArrayList<Int>()
+        // var withUserId = ArrayList<Int>()
         var checkflag = true // 함께할 가족 선택 유무
         holder.familyImage.setOnClickListener {
             if(checkflag) {
@@ -54,8 +54,6 @@ class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?, va
             }
         }
     }
-
-
 
     // (2) 리스너 인터페이스
     interface OnItemClickListener {

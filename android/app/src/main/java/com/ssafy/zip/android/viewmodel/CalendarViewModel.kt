@@ -55,8 +55,11 @@ class CalendarViewModel(private val repository: CalendarRepository?) : ViewModel
 
     fun addCalendar(requestCalendar: RequestCalendar) {
         viewModelScope.launch {
-            val plan = repository?.addCalendar(requestCalendar)
-            _calendarList.value = repository?.addCalendar(requestCalendar) as List<Calendar>
+            val setList = _calendarList.value?.toMutableList()
+            if (setList != null) {
+                repository?.addCalendar(requestCalendar)?.let { setList.add(it) }
+                _calendarList.value = setList.toList()
+            }
         }
     }
 }

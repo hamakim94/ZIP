@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,22 +16,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.ssafy.zip.android.data.Calendar
-import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.FamilyMember
-import com.ssafy.zip.android.data.User
+import com.ssafy.zip.android.data.request.RequestCalendar
 import com.ssafy.zip.android.databinding.FragmentCalendarBinding
-import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.viewmodel.CalendarViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
 
@@ -52,6 +53,9 @@ class CalendarFragment : Fragment() {
     private val viewModel by viewModels<CalendarViewModel> { CalendarViewModel.Factory(Application()) }
     private var selectedMemberList: ArrayList<Long> = ArrayList() //선택된 가족 멤버들 id 담을 리스트
     var link = MemberSelectAdapter()
+
+
+
 
 //    var link = CalendarAdapter(calendar)
 
@@ -139,7 +143,7 @@ class CalendarFragment : Fragment() {
         val dayText: TextView = view.findViewById(R.id.day_text)
         val calendarView: CalendarView = view.findViewById(R.id.calendarView)
 
-        val dataFormat: DateFormat = SimpleDateFormat("MM월 dd일")
+        val dataFormat: DateFormat = SimpleDateFormat("MM월 d일")
 
         val date: Date = Date(calendarView.date)
 
@@ -174,7 +178,10 @@ class CalendarFragment : Fragment() {
 
         // 날짜-일정 연결
 
-
+        var pickedHour : Int = 0
+        var pickedMinute : Int = 0
+        var pickedHour2 : Int = 0
+        var pickedMinute2 : Int = 0
         // + 버튼 눌렀을 때
         val fab: View = view.findViewById(R.id.add_calendar_fab)
         fab.setOnClickListener { view ->
@@ -196,94 +203,31 @@ class CalendarFragment : Fragment() {
             dialogRecyclerView.adapter = calendarDialogAdapter
             dialogRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
 
-
-
-            MaterialAlertDialogBuilder(activity)
-                .setView(customAlertDialogView)
-                .setTitle(resources.getString(R.string.new_calendar))
-                .setPositiveButton(resources.getString(R.string.confirm)) { dialog, which ->
-                    val calendarContent = calendarTextField.editText?.text.toString()
-
-                    Toast.makeText(activity, "추가", Toast.LENGTH_SHORT).show()
-
-                    dialog.dismiss()
-                }
-                .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-
-
             // 시작 날짜
-            var startPickDateButton: TextView? = null
+//            var startPickDateButton: TextView? = null
             var startShowSelectedDateText: TextView? = null
-
-            startPickDateButton = customAlertDialogView.findViewById(R.id.btn_startDate)
+            var startShowSelectedTimeText: TextView? = null
+//            startPickDateButton = customAlertDialogView.findViewById(R.id.btn_startDate)
             startShowSelectedDateText = customAlertDialogView.findViewById(R.id.btn_startDate)
-
+            startShowSelectedTimeText = customAlertDialogView.findViewById(R.id.btn_startTime)
             var materialDateBuilder: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
 
             materialDateBuilder.setTitleText("SELECT A DATE")
 
             var materialDatePicker = materialDateBuilder.build()
-
             // material design date picker
-            startPickDateButton.setOnClickListener(
-                object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-
+            startShowSelectedDateText.setOnClickListener{
                         materialDatePicker.show(
-                            activity!!.supportFragmentManager,
-                            "MATERIAL_DATE_PICKER"
-                        )
-                    }
-                })
+                            requireActivity().supportFragmentManager,
+                            "MATERIAL_DATE_PICKER")
+                }
+            startShowSelectedTimeText.setOnClickListener{  materialDatePicker.show(
+                requireActivity().supportFragmentManager,
+                "MATERIAL_DATE_PICKER") }
 
-
-            // 종료 날짜
             materialDatePicker.addOnPositiveButtonClickListener {
-                startShowSelectedDateText.setText(materialDatePicker.headerText)
-            }
-
-            var endPickDateButton: TextView? = null
-            var endShowSelectedDateText: TextView? = null
-
-            endPickDateButton = customAlertDialogView.findViewById(R.id.btn_endDate)
-            endShowSelectedDateText = customAlertDialogView.findViewById(R.id.btn_endDate)
-
-            var materialDateBuilder2: MaterialDatePicker.Builder<*> =
-                MaterialDatePicker.Builder.datePicker()
-
-            materialDateBuilder2.setTitleText("SELECT A DATE")
-
-            var materialDatePicker2 = materialDateBuilder2.build()
-
-            // material design date picker
-            endPickDateButton.setOnClickListener(
-                object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-
-                        materialDatePicker2.show(
-                            activity!!.supportFragmentManager,
-                            "MATERIAL_DATE_PICKER"
-                        )
-                    }
-                })
-
-            // 시작 시간
-            materialDatePicker2.addOnPositiveButtonClickListener {
-                endShowSelectedDateText.setText(materialDatePicker2.headerText)
-            }
-
-            var startPickTimeButton: TextView? = null
-            var startShowSelectedTimeText: TextView? = null
-
-            startPickTimeButton = customAlertDialogView.findViewById(R.id.btn_startTime)
-            startShowSelectedTimeText = customAlertDialogView.findViewById(R.id.btn_startTime)
-
-            startPickTimeButton.setOnClickListener {
-
+                var startText = materialDatePicker.headerText
                 val materialTimePicker: MaterialTimePicker = MaterialTimePicker.Builder()
 
                     .setTitleText("SELECT YOUR TIMING")
@@ -297,8 +241,8 @@ class CalendarFragment : Fragment() {
 
                 materialTimePicker.addOnPositiveButtonClickListener {
 
-                    val pickedHour: Int = materialTimePicker.hour
-                    val pickedMinute: Int = materialTimePicker.minute
+                    pickedHour = materialTimePicker.hour
+                    pickedMinute = materialTimePicker.minute
 
                     val formattedTime: String = when {
                         pickedHour > 12 -> {
@@ -332,77 +276,147 @@ class CalendarFragment : Fragment() {
                     }
 
                     // then update the preview TextView
+                    startShowSelectedDateText.text = startText
                     startShowSelectedTimeText.text = formattedTime
                 }
+            }
+            // 종료 날짜
+            var endShowSelectedDateText: TextView? = null
+            var endShowSelectedTimeText: TextView? = null
 
-                // 종료 시간
-                var endPickTimeButton: TextView? = null
-                var endShowSelectedTimeText: TextView? = null
+            endShowSelectedDateText = customAlertDialogView.findViewById(R.id.btn_endDate)
+            endShowSelectedTimeText = customAlertDialogView.findViewById(R.id.btn_endTime)
 
-                endPickTimeButton = customAlertDialogView.findViewById(R.id.btn_endTime)
-                endShowSelectedTimeText = customAlertDialogView.findViewById(R.id.btn_endTime)
+            var materialDateBuilder2: MaterialDatePicker.Builder<*> =
+                MaterialDatePicker.Builder.datePicker()
 
-                endPickTimeButton.setOnClickListener {
+            materialDateBuilder2.setTitleText("SELECT A DATE")
 
-                    val materialTimePicker2: MaterialTimePicker = MaterialTimePicker.Builder()
+            var materialDatePicker2 = materialDateBuilder2.build()
 
-                        .setTitleText("SELECT YOUR TIMING")
-
-                        .setHour(12)
-                        .setMinute(10)
-                        .setTimeFormat(TimeFormat.CLOCK_12H)
-                        .build()
-
-                    materialTimePicker2.show(
-                        requireActivity().supportFragmentManager,
-                        "MainActivity"
-                    )
-
-                    materialTimePicker2.addOnPositiveButtonClickListener {
-
-                        val pickedHour2: Int = materialTimePicker2.hour
-                        val pickedMinute2: Int = materialTimePicker2.minute
-
-                        val formattedTime: String = when {
-                            pickedHour2 > 12 -> {
-                                if (pickedMinute2 < 10) {
-                                    "${materialTimePicker2.hour - 12}:0${materialTimePicker2.minute} pm"
-                                } else {
-                                    "${materialTimePicker2.hour - 12}:${materialTimePicker2.minute} pm"
-                                }
-                            }
-                            pickedHour2 == 12 -> {
-                                if (pickedMinute2 < 10) {
-                                    "${materialTimePicker2.hour}:0${materialTimePicker2.minute} pm"
-                                } else {
-                                    "${materialTimePicker2.hour}:${materialTimePicker2.minute} pm"
-                                }
-                            }
-                            pickedHour2 == 0 -> {
-                                if (pickedMinute2 < 10) {
-                                    "${materialTimePicker2.hour + 12}:0${materialTimePicker2.minute} am"
-                                } else {
-                                    "${materialTimePicker2.hour + 12}:${materialTimePicker2.minute} am"
-                                }
-                            }
-                            else -> {
-                                if (pickedMinute2 < 10) {
-                                    "${materialTimePicker2.hour}:0${materialTimePicker2.minute} am"
-                                } else {
-                                    "${materialTimePicker2.hour}:${materialTimePicker2.minute} am"
-                                }
-                            }
-                        }
-
-                        // then update the preview TextView
-                        endShowSelectedTimeText.text = formattedTime
-                    }
-
+            // material design date picker
+            endShowSelectedDateText.setOnClickListener{
+                        materialDatePicker2.show(
+                            requireActivity()!!.supportFragmentManager,
+                            "MATERIAL_DATE_PICKER"
+                        )
                 }
-
+            endShowSelectedTimeText.setOnClickListener{
+                materialDatePicker2.show(
+                    requireActivity()!!.supportFragmentManager,
+                    "MATERIAL_DATE_PICKER"
+                )
             }
 
+            // 종료 날짜
+            materialDatePicker2.addOnPositiveButtonClickListener {
+                var endText = materialDatePicker2.headerText
+                val materialTimePicker2: MaterialTimePicker = MaterialTimePicker.Builder()
+                    .setTitleText("SELECT YOUR TIMING")
+                    .setHour(12)
+                    .setMinute(10)
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .build()
+
+                materialTimePicker2.show(
+                    requireActivity().supportFragmentManager,
+                    "MainActivity"
+                )
+
+                materialTimePicker2.addOnPositiveButtonClickListener {
+                    pickedHour2 = materialTimePicker2.hour
+                    pickedMinute2 = materialTimePicker2.minute
+                    val formattedTime: String = when {
+                        pickedHour2 > 12 -> {
+                            if (pickedMinute2 < 10) {
+                                "${materialTimePicker2.hour - 12}:0${materialTimePicker2.minute} pm"
+                            } else {
+                                "${materialTimePicker2.hour - 12}:${materialTimePicker2.minute} pm"
+                            }
+                        }
+                        pickedHour2 == 12 -> {
+                            if (pickedMinute2 < 10) {
+                                "${materialTimePicker2.hour}:0${materialTimePicker2.minute} pm"
+                            } else {
+                                "${materialTimePicker2.hour}:${materialTimePicker2.minute} pm"
+                            }
+                        }
+                        pickedHour2 == 0 -> {
+                            if (pickedMinute2 < 10) {
+                                "${materialTimePicker2.hour + 12}:0${materialTimePicker2.minute} am"
+                            } else {
+                                "${materialTimePicker2.hour + 12}:${materialTimePicker2.minute} am"
+                            }
+                        }
+                        else -> {
+                            if (pickedMinute2 < 10) {
+                                "${materialTimePicker2.hour}:0${materialTimePicker2.minute} am"
+                            } else {
+                                "${materialTimePicker2.hour}:${materialTimePicker2.minute} am"
+                            }
+                        }
+                    }
+                    // then update the preview TextView
+                    endShowSelectedTimeText.text = formattedTime
+                    endShowSelectedDateText.text = endText
+                }
+            }
+
+            MaterialAlertDialogBuilder(activity)
+                .setView(customAlertDialogView)
+                .setTitle(resources.getString(R.string.new_calendar))
+                .setPositiveButton(resources.getString(R.string.confirm)) { dialog, which ->
+                    var content = customAlertDialogView.findViewById<TextInputEditText>(R.id.calendar_content_text).text
+                    if(startShowSelectedDateText.text.equals("시작 날짜") && endShowSelectedDateText.text.equals("종료 날짜") && content.isNullOrEmpty()){
+                        println("뭐 골라라")
+                    }else {
+                        var startLocalDate =
+                            textToLocalDate(startShowSelectedDateText.text.toString())
+                        var startLocalTime = LocalTime.of(pickedHour, pickedMinute)
+                        var endLocalDate = textToLocalDate(endShowSelectedDateText.text.toString())
+                        var endLocalTime = LocalTime.of(pickedHour2, pickedMinute2)
+                        var startDate = LocalDateTime.of(
+                            startLocalDate.year,
+                            startLocalDate.monthValue,
+                            startLocalDate.dayOfMonth,
+                            startLocalTime.hour,
+                            startLocalTime.minute,
+                            1,
+                        )
+                        var endDate = LocalDateTime.of(
+                            endLocalDate.year,
+                            endLocalDate.monthValue,
+                            endLocalDate.dayOfMonth,
+                            endLocalTime.hour,
+                            endLocalTime.minute,
+                            1,
+                        )
+//                            .format(DateTimeFormatter.ofPattern(
+//                            "yyyy-MM-dd'T'HH:mm:ss.SSS]"))
+//                        var endDate = LocalDateTime.of(endLocalDate, endLocalTime)
+                        println(endDate)
+                        var body = RequestCalendar(content.toString(), endDate.toString(), startDate.toString(), selectedMemberList)
+                        println(body)
+
+                        viewModel.addCalendar(body)
+                        Toast.makeText(activity, "추가", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    }
+                }
+                .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
+
+    }
+
+    private fun textToLocalDate (text : String) : LocalDate{
+        val textArray = text.split(" ")
+        val month : Int = stringToMonth(textArray[0]).toInt()
+        val day : Int = textArray[1].split(",")[0].toInt()
+        val year : Int = textArray[2].toInt()
+        return LocalDate.of(year, month, day)
     }
 
     private fun observeViewModel(activity: MainActivity) {
@@ -413,7 +427,7 @@ class CalendarFragment : Fragment() {
                 if (viewModel.calendarList.value != null) {
                     var dayCalendarList =
                         getDayCalendarList(
-                            today.year, today.monthValue-1, today.dayOfMonth,
+                            today.year, today.monthValue - 1, today.dayOfMonth,
                             viewModel.calendarList.value!!
                         ) // 날짜 필터링
                     binding.calendarRecyclerView.setHasFixedSize(true)
@@ -426,6 +440,23 @@ class CalendarFragment : Fragment() {
         viewModel.calendarList.observe(viewLifecycleOwner, observer)
     }
 
+    private fun stringToMonth(month: String): Int {
+        var intMonth = when (month) {
+            "Jan" -> 1
+            "Feb" -> 2
+            "Mar" -> 3
+            "Apr" -> 4
+            "May" -> 5
+            "Jun" -> 6
+            "Jul" -> 7
+            "Aug" -> 8
+            "Sep" -> 9
+            "Oct" -> 10
+            "Nov" -> 11
+            else -> 12
+        }
+        return intMonth
+    }
 
     // 선택된 날짜에 해당하는 일정 list return
     private fun getDayCalendarList(
@@ -454,7 +485,7 @@ class CalendarFragment : Fragment() {
     }
 
     // 해당 Fragment의 다른 함수를 받아주기 위해서는 class가 아닌 inner class여야 함
-    inner class MemberSelectAdapter{
+    inner class MemberSelectAdapter {
         // 선택된 가족들 모아주기
         // 있으면 뺴고, 없으면 넣어서 넘겨주기
         fun selectMember(id: Long) {
@@ -468,32 +499,9 @@ class CalendarFragment : Fragment() {
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//    }
-
-//    var family1 = UserFamily(1, "현수네", 1, 4, 1,  Date())
-//
-//    var user1 = User(family1,true, 1, "현수", "귀요미 막내 현수", null)
-//    var user2 = User(family1,true, 2, "민균", "귀요미 첫째 민균", null)
-//    var user3 = User(family1,true, 3, "승연", "귀요미 둘째 승연", null)
-//    var user4 = User(family1,true, 4, "보나", "귀요미 셋째 보나", null)
-//    var user5 = User(family1,true, 5, "보나", "귀요미 넷째 재순", null)
-//    var user6 = User(family1,true, 6, "보나", "귀요미 다섯째 도엽", null)
-//
-//
-//
-//
-//    private fun addDataToList() {
-//        calendarList.add(Calendar("가족 회식", Date(), 1, Date(), arrayListOf(user1, user2, user3, user4, user5, user6)))
-//        calendarList.add(Calendar("여친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user3)))
-//        calendarList.add(Calendar("남친이랑 데이트ㅋ",Date(), 1, Date(), arrayListOf(user1)))
-//
-//        memberList =  arrayListOf(user1, user2, user3, user4)
-
 
 }
+
 
 
 

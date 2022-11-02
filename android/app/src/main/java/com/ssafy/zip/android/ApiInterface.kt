@@ -97,9 +97,9 @@ interface ApiInterface {
 
     // 일정 추가
     @POST("calendar/add")
-    suspend fun addCalendar(
+    suspend fun addCalendarData(
         @Body body: RequestCalendar
-    ) : Response<List<Calendar>>
+    ) : Response<Calendar>
 
     // 일정 조회(상세)
 //    @GET("calendar/detail/{calendarId}")
