@@ -40,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDTO> listBoard(UserDTO userDTO) {
         return boardRepository.findByFamilyId(userDTO.getFamilyId()).stream()
-                .map(BoardMapStruct.INSTANCE::mapToBoardDTO).collect(Collectors.toList());
+                .map(BoardMapStruct.INSTANCE::mapToBoardDTO).sorted((o1, o2) -> o2.reg().compareTo(o1.reg())).collect(Collectors.toList());
     }
 
     @SneakyThrows
@@ -51,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
             Board board = boardOpt.get();
             List<Comment> commentList = commentRepository.findByBoardId(boardId);
             notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false),
-                    userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
+                    userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(User::getId).collect(Collectors.toList()));
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
                     commentList.stream().map(CommentDTOMapStruct.INSTANCE::mapToCommentDTO).collect(Collectors.toList()));
         }
