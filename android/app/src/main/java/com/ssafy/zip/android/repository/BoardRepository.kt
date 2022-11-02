@@ -3,14 +3,13 @@ package com.ssafy.zip.android.repository
 import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.*
+import com.ssafy.zip.android.data.request.RequestPhoto
+import com.ssafy.zip.android.data.request.RequestQnaComment
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 class BoardRepository private constructor(application: Application) {
 
@@ -63,14 +62,19 @@ class BoardRepository private constructor(application: Application) {
         id : Long
     ) : QnaDetail? {
         val response = ApiService.getApiService.getQnaDetailById(id)
-        return return if(response.isSuccessful) response.body() as QnaDetail else null
+        return if(response.isSuccessful) response.body() as QnaDetail else null
     }
-//    // 백문백답 상세
-//    @GET("post/qna/{qnaId}")
-//    suspend fun getQnaDetailById(
-//        @Path("qnaId") id : Long
-//    ) : Response<QnaDetail>
 
+    suspend fun postQnaAnswer(id : Long, content : String) : String? {
+
+        val response = ApiService.getApiService.postQnaAnswer(RequestQnaComment(content, id))
+        println("BoardRepository postQnaAnswer response: " + response)
+        var returnData : String?
+        returnData = response.code().toString()
+        println("returnData " + returnData)
+        return returnData
+
+    }
 
     companion object {
         private var instance: BoardRepository? = null
@@ -82,10 +86,3 @@ class BoardRepository private constructor(application: Application) {
     }
 }
 
-//class HomeRepository private constructor(application: Application) {
-//
-//    suspend fun getFamily(): Family?{
-//        val response = ApiService.getApiService.getFamily()
-//        println("HomeRepository getFamily response: " + response)
-//        return if(response.isSuccessful) response.body() as Family else null
-//    }

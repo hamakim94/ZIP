@@ -1,14 +1,11 @@
 package com.ssafy.zip.android
 
 import com.ssafy.zip.android.data.*
-import com.ssafy.zip.android.data.request.RequestFamilyroom
-import com.ssafy.zip.android.data.request.RequestLoginData
-import com.ssafy.zip.android.data.request.RequestPhoto
+import com.ssafy.zip.android.data.request.*
 import okhttp3.MultipartBody
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import retrofit2.Response
 import retrofit2.http.*
-import com.ssafy.zip.android.data.request.RequestSignup
 import okhttp3.RequestBody
 
 interface ApiInterface {
@@ -42,7 +39,7 @@ interface ApiInterface {
     suspend fun createFamily(
         @Body body: RequestFamilyroom
     ) : Response<UserFamily>
-
+    //-----------------------------------------------------------------------------------------------------
     // 앨범 관련
     @POST("album")
     suspend fun updateAlbum(
@@ -68,7 +65,7 @@ interface ApiInterface {
         @Part files : List<MultipartBody.Part>,
         @Part("pictureRequestDTO") photoList : RequestPhoto
     ) : Response<List<Photo>>
-
+    //-----------------------------------------------------------------------------------------------------
     // 홈 화면 관련
     @GET("rooms")
     suspend fun getFamily():Response<Family>
@@ -83,7 +80,7 @@ interface ApiInterface {
         @Part("familyName") familyName : RequestBody,
         @Part("nickname") nickname : RequestBody
     ): Response<User>
-
+    //-----------------------------------------------------------------------------------------------------
     // 게시글 관련
     @GET("post")
     suspend fun getBoardAll():Response<ArrayList<ResponseBoardAll>>
@@ -100,12 +97,18 @@ interface ApiInterface {
         @Path("boardId") id : Long,
         @Query("content") content : String
     ) : Response<String>
-
+    //-----------------------------------------------------------------------------------------------------
    // 백문백답 상세
     @GET("post/qna/{qnaId}")
     suspend fun getQnaDetailById(
         @Path("qnaId") id : Long
     ) : Response<QnaDetail>
+
+    // 백문백답 상세 댓글 남기기
+    @POST("post/qna/answer")
+    suspend fun postQnaAnswer(
+        @Body body : RequestQnaComment
+    ) : Response<String>
 
 
     @Multipart

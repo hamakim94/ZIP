@@ -34,6 +34,18 @@ class QnaDetailViewModel(private val repository: BoardRepository) : ViewModel() 
         }
     }
     // 댓글 달기 필요
+    fun addQnaAnswer(id : Long, content : String){
+        viewModelScope.launch {
+            val response = repository.postQnaAnswer(id, content)
+            println("게시글 등록 시작!: " + id)
+            // 만약 response가 정상적으로 실행되면
+            if(response.equals("200")){
+                // 데이터 다시 가져와서 변화시키겠지?
+                getQnaDetail(id)
+            }
+        }
+    }
+
 
     class Factory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -42,24 +54,3 @@ class QnaDetailViewModel(private val repository: BoardRepository) : ViewModel() 
     }
 }
 
-//class HomeViewModel(private val repository: HomeRepository): ViewModel(){
-//    private val _familyData = MutableLiveData<Family>()
-//    val familyData : LiveData<Family> get() = _familyData
-//    private val _missions = MutableLiveData<Missions>()
-//    val missions : LiveData<Missions> get() = _missions
-//
-//    init {
-//        Log.d("TAG", "HomeViewModel 생성자 호출")
-//        viewModelScope.launch {
-//            _familyData.value = repository.getFamily()
-//            _missions.value = repository.getMission()
-//        }
-//    }
-//
-//    class Factory(private val application: Application) : ViewModelProvider.Factory{
-//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//            return HomeViewModel(HomeRepository.getInstance(application)!!) as T
-//        }
-//    }
-//
-//}

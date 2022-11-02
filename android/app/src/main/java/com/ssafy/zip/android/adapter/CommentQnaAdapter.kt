@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.Comment
-import com.ssafy.zip.android.databinding.CommentItemBinding
 
 class CommentQnaAdapter(private val commentList: ArrayList<Comment>) : RecyclerView.Adapter<CommentQnaAdapter.CommentViewHolder>() {
 

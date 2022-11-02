@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.CommentAdapter
 import com.ssafy.zip.android.adapter.CommentQnaAdapter
 import com.ssafy.zip.android.adapter.HomeAdapter
@@ -23,6 +25,7 @@ import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.databinding.FragmentRecordBoardDetailBinding
 import com.ssafy.zip.android.databinding.FragmentRecordQnaDetailBinding
 import com.ssafy.zip.android.viewmodel.QnaDetailViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -36,6 +39,7 @@ class RecordQnaDetailFragment : Fragment() {
     // 가족 사진 보여주기용
     private lateinit var homeList: ArrayList<FamilyMember>
     private lateinit var homeAdapter: HomeAdapter
+
 
     // 댓글 보여주기용
     private lateinit var commentList : ArrayList<Comment>
@@ -56,6 +60,36 @@ class RecordQnaDetailFragment : Fragment() {
             inflater, R.layout.fragment_record_qna_detail, container, false
         )
         binding.viewmodel = viewModel
+        // 나중에 여기서 조건들주기
+        binding.qnaCommentPostBtn.setOnClickListener{
+            val id = viewModel.qnaDetail.value?.Id
+            //날짜 변환
+
+            var now = System.currentTimeMillis()
+            var nowDate : Date = Date(now)
+
+            var dateFormat = SimpleDateFormat("yyyy-MM-dd")
+            var nowTime = dateFormat.format(nowDate) // 현재 시간
+            var regTime = dateFormat.format(viewModel.qnaDetail.value?.reg) // 게시글 작성일
+
+
+            if(nowTime.equals(regTime)){
+                if(id != null && binding.qnaCommentContent.text.isNotEmpty()){
+                    println(binding.qnaCommentContent.text)
+                    viewModel.addQnaAnswer(id, binding.qnaCommentContent.text.toString())
+                    binding.qnaCommentContent.text = null
+                }
+            } else{
+                MaterialAlertDialogBuilder(activity)
+                    .setMessage("현재 날짜와 다릅니다")
+                    .setPositiveButton("확인") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+
+
+        }
         return binding.root
     }
 

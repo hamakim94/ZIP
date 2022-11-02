@@ -59,6 +59,7 @@ class RecordBoardDetailFragment : Fragment() {
             if(id != null && binding.commentContent.text.isNotEmpty()){
                 viewModel.postBoardComment(id, binding.commentContent.text.toString())
                 binding.commentContent.text = null
+                binding.commentContent.clearFocus()
             }
         }
         return binding.root
@@ -118,7 +119,6 @@ class RecordBoardDetailFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        print("테스트테스트" + boardDetail)
         if(boardDetail != null){
             adapter = CommentAdapter(boardDetail.comments)
             recyclerView.adapter = adapter
