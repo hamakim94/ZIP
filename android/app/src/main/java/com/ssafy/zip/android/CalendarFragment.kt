@@ -508,7 +508,7 @@ class CalendarFragment : Fragment() {
             } else {
                 selectedMemberList.add(id)
             }
-
+            selectedMemberList.sort()
             println("selectedMemberList: " + selectedMemberList)
         }
     }
