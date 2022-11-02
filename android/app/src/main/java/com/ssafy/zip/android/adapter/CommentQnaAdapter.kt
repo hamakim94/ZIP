@@ -5,8 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.Comment
+import com.ssafy.zip.android.databinding.CommentItemBinding
 
 class CommentQnaAdapter(private val commentList: ArrayList<Comment>) : RecyclerView.Adapter<CommentQnaAdapter.CommentViewHolder>() {
 
@@ -14,6 +17,7 @@ class CommentQnaAdapter(private val commentList: ArrayList<Comment>) : RecyclerV
         val commentQnaUserNickname : TextView = itemView.findViewById(R.id.commentQnaUserNickname)
         val commentQnaReg : TextView = itemView.findViewById(R.id.commentQnaReg)
         val commentQnaContent : TextView = itemView.findViewById(R.id.commentQnaContent)
+        val commentQnaProfileImage : ShapeableImageView = itemView.findViewById(R.id.commentQnaProfileImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
@@ -26,6 +30,7 @@ class CommentQnaAdapter(private val commentList: ArrayList<Comment>) : RecyclerV
         holder.commentQnaUserNickname.text = currentItem.user.nickname
         holder.commentQnaReg.text = currentItem.reg.toString()
         holder.commentQnaContent.text = currentItem.content
+        Glide.with(holder.itemView).load(currentItem.user.profileImg).into(holder.itemView.findViewById(R.id.commentQnaProfileImage))
     }
 
     override fun getItemCount(): Int {

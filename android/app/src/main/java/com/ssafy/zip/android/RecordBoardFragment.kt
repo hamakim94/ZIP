@@ -29,7 +29,6 @@ class RecordBoardFragment : Fragment() {
     private lateinit var activity: MainActivity
     private lateinit var adapter: BoardModelAdapter
     private lateinit var recyclerView: RecyclerView
-//    private lateinit var boardModelArrayList: ArrayList<ResponseBoardAll>
     private lateinit var filteredBoardModelArrayList: ArrayList<ResponseBoardAll>
     private val viewModel by viewModels<BoardViewModel>{BoardViewModel.Factory(Application())}
 

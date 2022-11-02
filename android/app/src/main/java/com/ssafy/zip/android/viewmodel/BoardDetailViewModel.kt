@@ -1,8 +1,10 @@
 package com.ssafy.zip.android.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.ssafy.zip.android.data.BoardDetail
+import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.repository.BoardRepository
 import kotlinx.coroutines.launch
 
@@ -13,7 +15,6 @@ class BoardDetailViewModel(private val repository: BoardRepository) : ViewModel(
     // 상세 정보
     fun getBoardDetail(id : Long) {
         viewModelScope.launch {
-            println("viewmodel id: " + id)
             _boardDetail.value = repository.getBoardDetailById(id)
         }
     }

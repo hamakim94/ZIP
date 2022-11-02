@@ -20,9 +20,6 @@ import com.ssafy.zip.android.data.response.ResponseBoardAll
 class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
     RecyclerView.Adapter<BoardModelAdapter.BoardModelAdapterViewHolder>() {
 
-//    class BoardModelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        val profileImage: ImageView = itemView.findViewById(R.id.profileImage)
-//    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -49,7 +46,6 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
         position: Int
     ) {
         holder.bind(adapterData[position])
-        val boardItem = adapterData[position]
         // 게시글 바인딩 시켜야함
         holder.itemView.setOnClickListener {
             when (adapterData[position].data.javaClass.simpleName.toString()) {
@@ -81,13 +77,6 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
         return adapterData[position].category
     }
 
-    fun setData(data: List<ResponseBoardAll>) {
-        adapterData.apply {
-            clear()
-            addAll(data)
-        }
-    }
-
     companion object {
         private const val TYPE_BOARD = 0
         private const val TYPE_QNA = 1
@@ -111,11 +100,9 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
                         .load(board.image)
                         .into(itemView.findViewById<ImageView>(R.id.boardImage))
                 }
-//                itemView.findViewById<ImageView>(R.id.boardImage).setImageResource(0)
                 itemView.findViewById<TextView>(R.id.boardContent).text = board.content
                 itemView.findViewById<TextView>(R.id.commentCnt).text = board.commentCnt.toString()
             }
-//            itemView.findViewById<TextView>(R.id.commentCount).text = item.
 
         }
 

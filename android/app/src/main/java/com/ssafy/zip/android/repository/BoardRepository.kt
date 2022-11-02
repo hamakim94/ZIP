@@ -54,7 +54,7 @@ class BoardRepository private constructor(application: Application) {
     //가족 정보 가져오기
     suspend fun getFamily():Family?{
         val response = ApiService.getApiService.getFamily()
-        println("HomeRepository getFamily response: " + response)
+        println("BoardRepository getFamily response: " + response)
         return if(response.isSuccessful) response.body() as Family else null
     }
 

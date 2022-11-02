@@ -46,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="22/10/30"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +65,6 @@
                 android:id="@+id/qnaDetailContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Q. 냐냐!"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -86,8 +84,19 @@
             app:layout_constraintStart_toStartOf="@id/qnaContainer"
             app:layout_constraintTop_toBottomOf="@id/qnaContainer"></LinearLayout>
 
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/home_recycler_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:nestedScrollingEnabled="false"-->
+<!--            android:overScrollMode="never"-->
+<!--            app:layoutManager="GridLayoutManager"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/familyMember"-->
+<!--            tools:listitem="@layout/home_item" />-->
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/member_recycler_view"
+            android:id="@+id/home_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -96,7 +105,7 @@
             app:layoutManager="GridLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/qnaDetailDivider"
-            tools:listitem="@layout/qna_profile_item" />
+            tools:listitem="@layout/home_item" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/comment_recycler_view"
@@ -106,7 +115,7 @@
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/member_recycler_view"
+            app:layout_constraintTop_toBottomOf="@id/home_recycler_view"
             tools:listitem="@layout/qna_comment_item" />
 
 
