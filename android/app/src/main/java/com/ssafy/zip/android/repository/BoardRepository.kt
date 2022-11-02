@@ -6,6 +6,10 @@ import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 class BoardRepository private constructor(application: Application) {
 
@@ -24,14 +28,28 @@ class BoardRepository private constructor(application: Application) {
         return if(response.isSuccessful) response.body() as BoardDetail else null
     }
 
+    suspend fun postBoardComment(
+        id : Long,
+        content : String
+    ) : String? {
+        val response = ApiService.getApiService.postBoardCommentById(id, content)
+        var returnData : String?
+        returnData = response.code().toString()
+        return returnData
+    }
+
+//    @POST("post/board/{boardId}")
+//    suspend fun postBoardCommentById(
+//        @Path("boardId") id : Long,
+//        @Query("content") content : String
+//    ) : Response<String>
+
 
 
     suspend fun postBoard(
         image : MultipartBody.Part?,
         content : RequestBody
     ) : String?{
-        println("postBoard" + image)
-        println("postBaord" + content)
         val response = ApiService.getApiService.postBoard(content, image)
         var returnData : String?
         returnData = response.code().toString()

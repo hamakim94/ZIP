@@ -84,7 +84,14 @@ interface ApiInterface {
         @Path("boardId") id : Long
     ) : Response<BoardDetail>
 
-    // 백문백답 상세
+    // 게시글 상세 댓글 달기기
+    @POST("post/board/{boardId}")
+    suspend fun postBoardCommentById(
+        @Path("boardId") id : Long,
+        @Query("content") content : String
+    ) : Response<String>
+
+   // 백문백답 상세
     @GET("post/qna/{qnaId}")
     suspend fun getQnaById(
         @Query("qnaId") id : Long

@@ -20,12 +20,7 @@ open class BoardModel : Parcelable {
         var image : String?, // 추후 string
         var reg : Date,
         var commentCnt : Long
-//        var userImage: Int,
-//        var userNickname: String,
-//        var boardReg: String,
-//        var boardImage: Int,
-//        var boardContent: String,
-//        var commentCount: String,
+
     ) : BoardModel()
 
     @Parcelize

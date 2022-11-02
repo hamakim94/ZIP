@@ -20,21 +20,28 @@
             android:orientation="vertical">
 
             <!--    조건을 넣어서 , 어떤걸 보여줄지 정하는 느낌?-->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/board_detail_layout"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/board_detail_appbar"
+                    style="@style/Widget.MaterialComponents.Toolbar.Surface"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    app:maxButtonHeight="48dp"
                     android:text="게시글 상세"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
+                    app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:titleCentered="true"/>
+            </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                tools:ignore="MissingConstraints">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.divider.MaterialDivider>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topContainer"
@@ -107,7 +114,12 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                tools:ignore="MissingConstraints">
 
+            </com.google.android.material.divider.MaterialDivider>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/boardContentContainer"
@@ -126,10 +138,13 @@
 
                 </TextView>
 
-
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                tools:ignore="MissingConstraints">
+
+            </com.google.android.material.divider.MaterialDivider>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottomContainer"
@@ -143,7 +158,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/bottomContainer"
                     android:inputType="textMultiLine"
-                    android:hint="댓글 작성하기"
+                    android:hint="@string/edittext_hint"
+                    android:background="@drawable/edittext_inputtext"
                     android:layout_marginEnd="100dp"
                     android:layout_marginStart="8dp"
                    >
