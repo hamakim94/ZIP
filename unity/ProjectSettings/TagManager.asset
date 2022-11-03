@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Outside
+  - Roof
+  - ExteriorWall
+  - Module
+  - Floor
+  - Room
+  - Wall
+  - Ceil
   layers:
   - Default
   - TransparentFX
@@ -13,18 +21,18 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - FX
+  - Floor
+  - Wall
+  - Join
+  - RoomBox
+  - Ghost
+  - Ceil
+  - Area
+  - Module
+  - ExteriorWall
+  - Roof
+  - Outside
   - 
   - 
   - 
