@@ -19,16 +19,17 @@ public class MoveObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 위치
-        moveVec = new Vector3(joystick.Horizontal, 0, joystick.Vertical) * speed * Time.deltaTime;
-        rigid.MovePosition(rigid.position + moveVec);
+            // 위치
+            moveVec = new Vector3(joystick.Horizontal, 0, joystick.Vertical) * speed * Time.deltaTime;
+            rigid.MovePosition(rigid.position + moveVec);
 
-        // 회전 
-        if(moveVec.sqrMagnitude == 0) return; // input이 없으면 rotation 없음
+            if(moveVec == Vector3.zero) return;
+            // 회전 
+            // if(moveVec.sqrMagnitude == 0) return; // input이 없으면 rotation 없음
 
-        Quaternion dirQuat = Quaternion.LookRotation(moveVec); // 게임 오브젝트의 3차원 방향을 저장
-        Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.8f); // 회전 조작 
-        rigid.MoveRotation(moveQuat);
+            Quaternion dirQuat = Quaternion.LookRotation(moveVec); // 게임 오브젝트의 3차원 방향을 저장
+            Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.8f); // 회전 조작 
+            rigid.MoveRotation(moveQuat);
     }
 
     void LateUpdate(){
