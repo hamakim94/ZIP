@@ -91,7 +91,7 @@ public class QnaServiceImpl implements QnaService {
     public QnaDetailDTO getQnaDetail(UserDTO user, Long qnaId) {
         List<QnaLog> qnaLogs = qnaLogRepository.findByFamilyIdAndQnaId(user.getFamilyId(), qnaId);
         Family family = familyRepository.findById(user.getFamilyId()).get();
-        if(qnaLogs.get(0)!=null) {
+        if(!qnaLogs.isEmpty()) {
             Qna qna= qnaLogs.get(0).getQna();
             List<QnaAnswerResponseDTO> list= new ArrayList<>();
             qnaLogs.forEach(o-> list.add(QnaAnswerMapStruct.INSTANCE.mapToQnaAnswerDTO(o)));
