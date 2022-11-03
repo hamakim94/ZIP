@@ -31,10 +31,14 @@ import com.ssafy.zip.android.viewmodel.BoardViewModel
 
 class RecordBoardDetailFragment : Fragment() {
 
-    private var _binding : FragmentRecordBoardDetailBinding? = null
+    private var _binding: FragmentRecordBoardDetailBinding? = null
     private val binding get() = _binding!!
     private lateinit var activity: MainActivity
-    private val viewModel by viewModels<BoardDetailViewModel>{BoardDetailViewModel.Factory(Application())}
+    private val viewModel by viewModels<BoardDetailViewModel> {
+        BoardDetailViewModel.Factory(
+            Application()
+        )
+    }
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CommentAdapter
 
@@ -49,14 +53,15 @@ class RecordBoardDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_record_board_detail, container, false)
+            inflater, R.layout.fragment_record_board_detail, container, false
+        )
         binding.viewmodel = viewModel
         // 순수하게, id만 가져오고 싶어서 이거 쓰는거
         val boardData = arguments?.getParcelable<BoardModel.Board>("Board")
         // 이제 여기서 post 관련
-        binding.commentPostBtn.setOnClickListener{
+        binding.commentPostBtn.setOnClickListener {
             val id = boardData?.id
-            if(id != null && binding.commentContent.text.isNotEmpty()){
+            if (id != null && binding.commentContent.text.isNotEmpty()) {
                 viewModel.postBoardComment(id, binding.commentContent.text.toString())
                 binding.commentContent.text = null
                 binding.commentContent.clearFocus()
@@ -84,8 +89,8 @@ class RecordBoardDetailFragment : Fragment() {
 
     }
 
-    private fun observeViewModel(activity: MainActivity){
-        val observer = object  : Observer<BoardDetail> {
+    private fun observeViewModel(activity: MainActivity) {
+        val observer = object : Observer<BoardDetail> {
             override fun onChanged(boardDetail: BoardDetail?) {
                 if (boardDetail != null) {
                     onUpdateBoardDetail()
@@ -95,21 +100,28 @@ class RecordBoardDetailFragment : Fragment() {
         viewModel.boardDetail.observe(viewLifecycleOwner, observer)
     }
 
-    private fun onUpdateBoardDetail(){
+    private fun onUpdateBoardDetail() {
         val boardDetail: BoardDetail? = viewModel.boardDetail.value
         // 사용자 프로필 이미지
-        Glide.with(activity)
-        .load(boardDetail?.board?.user?.profileImg)
-        .into(binding.profileImageDetail)
+        if (boardDetail != null) {
+            if (boardDetail.board.user.profileImg == null) {
+                binding.profileImageDetail.setImageResource(R.drawable.ex)
+            } else {
+                Glide.with(activity)
+                    .load(boardDetail?.board?.user?.profileImg)
+                    .into(binding.profileImageDetail)
+            }
+        }
+
         // 닉네임, 게시글 내용
         binding.userNicknameDetail.text = boardDetail?.board?.user?.nickname
         binding.boardRegDetail.text = boardDetail?.board?.reg.toString()
         // 게시글 이미지
-        if(boardDetail?.board?.image!= null){
+        if (boardDetail?.board?.image != null) {
             Glide.with(activity)
                 .load(boardDetail?.board?.image)
                 .into(binding.boardImageDetail)
-        } else{
+        } else {
 
         }
         //게시글 내용
@@ -119,12 +131,11 @@ class RecordBoardDetailFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        if(boardDetail != null){
+        if (boardDetail != null) {
             adapter = CommentAdapter(boardDetail.comments)
             recyclerView.adapter = adapter
         }
     }
-
 
 
 }

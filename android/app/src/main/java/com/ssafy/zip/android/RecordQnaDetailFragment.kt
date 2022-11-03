@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.CommentQnaAdapter
 import com.ssafy.zip.android.adapter.HomeAdapter
+import com.ssafy.zip.android.adapter.QnaProfileAdapter
 import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.databinding.FragmentRecordQnaDetailBinding
 import com.ssafy.zip.android.viewmodel.QnaDetailViewModel
@@ -31,7 +32,7 @@ class RecordQnaDetailFragment : Fragment() {
 
     // 가족 사진 보여주기용
     private lateinit var homeList: ArrayList<FamilyMember>
-    private lateinit var homeAdapter: HomeAdapter
+    private lateinit var homeAdapter: QnaProfileAdapter
 
     // 댓글 보여주기용
     private lateinit var commentList: ArrayList<Comment>
@@ -50,12 +51,6 @@ class RecordQnaDetailFragment : Fragment() {
     ): View? {
         // 키보드 가리기 관련 -----------------------------
         val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-        fun hideKeyboard(inputMethodManager: InputMethodManager, view: View) {
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
-            view.clearFocus()
-        }
-
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_record_qna_detail, container, false
         )
@@ -77,6 +72,7 @@ class RecordQnaDetailFragment : Fragment() {
             if (answers != null) {
                 val answered = answers.filter { it.user.id == userId }
                 if (answered != null) check = true;
+                println(answered)
             }
 
             if (nowTime.equals(regTime)) {
@@ -132,9 +128,10 @@ class RecordQnaDetailFragment : Fragment() {
             if (viewModel.familyData.value != null) {
                 homeList = viewModel.familyData.value!!.familyList
             }
-            homeAdapter = HomeAdapter(
+            homeAdapter = QnaProfileAdapter(
                 homeList,
-                viewModel.familyData.value?.familyName!!,
+                viewModel,
+//                viewModel.qnaDetail.value?.answers
                 childFragmentManager
             )
             binding.homeRecyclerView.adapter = homeAdapter
@@ -156,6 +153,21 @@ class RecordQnaDetailFragment : Fragment() {
                 if (qnaDetail != null) {
                     onUpdateQnaDetail()
                 }
+                binding.viewmodel = viewModel
+                homeAdapter = QnaProfileAdapter(
+                    homeList,
+                    viewModel,
+//                viewModel.qnaDetail.value?.answers
+                    childFragmentManager
+                )
+                binding.homeRecyclerView.adapter = homeAdapter
+
+                val cnt = when (homeAdapter.itemCount) {
+                    in 1..4 -> homeAdapter.itemCount
+                    in 5..6 -> 3
+                    else -> 4
+                }
+                binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
             }
         }
         viewModel.qnaDetail.observe(viewLifecycleOwner, observer)
@@ -176,6 +188,10 @@ class RecordQnaDetailFragment : Fragment() {
         }
 
 
+    }
+    private fun hideKeyboard(inputMethodManager: InputMethodManager, view: View) {
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
+        view.clearFocus()
     }
 
 

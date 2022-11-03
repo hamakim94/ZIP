@@ -53,7 +53,6 @@ class RecordBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        getMockData()
         viewModel.getBoardAll()
         observeViewModel(activity)
         val layoutManager = LinearLayoutManager(context)
@@ -116,8 +115,12 @@ class RecordBoardFragment : Fragment() {
                 R.id.board_create -> {
                     v.findNavController().navigate(R.id.action_recordFragment_to_recordBoardCreateFragment)
                 }
+
                 R.id.qna_create -> {
-                    v.findNavController().navigate(R.id.action_recordFragment_to_recordQnaCreateFragment)
+                    val bundle = Bundle()
+                    bundle.putParcelable("Qna", viewModel.missions.value?.qna)
+                    println("BoardFragment Nav data : " + viewModel.missions.value?.qna.toString())
+                    v.findNavController().navigate(R.id.action_recordFragment_to_recordQnaDetailFragment, bundle)
                 }
                 R.id.letter_create -> {
                     v.findNavController().navigate(R.id.action_recordFragment_to_recordLetterCreateFragment)

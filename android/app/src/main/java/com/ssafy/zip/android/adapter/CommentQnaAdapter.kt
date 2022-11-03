@@ -10,17 +10,20 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.Comment
 
-class CommentQnaAdapter(private val commentList: ArrayList<Comment>) : RecyclerView.Adapter<CommentQnaAdapter.CommentViewHolder>() {
+class CommentQnaAdapter(private val commentList: ArrayList<Comment>) :
+    RecyclerView.Adapter<CommentQnaAdapter.CommentViewHolder>() {
 
-    class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val commentQnaUserNickname : TextView = itemView.findViewById(R.id.commentQnaUserNickname)
-        val commentQnaReg : TextView = itemView.findViewById(R.id.commentQnaReg)
-        val commentQnaContent : TextView = itemView.findViewById(R.id.commentQnaContent)
-        val commentQnaProfileImage : ShapeableImageView = itemView.findViewById(R.id.commentQnaProfileImage)
+    class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val commentQnaUserNickname: TextView = itemView.findViewById(R.id.commentQnaUserNickname)
+        val commentQnaReg: TextView = itemView.findViewById(R.id.commentQnaReg)
+        val commentQnaContent: TextView = itemView.findViewById(R.id.commentQnaContent)
+        val commentQnaProfileImage: ShapeableImageView =
+            itemView.findViewById(R.id.commentQnaProfileImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.qna_comment_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.qna_comment_item, parent, false)
         return CommentViewHolder(view)
     }
 
@@ -29,7 +32,13 @@ class CommentQnaAdapter(private val commentList: ArrayList<Comment>) : RecyclerV
         holder.commentQnaUserNickname.text = currentItem.user.nickname
         holder.commentQnaReg.text = currentItem.reg.toString()
         holder.commentQnaContent.text = currentItem.content
-        Glide.with(holder.itemView).load(currentItem.user.profileImg).into(holder.itemView.findViewById(R.id.commentQnaProfileImage))
+        if (currentItem.user.profileImg == null) {
+            holder.commentQnaProfileImage.setImageResource(R.drawable.ex)
+        } else{
+            Glide.with(holder.itemView).load(currentItem.user.profileImg)
+                .into(holder.itemView.findViewById(R.id.commentQnaProfileImage))
+        }
+
     }
 
     override fun getItemCount(): Int {

@@ -33,8 +33,10 @@ class CommentAdapter(private val commentList: ArrayList<Comment>) :
         if(currentItem.user.profileImg != null) {
             Glide.with(holder.itemView).load(currentItem.user.profileImg)
                 .into(holder.commentUserImage)
+        } else{
+            holder.commentUserImage.setImageResource(R.drawable.ex)
         }
-        holder.commentUserImage
+
 
     }
 

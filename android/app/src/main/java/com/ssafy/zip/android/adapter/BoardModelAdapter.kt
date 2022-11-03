@@ -89,12 +89,17 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
         private fun bindBoard(item: ResponseBoardAll) {
             var board: BoardModel.Board = item.data as BoardModel.Board
             if (board != null) {
-                itemView.findViewById<ShapeableImageView>(R.id.profileImage)
-                    .setImageResource(0)
+                if (board.user.profileImg == null) {
+                    itemView.findViewById<ShapeableImageView>(R.id.profileImage)
+                        .setImageResource(R.drawable.ex)
+                } else {
+                    Glide.with(itemView).load(board.user.profileImg)
+                        .into(itemView.findViewById<ShapeableImageView>(R.id.profileImage))
+                }
                 itemView.findViewById<TextView>(R.id.userNickname).text = board.user.nickname
                 itemView.findViewById<TextView>(R.id.boardReg).text = board.reg.toString()
                 //Glide 쓰기..
-                if(board.image != null ) {
+                if (board.image != null) {
                     itemView.findViewById<ImageView>(R.id.boardImage).layoutParams.height = 800
                     Glide.with(itemView)
                         .load(board.image)

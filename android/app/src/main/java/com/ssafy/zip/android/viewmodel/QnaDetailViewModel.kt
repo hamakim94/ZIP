@@ -31,10 +31,7 @@ class QnaDetailViewModel(private val repository: BoardRepository) : ViewModel() 
     fun getQnaDetail(id : Long){
         Log.d("TAG", "QnaDetailViewModel 데이터 가져오기")
         viewModelScope.launch {
-            println("게시글 상세 가져오기!! + id = "+ id)
-            _familyData.value = repository.getFamily()
             _qnaDetail.value = repository.getQnaDetail(id)
-            println(familyData.value)
         }
     }
     // 댓글 달기 필요

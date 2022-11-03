@@ -54,7 +54,11 @@
         android:id="@+id/recordBoardFragment2"
         android:name="com.ssafy.zip.android.RecordBoardDetailFragment"
         android:label="fragment_record_board_detail"
-        tools:layout="@layout/fragment_record_board_detail" />
+        tools:layout="@layout/fragment_record_board_detail" >
+        <action
+            android:id="@+id/action_recordBoardFragment2_to_recordQnaDetailFragment"
+            app:destination="@id/recordQnaDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recordQnaDetailFragment"
         android:name="com.ssafy.zip.android.RecordQnaDetailFragment"
