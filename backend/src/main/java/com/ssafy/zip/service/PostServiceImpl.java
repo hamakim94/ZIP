@@ -3,17 +3,16 @@ package com.ssafy.zip.service;
 import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.response.PostAllResponseDTO;
 import com.ssafy.zip.dto.response.QnaDTO;
+import com.ssafy.zip.entity.Family;
 import com.ssafy.zip.entity.Qna;
 import com.ssafy.zip.entity.QnaLog;
-import com.ssafy.zip.repository.BoardRepository;
-import com.ssafy.zip.repository.LetterRepository;
-import com.ssafy.zip.repository.QnaLogRepository;
-import com.ssafy.zip.repository.QnaRepository;
+import com.ssafy.zip.repository.*;
 import com.ssafy.zip.util.BoardMapStruct;
 import com.ssafy.zip.util.LetterDTOMapStruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,6 +22,7 @@ public class PostServiceImpl implements PostService {
 
     private final QnaRepository qnaRepository;
     private final BoardRepository boardRepository;
+    private final FamilyRepository familyRepository;
     private final QnaLogRepository qnaLogRepository;
     private final LetterRepository letterRepository;
 
@@ -33,16 +33,23 @@ public class PostServiceImpl implements PostService {
         //add board
         result.addAll(boardRepository.findByFamilyId(userDTO.getFamilyId()).stream()
                 .map(o-> new PostAllResponseDTO(0,BoardMapStruct.INSTANCE.mapToBoardDTO(o))).toList());
-        // add qna
+        // add qnas
         List<QnaLog> list = qnaLogRepository.findByFamilyId(userDTO.getFamilyId());
         Set<Long> qnaIdSet = new HashSet<>();
         list.forEach(o -> {
             Qna qna = o.getQna();
-            if(!qnaIdSet.contains(qna.getId())){
+            if(!qnaIdSet.contains(qna.getId())) {
                 qnaIdSet.add(qna.getId());
-                result.add(new PostAllResponseDTO(1, new QnaDTO(qna.getId(), qna.getQuestion(),o.getReg().toLocalDate().atTime(0, 0),findAnswerCnt(qna.getId(), list))));
+                result.add(new PostAllResponseDTO(1, new QnaDTO(qna.getId(), qna.getQuestion(), o.getReg().toLocalDate().atTime(0, 0), findAnswerCnt(qna.getId(), list))));
             }
         });
+        //today's qna
+        Family family = familyRepository.findById(userDTO.getFamilyId()).get();
+        if(!qnaIdSet.contains(family.getQna().getId())){
+            Qna qna = family.getQna();
+            result.add(new PostAllResponseDTO(1,new QnaDTO(qna.getId(), qna.getQuestion(), LocalDateTime.now().toLocalDate().atTime(0, 0),0)));
+        }
+
         // add letter
         result.addAll(letterRepository.findByFrom_IdOrTo_Id(userDTO.getId(), userDTO.getId())
                 .stream().map(o-> new PostAllResponseDTO(2,LetterDTOMapStruct.INSTANCE.mapToLetterRequestDTO(o)))
