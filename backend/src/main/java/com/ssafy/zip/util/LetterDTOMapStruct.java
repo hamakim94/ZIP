@@ -10,6 +10,5 @@ import org.mapstruct.factory.Mappers;
 @Mapper(uses = {UserResponseDTOMapStruct.class})
 public interface LetterDTOMapStruct {
     LetterDTOMapStruct INSTANCE = Mappers.getMapper(LetterDTOMapStruct.class);
-    @Mapping(source = "stationery.content", target = "stationery")
     LetterResponseDTO mapToLetterRequestDTO(Letter letter);
 }
