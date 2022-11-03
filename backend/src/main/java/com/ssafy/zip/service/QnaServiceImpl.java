@@ -64,6 +64,13 @@ public class QnaServiceImpl implements QnaService {
                 result.add(new QnaDTO(qna.getId(), qna.getQuestion(),o.getReg().toLocalDate().atTime(0, 0),findAnswerCnt(qna.getId(), list)));
             }
         });
+        Optional<Family> familyOpt = familyRepository.findById(user.getFamilyId());
+        Family family = familyOpt.get();
+        if(!qnaIdSet.contains(family.getQna().getId())){
+            Qna qna = family.getQna();
+            result.add(new QnaDTO(qna.getId(), qna.getQuestion(),LocalDateTime.now().toLocalDate().atTime(0, 0),0));
+        }
+
         return result.stream().sorted((o1, o2) -> o2.reg()
                 .compareTo(o1.reg()))
                 .collect(Collectors.toList());
