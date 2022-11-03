@@ -54,7 +54,7 @@ public class LetterServiceImpl implements LetterService {
         User toUser = userRepository.getReferenceById(letterRequestDTO.toUserId());
         letterRepository.save(Letter.builder().content(letterRequestDTO.content())
                 .reg(LocalDateTime.now()).isRead(false).from(userRepository.getReferenceById(userDTO.getId()))
-                .to(toUser).stationery(commonCodeRepository.findByCode(letterRequestDTO.stationery()))
+                .to(toUser).stationery(letterRequestDTO.stationery())
                 .build()
         );
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterSentTome.getLink(), userDTO.getProfileImg(),false),
