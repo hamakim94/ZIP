@@ -48,7 +48,7 @@ public class PostServiceImpl implements PostService {
                 .stream().map(o-> new PostAllResponseDTO(2,LetterDTOMapStruct.INSTANCE.mapToLetterRequestDTO(o)))
                 .toList());
 
-        result.sort((o1,o2)->o1.data().reg().compareTo(o2.data().reg()));
+        result.sort((o1,o2)->o2.data().reg().compareTo(o1.data().reg()));
 
         return result;
     }
