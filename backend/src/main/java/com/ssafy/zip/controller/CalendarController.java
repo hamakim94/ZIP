@@ -82,7 +82,7 @@ public class CalendarController {
     }
     @DeleteMapping("/delete")
     @ApiOperation(value = "일정 삭제")
-    public ResponseEntity<?> deleteSchedule(@ApiIgnore @AuthenticationPrincipal UserDTO user, @PathVariable long calendarId) {
+    public ResponseEntity<?> deleteSchedule(@ApiIgnore @AuthenticationPrincipal UserDTO user, @RequestParam long calendarId) {
         try{
             calendarServcie.deleteSchedule(user, calendarId);
             return new ResponseEntity<>(HttpStatus.OK);
