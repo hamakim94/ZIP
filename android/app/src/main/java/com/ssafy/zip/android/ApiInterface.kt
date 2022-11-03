@@ -30,6 +30,10 @@ interface ApiInterface {
         @Query(value = "email") email : String,
     ):Response<String>
 
+    @GET("users/profiles")
+    suspend fun getUserData(
+    ) : Response<User>
+
     @PUT("rooms/enter")
     suspend fun enterRoom(
         @Body code: Int,

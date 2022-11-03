@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.QnaDetail
+import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.repository.BoardRepository
 import kotlinx.coroutines.launch
 
@@ -14,12 +15,15 @@ class QnaDetailViewModel(private val repository: BoardRepository) : ViewModel() 
     val qnaDetail: LiveData<QnaDetail> get() = _qnaDetail
     private val _familyData = MutableLiveData<Family>()
     val familyData : LiveData<Family> get() = _familyData
+    private val _userData = MutableLiveData<User>()
+    val userData : LiveData<User> get() = _userData
+
 
     init {
         Log.d("TAG", "BoardDetailViewModel 생성자 호출")
         viewModelScope.launch {
             _familyData.value = repository.getFamily()
-            println(familyData.value)
+            _userData.value = repository.getUserData()
         }
     }
 

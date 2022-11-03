@@ -50,6 +50,17 @@ class BoardRepository private constructor(application: Application) {
     }
     //-----------------------------------------백문백답 관련
 
+    // 유저 정보 가져오기
+
+    suspend fun getUserData() : User? {
+        val response = ApiService.getApiService.getUserData()
+        println("BoardRepository getUserData response: " + response)
+        return if(response.isSuccessful) response.body() as User else null
+    }
+//    @GET("users/profiles")
+//    suspend fun getUserData(
+//    ) : Response<User>
+
     //가족 정보 가져오기
     suspend fun getFamily():Family?{
         val response = ApiService.getApiService.getFamily()
