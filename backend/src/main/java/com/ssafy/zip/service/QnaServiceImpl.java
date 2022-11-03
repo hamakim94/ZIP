@@ -113,7 +113,7 @@ public class QnaServiceImpl implements QnaService {
     Integer findAnswerCnt(Long qnaId, List<QnaLog> list){
         return Math.toIntExact(list.stream().filter(o -> o.getQna().getId().equals(qnaId)).count());
     }
-    @Scheduled(cron = "1 0 0 * * *",zone = "Asia/Seoul")
+    @Scheduled(cron = "1 53 09 * * *",zone = "Asia/Seoul")
     @Async
     @Transactional
     void scheduleQnaFamily(){
