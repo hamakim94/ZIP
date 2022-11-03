@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
         
     }
 
-    public void ShopCloseButtonClicked(){
+    public void InventoryCloseButtonClicked(){
         mainPanel.SetActive(true);
         inventoryPanel.SetActive(false);
     }
