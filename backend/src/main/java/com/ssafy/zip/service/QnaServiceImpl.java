@@ -90,11 +90,15 @@ public class QnaServiceImpl implements QnaService {
     @Override
     public QnaDetailDTO getQnaDetail(UserDTO user, Long qnaId) {
         List<QnaLog> qnaLogs = qnaLogRepository.findByFamilyIdAndQnaId(user.getFamilyId(), qnaId);
+        Family family = familyRepository.findById(user.getFamilyId()).get();
         if(qnaLogs.get(0)!=null) {
             Qna qna= qnaLogs.get(0).getQna();
             List<QnaAnswerResponseDTO> list= new ArrayList<>();
             qnaLogs.forEach(o-> list.add(QnaAnswerMapStruct.INSTANCE.mapToQnaAnswerDTO(o)));
             return new QnaDetailDTO(qna.getId(),qna.getQuestion(), qnaLogs.get(0).getReg().toLocalDate().atTime(0, 0), list);
+        }else if(family.getQna().getId().equals(qnaId)){
+            Qna qna = family.getQna();
+            return new QnaDetailDTO(qna.getId(),qna.getQuestion(),LocalDateTime.now().toLocalDate().atTime(0, 0),new ArrayList<>());
         }
         else throw new ResourceNotFoundException("백문백답 게시글을 찾을 수 없습니다.", ErrorCode.RESOURCE_GONE);
 
