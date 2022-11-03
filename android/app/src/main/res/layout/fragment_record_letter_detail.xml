@@ -71,6 +71,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/letter_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/textview_border"

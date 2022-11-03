@@ -1,13 +1,12 @@
 package com.ssafy.zip.android.adapter
 
-import android.content.Context
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.utils.widget.ImageFilterButton
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,17 +14,17 @@ import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.response.ResponseBoardAll
+import com.ssafy.zip.android.viewmodel.BoardViewModel
 
 
-class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
+class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , private val viewModel : BoardViewModel ) :
     RecyclerView.Adapter<BoardModelAdapter.BoardModelAdapterViewHolder>() {
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): BoardModelAdapterViewHolder {
-
+        viewModel.getUserData()
         val layout = when (viewType) {
             TYPE_BOARD -> R.layout.board_item
             TYPE_QNA -> R.layout.qna_item
@@ -45,7 +44,7 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
         holder: BoardModelAdapterViewHolder,
         position: Int
     ) {
-        holder.bind(adapterData[position])
+        holder.bind(adapterData[position], viewModel)
         // 게시글 바인딩 시켜야함
         holder.itemView.setOnClickListener {
             when (adapterData[position].data.javaClass.simpleName.toString()) {
@@ -63,6 +62,7 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
                 }
                 "Letter" -> {
                     val bundle = Bundle()
+                    viewModel.userData.value?.let { it1 -> bundle.putLong("userId", it1.id) }
                     bundle.putParcelable("Letter", adapterData[position].data)
                     it.findNavController()
                         .navigate(R.id.action_recordFragment_to_recordLetterDetailFragment, bundle)
@@ -121,22 +121,59 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll>) :
 
         }
 
-        private fun bindLetter(item: ResponseBoardAll) {
+        private fun bindLetter(item: ResponseBoardAll, viewModel: BoardViewModel) {
+
             var letter: BoardModel.Letter? = item.data as? BoardModel.Letter
-            if (letter != null) {
-                itemView.findViewById<TextView>(R.id.letterTitle).text =
-                    (letter.from.nickname + "에서" + letter.to.nickname + "에게 보내는 편지")
-                itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
-                itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
+            var userId = viewModel.userData.value?.id
+            println("bindLetter : " + letter.toString())
+            println("bindViewModel : " + userId.toString())
+            if(userId != null){
+                // 1. 보낸 편지인지, 그냥 mark,email 쓸거
+                if(userId == letter?.from?.id){
+                    itemView.findViewById<TextView>(R.id.letterTitle).text =
+                        (letter.to.nickname + "에게 쓴 편지")
+                    itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
+                    itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
+                    itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mail_24)
+
+                }// 2. 받은 편지인지
+                else{
+                    // 2-1. 읽었는지(isRead == true?) mark_email_read
+                    if(letter?.isRead == true){
+                        itemView.findViewById<TextView>(R.id.letterTitle).text =
+                            (letter.from.nickname + "에게서 온 편지")
+                        itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
+                        itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
+                        itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mark_email_read_24)
+                    }
+                    // 2-2. 안 읽었는지 mark_email_unread
+                    else{
+                        if (letter != null) {
+                            itemView.findViewById<TextView>(R.id.letterTitle).text =
+                                (letter.from.nickname + "에게서 온 편지")
+                        }
+                        itemView.findViewById<TextView>(R.id.letterReg).text = letter?.reg.toString()
+                        itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
+                        itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mark_email_unread_24)
+                    }
+
+                }
             }
+
+//            if (letter != null) {
+//                itemView.findViewById<TextView>(R.id.letterTitle).text =
+//                    (letter.from.nickname + "에서" + letter.to.nickname + "에게 보내는 편지")
+//                itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
+//                itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
+//            }
 
         }
 
-        fun bind(boardModel: ResponseBoardAll) {
+        fun bind(boardModel: ResponseBoardAll, viewModel: BoardViewModel) {
             when (boardModel.category) {
                 0 -> bindBoard(boardModel)
                 1 -> bindQna(boardModel)
-                2 -> bindLetter(boardModel)
+                2 -> bindLetter(boardModel, viewModel)
             }
         }
 

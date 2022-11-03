@@ -3,6 +3,7 @@ package com.ssafy.zip.android.repository
 import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.*
+import com.ssafy.zip.android.data.request.RequestLetter
 import com.ssafy.zip.android.data.request.RequestPhoto
 import com.ssafy.zip.android.data.request.RequestQnaComment
 import com.ssafy.zip.android.data.response.ResponseBoardAll
@@ -81,13 +82,19 @@ class BoardRepository private constructor(application: Application) {
     suspend fun postQnaAnswer(id : Long, content : String) : String? {
 
         val response = ApiService.getApiService.postQnaAnswer(RequestQnaComment(content, id))
-        println("BoardRepository postQnaAnswer response: " + response)
         var returnData : String?
         returnData = response.code().toString()
-        println("returnData " + returnData)
         return returnData
 
     }
+    // 편지 달기
+    suspend fun postLetter(requestLetter: RequestLetter) : String?{
+        val response = ApiService.getApiService.postLetter(requestLetter)
+        var returnData : String?
+        returnData = response.code().toString()
+        return returnData
+    }
+
 
     companion object {
         private var instance: BoardRepository? = null

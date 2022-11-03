@@ -31,9 +31,10 @@ import java.io.IOException
 class RecordBoardCreateFragment : Fragment() {
     private var _binding: FragmentRecordBoardCreateBinding? = null
     private val binding get() = _binding!!
+
     // TODO: Rename and change types of parameters
     private lateinit var activity: MainActivity
-    private lateinit var image : Uri
+    private lateinit var image: Uri
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -41,40 +42,45 @@ class RecordBoardCreateFragment : Fragment() {
     }
 
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(it.resultCode == Activity.RESULT_OK) {
-            val imageUri = it.data!!.data
-            image = imageUri!!
-            binding.boardImage.setImageURI(image)
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val imageUri = it.data!!.data
+                image = imageUri!!
+                binding.boardImage.setImageURI(image)
 
-            binding.btnPostBoard.setOnClickListener{
-                if(binding.boardContent.text.toString().isNotEmpty()){
-                    CoroutineScope(Dispatchers.Main).launch {
-                        val instance = BoardRepository.getInstance(Application())
-                        val body = RequestBody.create(MediaType.get("application/json; charset=utf-8"), binding.boardContent.text.toString());
+                binding.btnPostBoard.setOnClickListener {
+                    if (binding.boardContent.text.toString().isNotEmpty()) {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            val instance = BoardRepository.getInstance(Application())
+                            val body = RequestBody.create(
+                                MediaType.get("application/json; charset=utf-8"),
+                                binding.boardContent.text.toString()
+                            );
 
-                        var response = instance?.postBoard(
-                            image = if(image!= null) makeMultiPartImage(image) else null,                  // 이제 여기서 binding해서 이미지 땡겨와야함
-                            content = body
-                        )
-                        if(response.equals("200")){
-                            binding.root.findNavController().navigate(R.id.action_recordBoardCreateFragment_pop)
-                        } else{
-                            Toast.makeText(context, "게시글 내용을 입력해주세요", Toast.LENGTH_SHORT)
+                            var response = instance?.postBoard(
+                                image = if (image != null) makeMultiPartImage(image) else null,                  // 이제 여기서 binding해서 이미지 땡겨와야함
+                                content = body
+                            )
+                            if (response.equals("200")) {
+                                binding.root.findNavController()
+                                    .navigate(R.id.action_recordBoardCreateFragment_pop)
+                            } else {
+                                Toast.makeText(context, "게시글 내용을 입력해주세요", Toast.LENGTH_SHORT)
+                            }
                         }
                     }
                 }
             }
+
         }
 
-    }
+    fun makeMultiPartImage(uri: Uri): MultipartBody.Part? {
 
-    fun makeMultiPartImage(uri : Uri): MultipartBody.Part? {
-
-        val contentResolver : ContentResolver = activity.contentResolver
+        val contentResolver: ContentResolver = activity.contentResolver
         try {
             val fileName = System.currentTimeMillis().toString()
-            val filePath : String = activity.applicationInfo.dataDir + File.separator + fileName
+            val filePath: String = activity.applicationInfo.dataDir + File.separator + fileName
             val file = File(filePath)
             // 매개변수로 받은 uri를 통해 이미지에 필요한 데이터를 불러들임
             val inputStream = contentResolver.openInputStream(uri)
@@ -83,9 +89,9 @@ class RecordBoardCreateFragment : Fragment() {
             // 이미지 데이터를 다시 내보내면서 file 객체에 만들었던 경로를 이용
             val outputStream = FileOutputStream(file) // 파일을 쓸 수 있는 스트림 생성
             val buf = ByteArray(1024)
-            var len : Int
+            var len: Int
             if (inputStream != null) {
-                while(inputStream.read(buf).also { len = it } > 0)
+                while (inputStream.read(buf).also { len = it } > 0)
                     outputStream.write(buf, 0, len)
                 inputStream.close()
             }
@@ -93,7 +99,7 @@ class RecordBoardCreateFragment : Fragment() {
             val requestBody = RequestBody.create(MediaType.parse("image/*"), file)
             val body = MultipartBody.Part.createFormData("image", fileName, requestBody)
             return body
-        } catch (ignore : IOException){
+        } catch (ignore: IOException) {
             println("제발이것만은아니길")
             return null
         }
@@ -101,31 +107,33 @@ class RecordBoardCreateFragment : Fragment() {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRecordBoardCreateBinding.inflate(inflater, container, false)
-
-        binding.btnPostBoard.setOnClickListener{
-            if(binding.boardContent.text.toString().isNotEmpty()){
+        binding.btnPostBoard.setOnClickListener {
+            if (binding.boardContent.text.toString().isNotEmpty()) {
                 CoroutineScope(Dispatchers.Main).launch {
                     val instance = BoardRepository.getInstance(Application())
-                    val body = RequestBody.create(MediaType.get("application/json; charset=utf-8"), binding.boardContent.text.toString());
+                    val body = RequestBody.create(
+                        MediaType.get("application/json; charset=utf-8"),
+                        binding.boardContent.text.toString().replace("[\r\n]+", "\n")
+                    );
                     var response = instance?.postBoard(
                         image = null,               // 이제 여기서 binding해서 이미지 땡겨와야함
                         content = body
                     )
-                    if(response.equals("200")){
-                        binding.root.findNavController().navigate(R.id.action_recordBoardCreateFragment_pop)
-                    } else{
+                    if (response.equals("200")) {
+                        binding.root.findNavController()
+                            .navigate(R.id.action_recordBoardCreateFragment_pop)
+                    } else {
                         Toast.makeText(context, "게시글 내용을 입력해주세요", Toast.LENGTH_SHORT)
                     }
                 }
             }
         }
-        binding.imageButton.setOnClickListener{
+        binding.imageButton.setOnClickListener {
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
             photoPickerIntent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             photoPickerIntent.type = "image/*"

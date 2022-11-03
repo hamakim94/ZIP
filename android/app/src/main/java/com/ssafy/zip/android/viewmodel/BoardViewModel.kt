@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.Missions
+import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.repository.AlbumRepository
 import com.ssafy.zip.android.repository.BoardRepository
@@ -19,6 +20,8 @@ class BoardViewModel(private val repository: BoardRepository) : ViewModel() {
     val boardList: LiveData<ArrayList<ResponseBoardAll>> get() = _boardList
     private val _missions = MutableLiveData<Missions>()
     val missions : LiveData<Missions> get() = _missions
+    private val _userData = MutableLiveData<User>()
+    val userData : LiveData<User> get() = _userData
 
     class Factory(private val application: Application) :
         ViewModelProvider.Factory { // factory pattern
@@ -30,6 +33,19 @@ class BoardViewModel(private val repository: BoardRepository) : ViewModel() {
         viewModelScope.launch {
             // .value : livedata가 가지고 있는 값으로 접근
             _missions.value = repository.getMission()
+            _userData.value = repository.getUserData()
+        }
+    }
+    fun getMission(){
+        viewModelScope.launch {
+            // .value : livedata가 가지고 있는 값으로 접근
+            _missions.value = repository.getMission()
+        }
+    }
+
+    fun getUserData(){
+        viewModelScope.launch {
+            _userData.value = repository.getUserData()
         }
     }
 

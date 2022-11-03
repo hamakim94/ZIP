@@ -34,12 +34,8 @@ class QnaProfileAdapter(
 ) : RecyclerView.Adapter<QnaProfileAdapter.QnaProfileViewHolder>() {
     private var mFragmentManager: FragmentManager
 
-
-
     init {
         mFragmentManager = fragmentManager
-
-
     }
 
     class QnaProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -54,34 +50,33 @@ class QnaProfileAdapter(
         )
     }
 
-
     override fun onBindViewHolder(holder: QnaProfileViewHolder, position: Int) {
-        var answered: Boolean = false
+        var answered = false
 
         val homeImage = homeList[position]
         if (homeImage.profileImg == null) {
             holder.homeImage.setImageResource(R.drawable.ex)
+
         } else {
             Glide.with(holder.itemView)
                 .load(homeImage.profileImg)
                 .into(holder.homeImage)
         }
+        holder.homeImage.borderWidth = 5
+        holder.homeImage.borderColor
         // 조건넣기
         var answerList = viewModel.qnaDetail.value?.answers
         var familyMemberId = homeList[position].id
-        if(answerList != null) {
+        if (answerList != null) {
             var newList = answerList.filter { it.user.id == familyMemberId.toLong() }
-            if(!newList.isEmpty()){
-                answered= true
-                println("userId : " + familyMemberId + "")
+            if (!newList.isEmpty()) {
+                answered = true
             }
         }
         if (!answered) {
-            holder.homeImage.setAlpha(0.6f)
-            println("제발와라2")
+            holder.homeImage.setAlpha(0.4f)
+            holder.homeImage.borderWidth = 0
         }
-//        holder.homeImage.setAlpha(0.6f)
-//        println("끼요요옷")
 
     }
 

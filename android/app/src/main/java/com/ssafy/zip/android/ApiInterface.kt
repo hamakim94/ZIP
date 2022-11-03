@@ -122,4 +122,15 @@ interface ApiInterface {
         @Part image : MultipartBody.Part?
     ) :Response<String>
 
+    // 편지 관련
+    @GET("post/letter/today")
+    suspend fun getTodayLetter(
+    ) : Response<MissionModel.Letter>
+
+    // 오늘의 편지 작성
+    @POST("post/letter")
+    suspend fun postLetter(
+        @Body body : RequestLetter
+    ) : Response<String>
+
 }

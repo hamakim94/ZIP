@@ -38,10 +38,7 @@ class QnaDetailViewModel(private val repository: BoardRepository) : ViewModel() 
     fun addQnaAnswer(id : Long, content : String){
         viewModelScope.launch {
             val response = repository.postQnaAnswer(id, content)
-            println("게시글 등록 시작!: " + id)
-            // 만약 response가 정상적으로 실행되면
             if(response.equals("200")){
-                // 데이터 다시 가져와서 변화시키겠지?
                 getQnaDetail(id)
             }
         }

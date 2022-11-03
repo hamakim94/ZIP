@@ -146,7 +146,12 @@
         android:id="@+id/recordLetterCreateFragment"
         android:name="com.ssafy.zip.android.RecordLetterCreateFragment"
         android:label="fragment_record_letter_create"
-        tools:layout="@layout/fragment_record_letter_create" />
+        tools:layout="@layout/fragment_record_letter_create" >
+        <action
+            android:id="@+id/action_recordLetterCreateFragment_pop"
+            app:popUpTo="@id/recordLetterCreateFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/recordQnaCreateFragment"
         android:name="com.ssafy.zip.android.RecordQnaCreateFragment"

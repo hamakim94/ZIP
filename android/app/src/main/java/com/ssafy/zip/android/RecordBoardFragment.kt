@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.BoardModelAdapter
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
@@ -49,6 +50,11 @@ class RecordBoardFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getMission()
+        binding.allButton.isChecked = true
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,31 +66,30 @@ class RecordBoardFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
 
-        adapter = BoardModelAdapter(ArrayList())
+        adapter = BoardModelAdapter(ArrayList(), viewModel)
         recyclerView.adapter = adapter
-
         // 그냥 뿌리기
         binding.allButton.setOnClickListener {
-            adapter = BoardModelAdapter(viewModel.boardList.value!!)
+            adapter = BoardModelAdapter(viewModel.boardList.value!!, viewModel)
             recyclerView.adapter = adapter
         }
         // 필터링 해서 뿌려주기
         binding.boardButton.setOnClickListener {
             filteredBoardModelArrayList =
                 viewModel.boardList.value!!.filter { it.category == 0 } as ArrayList<ResponseBoardAll>
-            adapter = BoardModelAdapter(filteredBoardModelArrayList)
+            adapter = BoardModelAdapter(filteredBoardModelArrayList, viewModel)
             recyclerView.adapter = adapter
         }
         binding.qnaButton.setOnClickListener {
             filteredBoardModelArrayList =
                 viewModel.boardList.value!!.filter { it.category == 1 } as ArrayList<ResponseBoardAll>
-            adapter = BoardModelAdapter(filteredBoardModelArrayList)
+            adapter = BoardModelAdapter(filteredBoardModelArrayList, viewModel)
             recyclerView.adapter = adapter
         }
         binding.letterButton.setOnClickListener {
             filteredBoardModelArrayList =
                 viewModel.boardList.value!!.filter { it.category == 2 } as ArrayList<ResponseBoardAll>
-            adapter = BoardModelAdapter(filteredBoardModelArrayList)
+            adapter = BoardModelAdapter(filteredBoardModelArrayList, viewModel)
             recyclerView.adapter = adapter
         }
 
@@ -95,7 +100,7 @@ class RecordBoardFragment : Fragment() {
         val observer = object  : Observer<ArrayList<ResponseBoardAll>>{
             override fun onChanged(boardList: ArrayList<ResponseBoardAll>?) {
                 if(boardList != null){
-                    adapter = BoardModelAdapter(boardList)
+                    adapter = BoardModelAdapter(boardList, viewModel)
                 }
                 recyclerView.adapter = adapter
             }
@@ -119,11 +124,22 @@ class RecordBoardFragment : Fragment() {
                 R.id.qna_create -> {
                     val bundle = Bundle()
                     bundle.putParcelable("Qna", viewModel.missions.value?.qna)
-                    println("BoardFragment Nav data : " + viewModel.missions.value?.qna.toString())
                     v.findNavController().navigate(R.id.action_recordFragment_to_recordQnaDetailFragment, bundle)
                 }
                 R.id.letter_create -> {
-                    v.findNavController().navigate(R.id.action_recordFragment_to_recordLetterCreateFragment)
+                    val bundle = Bundle()
+                    bundle.putParcelable("Letter", viewModel.missions.value?.letter)
+                    bundle.putParcelable("User", viewModel.userData.value)
+                    if(viewModel.missions.value?.letter?.isSent == true){
+                        MaterialAlertDialogBuilder(activity)
+                            .setMessage("이미 작성하셨습니다")
+                            .setPositiveButton("확인") { dialog, which ->
+                                dialog.dismiss()
+                            }
+                            .show()
+                    } else{
+                        v.findNavController().navigate(R.id.action_recordFragment_to_recordLetterCreateFragment, bundle)
+                    }
                 }
 
             }
