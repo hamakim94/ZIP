@@ -31,7 +31,5 @@ public class Letter {
     @JoinColumn(name = "`to`")
     User to;
 
-    @ManyToOne
-    @JoinColumn(name = "stationery")
-    CommonCode stationery;
+    String stationery;
 }
