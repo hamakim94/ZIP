@@ -101,10 +101,9 @@ interface ApiInterface {
         @Body body: RequestCalendar
     ) : Response<Calendar>
 
-    // 일정 조회(상세)
-//    @GET("calendar/detail/{calendarId}")
-//    suspend fun getCalendarDetail(
-//        @Path("calendarId") id: Long
-//    ) : Response<Calendar>
+    @DELETE("calendar/delete")
+    suspend fun deleteCalendar(
+        @Query("calendarId") id: Long
+    ) : Response<String>
 
 }

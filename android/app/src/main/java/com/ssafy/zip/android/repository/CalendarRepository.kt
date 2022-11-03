@@ -36,6 +36,13 @@ class CalendarRepository private constructor(application: Application) {
         return if(response.isSuccessful) response.body()?.familyList as ArrayList<FamilyMember> else null
     }
 
+    suspend fun deleteCalendar(id: Long): String? {
+        val response = ApiService.getApiService.deleteCalendar(id)
+        println("CalendarRepository deleteCalendar response: " + response)
+
+        return if(response.isSuccessful) response.body() else null
+    }
+
     companion object {
         private var instance: CalendarRepository? = null
 

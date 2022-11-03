@@ -3,6 +3,7 @@ package com.ssafy.zip.android
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,20 +21,26 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import com.ssafy.zip.android.data.Calendar
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.request.RequestCalendar
 import com.ssafy.zip.android.databinding.FragmentCalendarBinding
 import com.ssafy.zip.android.viewmodel.CalendarViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
+import java.util.Currency.getInstance
+import java.util.logging.Handler
 import kotlin.properties.Delegates
 
 
@@ -87,6 +94,8 @@ class CalendarFragment : Fragment() {
         return binding.root
     }
 
+
+
     private fun observeCalendarFamily(activity: MainActivity) {
         val observer = Observer<ArrayList<FamilyMember>> { _ ->
             binding.viewmodel = viewModel
@@ -127,10 +136,10 @@ class CalendarFragment : Fragment() {
         println("CalendarFragment onViewCreated viewModel.calendarList.value " + viewModel.calendarList)
         observeViewModel(activity)
         calendarAdapter = CalendarAdapter(
-            ArrayList(),
-            childFragmentManager
+            ArrayList(), link, this.activity
         )
         recyclerView.adapter = calendarAdapter
+
 
         // 구분선
 //        val dividerItemDecoration =
@@ -141,41 +150,42 @@ class CalendarFragment : Fragment() {
 
         // 날짜 표시
         val dayText: TextView = view.findViewById(R.id.day_text)
-        val calendarView: CalendarView = view.findViewById(R.id.calendarView)
+        val calendarView: MaterialCalendarView = view.findViewById(R.id.calendarView)
 
         val dataFormat: DateFormat = SimpleDateFormat("MM월 d일")
 
-        val date: Date = Date(calendarView.date)
+        val date = Date()
 
         dayText.text = dataFormat.format(date)
 
 
+        calendarView.setOnDateChangedListener(object:OnDateSelectedListener{
+            override fun onDateSelected(widget : MaterialCalendarView, date : CalendarDay, selected : Boolean) {
+//                println("onDateSelected : " + date.date.)
+                val curDate = date.date
+                curYear = curDate.year
+                curMonth = curDate.monthValue
+                curDay = curDate.dayOfMonth
+                // 캘린더에서 선택한 년도, 월에 따라서 calendar list 업데이트
+                if (!(curDate.year == curYear && curDate.monthValue == curMonth)) viewModel.updateCalendarList(curDate.year, curDate.monthValue)
 
-        calendarView.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
-            curYear = year
-            curMonth = month
-            curDay = dayOfMonth
-            // 캘린더에서 선택한 년도, 월에 따라서 calendar list 업데이트
-            if (!(year == curYear && month == curMonth)) viewModel.updateCalendarList(year, month)
+                var date: String = "${curMonth}월 ${curDay}일"
 
+                dayText.text = date
+                if (viewModel.calendarList.value != null) {
+                    var dayCalendarList =
+                        getDayCalendarList(
+                            curYear, curMonth, curDay,
+                            viewModel.calendarList.value!!
+                        ) // 날짜 필터링
+                    recyclerView.setHasFixedSize(true)
+                    recyclerView.layoutManager = GridLayoutManager(activity, 1)
+                    var adapter = CalendarAdapter(dayCalendarList, link, activity)
+                    recyclerView.adapter = adapter
 
-            var date: String = "${curMonth + 1}월 ${curDay}일"
-
-            dayText.text = date
-            if (viewModel.calendarList.value != null) {
-                var dayCalendarList =
-                    getDayCalendarList(
-                        curYear, curMonth, curDay,
-                        viewModel.calendarList.value!!
-                    ) // 날짜 필터링
-                recyclerView.setHasFixedSize(true)
-                recyclerView.layoutManager = GridLayoutManager(activity, 1)
-                var adapter = CalendarAdapter(dayCalendarList, childFragmentManager)
-                recyclerView.adapter = adapter
-
+                }
             }
-        }
-
+        })
         // 날짜-일정 연결
 
         var pickedHour : Int = 0
@@ -407,7 +417,9 @@ class CalendarFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .show()
+
         }
+
 
     }
 
@@ -432,13 +444,16 @@ class CalendarFragment : Fragment() {
                         ) // 날짜 필터링
                     binding.calendarRecyclerView.setHasFixedSize(true)
                     binding.calendarRecyclerView.layoutManager = GridLayoutManager(activity, 1)
-                    var adapter = CalendarAdapter(dayCalendarList, childFragmentManager)
+                    var adapter = CalendarAdapter(dayCalendarList, link, activity)
                     binding.calendarRecyclerView.adapter = adapter
                 }
             }
 
         viewModel.calendarList.observe(viewLifecycleOwner, observer)
     }
+
+
+
 
     private fun stringToMonth(month: String): Int {
         var intMonth = when (month) {
@@ -465,7 +480,7 @@ class CalendarFragment : Fragment() {
         day: Int,
         calendarList: List<Calendar>
     ): List<Calendar> {
-        var curDate = LocalDate.of(year, month + 1, day) // 캘린더에서 선택된 날짜
+        var curDate = LocalDate.of(year, month, day) // 캘린더에서 선택된 날짜
         val dayCalendarList: ArrayList<Calendar> = ArrayList()
         for (index in 0 until calendarList.size) { // 해당 월의 전체 리스트
             if (
@@ -491,6 +506,8 @@ class CalendarFragment : Fragment() {
 
             ) {
                 dayCalendarList.add(calendarList[index])
+
+
             } else {
             }
         }
@@ -511,14 +528,12 @@ class CalendarFragment : Fragment() {
             selectedMemberList.sort()
             println("selectedMemberList: " + selectedMemberList)
         }
-    }
 
-
+        fun deleteCalendar(calendar : Calendar){
+            viewModel.deleteCalendar(calendar)
+            }
+        }
 }
-
-
-
-
 
 
 

@@ -4,9 +4,7 @@ import android.app.Application
 import android.service.controls.ControlsProviderService
 import android.util.Log
 import androidx.lifecycle.*
-import com.ssafy.zip.android.data.Album
 import com.ssafy.zip.android.data.Calendar
-import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.request.RequestCalendar
 import com.ssafy.zip.android.repository.CalendarRepository
@@ -14,7 +12,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 
-class CalendarViewModel(private val repository: CalendarRepository?) : ViewModel() {
+class CalendarViewModel(private val repository: CalendarRepository) : ViewModel() {
     // mutablelivedata는 수정 가능, 그냥 livedata는 읽기 전용(수정 불가)
     // kotlin convention: 값이 바뀌는 얘들은 이 클래스 안에서만 사용되기 때문에 앞에 '_' 붙여줌
     // private val _month = MutableLiveData<Int>()
@@ -62,7 +60,19 @@ class CalendarViewModel(private val repository: CalendarRepository?) : ViewModel
             }
         }
     }
+
+    fun deleteCalendar(calendar : Calendar) {
+        viewModelScope.launch {
+            val response = repository.deleteCalendar(calendar.id)
+            _calendarList.value?.listIterator(calendar.id.toInt())
+            _calendarList.value = _calendarList.value
+            println("CalendarViewModel deleteCalendar response: " + response)
+        }
+    }
 }
+
+
+
 
 
 
