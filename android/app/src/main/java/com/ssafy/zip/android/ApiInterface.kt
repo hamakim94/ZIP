@@ -84,6 +84,9 @@ interface ApiInterface {
         @Part("familyName") familyName : RequestBody,
         @Part("nickname") nickname : RequestBody
     ): Response<User>
+
+    @GET("users/logout")
+    suspend fun logoutUser(): Response<String>
     //-----------------------------------------------------------------------------------------------------
     // 게시글 관련
     @GET("post")

@@ -39,6 +39,10 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
 
+        binding.topText.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+            binding.root.findNavController().navigate(action)
+        }
         binding.mission1Btn.setOnClickListener{
             val action = HomeFragmentDirections.actionHomeFragmentToRecordFragment()
             binding.root.findNavController().navigate(action)

@@ -64,6 +64,14 @@ class UserRepository private constructor(application: Application) {
         return returnData
     }
 
+    suspend fun logout()
+    : String?{
+        val response = ApiService.getApiService.logoutUser()
+        App.prefs.setString("accesstoken", "")
+        App.prefs.setString("refreshtoken", "")
+        return response.code().toString()
+    }
+
     suspend fun modifyUser(
         profileImg: MultipartBody.Part?,
         familyName : RequestBody,
