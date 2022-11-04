@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,7 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            >
 
             <TextView
                 android:id="@+id/calendar_title"
@@ -38,41 +40,41 @@
                 android:textColor="#000000"
                 android:textSize="13sp" />
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="5"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:orientation="horizontal">-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/calendar_start_time"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="일정 시작 시간"-->
-<!--                    android:textColor="#666666"-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:layout_marginStart="15dp"/>-->
+                <TextView
+                    android:id="@+id/calendar_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일정 시작 시간"
+                    android:textColor="#666666"
+                    android:textSize="10sp"
+                    android:layout_marginStart="15dp"/>
 
-<!--                <TextView-->
-<!--                    android:id="@+id/calendar_between_time"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="~"-->
-<!--                    android:textColor="#666666"-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:layout_marginStart="3dp"-->
-<!--                    android:layout_marginEnd="3dp"/>-->
+                <TextView
+                    android:id="@+id/calendar_between_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="~"
+                    android:textColor="#666666"
+                    android:textSize="10sp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"/>
 
-<!--                <TextView-->
-<!--                    android:id="@+id/calendar_end_time"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="일정 종료 시간"-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:textColor="#666666" />-->
+                <TextView
+                    android:id="@+id/calendar_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="일정 종료 시간"
+                    android:textSize="10sp"
+                    android:textColor="#666666" />
 
-<!--            </LinearLayout>-->
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -109,3 +111,4 @@
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
+</layout>

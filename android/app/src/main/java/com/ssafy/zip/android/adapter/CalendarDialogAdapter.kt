@@ -5,10 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.User
 
 
-class CalendarDialogAdapter(private val memberList: ArrayList<User>) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
+class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?, var link:CalendarFragment.MemberSelectAdapter) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
+
     class CalendarFamilyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val familyImage: ImageView = itemView.findViewById(R.id.family_image)
     }
@@ -20,12 +24,37 @@ class CalendarDialogAdapter(private val memberList: ArrayList<User>) : RecyclerV
     }
 
     override fun onBindViewHolder(holder: CalendarFamilyViewHolder, position: Int) {
-        val member = memberList[position]
-        holder.familyImage.setImageResource(0) //member.img
+        val member = memberList?.get(position)
+        if (member?.profileImg == null) {
+            holder.familyImage.setImageResource(R.drawable.ex2)
+        } else {
+            Glide.with(holder.itemView)
+                .load(member.profileImg)
+                .into(holder.familyImage)
+        }
+
+        // 함께하는 멤버들 id 담을 리스트 생성, 클릭하면 리스트에 담게끔, dialog-fragment로 보내기
+
+        // var withUserId = ArrayList<Int>()
+        var checkflag = true // 함께할 가족 선택 유무
         holder.familyImage.setOnClickListener {
-            itemClickListener.onClick(it, position)
+            if(checkflag) {
+                if (member != null) {
+                    link.selectMember(member.id)
+                }
+                checkflag = false
+                holder.familyImage.setAlpha(1f)
+            }
+            else{
+                if (member != null) {
+                    link.selectMember(member.id)
+                }
+                checkflag = true
+                holder.familyImage.setAlpha(0.6f)
+            }
         }
     }
+
     // (2) 리스너 인터페이스
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
@@ -40,7 +69,7 @@ class CalendarDialogAdapter(private val memberList: ArrayList<User>) : RecyclerV
 
 
     override fun getItemCount(): Int {
-        return memberList.size
+        return memberList?.size ?: 0
 
     }
 }

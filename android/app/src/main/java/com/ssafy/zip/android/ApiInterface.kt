@@ -2,6 +2,7 @@ package com.ssafy.zip.android
 
 import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.request.*
+
 import okhttp3.MultipartBody
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import retrofit2.Response
@@ -43,8 +44,9 @@ interface ApiInterface {
     suspend fun createFamily(
         @Body body: RequestFamilyroom
     ) : Response<UserFamily>
-    //-----------------------------------------------------------------------------------------------------
+
     // 앨범 관련
+
     @POST("album")
     suspend fun updateAlbum(
         @Query("name") title: String
@@ -69,7 +71,7 @@ interface ApiInterface {
         @Part files : List<MultipartBody.Part>,
         @Part("pictureRequestDTO") photoList : RequestPhoto
     ) : Response<List<Photo>>
-    //-----------------------------------------------------------------------------------------------------
+
     // 홈 화면 관련
     @GET("rooms")
     suspend fun getFamily():Response<Family>
@@ -87,8 +89,29 @@ interface ApiInterface {
 
     @GET("users/logout")
     suspend fun logoutUser(): Response<String>
-    //-----------------------------------------------------------------------------------------------------
+
+    // 캘린더 관련
+
+    // 일정 조회(월별)
+    @GET("calendar/list")
+    suspend fun getCalendarMonthList(
+        @Query(value = "year") year : Int,
+        @Query(value = "month") month : Int,
+    ): Response<List<Calendar>>
+
+    // 일정 추가
+    @POST("calendar/add")
+    suspend fun addCalendarData(
+        @Body body: RequestCalendar
+    ) : Response<Calendar>
+
+    @DELETE("calendar/delete")
+    suspend fun deleteCalendar(
+        @Query("calendarId") id: Long
+    ) : Response<String>
+
     // 게시글 관련
+
     @GET("post")
     suspend fun getBoardAll():Response<ArrayList<ResponseBoardAll>>
 
@@ -104,8 +127,8 @@ interface ApiInterface {
         @Path("boardId") id : Long,
         @Query("content") content : String
     ) : Response<String>
-    //-----------------------------------------------------------------------------------------------------
-   // 백문백답 상세
+
+    // 백문백답 상세
     @GET("post/qna/{qnaId}")
     suspend fun getQnaDetailById(
         @Path("qnaId") id : Long

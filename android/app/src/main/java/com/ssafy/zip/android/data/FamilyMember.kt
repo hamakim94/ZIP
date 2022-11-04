@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class FamilyMember(
-    var id : Int,
+    var id : Long,
     var name : String,
     var nickname : String,
     var profileImg : String?
