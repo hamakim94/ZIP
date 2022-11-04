@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.prolificinteractive.materialcalendarview.*
+import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import com.ssafy.zip.android.data.Calendar
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.request.RequestCalendar
@@ -132,6 +133,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         // 오늘 날짜 색상 변경
         calendarView.addDecorator(oneDayDecorator)
 
+
+
         // 캘린더 month 변경됐을 때
         // 일정 list 바꿔줘야 함
         calendarView.setOnMonthChangedListener(object : OnMonthChangedListener{
@@ -139,6 +142,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 if(date?.year != null && date?.month != null){
                     viewModel.updateCalendarList(date.year, date.month) // 일정 list 업데이트
                 }
+                calendarView.setTitleFormatter(TitleFormatter { "${date?.year}년 ${date?.month}월" })
             }
         })
 
@@ -151,7 +155,10 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 curMonth = curDate.monthValue
                 curDay = curDate.dayOfMonth
 
+                calendarView.setTitleFormatter(TitleFormatter { "${curDate.year}년 ${curDate.dayOfMonth}월" })
+
                 dayText.text = "${curMonth}월 ${curDay}일"
+
 
                 var dayCalendarList = getDayCalendarList(curYear, curMonth, curDay, viewModel.calendarList.value!!) // 날짜 필터링
                 recyclerView.setHasFixedSize(true)
@@ -198,7 +205,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             var materialDateBuilder: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
 
-            materialDateBuilder.setTitleText("일정 시작 날짜를 선택하세요.")
+            materialDateBuilder.setPositiveButtonText("확인")
+            materialDateBuilder.setNegativeButtonText("취소")
 
             var materialDatePicker = materialDateBuilder.build()
             // material design date picker
@@ -215,13 +223,12 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             materialDatePicker.addOnPositiveButtonClickListener {
                 var startText = materialDatePicker.headerText
                 val materialTimePicker: MaterialTimePicker = MaterialTimePicker.Builder()
-
-                    .setTitleText("일정 시작 시간을 선택하세요.")
-
+                    .setTitleText("시작 시간")
                     .setHour(12)
                     .setMinute(10)
                     .setTimeFormat(TimeFormat.CLOCK_12H)
                     .build()
+
 
                 materialTimePicker.show(requireActivity().supportFragmentManager, "MainActivity")
 
@@ -277,7 +284,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             var materialDateBuilder2: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
 
-            materialDateBuilder2.setTitleText("일정 종료 날짜를 선택하세요.")
+            materialDateBuilder2.setPositiveButtonText("확인")
+            materialDateBuilder2.setNegativeButtonText("취소")
 
             var materialDatePicker2 = materialDateBuilder2.build()
 
@@ -299,11 +307,12 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             materialDatePicker2.addOnPositiveButtonClickListener {
                 var endText = materialDatePicker2.headerText
                 val materialTimePicker2: MaterialTimePicker = MaterialTimePicker.Builder()
-                    .setTitleText("일정 종료 시간을 선택하세요.")
+                    .setTitleText("종료시간")
                     .setHour(12)
                     .setMinute(10)
                     .setTimeFormat(TimeFormat.CLOCK_12H)
                     .build()
+
 
                 materialTimePicker2.show(
                     requireActivity().supportFragmentManager,
@@ -351,7 +360,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 
             MaterialAlertDialogBuilder(activity)
                 .setView(customAlertDialogView)
-                .setTitle(resources.getString(R.string.new_calendar))
                 .setPositiveButton(resources.getString(R.string.confirm)) { dialog, which ->
                     var content = customAlertDialogView.findViewById<TextInputEditText>(R.id.calendar_content_text).text
                     if(startShowSelectedDateText.text.equals("시작 날짜") && endShowSelectedDateText.text.equals("종료 날짜") && content.isNullOrEmpty()){
@@ -395,6 +403,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 
         }
     }
+
 
     private fun textToLocalDate (text : String) : LocalDate{
         println("textToLocalDate: " + text) // textToLocalDate: 2022년 11월 3일
@@ -558,6 +567,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
     ) {
     }
 }
+
+
 
 
 

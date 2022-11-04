@@ -11,8 +11,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name=".NoWeightActivity" android:windowSoftInputMode="adjustResize"
-
+    android:name=".NoWeightActivity"
+    android:windowSoftInputMode="adjustResize"
     tools:ignore="MissingClass">
 
     <LinearLayout
@@ -21,68 +21,90 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
-            android:id="@+id/endLayout"
+        <TextView
+            android:id="@+id/plus_calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center">
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
+            android:text="할 일 추가" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/btn_startDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:text="시작 날짜" />
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"/>
-            <TextView
-                android:id="@+id/btn_endDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="종료 날짜" />
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/btn_startTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="10dp"
-                android:text="시작 시간"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="시작 시간"
+                android:layout_marginBottom="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 app:srcCompat="@drawable/ic_baseline_arrow_forward_24"
-                android:layout_marginBottom="15dp"/>
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/btn_endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="종료 날짜" />
+
 
             <TextView
                 android:id="@+id/btn_endTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
                 android:text="종료 시간"/>
+
+        </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -92,6 +114,7 @@
             android:gravity="start"
             android:textStyle="bold"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:text="함께하는 가족" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -99,9 +122,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:overScrollMode="never"
             app:layoutManager="GridLayoutManager"
             tools:listitem="@layout/family_item" />
