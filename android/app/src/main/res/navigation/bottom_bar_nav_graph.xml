@@ -54,7 +54,11 @@
         android:id="@+id/recordBoardFragment2"
         android:name="com.ssafy.zip.android.RecordBoardDetailFragment"
         android:label="fragment_record_board_detail"
-        tools:layout="@layout/fragment_record_board_detail" />
+        tools:layout="@layout/fragment_record_board_detail" >
+        <action
+            android:id="@+id/action_recordBoardFragment2_to_recordQnaDetailFragment"
+            app:destination="@id/recordQnaDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recordQnaDetailFragment"
         android:name="com.ssafy.zip.android.RecordQnaDetailFragment"
@@ -132,12 +136,22 @@
         android:id="@+id/recordBoardCreateFragment"
         android:name="com.ssafy.zip.android.RecordBoardCreateFragment"
         android:label="fragment_record_board_create"
-        tools:layout="@layout/fragment_record_board_create" />
+        tools:layout="@layout/fragment_record_board_create" >
+        <action
+            android:id="@+id/action_recordBoardCreateFragment_pop"
+            app:popUpTo="@id/recordBoardCreateFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/recordLetterCreateFragment"
         android:name="com.ssafy.zip.android.RecordLetterCreateFragment"
         android:label="fragment_record_letter_create"
-        tools:layout="@layout/fragment_record_letter_create" />
+        tools:layout="@layout/fragment_record_letter_create" >
+        <action
+            android:id="@+id/action_recordLetterCreateFragment_pop"
+            app:popUpTo="@id/recordLetterCreateFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/recordQnaCreateFragment"
         android:name="com.ssafy.zip.android.RecordQnaCreateFragment"

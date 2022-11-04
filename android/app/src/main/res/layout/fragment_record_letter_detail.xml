@@ -59,7 +59,7 @@
             android:id="@+id/letterRegDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/boardreg1"
+            android:text="22/10/22"
             android:textSize="10sp"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -71,6 +71,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/letter_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/textview_border"
@@ -79,7 +80,7 @@
             android:id="@+id/letterContentDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/boardcontent1"
+            android:text="편지내용상세"
             android:textColor="@color/black"></TextView>
     </LinearLayout>
 

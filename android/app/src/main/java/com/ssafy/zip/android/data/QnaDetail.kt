@@ -5,9 +5,10 @@ import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 @Parcelize
-data class Comment(
-    val content : String,
-    val id : Long,
-    val reg : Date,
-    val user : User,
+data class QnaDetail(
+    val Id : Long,
+    val answers : ArrayList<Comment>,
+    val question : String,
+    val reg: Date,
+
 ) : Parcelable

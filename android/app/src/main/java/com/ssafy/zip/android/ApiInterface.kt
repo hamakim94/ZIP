@@ -1,16 +1,12 @@
 package com.ssafy.zip.android
 
 import com.ssafy.zip.android.data.*
-import com.ssafy.zip.android.data.request.RequestFamilyroom
-import com.ssafy.zip.android.data.request.RequestLoginData
-import com.ssafy.zip.android.data.request.RequestPhoto
-import com.ssafy.zip.android.data.request.RequestSignup
-import com.ssafy.zip.android.data.response.ResponseBoardAll
+import com.ssafy.zip.android.data.request.*
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import retrofit2.Call
+import com.ssafy.zip.android.data.response.ResponseBoardAll
 import retrofit2.Response
 import retrofit2.http.*
+import okhttp3.RequestBody
 
 interface ApiInterface {
     // 유저 관련(초기화면)
@@ -34,6 +30,10 @@ interface ApiInterface {
         @Query(value = "email") email : String,
     ):Response<String>
 
+    @GET("users/profiles")
+    suspend fun getUserData(
+    ) : Response<User>
+
     @PUT("rooms/enter")
     suspend fun enterRoom(
         @Body code: Int,
@@ -43,7 +43,7 @@ interface ApiInterface {
     suspend fun createFamily(
         @Body body: RequestFamilyroom
     ) : Response<UserFamily>
-
+    //-----------------------------------------------------------------------------------------------------
     // 앨범 관련
     @POST("album")
     suspend fun updateAlbum(
@@ -69,7 +69,7 @@ interface ApiInterface {
         @Part files : List<MultipartBody.Part>,
         @Part("pictureRequestDTO") photoList : RequestPhoto
     ) : Response<List<Photo>>
-
+    //-----------------------------------------------------------------------------------------------------
     // 홈 화면 관련
     @GET("rooms")
     suspend fun getFamily():Response<Family>
@@ -84,10 +84,53 @@ interface ApiInterface {
         @Part("familyName") familyName : RequestBody,
         @Part("nickname") nickname : RequestBody
     ): Response<User>
-
-
+    //-----------------------------------------------------------------------------------------------------
+    // 게시글 관련
     @GET("post")
-    fun getBoard() : Call<List<ResponseBoardAll>>
+    suspend fun getBoardAll():Response<ArrayList<ResponseBoardAll>>
 
+    // 게시글 상세
+    @GET("post/board/{boardId}")
+    suspend fun getBoardDetailById(
+        @Path("boardId") id : Long
+    ) : Response<BoardDetail>
+
+    // 게시글 상세 댓글 달기기
+    @POST("post/board/{boardId}")
+    suspend fun postBoardCommentById(
+        @Path("boardId") id : Long,
+        @Query("content") content : String
+    ) : Response<String>
+    //-----------------------------------------------------------------------------------------------------
+   // 백문백답 상세
+    @GET("post/qna/{qnaId}")
+    suspend fun getQnaDetailById(
+        @Path("qnaId") id : Long
+    ) : Response<QnaDetail>
+
+    // 백문백답 상세 댓글 남기기
+    @POST("post/qna/answer")
+    suspend fun postQnaAnswer(
+        @Body body : RequestQnaComment
+    ) : Response<String>
+
+
+    @Multipart
+    @POST("post/board")
+    suspend fun postBoard(
+        @Part("content") content : RequestBody,
+        @Part image : MultipartBody.Part?
+    ) :Response<String>
+
+    // 편지 관련
+    @GET("post/letter/today")
+    suspend fun getTodayLetter(
+    ) : Response<MissionModel.Letter>
+
+    // 오늘의 편지 작성
+    @POST("post/letter")
+    suspend fun postLetter(
+        @Body body : RequestLetter
+    ) : Response<String>
 
 }
