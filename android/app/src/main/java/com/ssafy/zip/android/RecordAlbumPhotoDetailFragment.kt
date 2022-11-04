@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+//import androidx.recyclerview.widget.LinearLayoutManager
+//import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.zip.android.adapter.PhotoSlideAdapter
 import com.ssafy.zip.android.adapter.PhotoThumbnailAdapter
@@ -21,7 +21,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
     private lateinit var viewPager : ViewPager2
     private lateinit var photoSlideAdapter: PhotoSlideAdapter
     private lateinit var photoThumbnailAdapter: PhotoThumbnailAdapter
-    private lateinit var recyclerView : RecyclerView
+//    private lateinit var recyclerView : RecyclerView
     private lateinit var activity: MainActivity
     private var width by Delegates.notNull<Int>()
 
@@ -69,16 +69,16 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             // page 바뀔 때마다 호출
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                recyclerView.scrollToPosition(position)
+//                recyclerView.scrollToPosition(position)
                 println("Page ${position+1}")
             }
         })
 //        viewPager.setCurrentItem(position, false)
 
-        recyclerView = view.findViewById(R.id.photo_recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = photoThumbnailAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//        recyclerView = view.findViewById(R.id.photo_recycler_view)
+//        recyclerView.setHasFixedSize(true)
+//        recyclerView.adapter = photoThumbnailAdapter
+//        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // list에서의 현재 이미지의 위치 업데이트
         arguments?.getString("photoImage")?.let { setPosition(it, false) }
@@ -113,12 +113,12 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             }
         }
 
-        val fab: View = view.findViewById(R.id.download_fab)
-        fab.setOnClickListener { view ->
-
-            println("position: " + position)
-
-        }
+//        val fab: View = view.findViewById(R.id.download_fab)
+//        fab.setOnClickListener { view ->
+//
+//            println("position: " + position)
+//
+//        }
     }
 
     inner class roomListAdapterToList {
@@ -134,7 +134,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
     private fun setPosition(image: String, smoothScroller : Boolean) {
         val position = getPosition(image)
         viewPager.setCurrentItem(position, smoothScroller)
-        recyclerView.scrollToPosition(position)
+//        recyclerView.scrollToPosition(position)
     }
 
     private fun getPosition(image: String): Int {

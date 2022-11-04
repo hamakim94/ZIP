@@ -4,5 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Exoa/FloorMapDesigner/Scenes/FloorMapEditor.unity
+    guid: 03455621e2df65d45bf262cac0f80c38
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 539c0feb5f045b84b838220737c33f59
+  - enabled: 1
+    path: Assets/Scenes/Shop.unity
+    guid: e656f912412876f449e9cdcae7bb74ff
+  m_configObjects:
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: 6dcddac7c5a94604d897df41d9bfdabc, type: 2}
