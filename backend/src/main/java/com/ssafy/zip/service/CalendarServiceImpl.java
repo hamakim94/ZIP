@@ -82,8 +82,6 @@ public class CalendarServiceImpl implements CalendarServcie {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public CalendarResponseDTO addSchedule(UserDTO userDTO, CalendarRequestDTO calendarRequestDTO) throws Exception {
-        CalendarResponseDTO result;
-
         User user = userRepository.findById(userDTO.getId()).get();
         Family family = user.getFamily();
         HashSet<Long> userIdSet = new HashSet<>();
@@ -113,7 +111,7 @@ public class CalendarServiceImpl implements CalendarServcie {
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())&&!setParticipants.contains(o.getId())).map(o->o.getId()).collect(Collectors.toList()));
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.ScheduleRegistedForMe.getMessage(), userDTO.getNickname()),NotificationEnum.ScheduleRegistedForMe.getLink(), userDTO.getProfileImg(),false),
                 setParticipants.stream().toList());
-        return null;
+        return calendarToCalendarResponseDTO(calendar);
     }
 
     @Transactional(rollbackFor = Exception.class)
