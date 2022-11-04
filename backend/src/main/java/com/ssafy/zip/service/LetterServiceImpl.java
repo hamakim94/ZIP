@@ -11,6 +11,7 @@ import com.ssafy.zip.entity.Notification;
 import com.ssafy.zip.entity.User;
 import com.ssafy.zip.exception.ErrorCode;
 import com.ssafy.zip.exception.ResourceNotFoundException;
+import com.ssafy.zip.exception.UnauthorizedRequestException;
 import com.ssafy.zip.repository.CommonCodeRepository;
 import com.ssafy.zip.repository.LetterFromAndToRepository;
 import com.ssafy.zip.repository.LetterRepository;
@@ -42,6 +43,17 @@ public class LetterServiceImpl implements LetterService {
     private void initial(){
         scheduleLetterFromAndTo();
     }
+    @Transactional
+    @Override
+    public void readLetter(UserDTO userDTO, Long letterId) {
+        Optional<Letter> letterOpt = letterRepository.findById(letterId);
+        if(letterOpt.isPresent()){
+            Letter letter = letterOpt.get();
+            if(!letter.getTo().getId().equals(userDTO.getId())) throw new UnauthorizedRequestException("요청 권한이 없습니다.", ErrorCode.FORBIDDEN);
+            else letter.setIsRead(true);
+        }else throw new ResourceNotFoundException("요청한 편지가 존재하지 않습니다.", ErrorCode.NOT_FOUND);
+    }
+
     @Override
     public List<LetterResponseDTO> listLetters(UserDTO userDTO) {
         return letterRepository.findByFrom_IdOrTo_Id(userDTO.getId(), userDTO.getId())

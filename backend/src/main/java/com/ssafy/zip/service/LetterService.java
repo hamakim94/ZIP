@@ -8,7 +8,7 @@ import com.ssafy.zip.dto.response.LetterTodayResponseDTO;
 import java.util.List;
 
 public interface LetterService {
-
+    void readLetter(UserDTO userDTO,Long letterId);
     List<LetterResponseDTO> listLetters(UserDTO userDTO);
     void sendLetter(UserDTO userDTO, LetterRequestDTO letterRequestDTO);
     LetterTodayResponseDTO getTodayLetter(UserDTO userDTO);
