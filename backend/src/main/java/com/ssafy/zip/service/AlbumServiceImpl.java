@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,6 +65,7 @@ public class AlbumServiceImpl implements AlbumService{
                     .album(album)
                     .directory(result[0])
                     .user(user)
+                    .reg(LocalDateTime.now())
                     .build());
         }
         List<Picture> list = pictureRepository.saveAll(pictureList);
