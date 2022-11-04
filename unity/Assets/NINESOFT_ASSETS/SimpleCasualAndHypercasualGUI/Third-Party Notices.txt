@@ -1,0 +1,5 @@
+FONTS
+
+Asset uses [VarelaRound-Regular] under [the Open Font License] (by Google Fonts)
+more info: https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
+

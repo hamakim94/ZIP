@@ -40,7 +40,7 @@ class AlbumRepository private constructor(application : Application) {
     }
 
     suspend fun uploadPhotos(images : List<MultipartBody.Part>, albumId : Long?, pictureId : Long?) : List<Photo>? {
-        val response = ApiService.getApiService.uploadPhotos(images,  RequestPhoto(albumId, pictureId))
+        val response = ApiService.getApiService.uploadPhotos(images, RequestPhoto(albumId, pictureId))
         println("AlbumRepository uploadPhotos response: " + response)
 
         return if(response.isSuccessful) response.body() as List<Photo> else null

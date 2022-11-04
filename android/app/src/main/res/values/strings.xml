@@ -27,27 +27,7 @@
     <string name="add_album_msg">새로운 앨범의 이름을 입력해주세요.</string>
     <string name="add_album_hint">앨범명을 입력해주세요.</string>
 
-    <!--  유저 이름  -->
-    <string name="usernickname1">유저1</string>
-    <string name="usernickname2">유저2</string>
-    <string name="usernickname3">유저3</string>
-
-    <!--  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  -->
-    <!-- 게시판 regdate  -->
-    <string name="boardreg1">2022/10/16</string>
-    <string name="boardreg2">2022/10/14</string>
-    <string name="boardreg3">2022/10/12</string>
-
-
-    <!-- 게시판 글내용   -->
-    <string name="boardcontent1">I am strong. \n 나는 전설이다 \n 내이름은 김민균이다</string>
-    <string name="boardcontent2">I believe in myself.</string>
-    <string name="boardcontent3">Each day is a new opportunity to grow and be a better version of myself.</string>
-
-    <!-- 게시판 답글수> -->
-    <string name="commentCount1">45</string>
-    <string name="commentCount2">23</string>
-    <string name="commentCount3">44</string>
+    <string name="edittext_hint"><font size="13">댓글 작성하기</font></string>
 
 
     <!-- login && signup  -->

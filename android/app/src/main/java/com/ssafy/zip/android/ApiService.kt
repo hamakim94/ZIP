@@ -21,14 +21,14 @@ import java.util.*
 
 
 object ApiService {
-        private const val BASE_URL = "https://k7a407.p.ssafy.io/api/"
+    private const val BASE_URL = "https://k7a407.p.ssafy.io/api/"
 
-        class TokenInterceptor : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val request = chain.request().newBuilder()
-                    .addHeader("ACCESSTOKEN", App.prefs.getString("accesstoken", ""))
-                    .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
-                    .addHeader("Connection", "close")
+    class TokenInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val request = chain.request().newBuilder()
+                .addHeader("ACCESSTOKEN", App.prefs.getString("accesstoken", ""))
+                .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
+                .addHeader("Connection", "close")
                 .build()
             return chain.proceed(request)
         }
@@ -36,23 +36,28 @@ object ApiService {
 
     class RefreshInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
-            val request = chain.request();
-            val response = chain.proceed(request);
+            var request = chain.request();
+            var response = chain.proceed(request);
             when (response.code()) {
                 403 -> {
                     App.prefs.setString("accesstoken", "")
                     CoroutineScope(Dispatchers.Default).launch {
-                        if(response.isSuccessful) {
-                            val response = getApiService.tokenReissue()
-                            val headers = response.headers()
+                        if (response.isSuccessful) {
+                            val responseData = getApiService.tokenReissue()
+                            val headers = responseData.headers()
                             val accesstoken = headers.get("ACCESSTOKEN").toString()
                             App.prefs.setString("accesstoken", accesstoken)
+                            val request = chain.request().newBuilder().addHeader("ACCESSTOKEN", accesstoken)
+                            .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
+                                .addHeader("Connection", "close").build()
+                            response = chain.proceed(request)
                         }
                     }
                 }
                 410 -> {
                     App.prefs.setString("accesstoken", "")
                     App.prefs.setString("refreshtoken", "")
+                    return response
                 }
             }
             return response

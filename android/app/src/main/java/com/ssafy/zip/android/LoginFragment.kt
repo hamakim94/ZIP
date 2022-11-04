@@ -34,7 +34,7 @@ class LoginFragment : Fragment() {
                         email = binding.editEmail.text.toString(),
                         password = binding.editPassword.text.toString()
                     )
-                )
+                ) 
                 if (loginData is User) {
                     var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                     if (loginData.hasFamily) {

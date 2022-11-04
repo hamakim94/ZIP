@@ -31,7 +31,7 @@
             android:id="@+id/userNickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/usernickname1"
+            android:text="유저닉네임"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -45,6 +45,7 @@
 
 
         <Button
+            android:id="@+id/letter_send_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -69,17 +70,48 @@
 
         </TextView>
 
-        <Spinner
-            android:id="@+id/toSpinner"
-            android:layout_width="100dp"
+        <ImageView
+            android:id="@+id/green_btn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:spinnerMode="dialog"
+            android:src="@drawable/circle_green"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"/>
+
+        <ImageView
+            android:id="@+id/pink_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle_pink"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/green_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"/>
+
+        <ImageView
+            android:id="@+id/yellow_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle_yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/pink_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"/>
+
+<!--        <Spinner-->
+<!--            android:id="@+id/toSpinner"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:spinnerMode="dialog"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/textView2"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/letter_container"
         app:layout_constraintBottom_toTopOf="@id/profileContainer"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
@@ -92,7 +124,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:hint="내용을 입력해주세요">
         </EditText>
     </androidx.constraintlayout.widget.ConstraintLayout>

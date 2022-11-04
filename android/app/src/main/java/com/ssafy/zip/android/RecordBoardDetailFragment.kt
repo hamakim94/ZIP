@@ -1,5 +1,7 @@
 package com.ssafy.zip.android
 
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.util.Log
@@ -8,93 +10,132 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
+import com.ssafy.zip.android.adapter.BoardModelAdapter
 import com.ssafy.zip.android.adapter.CommentAdapter
+import com.ssafy.zip.android.data.BoardDetail
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.Comment
+import com.ssafy.zip.android.data.response.ResponseBoardAll
+import com.ssafy.zip.android.databinding.FragmentRecordBoardDetailBinding
+import com.ssafy.zip.android.viewmodel.BoardDetailViewModel
+import com.ssafy.zip.android.viewmodel.BoardViewModel
 
 class RecordBoardDetailFragment : Fragment() {
+
+    private var _binding: FragmentRecordBoardDetailBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var activity: MainActivity
+    private val viewModel by viewModels<BoardDetailViewModel> {
+        BoardDetailViewModel.Factory(
+            Application()
+        )
+    }
     private lateinit var recyclerView: RecyclerView
-    private lateinit var commentList: ArrayList<Comment>
     private lateinit var adapter: CommentAdapter
 
-    lateinit var profileImage : ShapeableImageView
-    lateinit var userNickname: TextView
-    lateinit var boardReg : TextView
-    lateinit var boardImage : ImageView
-    lateinit var commentCountDetail : TextView
 
-    lateinit var commentUser: Array<String>
-    lateinit var commentReg: Array<String>
-    lateinit var commentcontent: Array<String>
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as MainActivity
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_record_board_detail, container, false)
+        _binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_record_board_detail, container, false
+        )
+        binding.viewmodel = viewModel
+        // 순수하게, id만 가져오고 싶어서 이거 쓰는거
+        val boardData = arguments?.getParcelable<BoardModel.Board>("Board")
+        // 이제 여기서 post 관련
+        binding.commentPostBtn.setOnClickListener {
+            val id = boardData?.id
+            if (id != null && binding.commentContent.text.isNotEmpty()) {
+                viewModel.postBoardComment(id, binding.commentContent.text.toString())
+                binding.commentContent.text = null
+                binding.commentContent.clearFocus()
+            }
+        }
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataInitialize()
-        val boardData = arguments?.getParcelable<BoardModel.Board>("Board")
-        profileImage = view.findViewById(R.id.profileImageDetail)
-        userNickname = view.findViewById(R.id.userNicknameDetail)
-        boardReg = view.findViewById(R.id.boardRegDetail)
-        boardImage = view.findViewById(R.id.boardImageDetail)
-        commentCountDetail = view.findViewById(R.id.commentCountDetail)
+        observeViewModel(activity)
 
-        // 요기서, view.findViewById를 활용해, 기본 게시글 복사하자
-        // arguments 이용!
+        val toolbar: Toolbar = view.findViewById(R.id.board_detail_appbar)
+
+        // 앨범명으로 appbar title 지정
+        toolbar.title = "게시글 상세"
+
+        val boardData = arguments?.getParcelable<BoardModel.Board>("Board")
+
+        // 게시글 ID 들어왔으면 viewModel에 있는 게시글 상세 가져오기 API 실행
         if (boardData != null) {
-//            profileImage.setImageResource(boardData.userImage)
-            userNickname.text = boardData.user.nickname
-            boardReg.text = boardData.reg.toString()
-//            boardImage.setImageResource(boardData.image)
-//            commentCountDetail.text = boardData.commentCount
+            println("현재 들어온 정보 " + boardData)
+            viewModel.getBoardDetail(boardData.id)
         }
 
+    }
+
+    private fun observeViewModel(activity: MainActivity) {
+        val observer = object : Observer<BoardDetail> {
+            override fun onChanged(boardDetail: BoardDetail?) {
+                if (boardDetail != null) {
+                    onUpdateBoardDetail()
+                }
+            }
+        }
+        viewModel.boardDetail.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun onUpdateBoardDetail() {
+        val boardDetail: BoardDetail? = viewModel.boardDetail.value
+        // 사용자 프로필 이미지
+        if (boardDetail != null) {
+            if (boardDetail.board.user.profileImg == null) {
+                binding.profileImageDetail.setImageResource(R.drawable.ex)
+            } else {
+                Glide.with(activity)
+                    .load(boardDetail?.board?.user?.profileImg)
+                    .into(binding.profileImageDetail)
+            }
+        }
+
+        // 닉네임, 게시글 내용
+        binding.userNicknameDetail.text = boardDetail?.board?.user?.nickname
+        binding.boardRegDetail.text = boardDetail?.board?.reg.toString()
+        // 게시글 이미지
+        if (boardDetail?.board?.image != null) {
+            Glide.with(activity)
+                .load(boardDetail?.board?.image)
+                .into(binding.boardImageDetail)
+        } else {
+
+        }
+        //게시글 내용
+        binding.boardContent.text = boardDetail?.board?.content
+        // 댓글
+        recyclerView = binding.commentRecyclerview
         val layoutManager = LinearLayoutManager(context)
-        recyclerView = view.findViewById(R.id.comment_recyclerview)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        adapter = CommentAdapter(commentList)
-        recyclerView.adapter = adapter
-    }
-
-    private fun dataInitialize() {
-        commentList = arrayListOf<Comment>()
-
-        commentUser = arrayOf(
-            "해삼",
-            "멍개",
-            "말미잘"
-        )
-
-        commentReg = arrayOf(
-            "2022/10/14",
-            "2022/10/13",
-            "2022/10/20"
-        )
-        commentcontent = arrayOf(
-            "ㅋㅋㅋ말도안대",
-            "앙거짓말치지마",
-            "끼요오오옹오오오오옷",
-        )
-
-        for (i in commentUser.indices) {
-            val letter = Comment(
-                commentUser[i],
-                commentReg[i],
-                commentcontent[i],
-            )
-            commentList.add(letter)
+        if (boardDetail != null) {
+            adapter = CommentAdapter(boardDetail.comments)
+            recyclerView.adapter = adapter
         }
     }
+
 
 }

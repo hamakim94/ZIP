@@ -10,6 +10,12 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        tools:ignore="MissingConstraints">
+
+    </com.google.android.material.divider.MaterialDivider>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/commentContanier"
         android:layout_width="match_parent"
@@ -18,13 +24,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:layout_marginTop="4dp"
             android:id="@+id/commentProfileImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/userimage1"
             app:layout_constraintBottom_toBottomOf="@id/commentContanier"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/commentContanier"
@@ -34,8 +40,8 @@
             android:id="@+id/commentUserNickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
-            android:text="@string/usernickname1"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -49,7 +55,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/boardreg1"
             android:textSize="10sp"
             app:layout_constraintBottom_toTopOf="@id/commentContent"
             app:layout_constraintStart_toEndOf="@id/commentProfileImage"
@@ -59,7 +64,6 @@
             android:id="@+id/commentContent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋzzzzzzzzzzzzzzzzㅋㅋㅋㅋ"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/commentContanier"
             app:layout_constraintBottom_toBottomOf="parent"
