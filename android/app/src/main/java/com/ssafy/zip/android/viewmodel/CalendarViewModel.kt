@@ -18,10 +18,10 @@ class CalendarViewModel(private val repository: CalendarRepository) : ViewModel(
     private val _calendarFamilyData = MutableLiveData<ArrayList<FamilyMember>>()
     val calendarFamilyData : LiveData<ArrayList<FamilyMember>> get() = _calendarFamilyData
 
-//    private val _calendarList = MutableLiveData<ArrayList<Calendar>>()
-//    val calendarList: LiveData<ArrayList<Calendar>> get() = _calendarList
-    private val _calendarList = MutableLiveData<List<Calendar>>()
-    val calendarList: LiveData<List<Calendar>> get() = _calendarList
+    private val _calendarList = MutableLiveData<ArrayList<Calendar>>()
+    val calendarList: LiveData<ArrayList<Calendar>> get() = _calendarList
+//    private val _calendarList = MutableLiveData<List<Calendar>>()
+//    val calendarList: LiveData<List<Calendar>> get() = _calendarList
 
     init { // 초기화 시 서버에서 데이터를 받아옴
         Log.d(ControlsProviderService.TAG, "CalendarViewModel 생성자 호출")
@@ -52,23 +52,24 @@ class CalendarViewModel(private val repository: CalendarRepository) : ViewModel(
 
     fun addCalendar(requestCalendar: RequestCalendar) {
         viewModelScope.launch {
-//            val addedCalendar = repository.addCalendar(requestCalendar)
-//            if(addedCalendar != null){
-//                _calendarList.value?.add(addedCalendar)
-//                _calendarList.value = _calendarList.value
-//            }
-            val setList = _calendarList.value?.toMutableList()
-            if (setList != null) {
-                repository?.addCalendar(requestCalendar)?.let { setList.add(it) }
-                _calendarList.value = setList.toList()
+            val addedCalendar = repository.addCalendar(requestCalendar)
+            if(addedCalendar != null){
+                _calendarList.value?.add(addedCalendar)
+                _calendarList.value = _calendarList.value
             }
+//            val setList = _calendarList.value?.toMutableList()
+//            if (setList != null) {
+//                repository?.addCalendar(requestCalendar)?.let { setList.add(it) }
+//                _calendarList.value = setList.toList()
+//            }
         }
     }
 
     fun deleteCalendar(calendar : Calendar) {
         viewModelScope.launch {
             val response = repository.deleteCalendar(calendar.id)
-            _calendarList.value?.listIterator(calendar.id.toInt())
+//            _calendarList.value?.listIterator(calendar.id.toInt())
+            _calendarList.value?.removeAt(calendar.id.toInt())
             _calendarList.value = _calendarList.value
             println("CalendarViewModel deleteCalendar response: " + response)
         }

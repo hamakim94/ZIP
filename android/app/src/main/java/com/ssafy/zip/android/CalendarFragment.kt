@@ -40,8 +40,7 @@ import kotlin.properties.Delegates
 class CalendarFragment : Fragment(), OnDateSelectedListener {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
-//    private val EventDecorator : DayViewDecorator? = null
-//    private lateinit var eventDecorator : EventDecorator
+    private val oneDayDecorator : OneDayDecorator? = OneDayDecorator(date = CalendarDay.today())
     private lateinit var materialCalendarView: MaterialCalendarView
     private lateinit var recyclerView: RecyclerView
     private lateinit var dialogRecyclerView: RecyclerView
@@ -122,13 +121,16 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 
         // 날짜 표시
         val dayText: TextView = view.findViewById(R.id.day_text)
-        val dataFormat: DateFormat = SimpleDateFormat("MM월 d일")
+        val dataFormat: DateFormat = SimpleDateFormat("MM월 d일",  Locale.KOREA)
 
         dayText.text = dataFormat.format(Date())
 
         // 캘린더 height 조절
         calendarView.setDynamicHeightEnabled(true)
+        // 날짜 선택시 동그라미
         calendarView.setOnDateChangedListener(this)
+        // 오늘 날짜 색상 변경
+        calendarView.addDecorator(oneDayDecorator)
 
         // 캘린더 month 변경됐을 때
         // 일정 list 바꿔줘야 함
@@ -196,7 +198,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             var materialDateBuilder: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
 
-            materialDateBuilder.setTitleText("SELECT A DATE")
+            materialDateBuilder.setTitleText("일정 시작 날짜를 선택하세요.")
 
             var materialDatePicker = materialDateBuilder.build()
             // material design date picker
@@ -209,11 +211,12 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 requireActivity().supportFragmentManager,
                 "MATERIAL_DATE_PICKER") }
 
+            // 시작 시간
             materialDatePicker.addOnPositiveButtonClickListener {
                 var startText = materialDatePicker.headerText
                 val materialTimePicker: MaterialTimePicker = MaterialTimePicker.Builder()
 
-                    .setTitleText("SELECT YOUR TIMING")
+                    .setTitleText("일정 시작 시간을 선택하세요.")
 
                     .setHour(12)
                     .setMinute(10)
@@ -230,30 +233,30 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                     val formattedTime: String = when {
                         pickedHour > 12 -> {
                             if (pickedMinute < 10) {
-                                "${materialTimePicker.hour - 12}:0${materialTimePicker.minute} pm"
+                                "오후 ${materialTimePicker.hour - 12}:0${materialTimePicker.minute}"
                             } else {
-                                "${materialTimePicker.hour - 12}:${materialTimePicker.minute} pm"
+                                "오후 ${materialTimePicker.hour - 12}:${materialTimePicker.minute}"
                             }
                         }
                         pickedHour == 12 -> {
                             if (pickedMinute < 10) {
-                                "${materialTimePicker.hour}:0${materialTimePicker.minute} pm"
+                                "오후 ${materialTimePicker.hour}:0${materialTimePicker.minute}"
                             } else {
-                                "${materialTimePicker.hour}:${materialTimePicker.minute} pm"
+                                "오후 ${materialTimePicker.hour}:${materialTimePicker.minute}"
                             }
                         }
                         pickedHour == 0 -> {
                             if (pickedMinute < 10) {
-                                "${materialTimePicker.hour + 12}:0${materialTimePicker.minute} am"
+                                "오전 ${materialTimePicker.hour + 12}:0${materialTimePicker.minute} "
                             } else {
-                                "${materialTimePicker.hour + 12}:${materialTimePicker.minute} am"
+                                "오전 ${materialTimePicker.hour + 12}:${materialTimePicker.minute}"
                             }
                         }
                         else -> {
                             if (pickedMinute < 10) {
-                                "${materialTimePicker.hour}:0${materialTimePicker.minute} am"
+                                "오전 ${materialTimePicker.hour}:0${materialTimePicker.minute}"
                             } else {
-                                "${materialTimePicker.hour}:${materialTimePicker.minute} am"
+                                "오전 ${materialTimePicker.hour}:${materialTimePicker.minute}"
                             }
                         }
                     }
@@ -274,7 +277,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             var materialDateBuilder2: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
 
-            materialDateBuilder2.setTitleText("SELECT A DATE")
+            materialDateBuilder2.setTitleText("일정 종료 날짜를 선택하세요.")
 
             var materialDatePicker2 = materialDateBuilder2.build()
 
@@ -292,11 +295,11 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 )
             }
 
-            // 종료 날짜
+            // 종료 시간
             materialDatePicker2.addOnPositiveButtonClickListener {
                 var endText = materialDatePicker2.headerText
                 val materialTimePicker2: MaterialTimePicker = MaterialTimePicker.Builder()
-                    .setTitleText("SELECT YOUR TIMING")
+                    .setTitleText("일정 종료 시간을 선택하세요.")
                     .setHour(12)
                     .setMinute(10)
                     .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -313,30 +316,30 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                     val formattedTime: String = when {
                         pickedHour2 > 12 -> {
                             if (pickedMinute2 < 10) {
-                                "${materialTimePicker2.hour - 12}:0${materialTimePicker2.minute} pm"
+                                "오후 ${materialTimePicker2.hour - 12}:0${materialTimePicker2.minute}"
                             } else {
-                                "${materialTimePicker2.hour - 12}:${materialTimePicker2.minute} pm"
+                                "오후 ${materialTimePicker2.hour - 12}:${materialTimePicker2.minute}"
                             }
                         }
                         pickedHour2 == 12 -> {
                             if (pickedMinute2 < 10) {
-                                "${materialTimePicker2.hour}:0${materialTimePicker2.minute} pm"
+                                "오후 ${materialTimePicker2.hour}:0${materialTimePicker2.minute}"
                             } else {
-                                "${materialTimePicker2.hour}:${materialTimePicker2.minute} pm"
+                                "오후 ${materialTimePicker2.hour}:${materialTimePicker2.minute}"
                             }
                         }
                         pickedHour2 == 0 -> {
                             if (pickedMinute2 < 10) {
-                                "${materialTimePicker2.hour + 12}:0${materialTimePicker2.minute} am"
+                                "오전 ${materialTimePicker2.hour + 12}:0${materialTimePicker2.minute}"
                             } else {
-                                "${materialTimePicker2.hour + 12}:${materialTimePicker2.minute} am"
+                                "오전 ${materialTimePicker2.hour + 12}:${materialTimePicker2.minute}"
                             }
                         }
                         else -> {
                             if (pickedMinute2 < 10) {
-                                "${materialTimePicker2.hour}:0${materialTimePicker2.minute} am"
+                                "오전 ${materialTimePicker2.hour}:0${materialTimePicker2.minute}"
                             } else {
-                                "${materialTimePicker2.hour}:${materialTimePicker2.minute} am"
+                                "오전 ${materialTimePicker2.hour}:${materialTimePicker2.minute}"
                             }
                         }
                     }
@@ -375,15 +378,13 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                             endLocalTime.minute,
                             1,
                         )
-//                            .format(DateTimeFormatter.ofPattern(
-//                            "yyyy-MM-dd'T'HH:mm:ss.SSS]"))
-//                        var endDate = LocalDateTime.of(endLocalDate, endLocalTime)
-                        println(endDate)
-                        var body = RequestCalendar(content.toString(), endDate.toString(), startDate.toString(), selectedMemberList)
-                        println(body)
 
-                        viewModel.addCalendar(body)
-                        Toast.makeText(activity, "추가", Toast.LENGTH_SHORT).show()
+                        println(endDate)
+                        var addedCalendar = RequestCalendar(content.toString(), endDate.toString(), startDate.toString(), selectedMemberList)
+                        println(addedCalendar)
+
+                        viewModel.addCalendar(addedCalendar)
+                        Toast.makeText(activity, "일정 추가", Toast.LENGTH_SHORT).show()
                         dialog.dismiss()
                     }
                 }

@@ -28,7 +28,7 @@ class CalendarRepository private constructor(application: Application) {
         val response = ApiService.getApiService.addCalendarData(requestCalendar)
         println("일정 추가 response: " + response)
         println("response.body(): " + response.body())
-        return if(response.isSuccessful) response.body() as Calendar? else null // 수정해야됨
+        return if(response.isSuccessful) response.body() as Calendar else null
     }
 
     suspend fun getFamilyData(): ArrayList<FamilyMember>?{
