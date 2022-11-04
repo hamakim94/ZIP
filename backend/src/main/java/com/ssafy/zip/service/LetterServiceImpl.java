@@ -9,6 +9,9 @@ import com.ssafy.zip.entity.Letter;
 import com.ssafy.zip.entity.LetterFromAndTo;
 import com.ssafy.zip.entity.Notification;
 import com.ssafy.zip.entity.User;
+import com.ssafy.zip.exception.ErrorCode;
+import com.ssafy.zip.exception.ResourceNotFoundException;
+import com.ssafy.zip.exception.UnauthorizedRequestException;
 import com.ssafy.zip.repository.CommonCodeRepository;
 import com.ssafy.zip.repository.LetterFromAndToRepository;
 import com.ssafy.zip.repository.LetterRepository;
@@ -40,6 +43,17 @@ public class LetterServiceImpl implements LetterService {
     private void initial(){
         scheduleLetterFromAndTo();
     }
+    @Transactional
+    @Override
+    public void readLetter(UserDTO userDTO, Long letterId) {
+        Optional<Letter> letterOpt = letterRepository.findById(letterId);
+        if(letterOpt.isPresent()){
+            Letter letter = letterOpt.get();
+            if(!letter.getTo().getId().equals(userDTO.getId())) throw new UnauthorizedRequestException("요청 권한이 없습니다.", ErrorCode.FORBIDDEN);
+            else letter.setIsRead(true);
+        }else throw new ResourceNotFoundException("요청한 편지가 존재하지 않습니다.", ErrorCode.NOT_FOUND);
+    }
+
     @Override
     public List<LetterResponseDTO> listLetters(UserDTO userDTO) {
         return letterRepository.findByFrom_IdOrTo_Id(userDTO.getId(), userDTO.getId())
@@ -75,7 +89,7 @@ public class LetterServiceImpl implements LetterService {
                 Boolean isSent = list.stream().anyMatch(l->l.getFrom().getId().equals(userDTO.getId()));
                 return  new LetterTodayResponseDTO(user,list.size(),isSent);
             }
-        }
+        }else throw new ResourceNotFoundException("편지를 보낼 수 있는 가족이 없습니다.", ErrorCode.NOT_FOUND);
         return null;
     }
     @Scheduled(cron = "1 0 0 * * *",zone = "Asia/Seoul")
@@ -90,7 +104,6 @@ public class LetterServiceImpl implements LetterService {
         List<User> users = userRepository.findAll();
         Map<Long, List<User>> map = new HashMap<>();
         users.forEach(o->{
-            //TODO: 현수야 getFamily가 null일때 오류나서 그냥 넘어가도록 임시로 넣어놨으니 확인하고 수정해줘!
             if (o.getFamily() != null) {
                 List<User> list = map.getOrDefault(o.getFamily().getId(), new ArrayList<>());
                 list.add(o);
@@ -100,9 +113,13 @@ public class LetterServiceImpl implements LetterService {
         List<LetterFromAndTo> saveList = new ArrayList<>();
         for(Long famId : map.keySet()){
             List<User> list = map.get(famId);
+            if(list.size()<=1) continue;
             for(User user : list){
-                Integer num = (int)(Math.random()* list.size());
-                saveList.add(new LetterFromAndTo(user.getId(),list.get(num).getId()));
+                Long num;
+                do{
+                    num = list.get((int)(Math.random()* list.size())).getId();
+                }while (num.equals(user.getId()));
+                saveList.add(new LetterFromAndTo(user.getId(),num));
             }
         }
         letterFromAndToRepository.saveAll(saveList);

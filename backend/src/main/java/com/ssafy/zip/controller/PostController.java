@@ -145,6 +145,13 @@ public class PostController {
         boardService.deleteComment(userDTO, commentId);
         return ResponseEntity.ok().build();
     }
+    @PostMapping("/letter/{letterId}")
+    @ApiOperation("편지 읽음")
+    ResponseEntity<?> readLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long letterId){
+        letterService.readLetter(userDTO,letterId);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/letter")
     @ApiOperation("편지 조회")
     ResponseEntity<List<LetterResponseDTO>> listLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO){
