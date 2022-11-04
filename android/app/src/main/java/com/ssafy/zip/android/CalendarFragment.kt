@@ -119,6 +119,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         observeCalendarList(activity)
 
         calendarView = view.findViewById(R.id.calendarView)
+        calendarView.setTitleFormatter(TitleFormatter { "${curYear}년 ${curMonth}월" })
 
         // 날짜 표시
         val dayText: TextView = view.findViewById(R.id.day_text)
@@ -205,6 +206,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             var materialDateBuilder: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
 
+            materialDateBuilder.setTitleText("시작날짜")
             materialDateBuilder.setPositiveButtonText("확인")
             materialDateBuilder.setNegativeButtonText("취소")
 
@@ -224,6 +226,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 var startText = materialDatePicker.headerText
                 val materialTimePicker: MaterialTimePicker = MaterialTimePicker.Builder()
                     .setTitleText("시작 시간")
+                    .setPositiveButtonText("확인")
+                    .setNegativeButtonText("취소")
                     .setHour(12)
                     .setMinute(10)
                     .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -284,6 +288,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             var materialDateBuilder2: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
 
+            materialDateBuilder2.setTitleText("종료날짜")
             materialDateBuilder2.setPositiveButtonText("확인")
             materialDateBuilder2.setNegativeButtonText("취소")
 
@@ -308,6 +313,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 var endText = materialDatePicker2.headerText
                 val materialTimePicker2: MaterialTimePicker = MaterialTimePicker.Builder()
                     .setTitleText("종료시간")
+                    .setPositiveButtonText("확인")
+                    .setNegativeButtonText("취소")
                     .setHour(12)
                     .setMinute(10)
                     .setTimeFormat(TimeFormat.CLOCK_12H)
