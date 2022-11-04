@@ -106,7 +106,7 @@ public class LetterServiceImpl implements LetterService {
                 Long num;
                 do{
                     num = list.get((int)(Math.random()* list.size())).getId();
-                }while (!num.equals(user.getId()));
+                }while (num.equals(user.getId()));
                 saveList.add(new LetterFromAndTo(user.getId(),num));
             }
         }
