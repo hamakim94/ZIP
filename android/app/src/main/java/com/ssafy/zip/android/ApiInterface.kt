@@ -2,10 +2,7 @@ package com.ssafy.zip.android
 
 import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.request.*
-<<<<<<< HEAD
-import com.ssafy.zip.android.data.response.ResponseBoardAll
-=======
->>>>>>> 8b21b9a286330cd9208275a9f719032824f5743e
+
 import okhttp3.MultipartBody
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import retrofit2.Response
@@ -47,8 +44,9 @@ interface ApiInterface {
     suspend fun createFamily(
         @Body body: RequestFamilyroom
     ) : Response<UserFamily>
-    //-----------------------------------------------------------------------------------------------------
+
     // 앨범 관련
+
     @POST("album")
     suspend fun updateAlbum(
         @Query("name") title: String
@@ -73,7 +71,7 @@ interface ApiInterface {
         @Part files : List<MultipartBody.Part>,
         @Part("pictureRequestDTO") photoList : RequestPhoto
     ) : Response<List<Photo>>
-    //-----------------------------------------------------------------------------------------------------
+
     // 홈 화면 관련
     @GET("rooms")
     suspend fun getFamily():Response<Family>
@@ -91,15 +89,10 @@ interface ApiInterface {
 
     @GET("users/logout")
     suspend fun logoutUser(): Response<String>
-    //-----------------------------------------------------------------------------------------------------
-    // 게시글 관련
-    @GET("post")
-    suspend fun getBoardAll():Response<ArrayList<ResponseBoardAll>>
 
-<<<<<<< HEAD
     // 캘린더 관련
 
-    //일정 조회(월별)
+    // 일정 조회(월별)
     @GET("calendar/list")
     suspend fun getCalendarMonthList(
         @Query(value = "year") year : Int,
@@ -115,7 +108,13 @@ interface ApiInterface {
     @DELETE("calendar/delete")
     suspend fun deleteCalendar(
         @Query("calendarId") id: Long
-=======
+    ) : Response<String>
+
+    // 게시글 관련
+
+    @GET("post")
+    suspend fun getBoardAll():Response<ArrayList<ResponseBoardAll>>
+
     // 게시글 상세
     @GET("post/board/{boardId}")
     suspend fun getBoardDetailById(
@@ -128,8 +127,8 @@ interface ApiInterface {
         @Path("boardId") id : Long,
         @Query("content") content : String
     ) : Response<String>
-    //-----------------------------------------------------------------------------------------------------
-   // 백문백답 상세
+
+    // 백문백답 상세
     @GET("post/qna/{qnaId}")
     suspend fun getQnaDetailById(
         @Path("qnaId") id : Long
@@ -163,7 +162,6 @@ interface ApiInterface {
     @POST("post/letter/{letterId}")
     suspend fun postLetterRead(
         @Path("letterId") id : Long
->>>>>>> 8b21b9a286330cd9208275a9f719032824f5743e
     ) : Response<String>
 
 }
