@@ -24,7 +24,6 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , p
         parent: ViewGroup,
         viewType: Int
     ): BoardModelAdapterViewHolder {
-        viewModel.getUserData()
         val layout = when (viewType) {
             TYPE_BOARD -> R.layout.board_item
             TYPE_QNA -> R.layout.qna_item
@@ -133,8 +132,9 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , p
                     itemView.findViewById<TextView>(R.id.letterTitle).text =
                         (letter.to.nickname + "에게 쓴 편지")
                     itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
-                    itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
                     itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mail_24)
+                    itemView.findViewById<TextView>(R.id.letterContent).text = if(letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
+
 
                 }// 2. 받은 편지인지
                 else{
@@ -143,8 +143,9 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , p
                         itemView.findViewById<TextView>(R.id.letterTitle).text =
                             (letter.from.nickname + "에게서 온 편지")
                         itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
-                        itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
                         itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mark_email_read_24)
+                        itemView.findViewById<TextView>(R.id.letterContent).text = if(letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
+
                     }
                     // 2-2. 안 읽었는지 mark_email_unread
                     else{
@@ -153,19 +154,14 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , p
                                 (letter.from.nickname + "에게서 온 편지")
                         }
                         itemView.findViewById<TextView>(R.id.letterReg).text = letter?.reg.toString()
-                        itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
                         itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mark_email_unread_24)
+//                        itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
+
                     }
 
                 }
             }
 
-//            if (letter != null) {
-//                itemView.findViewById<TextView>(R.id.letterTitle).text =
-//                    (letter.from.nickname + "에서" + letter.to.nickname + "에게 보내는 편지")
-//                itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
-//                itemView.findViewById<TextView>(R.id.letterContent).text = letter.content
-//            }
 
         }
 

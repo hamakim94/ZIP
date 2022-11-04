@@ -65,14 +65,14 @@ class RecordLetterCreateFragment : Fragment() {
         }
         binding.pinkBtn.setOnClickListener{
             binding.pinkBtn.setImageResource(R.drawable.circle_pink_selected)
-            binding.yellowBtn.setImageResource(R.drawable.circle_pink)
+            binding.yellowBtn.setImageResource(R.drawable.circle_yellow)
             binding.greenBtn.setImageResource(R.drawable.circle_green)
             binding.letterContainer.setBackgroundColor(Color.parseColor("#FFE5E5"))
             letterBackGroundColor = "pink"
         }
         binding.greenBtn.setOnClickListener{
             binding.greenBtn.setImageResource(R.drawable.circle_green_selected)
-            binding.yellowBtn.setImageResource(R.drawable.circle_pink)
+            binding.yellowBtn.setImageResource(R.drawable.circle_yellow)
             binding.pinkBtn.setImageResource(R.drawable.circle_green)
             binding.letterContainer.setBackgroundColor(Color.parseColor("#F4FFDC"))
             letterBackGroundColor = "green"
