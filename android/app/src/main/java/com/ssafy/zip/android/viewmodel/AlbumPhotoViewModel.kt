@@ -21,6 +21,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOError
 import java.io.IOException
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AlbumPhotoViewModel(private val repository: AlbumRepository, private val id: Long?) : ViewModel() {
     private val _album = MutableLiveData<Album>()
@@ -71,6 +73,7 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
         viewModelScope.launch {
             val photoList = repository.uploadPhotos(imageList.toList(), albumId, pictureId)
 
+            println("추가된 photoList: " + photoList)
             if (photoList != null) {
                 for(index in 0 until photoList.size){
                     _album.value?.photoList?.add(photoList[index])
