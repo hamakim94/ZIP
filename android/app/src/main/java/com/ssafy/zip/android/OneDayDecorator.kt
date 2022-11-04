@@ -15,6 +15,7 @@ class OneDayDecorator(
     fun OneDayDecorator() {
         date = CalendarDay.today()
     }
+
     override fun shouldDecorate(day: CalendarDay): Boolean {
         return day.equals(date)
     }
