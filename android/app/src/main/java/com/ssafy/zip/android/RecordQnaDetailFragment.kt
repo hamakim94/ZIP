@@ -50,7 +50,8 @@ class RecordQnaDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // 키보드 가리기 관련 -----------------------------
-        val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_record_qna_detail, container, false
         )
@@ -69,10 +70,12 @@ class RecordQnaDetailFragment : Fragment() {
             var check = false
             val answers = viewModel.qnaDetail.value?.answers
             val userId = viewModel.userData.value?.id
+
             if (answers != null) {
-                val answered = answers.filter { it.user.id == userId }
-                if (answered != null) check = true;
-                println(answered)
+                if (!answers.isEmpty()) {
+                    val answered = answers.filter { it.user.id == userId }
+                    if (answered != null) check = true;
+                }
             }
 
             if (nowTime.equals(regTime)) {
@@ -83,9 +86,9 @@ class RecordQnaDetailFragment : Fragment() {
                             dialog.dismiss()
                         }
                         .show()
+                    binding.qnaCommentContent.text = null
                     hideKeyboard(inputMethodManager, binding.root)
-                }
-                else if (id != null && binding.qnaCommentContent.text.isNotEmpty()) {
+                } else if (id != null && binding.qnaCommentContent.text.isNotEmpty()) {
                     println(binding.qnaCommentContent.text)
                     viewModel.addQnaAnswer(id, binding.qnaCommentContent.text.toString())
                     binding.qnaCommentContent.text = null
@@ -98,6 +101,7 @@ class RecordQnaDetailFragment : Fragment() {
                         dialog.dismiss()
                     }
                     .show()
+                binding.qnaCommentContent.text = null
                 hideKeyboard(inputMethodManager, binding.root)
             }
 
@@ -189,11 +193,11 @@ class RecordQnaDetailFragment : Fragment() {
 
 
     }
+
     private fun hideKeyboard(inputMethodManager: InputMethodManager, view: View) {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
         view.clearFocus()
     }
-
 
 
 }

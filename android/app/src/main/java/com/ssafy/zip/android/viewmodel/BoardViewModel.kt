@@ -43,12 +43,6 @@ class BoardViewModel(private val repository: BoardRepository) : ViewModel() {
         }
     }
 
-    fun getUserData(){
-        viewModelScope.launch {
-            _userData.value = repository.getUserData()
-        }
-    }
-
     fun getBoardAll() {
         viewModelScope.launch {
             _boardList.value = repository.getBoardAll()

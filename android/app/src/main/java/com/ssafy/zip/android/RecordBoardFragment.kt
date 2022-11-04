@@ -11,10 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.BoardModelAdapter
+import com.ssafy.zip.android.adapter.HomeAdapter
+import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.databinding.FragmentRecordBoardBinding
@@ -61,6 +65,7 @@ class RecordBoardFragment : Fragment() {
 
         viewModel.getBoardAll()
         observeViewModel(activity)
+        observeUser(activity)
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.board_recyclerview)
         recyclerView.layoutManager = layoutManager
@@ -99,7 +104,7 @@ class RecordBoardFragment : Fragment() {
     private fun observeViewModel(activity: MainActivity){
         val observer = object  : Observer<ArrayList<ResponseBoardAll>>{
             override fun onChanged(boardList: ArrayList<ResponseBoardAll>?) {
-                if(boardList != null){
+                if(boardList != null && viewModel.userData.value != null ){
                     adapter = BoardModelAdapter(boardList, viewModel)
                 }
                 recyclerView.adapter = adapter
@@ -108,7 +113,16 @@ class RecordBoardFragment : Fragment() {
         }
         viewModel.boardList.observe(viewLifecycleOwner, observer)
     }
-
+    private fun observeUser(activity: MainActivity){
+        val observer = Observer<User> { _ ->
+            binding.viewmodel = viewModel
+            if(viewModel.boardList.value != null && viewModel.userData.value != null ){
+                adapter = BoardModelAdapter(viewModel.boardList.value!!, viewModel)
+            }
+            recyclerView.adapter = adapter
+        }
+        viewModel.userData.observe(viewLifecycleOwner, observer)
+    }
 
     //    팝업 메뉴 보여주는 커스텀 메소드
     private fun showPopup(v: View) {

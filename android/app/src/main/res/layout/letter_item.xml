@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_baseline_mail_24"
             app:layout_constraintBottom_toBottomOf="@id/letterInfoContainer"
             app:layout_constraintStart_toStartOf="@id/letterInfoContainer">
 
@@ -39,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="해삼에게 보낸 편지"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -54,7 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="22/10/30"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/mailIcon"
@@ -75,7 +72,6 @@
             android:id="@+id/letterContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="안녕 현수야. 나는 민균이야. 우리 같이 해삼을 먹던 날이 그립구나. 나는 김민균이야. 매우 만나서 반가워. 현수의 긍정적인 사고방식과 늘 도전하는 그 마음을 잊지 못하겠어. 부디 앞으로도 힘들지만 아자아자아자아자아장자 화이티이이이잉!"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold"

@@ -136,4 +136,9 @@ interface ApiInterface {
         @Body body : RequestLetter
     ) : Response<String>
 
+    @POST("post/letter/{letterId}")
+    suspend fun postLetterRead(
+        @Path("letterId") id : Long
+    ) : Response<String>
+
 }

@@ -95,6 +95,15 @@ class BoardRepository private constructor(application: Application) {
         return returnData
     }
 
+    // 편지 읽음 표시
+    suspend fun postLetterRead(id : Long) : String? {
+        val response = ApiService.getApiService.postLetterRead(id)
+        var returnData : String?
+        returnData = response.code().toString()
+        return returnData
+    }
+
+
 
     companion object {
         private var instance: BoardRepository? = null
