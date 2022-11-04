@@ -7648,8 +7648,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.51568604, y: -17.828247}
-  m_SizeDelta: {x: 1298.2367, y: 260.534}
+  m_AnchoredPosition: {x: -2.8086, y: -17.828247}
+  m_SizeDelta: {x: 1293.6508, y: 260.534}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1008219334
 MonoBehaviour:
@@ -10259,6 +10259,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventoryPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156902540632942829, guid: 57c363aef7f654a6a95c5998eb31c631,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4156902540632942830, guid: 57c363aef7f654a6a95c5998eb31c631,
         type: 3}
