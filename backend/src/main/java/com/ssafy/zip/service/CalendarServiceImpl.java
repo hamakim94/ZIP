@@ -111,6 +111,7 @@ public class CalendarServiceImpl implements CalendarServcie {
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())&&!setParticipants.contains(o.getId())).map(o->o.getId()).collect(Collectors.toList()));
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.ScheduleRegistedForMe.getMessage(), userDTO.getNickname()),NotificationEnum.ScheduleRegistedForMe.getLink(), userDTO.getProfileImg(),false),
                 setParticipants.stream().toList());
+        calendar.setCalendarUsers(calendarUserList);
         return calendarToCalendarResponseDTO(calendar);
     }
 
@@ -165,13 +166,15 @@ public class CalendarServiceImpl implements CalendarServcie {
 
     private CalendarResponseDTO calendarToCalendarResponseDTO(Calendar calendar){
         List<SimpleUserResponseDTO> list = new ArrayList<>();
-        for (CalendarUser calendarUser: calendar.getCalendarUsers()) {
-            list.add(SimpleUserResponseDTO.builder()
-                    .id(calendarUser.getUser().getId())
-                    .name(calendarUser.getUser().getName())
-                    .nickname(calendarUser.getUser().getNickname())
-                    .profileImg(calendarUser.getUser().getProfileImg())
-                    .build());
+        if (calendar.getCalendarUsers() != null){
+            for (CalendarUser calendarUser: calendar.getCalendarUsers()) {
+                list.add(SimpleUserResponseDTO.builder()
+                        .id(calendarUser.getUser().getId())
+                        .name(calendarUser.getUser().getName())
+                        .nickname(calendarUser.getUser().getNickname())
+                        .profileImg(calendarUser.getUser().getProfileImg())
+                        .build());
+            }
         }
         return CalendarResponseDTO.builder()
                 .id(calendar.getId())
