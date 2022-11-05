@@ -67,7 +67,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val languageToLoad = "kor" // your language
+        val languageToLoad = "KOREA" // your language
         val locale = Locale(languageToLoad)
         Locale.setDefault(locale)
         val config = Configuration()
@@ -209,6 +209,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             materialDateBuilder.setTitleText("시작날짜")
             materialDateBuilder.setPositiveButtonText("확인")
             materialDateBuilder.setNegativeButtonText("취소")
+//            materialDateBuilder
 
             var materialDatePicker = materialDateBuilder.build()
             // material design date picker
