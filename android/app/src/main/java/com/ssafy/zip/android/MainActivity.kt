@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController, false)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // 특정화면에서 하단바 없애기
-            if (destination.id == R.id.loginFragment || destination.id == R.id.signupFragment || destination.id == R.id.signUpCompleteFragment) {
+            if (destination.id == R.id.loginFragment || destination.id == R.id.signupFragment || destination.id == R.id.signUpCompleteFragment || destination.id == R.id.recordBoardCreateFragment || destination.id == R.id.recordLetterCreateFragment || destination.id == R.id.recordQnaDetailFragment || destination.id == R.id.recordBoardFragment2) {
                 binding.bottomNavigationView.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
                 binding.fab.visibility = View.GONE

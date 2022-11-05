@@ -19,6 +19,7 @@ import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.viewmodel.BoardViewModel
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class BoardModelAdapter(
@@ -103,7 +104,7 @@ class BoardModelAdapter(
                         .into(itemView.findViewById<ShapeableImageView>(R.id.profileImage))
                 }
                 itemView.findViewById<TextView>(R.id.userNickname).text = board.user.nickname
-                itemView.findViewById<TextView>(R.id.boardReg).text = DateUtil.txtDate(board.reg)
+                itemView.findViewById<TextView>(R.id.boardReg).text = DateUtil.getRegDate(board.reg)
                 //Glide 쓰기..
                 if (board.image != null) {
                     itemView.findViewById<ImageView>(R.id.boardImage).layoutParams.height = 800
@@ -120,7 +121,7 @@ class BoardModelAdapter(
         private fun bindQna(item: ResponseBoardAll) {
             var qna: BoardModel.Qna = item.data as BoardModel.Qna
             if (qna != null) {
-                itemView.findViewById<TextView>(R.id.qnaReg).text = DateUtil.txtDate(qna.reg)
+                itemView.findViewById<TextView>(R.id.qnaReg).text = DateUtil.getRegDate(qna.reg)
                 itemView.findViewById<TextView>(R.id.qnaContent).text = qna.question
                 itemView.findViewById<TextView>(R.id.qnaCommentCount).text = "" + qna.answerCnt
             }
@@ -139,8 +140,8 @@ class BoardModelAdapter(
                     itemView.findViewById<TextView>(R.id.letterTitle).text =
                         (letter.to.nickname + "에게 쓴 편지")
                     itemView.findViewById<TextView>(R.id.letterReg).text =
-                        DateUtil.txtDate(letter.reg)
-                    itemView.findViewById<ImageFilterButton>(R.id.mailIcon)
+                        DateUtil.getRegDate(letter.reg)
+                    itemView.findViewById<CircleImageView>(R.id.mailIcon)
                         .setImageResource(R.drawable.ic_baseline_mail_24)
                     itemView.findViewById<TextView>(R.id.letterContent).text =
                         if (letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
@@ -153,8 +154,8 @@ class BoardModelAdapter(
                         itemView.findViewById<TextView>(R.id.letterTitle).text =
                             (letter.from.nickname + "에게서 온 편지")
                         itemView.findViewById<TextView>(R.id.letterReg).text =
-                            DateUtil.txtDate(letter.reg)
-                        itemView.findViewById<ImageFilterButton>(R.id.mailIcon)
+                            DateUtil.getRegDate(letter.reg)
+                        itemView.findViewById<CircleImageView>(R.id.mailIcon)
                             .setImageResource(R.drawable.ic_baseline_mark_email_read_24)
                         itemView.findViewById<TextView>(R.id.letterContent).text =
                             if (letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
@@ -166,7 +167,7 @@ class BoardModelAdapter(
                             itemView.findViewById<TextView>(R.id.letterTitle).text =
                                 (letter.from.nickname + "에게서 온 편지")
                             itemView.findViewById<TextView>(R.id.letterReg).text =
-                                DateUtil.txtDate(letter.reg)
+                                DateUtil.getRegDate(letter.reg)
                         }
 
                         itemView.findViewById<ImageFilterButton>(R.id.mailIcon)

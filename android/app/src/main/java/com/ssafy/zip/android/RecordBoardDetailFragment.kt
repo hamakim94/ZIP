@@ -115,7 +115,7 @@ class RecordBoardDetailFragment : Fragment() {
 
         // 닉네임, 게시글 내용
         binding.userNicknameDetail.text = boardDetail?.board?.user?.nickname
-        binding.boardRegDetail.text = boardDetail?.board?.reg.toString()
+        binding.boardRegDetail.text = boardDetail?.board?.reg?.let { DateUtil.getRegDate(it) }
         // 게시글 이미지
         if (boardDetail?.board?.image != null) {
             Glide.with(activity)

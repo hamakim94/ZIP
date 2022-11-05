@@ -16,14 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.utils.widget.ImageFilterButton
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mailIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:layout_constraintBottom_toBottomOf="@id/letterInfoContainer"
             app:layout_constraintStart_toStartOf="@id/letterInfoContainer">
 
-        </androidx.constraintlayout.utils.widget.ImageFilterButton>
+        </de.hdodenhof.circleimageview.CircleImageView>
 
         <TextView
             android:id="@+id/letterTitle"

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
+import com.ssafy.zip.android.DateUtil
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.Comment
 
@@ -30,7 +31,7 @@ class CommentQnaAdapter(private val commentList: ArrayList<Comment>) :
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val currentItem = commentList[position]
         holder.commentQnaUserNickname.text = currentItem.user.nickname
-        holder.commentQnaReg.text = currentItem.reg.toString()
+        holder.commentQnaReg.text = DateUtil.txtDate(currentItem.reg)
         holder.commentQnaContent.text = currentItem.content
         if (currentItem.user.profileImg == null) {
             holder.commentQnaProfileImage.setImageResource(R.drawable.ex)

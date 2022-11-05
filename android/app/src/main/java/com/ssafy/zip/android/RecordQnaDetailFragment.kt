@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -112,6 +113,10 @@ class RecordQnaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val toolbar: Toolbar = view.findViewById(R.id.qna_detail_appbar)
+        // 앨범명으로 appbar title 지정
+        toolbar.title = "백문백답"
+
         val qnaData = arguments?.getParcelable<BoardModel.Qna>("Qna")
         val id = qnaData?.id
         if (id != null) {
@@ -182,8 +187,8 @@ class RecordQnaDetailFragment : Fragment() {
         val qnaDetail: QnaDetail? = viewModel.qnaDetail.value
         // 사용자 프로필 이미지
         if (qnaDetail != null) {
-            binding.qnaDetailReg.text = qnaDetail.reg.toString()
-            binding.qnaDetailContent.text = "Q. " + qnaDetail.question
+            binding.qnaDetailReg.text = DateUtil.getRegDate(qnaDetail.reg)
+            binding.qnaDetailContent.text = qnaDetail.question
             commentList = qnaDetail.answers
             commentQnaAdapter = CommentQnaAdapter(commentList)
             binding.commentRecyclerView.adapter = commentQnaAdapter

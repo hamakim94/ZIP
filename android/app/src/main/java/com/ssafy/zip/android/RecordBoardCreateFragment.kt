@@ -55,7 +55,7 @@ class RecordBoardCreateFragment : Fragment() {
                             val instance = BoardRepository.getInstance(Application())
                             val body = RequestBody.create(
                                 MediaType.get("application/json; charset=utf-8"),
-                                binding.boardContent.text.toString()
+                                binding.boardContent.text.toString().replace("[\r\n]+", "\n")
                             );
 
                             var response = instance?.postBoard(

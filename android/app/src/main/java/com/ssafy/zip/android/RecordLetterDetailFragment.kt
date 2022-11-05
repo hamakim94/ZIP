@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.utils.widget.ImageFilterButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -41,6 +42,11 @@ class RecordLetterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val toolbar: Toolbar = view.findViewById(R.id.letter_detail_appbar)
+        // 앨범명으로 appbar title 지정
+        toolbar.title = "오늘의 편지 상세"
+
+
         val userId = arguments?.getLong("userId")
         val letterData = arguments?.getParcelable<BoardModel.Letter>("Letter")
         if (letterData != null) {
@@ -57,7 +63,7 @@ class RecordLetterDetailFragment : Fragment() {
                 "pink" -> binding.letterContainer.setBackgroundColor(Color.parseColor("#FFE5E5"))
                 else ->  binding.letterContainer.setBackgroundColor(Color.parseColor("#FFFBD9"))
             }
-            binding.letterRegDetail.text = letterData?.reg.toString()
+            binding.letterRegDetail.text = letterData?.reg?.let { DateUtil.getRegDate(it) }
             binding.letterContentDetail.text = letterData?.content
             if(!letterData.isRead){
                 CoroutineScope(Dispatchers.Main).launch {

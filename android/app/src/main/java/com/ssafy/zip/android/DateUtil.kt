@@ -4,6 +4,7 @@ package com.ssafy.zip.android
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 object DateUtil {
@@ -22,10 +23,10 @@ object DateUtil {
     fun txtDate(tempDate: Date): String {
         val curTime = System.currentTimeMillis()
         val regTime: Long = tempDate.time
-        var diffTime = (curTime - regTime) / 1000
+        var diffTime = (curTime - regTime) / 1000 + 32400
         var msg: String? = null
         if (diffTime < SEC) {
-            msg = diffTime.toString() + "초전"
+            msg = "방금 전"
         } else if (SEC.let { diffTime /= it; diffTime } < MIN) {
             msg = diffTime.toString() + "분 전"
         } else if (MIN.let { diffTime /= it; diffTime } < HOUR) {
@@ -42,5 +43,10 @@ object DateUtil {
             msg = diffYear.toString() + "년 전"
         }
         return msg
+    }
+
+    fun getRegDate(tempDate : Date) : String{
+        val format = SimpleDateFormat("yyyy/MM/dd (E)")
+        return format.format(tempDate)
     }
 }

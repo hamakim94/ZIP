@@ -7,6 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".RecordBoardFragment"
     android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/letter_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/letter_detail_appbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:text="백문백답"
+            app:maxButtonHeight="48dp"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
