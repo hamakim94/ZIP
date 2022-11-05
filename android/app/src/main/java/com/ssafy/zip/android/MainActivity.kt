@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigationView.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
                 binding.fab.visibility = View.GONE
+                binding.mainFlContainer.setPadding(0,0,0,0)
+                // 여기에 작성 페이지, 패딩을 0으로 넣으면 될 듯 ^^;
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
                 binding.bottomAppBar.visibility = View.VISIBLE

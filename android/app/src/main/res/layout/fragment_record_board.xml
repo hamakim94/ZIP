@@ -8,8 +8,10 @@
             type="com.ssafy.zip.android.viewmodel.BoardViewModel" />
     </data>
     <FrameLayout
+        android:id="@+id/board_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="56dp"
         >
         <LinearLayout
             android:id="@+id/board_recycler_view"

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.MissionModel
@@ -105,6 +106,10 @@ class RecordLetterCreateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val toolbar: Toolbar = binding.letterCreateAppbar
+        // 앨범명으로 appbar title 지정
+        toolbar.title = "오늘의 편지 작성"
 
         if (user.profileImg == null) {
             binding.profileImage.setImageResource(R.drawable.ex)

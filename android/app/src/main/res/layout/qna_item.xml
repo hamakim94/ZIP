@@ -75,32 +75,40 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.utils.widget.ImageFilterButton
-        android:id="@+id/commentButton"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_comment_show"
-        app:layout_constraintEnd_toStartOf="@id/qnaCommentCount"
-        app:layout_constraintTop_toBottomOf="@id/qnaContainer">
+        app:layout_constraintTop_toBottomOf="@+id/qnaContainer"
+        tools:layout_editor_absoluteX="8dp">
 
-    </androidx.constraintlayout.utils.widget.ImageFilterButton>
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/commentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:src="@drawable/ic_outline_comment_16"
+            app:layout_constraintBottom_toBottomOf="@id/qnaCommentCount"
+            app:layout_constraintEnd_toStartOf="@id/qnaCommentCount">
 
-    <TextView
-        android:id="@+id/qnaCommentCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="233"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/qnaContainer"
-        app:layout_constraintTop_toBottomOf="@id/qnaContainer"
-        app:layout_constraintTop_toTopOf="@id/commentButton">>
+        </androidx.constraintlayout.utils.widget.ImageFilterButton>
 
-    </TextView>
+        <TextView
+            android:id="@+id/qnaCommentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="233"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/container"
+            app:layout_constraintEnd_toEndOf="@id/container"
+            app:layout_constraintTop_toTopOf="@id/container"
+            app:layout_constraintVertical_bias="0.0">>
+
+        </TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

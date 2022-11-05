@@ -15,16 +15,13 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fragment_record_qna_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/board_detail_layout"
@@ -68,24 +65,24 @@
                     android:id="@+id/qnaDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:text="오늘의 백문백답"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:layout_marginStart="8dp"
                     app:layout_constraintBottom_toTopOf="@+id/qnaDetailReg"
                     app:layout_constraintStart_toEndOf="@+id/q"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.5"
-                    app:layout_constraintVertical_chainStyle="packed"/>
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
                     android:id="@+id/qnaDetailReg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:text="tt"
                     android:textSize="10sp"
-                    android:layout_marginStart="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/q"
                     app:layout_constraintTop_toBottomOf="@+id/qnaDetail" />
@@ -93,10 +90,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@drawable/layout_bottom"
                 android:id="@+id/qnaContainer"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_bottom"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/qnaInfoContainer">
 
@@ -105,15 +102,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
+                    android:padding="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
             <!--        <androidx.recyclerview.widget.RecyclerView-->
@@ -141,25 +136,24 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottomContainer"
-                app:layout_constraintTop_toBottomOf="@id/home_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border">
+                android:background="@drawable/border"
+                app:layout_constraintTop_toBottomOf="@id/home_recycler_view">
 
                 <EditText
                     android:id="@+id/qnaCommentContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="100dp"
+                    android:background="@drawable/edittext_inputtext"
+                    android:hint="@string/edittext_hint"
+                    android:inputType="textMultiLine"
                     app:layout_constraintBottom_toBottomOf="@+id/bottomContainer"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/bottomContainer"
-                    android:inputType="textMultiLine"
-                    android:hint="@string/edittext_hint"
-                    android:background="@drawable/edittext_inputtext"
-                    android:layout_marginEnd="100dp"
-                    android:layout_marginStart="8dp"
-                    >
-                </EditText>
+                    app:layout_constraintTop_toTopOf="@id/bottomContainer"></EditText>
+
                 <Button
                     android:id="@+id/qnaCommentPostBtn"
                     android:layout_width="wrap_content"
