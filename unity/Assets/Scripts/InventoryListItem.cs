@@ -10,8 +10,8 @@ public class InventoryListItem : MonoBehaviour
 {
     public Image imgIcon;
     public SpriteAtlas atlas;
-    public GameObject placedItem;
-    public GameObject unplacedItem;
+    public GameObject placedItemBtn;
+    public GameObject unplacedItemBtn;
 
     public void Init(long id, string img, Boolean placed)
     {
@@ -19,7 +19,7 @@ public class InventoryListItem : MonoBehaviour
         var spriteName = atlas.GetSprite(img);
         this.imgIcon.sprite = spriteName;
 
-        placedItem.SetActive(placed);
-        unplacedItem.SetActive(!placed);
+        placedItemBtn.SetActive(placed);
+        unplacedItemBtn.SetActive(!placed);
     }
 }

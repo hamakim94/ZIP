@@ -314,8 +314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imgIcon: {fileID: 5198209268137396070}
   atlas: {fileID: 4343727234628468602, guid: b9fbfbc9c743b9a4a8429fb3b6c46796, type: 2}
-  placedItem: {fileID: 5198209268166971952}
-  unplacedItem: {fileID: 469002050552744358}
+  placedItemBtn: {fileID: 5198209268166971952}
+  unplacedItemBtn: {fileID: 469002050552744358}
 --- !u!222 &5198209267480081111
 CanvasRenderer:
   m_ObjectHideFlags: 0
