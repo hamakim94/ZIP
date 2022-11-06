@@ -33,7 +33,9 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.*
+import java.util.Calendar.getInstance
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
@@ -66,6 +68,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         val languageToLoad = "KOREA" // your language
         val locale = Locale(languageToLoad)
@@ -105,9 +108,18 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(activity, 1)
 
-        curYear = CalendarDay.today().year
-        curMonth = CalendarDay.today().month
-        curDay = CalendarDay.today().day
+
+        val dateTime = LocalDateTime.now()
+        val zoneIdKorea = ZoneId.of("Asia/Seoul")
+        val zoneDateTime = dateTime.atZone(zoneIdKorea)
+
+//        curYear = CalendarDay.today().year
+//        curMonth = CalendarDay.today().month
+//        curDay = CalendarDay.today().day
+
+        curYear = zoneDateTime.year
+        curMonth = zoneDateTime.monthValue
+        curDay = zoneDateTime.dayOfMonth
         // 일단 adapter reset
         calendarAdapter = CalendarAdapter(
             ArrayList(), link, this.activity
@@ -127,14 +139,13 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 
         dayText.text = dataFormat.format(Date())
 
+
         // 캘린더 height 조절
         calendarView.setDynamicHeightEnabled(true)
         // 날짜 선택시 동그라미
         calendarView.setOnDateChangedListener(this)
         // 오늘 날짜 색상 변경
         calendarView.addDecorator(oneDayDecorator)
-
-
 
         // 캘린더 month 변경됐을 때
         // 일정 list 바꿔줘야 함
@@ -209,7 +220,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             materialDateBuilder.setTitleText("시작날짜")
             materialDateBuilder.setPositiveButtonText("확인")
             materialDateBuilder.setNegativeButtonText("취소")
-//            materialDateBuilder
 
             var materialDatePicker = materialDateBuilder.build()
             // material design date picker
