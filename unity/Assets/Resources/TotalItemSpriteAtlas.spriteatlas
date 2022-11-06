@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TotalItemSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 21300000, guid: 988d59a2199842c4f88986f923d7ee24, type: 3}
+    - {fileID: 21300000, guid: 73a56ba810375394eb452f37605ac67a, type: 3}
+    - {fileID: 21300000, guid: 1a0cd1a824bc60342b052f7aaf9fd126, type: 3}
+    - {fileID: 21300000, guid: 4926daa41d6fc834eb00b4b8847d6676, type: 3}
+    - {fileID: 21300000, guid: 81de5c6b3d62e484aafec7e885add18b, type: 3}
+    - {fileID: 21300000, guid: 61c5a5e571fa22d4688fdf7c447708ed, type: 3}
+    - {fileID: 21300000, guid: cbaa29a249daeac47a54f931bc6a4970, type: 3}
+    - {fileID: 21300000, guid: a1445bacef7ad0945b753e231b5ac6f4, type: 3}
+    - {fileID: 21300000, guid: 075e8bffb720a3e43bf3734145b61c3f, type: 3}
+    - {fileID: 21300000, guid: ce4a42c666a57de4ab53fe3c0cd9df39, type: 3}
+    - {fileID: 21300000, guid: 4c0afcb781637384c803767bbff079a4, type: 3}
+    - {fileID: 21300000, guid: 3981bda64a60b7948b7ca499ccf7ca9f, type: 3}
+    - {fileID: 21300000, guid: 2f35d26af9f67c14cb8070ee79e955f5, type: 3}
+    - {fileID: 21300000, guid: 5df926d492f21484aa7347d4fc2863d0, type: 3}
+    - {fileID: 21300000, guid: 181c334d4ce9beb40a896e7d03e23c2f, type: 3}
+    - {fileID: 21300000, guid: 916c9cf91e0a895498ff8a4a4946c487, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: cbaa29a249daeac47a54f931bc6a4970, type: 3}
+  - {fileID: 21300000, guid: 988d59a2199842c4f88986f923d7ee24, type: 3}
+  - {fileID: 21300000, guid: 4926daa41d6fc834eb00b4b8847d6676, type: 3}
+  - {fileID: 21300000, guid: 5df926d492f21484aa7347d4fc2863d0, type: 3}
+  - {fileID: 21300000, guid: 61c5a5e571fa22d4688fdf7c447708ed, type: 3}
+  - {fileID: 21300000, guid: 3981bda64a60b7948b7ca499ccf7ca9f, type: 3}
+  - {fileID: 21300000, guid: ce4a42c666a57de4ab53fe3c0cd9df39, type: 3}
+  - {fileID: 21300000, guid: 4c0afcb781637384c803767bbff079a4, type: 3}
+  - {fileID: 21300000, guid: 1a0cd1a824bc60342b052f7aaf9fd126, type: 3}
+  - {fileID: 21300000, guid: 73a56ba810375394eb452f37605ac67a, type: 3}
+  - {fileID: 21300000, guid: 916c9cf91e0a895498ff8a4a4946c487, type: 3}
+  - {fileID: 21300000, guid: 2f35d26af9f67c14cb8070ee79e955f5, type: 3}
+  - {fileID: 21300000, guid: 81de5c6b3d62e484aafec7e885add18b, type: 3}
+  - {fileID: 21300000, guid: a1445bacef7ad0945b753e231b5ac6f4, type: 3}
+  - {fileID: 21300000, guid: 181c334d4ce9beb40a896e7d03e23c2f, type: 3}
+  - {fileID: 21300000, guid: 075e8bffb720a3e43bf3734145b61c3f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - treasure
+  - crown
+  - jeans
+  - sword
+  - ruby
+  - fire
+  - watchAds
+  - energy
+  - hat
+  - water
+  - padlock
+  - key
+  - love
+  - trophy
+  - map
+  - tshirt
+  m_RenderDataMap: {}
+  m_Tag: TotalItemSpriteAtlas
+  m_IsVariant: 0
