@@ -57,7 +57,6 @@ class RecordBoardFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.getMission()
-        binding.boardFrame.setPadding(0,0,0,56)
         binding.allButton.isChecked = true
     }
 

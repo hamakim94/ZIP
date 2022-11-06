@@ -180,7 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#E0E0E0"
+                    android:background="@color/grey"
                     android:gravity="start"
                     android:hint="댓글 작성하기"
                     android:padding="10dp"

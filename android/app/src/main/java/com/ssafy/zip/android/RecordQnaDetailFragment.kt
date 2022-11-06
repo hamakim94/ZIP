@@ -142,8 +142,6 @@ class RecordQnaDetailFragment : Fragment() {
             homeAdapter = QnaProfileAdapter(
                 homeList,
                 viewModel,
-//                viewModel.qnaDetail.value?.answers
-                childFragmentManager
             )
             binding.homeRecyclerView.adapter = homeAdapter
 
@@ -168,8 +166,6 @@ class RecordQnaDetailFragment : Fragment() {
                 homeAdapter = QnaProfileAdapter(
                     homeList,
                     viewModel,
-//                viewModel.qnaDetail.value?.answers
-                    childFragmentManager
                 )
                 binding.homeRecyclerView.adapter = homeAdapter
 
@@ -186,13 +182,14 @@ class RecordQnaDetailFragment : Fragment() {
 
 
     private fun onUpdateQnaDetail() {
+        val qnaData = arguments?.getParcelable<BoardModel.Qna>("Qna")
         val qnaDetail: QnaDetail? = viewModel.qnaDetail.value
         // 사용자 프로필 이미지
         if (qnaDetail != null) {
             binding.qnaDetailReg.text = DateUtil.getRegDate(qnaDetail.reg)
             binding.qnaDetailContent.text = qnaDetail.question
             commentList = qnaDetail.answers
-            commentQnaAdapter = CommentQnaAdapter(commentList)
+            commentQnaAdapter = CommentQnaAdapter(commentList, qnaData?.id)
             binding.commentRecyclerView.adapter = commentQnaAdapter
             binding.commentRecyclerView.layoutManager = LinearLayoutManager(activity)
 

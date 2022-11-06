@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_record" >
         <action
             android:id="@+id/action_recordFragment_to_recordBoardFragment2"
-            app:destination="@id/recordBoardFragment2" />
+            app:destination="@id/recordBoardDetailFragment" />
         <action
             android:id="@+id/action_recordFragment_to_recordQnaDetailFragment"
             app:destination="@id/recordQnaDetailFragment" />
@@ -54,7 +54,7 @@
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
     <fragment
-        android:id="@+id/recordBoardFragment2"
+        android:id="@+id/recordBoardDetailFragment"
         android:name="com.ssafy.zip.android.RecordBoardDetailFragment"
         android:label="fragment_record_board_detail"
         tools:layout="@layout/fragment_record_board_detail" >
