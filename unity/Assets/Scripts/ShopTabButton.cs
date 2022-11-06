@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TabButton : MonoBehaviour
+public class ShopTabButton : MonoBehaviour
 {
     public long id;
     public string pos;
@@ -29,7 +29,7 @@ public class TabButton : MonoBehaviour
                 var shopListItem = listItem.GetComponent<ShopListItem>();
                 var itemData = (ItemData)DataManager.Instance.itemIdToItem(id, data.id);
 
-                shopListItem.Init(itemData.id, itemData.img, itemData.price);
+                shopListItem.Init(itemData.id, itemData.img, itemData.price, id);
             } else // 보유
             {
                 // 아이템 만들기 
@@ -57,7 +57,6 @@ public class TabButton : MonoBehaviour
             shopListItem.Init(data.id, data.img, data.price);
         }*/
     }
-
 
     /*public void OnClickButton()
     {
