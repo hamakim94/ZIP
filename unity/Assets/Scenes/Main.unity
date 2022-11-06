@@ -450,9 +450,7 @@ MonoBehaviour:
   id: 4
   pos: '"floor"'
   contents: {fileID: 518293057}
-  placedItem: {fileID: 5198209267480081108, guid: e0d6207b156f5f448b68c6e04bcc0e68,
-    type: 3}
-  unplacedItem: {fileID: 2258659710884991929, guid: df6d23b9f1897ee4da32a60b7aed8bff,
+  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
     type: 3}
 --- !u!1 &57744186
 GameObject:
@@ -2795,9 +2793,7 @@ MonoBehaviour:
   id: 1
   pos: '"right"'
   contents: {fileID: 1116309827}
-  placedItem: {fileID: 5198209267480081108, guid: e0d6207b156f5f448b68c6e04bcc0e68,
-    type: 3}
-  unplacedItem: {fileID: 2258659710884991929, guid: df6d23b9f1897ee4da32a60b7aed8bff,
+  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
     type: 3}
 --- !u!1 &428704588
 GameObject:
@@ -3485,9 +3481,8 @@ RectTransform:
   - {fileID: 1670775111}
   - {fileID: 1248059206}
   - {fileID: 1865527417}
-  - {fileID: 1616151402}
   m_Father: {fileID: 1253029479}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3757,9 +3752,7 @@ MonoBehaviour:
   id: 3
   pos: '"left"'
   contents: {fileID: 188899480}
-  placedItem: {fileID: 5198209267480081108, guid: e0d6207b156f5f448b68c6e04bcc0e68,
-    type: 3}
-  unplacedItem: {fileID: 2258659710884991929, guid: df6d23b9f1897ee4da32a60b7aed8bff,
+  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
     type: 3}
 --- !u!224 &636588052 stripped
 RectTransform:
@@ -6951,6 +6944,7 @@ RectTransform:
   m_Children:
   - {fileID: 1541809078}
   - {fileID: 1452990443}
+  - {fileID: 1616151402}
   - {fileID: 594707105}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -8835,12 +8829,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616151401}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -666.66656, y: -305.99994, z: 0}
-  m_LocalScale: {x: 0.69444436, y: 0.69444436, z: 0.69444436}
+  m_LocalPosition: {x: -666.6665, y: -374.9999, z: 0}
+  m_LocalScale: {x: 0.6944443, y: 0.6944443, z: 0.6944443}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 594707105}
-  m_RootOrder: 4
+  m_Father: {fileID: 1253029479}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1616151403
 MonoBehaviour:
@@ -8953,9 +8947,7 @@ MonoBehaviour:
   id: 2
   pos: '"center"'
   contents: {fileID: 37767073}
-  placedItem: {fileID: 5198209267480081108, guid: e0d6207b156f5f448b68c6e04bcc0e68,
-    type: 3}
-  unplacedItem: {fileID: 2258659710884991929, guid: df6d23b9f1897ee4da32a60b7aed8bff,
+  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
     type: 3}
 --- !u!1 &1624916293
 GameObject:

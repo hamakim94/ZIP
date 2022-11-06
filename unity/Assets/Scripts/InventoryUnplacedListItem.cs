@@ -25,5 +25,7 @@ public class InventoryUnplacedListItem : MonoBehaviour
     {
         // 배치하기
         Debug.Log("inventoryitem OnClickButton: " + itemId + ", " + posId);
+
+        // UI 변경
     }
 }
