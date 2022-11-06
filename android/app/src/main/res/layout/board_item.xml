@@ -113,7 +113,7 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@id/commentContainer"
                 app:layout_constraintEnd_toEndOf="@id/commentContainer"
-                app:layout_constraintTop_toTopOf="@id/commentButton">>
+                app:layout_constraintTop_toTopOf="@id/commentButton">
 
             </TextView>
 
