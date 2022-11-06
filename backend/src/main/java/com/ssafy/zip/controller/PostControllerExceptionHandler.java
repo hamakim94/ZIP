@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@RestControllerAdvice(assignableTypes = PostController.class)
+@RestControllerAdvice(assignableTypes = {PostController.class,UnityController.class})
 public class PostControllerExceptionHandler {
 
     @ExceptionHandler(UnauthorizedRequestException.class)
