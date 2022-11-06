@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.CommentQnaAdapter
-import com.ssafy.zip.android.adapter.HomeAdapter
 import com.ssafy.zip.android.adapter.QnaProfileAdapter
 import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.databinding.FragmentRecordQnaDetailBinding
@@ -75,7 +74,7 @@ class RecordQnaDetailFragment : Fragment() {
             if (answers != null) {
                 if (!answers.isEmpty()) {
                     val answered = answers.filter { it.user.id == userId }
-                    if (answered != null) check = true;
+                    if (answered.isNotEmpty()) check = true;
                 }
             }
 
@@ -90,10 +89,13 @@ class RecordQnaDetailFragment : Fragment() {
                     binding.qnaCommentContent.text = null
                     hideKeyboard(inputMethodManager, binding.root)
                 } else if (id != null && binding.qnaCommentContent.text.isNotEmpty()) {
-                    println(binding.qnaCommentContent.text)
-                    viewModel.addQnaAnswer(id, binding.qnaCommentContent.text.toString())
-                    binding.qnaCommentContent.text = null
-                    hideKeyboard(inputMethodManager, binding.root)
+                    MaterialAlertDialogBuilder(activity).setMessage("답변을 작성하시겠습니까?")
+                        .setPositiveButton("확인") { dialog, which ->
+                            viewModel.addQnaAnswer(id, binding.qnaCommentContent.text.toString())
+                            binding.qnaCommentContent.text = null
+                            hideKeyboard(inputMethodManager, binding.root)
+                            dialog.dismiss()
+                        }.show()
                 }
             } else {
                 MaterialAlertDialogBuilder(activity)
