@@ -27,6 +27,7 @@ import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.request.RequestCalendar
 import com.ssafy.zip.android.databinding.FragmentCalendarBinding
 import com.ssafy.zip.android.viewmodel.CalendarViewModel
+import java.lang.IllegalArgumentException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -70,7 +71,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         super.onCreate(savedInstanceState)
 
 
-        val languageToLoad = "KOREA" // your language
+        val languageToLoad = "kor" // your language
         val locale = Locale(languageToLoad)
         Locale.setDefault(locale)
         val config = Configuration()
@@ -109,17 +110,18 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         recyclerView.layoutManager = GridLayoutManager(activity, 1)
 
 
-        val dateTime = LocalDateTime.now()
-        val zoneIdKorea = ZoneId.of("Asia/Seoul")
-        val zoneDateTime = dateTime.atZone(zoneIdKorea)
+//        val dateTime = LocalDateTime.now()
+//        val zoneIdKorea = ZoneId.of("Asia/Seoul")
+//        val zoneDateTime = dateTime.atZone(zoneIdKorea)
 
-//        curYear = CalendarDay.today().year
-//        curMonth = CalendarDay.today().month
-//        curDay = CalendarDay.today().day
+        curYear = CalendarDay.today().year
+        curMonth = CalendarDay.today().month
+        curDay = CalendarDay.today().day
 
-        curYear = zoneDateTime.year
-        curMonth = zoneDateTime.monthValue
-        curDay = zoneDateTime.dayOfMonth
+//        curYear = zoneDateTime.year
+//        curMonth = zoneDateTime.monthValue
+//        curDay = zoneDateTime.dayOfMonth
+
         // 일단 adapter reset
         calendarAdapter = CalendarAdapter(
             ArrayList(), link, this.activity
@@ -508,7 +510,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             0, 2, 4, 6, 7, 9, 11 -> 31
             3, 5, 8, 10 -> 30
             1 -> if(year%4==0 && year%100!=0 || year%400==0) 29 else 28
-            else -> throw java.lang.IllegalArgumentException("Invalid Month")
+            else -> throw IllegalArgumentException("Invalid Month")
         }
     }
 
