@@ -58,7 +58,7 @@
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="15dp"
         android:text="@string/login_text"
         android:textSize="18sp"
         android:textStyle="bold"
