@@ -10,7 +10,8 @@ public class LoadingSceneManager : MonoBehaviour
     public Slider slider;
     public string sceneName;
 
-    private float time; 
+    private float time;
+
 
     // Start is called before the first frame update
     void Start()
