@@ -391,6 +391,7 @@ MonoBehaviour:
   imgIcon: {fileID: 5090156007076016182}
   priceText: {fileID: 5090156006082994414}
   itemButton: {fileID: 700493217926495273}
+  atlas: {fileID: 4343727234628468602, guid: 62d9309d7a1aea8419c28d4f0d61d573, type: 2}
 --- !u!222 &5090156006489720199
 CanvasRenderer:
   m_ObjectHideFlags: 0

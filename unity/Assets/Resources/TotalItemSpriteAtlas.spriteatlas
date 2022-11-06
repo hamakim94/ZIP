@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShopImgSpriteAtlas
+  m_Name: TotalItemSpriteAtlas
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -111,5 +111,5 @@ SpriteAtlas:
   - map
   - tshirt
   m_RenderDataMap: {}
-  m_Tag: ShopImgSpriteAtlas
+  m_Tag: TotalItemSpriteAtlas
   m_IsVariant: 0
