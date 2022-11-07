@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.databinding.FragmentRecordBoardCreateBinding
@@ -55,7 +56,7 @@ class RecordBoardCreateFragment : Fragment() {
                             val instance = BoardRepository.getInstance(Application())
                             val body = RequestBody.create(
                                 MediaType.get("application/json; charset=utf-8"),
-                                binding.boardContent.text.toString()
+                                binding.boardContent.text.toString().replace("[\r\n]+", "\n")
                             );
 
                             var response = instance?.postBoard(
@@ -112,6 +113,10 @@ class RecordBoardCreateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRecordBoardCreateBinding.inflate(inflater, container, false)
+        val toolbar: Toolbar = binding.boardCreateAppbar
+        // 앨범명으로 appbar title 지정
+        toolbar.title = "게시글 작성"
+
         binding.btnPostBoard.setOnClickListener {
             if (binding.boardContent.text.toString().isNotEmpty()) {
                 CoroutineScope(Dispatchers.Main).launch {
@@ -133,7 +138,7 @@ class RecordBoardCreateFragment : Fragment() {
                 }
             }
         }
-        binding.imageButton.setOnClickListener {
+        binding.imageButtonContainer.setOnClickListener {
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
             photoPickerIntent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             photoPickerIntent.type = "image/*"

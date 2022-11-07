@@ -139,6 +139,11 @@ interface ApiInterface {
     suspend fun postQnaAnswer(
         @Body body : RequestQnaComment
     ) : Response<String>
+    // 백문백답 수정
+    @POST("post/qna/answer")
+    suspend fun editQnaAnswer(
+        @Body body : RequestQnaAnswer
+    ) : Response<String>
 
 
     @Multipart

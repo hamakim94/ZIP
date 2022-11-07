@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.CommentQnaAdapter
-import com.ssafy.zip.android.adapter.HomeAdapter
 import com.ssafy.zip.android.adapter.QnaProfileAdapter
 import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.databinding.FragmentRecordQnaDetailBinding
@@ -74,7 +74,7 @@ class RecordQnaDetailFragment : Fragment() {
             if (answers != null) {
                 if (!answers.isEmpty()) {
                     val answered = answers.filter { it.user.id == userId }
-                    if (answered != null) check = true;
+                    if (answered.isNotEmpty()) check = true;
                 }
             }
 
@@ -89,10 +89,13 @@ class RecordQnaDetailFragment : Fragment() {
                     binding.qnaCommentContent.text = null
                     hideKeyboard(inputMethodManager, binding.root)
                 } else if (id != null && binding.qnaCommentContent.text.isNotEmpty()) {
-                    println(binding.qnaCommentContent.text)
-                    viewModel.addQnaAnswer(id, binding.qnaCommentContent.text.toString())
-                    binding.qnaCommentContent.text = null
-                    hideKeyboard(inputMethodManager, binding.root)
+                    MaterialAlertDialogBuilder(activity).setMessage("답변을 작성하시겠습니까?")
+                        .setPositiveButton("확인") { dialog, which ->
+                            viewModel.addQnaAnswer(id, binding.qnaCommentContent.text.toString())
+                            binding.qnaCommentContent.text = null
+                            hideKeyboard(inputMethodManager, binding.root)
+                            dialog.dismiss()
+                        }.show()
                 }
             } else {
                 MaterialAlertDialogBuilder(activity)
@@ -112,6 +115,10 @@ class RecordQnaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val toolbar: Toolbar = view.findViewById(R.id.qna_detail_appbar)
+        // 앨범명으로 appbar title 지정
+        toolbar.title = "백문백답"
+
         val qnaData = arguments?.getParcelable<BoardModel.Qna>("Qna")
         val id = qnaData?.id
         if (id != null) {
@@ -135,8 +142,6 @@ class RecordQnaDetailFragment : Fragment() {
             homeAdapter = QnaProfileAdapter(
                 homeList,
                 viewModel,
-//                viewModel.qnaDetail.value?.answers
-                childFragmentManager
             )
             binding.homeRecyclerView.adapter = homeAdapter
 
@@ -161,8 +166,6 @@ class RecordQnaDetailFragment : Fragment() {
                 homeAdapter = QnaProfileAdapter(
                     homeList,
                     viewModel,
-//                viewModel.qnaDetail.value?.answers
-                    childFragmentManager
                 )
                 binding.homeRecyclerView.adapter = homeAdapter
 
@@ -179,13 +182,14 @@ class RecordQnaDetailFragment : Fragment() {
 
 
     private fun onUpdateQnaDetail() {
+        val qnaData = arguments?.getParcelable<BoardModel.Qna>("Qna")
         val qnaDetail: QnaDetail? = viewModel.qnaDetail.value
         // 사용자 프로필 이미지
         if (qnaDetail != null) {
-            binding.qnaDetailReg.text = qnaDetail.reg.toString()
-            binding.qnaDetailContent.text = "Q. " + qnaDetail.question
+            binding.qnaDetailReg.text = DateUtil.getRegDate(qnaDetail.reg)
+            binding.qnaDetailContent.text = qnaDetail.question
             commentList = qnaDetail.answers
-            commentQnaAdapter = CommentQnaAdapter(commentList)
+            commentQnaAdapter = CommentQnaAdapter(commentList, qnaData?.id)
             binding.commentRecyclerView.adapter = commentQnaAdapter
             binding.commentRecyclerView.layoutManager = LinearLayoutManager(activity)
 

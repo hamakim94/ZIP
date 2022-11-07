@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding;
     private val binding get() = _binding!!
@@ -35,14 +36,20 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController, false)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // 특정화면에서 하단바 없애기
-            if (destination.id == R.id.loginFragment || destination.id == R.id.signupFragment || destination.id == R.id.signUpCompleteFragment) {
+            if (destination.id == R.id.loginFragment || destination.id == R.id.signupFragment || destination.id == R.id.signUpCompleteFragment || destination.id == R.id.recordBoardCreateFragment || destination.id == R.id.recordLetterCreateFragment || destination.id == R.id.recordQnaDetailFragment || destination.id == R.id.recordBoardDetailFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
                 binding.fab.visibility = View.GONE
+                binding.mainFlContainer.setPadding(0,0,0,0)
+                // 여기에 작성 페이지, 패딩을 0으로 넣으면 될 듯 ^^;
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
                 binding.bottomAppBar.visibility = View.VISIBLE
                 binding.fab.visibility = View.VISIBLE
+                val dm = resources.displayMetrics
+                val size = Math.round(56 * dm.density)
+                binding.mainFlContainer.setPadding(0,0, 0,size)
+                // dp로 나타내야할듯
             }
         }
     }

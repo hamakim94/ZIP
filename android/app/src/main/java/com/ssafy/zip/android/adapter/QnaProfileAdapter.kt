@@ -1,5 +1,6 @@
 package com.ssafy.zip.android.adapter
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,13 +31,7 @@ import okhttp3.RequestBody
 class QnaProfileAdapter(
     private val homeList: ArrayList<FamilyMember>,
     private val viewModel: QnaDetailViewModel,
-    fragmentManager: FragmentManager
 ) : RecyclerView.Adapter<QnaProfileAdapter.QnaProfileViewHolder>() {
-    private var mFragmentManager: FragmentManager
-
-    init {
-        mFragmentManager = fragmentManager
-    }
 
     class QnaProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val homeImage: CircleImageView = itemView.findViewById(R.id.home_image)
@@ -50,6 +45,7 @@ class QnaProfileAdapter(
         )
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: QnaProfileViewHolder, position: Int) {
         var answered = false
 
@@ -63,7 +59,7 @@ class QnaProfileAdapter(
                 .into(holder.homeImage)
         }
         holder.homeImage.borderWidth = 5
-        holder.homeImage.borderColor
+        holder.homeImage.borderColor = R.color.grey
         // 조건넣기
         var answerList = viewModel.qnaDetail.value?.answers
         var familyMemberId = homeList[position].id
