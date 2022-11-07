@@ -153,6 +153,14 @@ interface ApiInterface {
         @Part image : MultipartBody.Part?
     ) :Response<String>
 
+//    @Multipart
+//    @PUT("users/profiles")
+//    suspend fun modifyUser(
+//        @Part profileImg: MultipartBody.Part?,
+//        @Part("familyName") familyName : RequestBody,
+//        @Part("nickname") nickname : RequestBody
+//    ): Response<User>
+
     // 편지 관련
     @GET("post/letter/today")
     suspend fun getTodayLetter(
