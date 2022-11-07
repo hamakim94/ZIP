@@ -3,8 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginStart="30dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginEnd="30dp"
     tools:context=".LoginFragment">
+
+
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/zip_logo_3"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_email"
@@ -13,7 +28,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/login_logo">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"
@@ -43,9 +58,9 @@
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="15dp"
         android:text="@string/login_text"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,8 +71,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signup_text"
-        android:textSize="20sp"
+        android:textSize="13sp"
         android:textStyle="bold"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/passwordfind_text"
         app:layout_constraintHorizontal_bias="0.5"
@@ -69,8 +85,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/passwordfind_text"
-        android:textSize="20sp"
+        android:textSize="13sp"
         android:textStyle="bold"
+        android:layout_marginTop="5dp"
         app:layout_constraintLeft_toRightOf="@id/signup_text"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
