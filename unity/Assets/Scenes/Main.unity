@@ -3333,9 +3333,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1616151402}
   - {fileID: 1541809078}
   - {fileID: 1452990443}
-  - {fileID: 1616151402}
   - {fileID: 594707105}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -3912,7 +3912,7 @@ PrefabInstance:
     - target: {fileID: 4156902540632942830, guid: 57c363aef7f654a6a95c5998eb31c631,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4156902540632942830, guid: 57c363aef7f654a6a95c5998eb31c631,
         type: 3}
@@ -4419,7 +4419,7 @@ RectTransform:
   - {fileID: 1623640448}
   - {fileID: 2091523443}
   m_Father: {fileID: 1253029479}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4625,12 +4625,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616151401}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -666.6665, y: -374.9999, z: 0}
-  m_LocalScale: {x: 0.6944443, y: 0.6944443, z: 0.6944443}
+  m_LocalPosition: {x: -666.66644, y: -374.99988, z: 0}
+  m_LocalScale: {x: 0.69444436, y: 0.69444436, z: 0.69444436}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1253029479}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1616151403
 MonoBehaviour:
@@ -5549,11 +5549,191 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1253029479}
     m_Modifications:
+    - target: {fileID: 4254940150971896866, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940150971896866, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940150971896866, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940150971896866, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940150971896866, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940150971896866, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940150971896876, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickTabButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940150971896876, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ShopTabButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553212, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553212, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553212, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553212, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553212, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553212, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553214, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553214, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553214, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553214, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickTabButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553214, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ShopTabButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151108553214, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: TabButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151482422393, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151482422393, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151482422393, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151482422393, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151482422393, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151482422393, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151482422395, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickTabButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151482422395, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ShopTabButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4254940151752592623, guid: 2d62f86e3f6b80e448485e5b02805b3b,
         type: 3}
       propertyPath: mainPanel
       value: 
       objectReference: {fileID: 1541809077}
+    - target: {fileID: 4254940151983030232, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151983030232, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151983030232, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151983030232, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151983030232, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151983030232, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151983030234, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickTabButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254940151983030234, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ShopTabButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4254940152620760628, guid: 2d62f86e3f6b80e448485e5b02805b3b,
         type: 3}
       propertyPath: m_Pivot.x

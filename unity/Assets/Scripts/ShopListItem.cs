@@ -10,7 +10,6 @@ public class ShopListItem : MonoBehaviour
 {
     public Image imgIcon;
     public TMP_Text priceText;
-    public Button itemButton;
     public SpriteAtlas atlas;
     public GameObject ownedBtn;
     public GameObject unownedBtn;
@@ -22,15 +21,23 @@ public class ShopListItem : MonoBehaviour
         this.imgIcon.sprite = spriteName;
         this.priceText.text = price.ToString();
 
-        this.itemButton.onClick.AddListener(() => OnClickButton(id, posId));
+        unownedBtn.GetComponent<Button>().onClick.AddListener(() => OnClickButton(id, posId));
 
-        this.ownedBtn.SetActive(isOwned);
-        this.unownedBtn.SetActive(!isOwned);
+        changeBtn(isOwned);
     }
 
     public void OnClickButton(long itemId, long posId)
     {
         // 구매 api 연동
         Debug.Log("shopitem OnClickButton: " + itemId + ", " + posId);
+
+        changeBtn(true);
+    }
+
+    public void changeBtn(Boolean isOwned)
+    {
+
+        ownedBtn.SetActive(isOwned);
+        unownedBtn.SetActive(!isOwned);
     }
 }

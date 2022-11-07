@@ -13,9 +13,8 @@ public class DataManager : MonoBehaviour
     private void Awake()
     {
         DataManager.Instance = this;
-        this.totalItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 가구[](가구 list)
+       
         LoadInitData();
-        this.userItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 사용자가구[](사용자가구 list)
         LoadUserData();
 
         this.dicData = new Dictionary<long, RawData>();
@@ -36,6 +35,7 @@ public class DataManager : MonoBehaviour
 
     private void LoadInitData()
     {
+        this.totalItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 가구[](가구 list)
         var ta = Resources.Load<TextAsset>("Data/total_item_data");
         var json = ta.text;
         var arrData = JsonConvert.DeserializeObject<PositionData[]>(json);
@@ -46,15 +46,17 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private void LoadUserData()
+    public void LoadUserData()
     {
+        Debug.Log("LoadUserData");
+        this.userItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 사용자가구[](사용자가구 list)
         var ta = Resources.Load<TextAsset>("Data/user_item_data2"); // api 통신해서 json 가져오기 
         var json = ta.text;
         var arrData = JsonConvert.DeserializeObject<PositionUserItemData[]>(json);
 
         foreach (var data in arrData)
         {
-           /*Debug.Log("data.id: " + data.id);
+            /*Debug.Log("data.id: " + data.id);
             Debug.Log("data.itemList: " + data.itemList);*/
             this.userItemDicData.Add(data.id, data.itemList);
         }
