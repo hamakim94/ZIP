@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.utils.widget.ImageFilterButton
+import androidx.core.view.isGone
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -168,11 +169,12 @@ class BoardModelAdapter(
                                 (letter.from.nickname + "에게서 온 편지")
                             itemView.findViewById<TextView>(R.id.letterReg).text =
                                 DateUtil.getRegDate(letter.reg)
+                            itemView.findViewById<TextView>(R.id.letterContent).isGone = true
                         }
 
-                        itemView.findViewById<ImageFilterButton>(R.id.mailIcon)
+                        itemView.findViewById<CircleImageView>(R.id.mailIcon)
                             .setImageResource(R.drawable.ic_outline_mark_email_unread_24)
-//                        itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
+                        itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
 
                     }
 
