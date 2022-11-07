@@ -11,6 +11,8 @@ public class FollowCamera : MonoBehaviour
     void Start()
     {
         cameraTr = GetComponent<Transform>();
+        cameraTr.position = new Vector3(target.position.x - 0.52f, cameraTr.position.y, target.position.z - 6.56f);
+        cameraTr.LookAt(target);
     }
  
     void LateUpdate()
