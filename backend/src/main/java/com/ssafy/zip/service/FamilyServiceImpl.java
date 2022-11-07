@@ -7,13 +7,16 @@ import com.ssafy.zip.dto.response.FamilyResponseDTO;
 import com.ssafy.zip.dto.response.SimpleUserResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.entity.Family;
+import com.ssafy.zip.entity.LetterFromAndTo;
 import com.ssafy.zip.entity.Notification;
 import com.ssafy.zip.entity.User;
 import com.ssafy.zip.repository.FamilyRepository;
+import com.ssafy.zip.repository.LetterFromAndToRepository;
 import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.NotificationEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.Loader;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,6 +34,7 @@ public class FamilyServiceImpl implements FamilyService{
     private final FamilyRepository familyRepository;
     private final UserRepository userRepository;
     private final NotificationServiceImpl notificationService;
+    private final LetterFromAndToRepository letterFromAndToRepository;
     @Transactional
     @Override
     public FamilyResponseDTO createFamilyRoom(UserDTO userDTO, FamilyRequestDTO familyRequestDTO) throws Exception {
@@ -53,8 +57,16 @@ public class FamilyServiceImpl implements FamilyService{
         user.setFamily(family);
         userRepository.save(user);
         FamilyResponseDTO familyResponseDTO = new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId());
+
+
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.FamilyEnrolled.getMessage(), userDTO.getNickname()),NotificationEnum.FamilyEnrolled.getLink(), userDTO.getProfileImg(),false),
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
+        // 편지 보낼 가족 선정!
+        List<Long> usersIdList = family.getUsers().stream().map(User::getId).filter(o->!o.equals(user.getId())).collect(Collectors.toList());
+        if(usersIdList.size()>0){
+            Long sendLetterTo = usersIdList.get((int)(Math.random()* usersIdList.size()));
+            letterFromAndToRepository.save(new LetterFromAndTo(userDTO.getId(), sendLetterTo));
+        }
 
         return familyResponseDTO;
     }
