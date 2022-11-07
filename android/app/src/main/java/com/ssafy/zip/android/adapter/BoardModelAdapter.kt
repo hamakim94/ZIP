@@ -1,23 +1,32 @@
 package com.ssafy.zip.android.adapter
 
+import android.R.attr.left
+import android.R.attr.right
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.utils.widget.ImageFilterButton
+import androidx.core.view.isGone
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
+import com.ssafy.zip.android.DateUtil
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.viewmodel.BoardViewModel
+import de.hdodenhof.circleimageview.CircleImageView
 
 
-class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , private val viewModel : BoardViewModel ) :
+class BoardModelAdapter(
+    private val adapterData: ArrayList<ResponseBoardAll>,
+    private val viewModel: BoardViewModel
+) :
     RecyclerView.Adapter<BoardModelAdapter.BoardModelAdapterViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -96,7 +105,7 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , p
                         .into(itemView.findViewById<ShapeableImageView>(R.id.profileImage))
                 }
                 itemView.findViewById<TextView>(R.id.userNickname).text = board.user.nickname
-                itemView.findViewById<TextView>(R.id.boardReg).text = board.reg.toString()
+                itemView.findViewById<TextView>(R.id.boardReg).text = DateUtil.getRegDate(board.reg)
                 //Glide 쓰기..
                 if (board.image != null) {
                     itemView.findViewById<ImageView>(R.id.boardImage).layoutParams.height = 800
@@ -113,7 +122,7 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , p
         private fun bindQna(item: ResponseBoardAll) {
             var qna: BoardModel.Qna = item.data as BoardModel.Qna
             if (qna != null) {
-                itemView.findViewById<TextView>(R.id.qnaReg).text = qna.reg.toString()
+                itemView.findViewById<TextView>(R.id.qnaReg).text = DateUtil.getRegDate(qna.reg)
                 itemView.findViewById<TextView>(R.id.qnaContent).text = qna.question
                 itemView.findViewById<TextView>(R.id.qnaCommentCount).text = "" + qna.answerCnt
             }
@@ -126,36 +135,46 @@ class BoardModelAdapter(private val adapterData: ArrayList<ResponseBoardAll> , p
             var userId = viewModel.userData.value?.id
             println("bindLetter : " + letter.toString())
             println("bindViewModel : " + userId.toString())
-            if(userId != null){
+            if (userId != null) {
                 // 1. 보낸 편지인지, 그냥 mark,email 쓸거
-                if(userId == letter?.from?.id){
+                if (userId == letter?.from?.id) {
                     itemView.findViewById<TextView>(R.id.letterTitle).text =
                         (letter.to.nickname + "에게 쓴 편지")
-                    itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
-                    itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mail_24)
-                    itemView.findViewById<TextView>(R.id.letterContent).text = if(letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
+                    itemView.findViewById<TextView>(R.id.letterReg).text =
+                        DateUtil.getRegDate(letter.reg)
+                    itemView.findViewById<CircleImageView>(R.id.mailIcon)
+                        .setImageResource(R.drawable.ic_outline_email_24)
+                    itemView.findViewById<TextView>(R.id.letterContent).text =
+                        if (letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
 
 
                 }// 2. 받은 편지인지
-                else{
+                else {
                     // 2-1. 읽었는지(isRead == true?) mark_email_read
-                    if(letter?.isRead == true){
+                    if (letter?.isRead == true) {
                         itemView.findViewById<TextView>(R.id.letterTitle).text =
                             (letter.from.nickname + "에게서 온 편지")
-                        itemView.findViewById<TextView>(R.id.letterReg).text = letter.reg.toString()
-                        itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mark_email_read_24)
-                        itemView.findViewById<TextView>(R.id.letterContent).text = if(letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
+                        itemView.findViewById<TextView>(R.id.letterReg).text =
+                            DateUtil.getRegDate(letter.reg)
+                        itemView.findViewById<CircleImageView>(R.id.mailIcon)
+                            .setImageResource(R.drawable.ic_outline_mark_email_read_24)
+                        itemView.findViewById<TextView>(R.id.letterContent).text =
+                            if (letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
 
                     }
                     // 2-2. 안 읽었는지 mark_email_unread
-                    else{
+                    else {
                         if (letter != null) {
                             itemView.findViewById<TextView>(R.id.letterTitle).text =
                                 (letter.from.nickname + "에게서 온 편지")
+                            itemView.findViewById<TextView>(R.id.letterReg).text =
+                                DateUtil.getRegDate(letter.reg)
+                            itemView.findViewById<TextView>(R.id.letterContent).isGone = true
                         }
-                        itemView.findViewById<TextView>(R.id.letterReg).text = letter?.reg.toString()
-                        itemView.findViewById<ImageFilterButton>(R.id.mailIcon).setImageResource(R.drawable.ic_baseline_mark_email_unread_24)
-//                        itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
+
+                        itemView.findViewById<CircleImageView>(R.id.mailIcon)
+                            .setImageResource(R.drawable.ic_outline_mark_email_unread_24)
+                        itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
 
                     }
 

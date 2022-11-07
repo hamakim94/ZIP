@@ -5,6 +5,7 @@ import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.request.RequestLetter
 import com.ssafy.zip.android.data.request.RequestPhoto
+import com.ssafy.zip.android.data.request.RequestQnaAnswer
 import com.ssafy.zip.android.data.request.RequestQnaComment
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import okhttp3.MultipartBody
@@ -87,6 +88,14 @@ class BoardRepository private constructor(application: Application) {
         return returnData
 
     }
+
+    suspend fun editQnaAnswer(requestQnaAnswer: RequestQnaAnswer) : String? {
+        val response = ApiService.getApiService.editQnaAnswer(requestQnaAnswer)
+        var returnData : String?
+        returnData = response.code().toString()
+        return returnData
+    }
+
     // 편지 달기
     suspend fun postLetter(requestLetter: RequestLetter) : String?{
         val response = ApiService.getApiService.postLetter(requestLetter)
@@ -94,6 +103,7 @@ class BoardRepository private constructor(application: Application) {
         returnData = response.code().toString()
         return returnData
     }
+
 
     // 편지 읽음 표시
     suspend fun postLetterRead(id : Long) : String? {

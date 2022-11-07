@@ -4,6 +4,7 @@ import android.app.Application
 import android.service.controls.ControlsProviderService
 import android.util.Log
 import androidx.lifecycle.*
+import com.ssafy.zip.android.App
 import com.ssafy.zip.android.data.BoardModel
 import com.ssafy.zip.android.data.Missions
 import com.ssafy.zip.android.data.User
@@ -34,6 +35,7 @@ class BoardViewModel(private val repository: BoardRepository) : ViewModel() {
             // .value : livedata가 가지고 있는 값으로 접근
             _missions.value = repository.getMission()
             _userData.value = repository.getUserData()
+            App.prefs.setString("userId", userData.value?.id.toString())
         }
     }
     fun getMission(){

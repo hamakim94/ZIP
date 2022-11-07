@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.adapter.BoardModelAdapter
 import com.ssafy.zip.android.adapter.CommentAdapter
@@ -49,9 +51,12 @@ class RecordBoardDetailFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+
         _binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_record_board_detail, container, false
         )
@@ -62,9 +67,13 @@ class RecordBoardDetailFragment : Fragment() {
         binding.commentPostBtn.setOnClickListener {
             val id = boardData?.id
             if (id != null && binding.commentContent.text.isNotEmpty()) {
-                viewModel.postBoardComment(id, binding.commentContent.text.toString())
-                binding.commentContent.text = null
-                binding.commentContent.clearFocus()
+                MaterialAlertDialogBuilder(activity).setMessage("댓글을 작성하시겠습니까?")
+                    .setPositiveButton("확인") { dialog, which ->
+                        viewModel.postBoardComment(id, binding.commentContent.text.toString())
+                        binding.commentContent.text = null
+                        hideKeyboard(inputMethodManager, binding.root)
+                        dialog.dismiss()
+                    }.show()
             }
         }
         return binding.root
@@ -107,20 +116,17 @@ class RecordBoardDetailFragment : Fragment() {
             if (boardDetail.board.user.profileImg == null) {
                 binding.profileImageDetail.setImageResource(R.drawable.ex)
             } else {
-                Glide.with(activity)
-                    .load(boardDetail?.board?.user?.profileImg)
+                Glide.with(activity).load(boardDetail?.board?.user?.profileImg)
                     .into(binding.profileImageDetail)
             }
         }
 
         // 닉네임, 게시글 내용
         binding.userNicknameDetail.text = boardDetail?.board?.user?.nickname
-        binding.boardRegDetail.text = boardDetail?.board?.reg.toString()
+        binding.boardRegDetail.text = boardDetail?.board?.reg?.let { DateUtil.getRegDate(it) }
         // 게시글 이미지
         if (boardDetail?.board?.image != null) {
-            Glide.with(activity)
-                .load(boardDetail?.board?.image)
-                .into(binding.boardImageDetail)
+            Glide.with(activity).load(boardDetail?.board?.image).into(binding.boardImageDetail)
         } else {
 
         }
@@ -135,6 +141,11 @@ class RecordBoardDetailFragment : Fragment() {
             adapter = CommentAdapter(boardDetail.comments)
             recyclerView.adapter = adapter
         }
+    }
+
+    private fun hideKeyboard(inputMethodManager: InputMethodManager, view: View) {
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
+        view.clearFocus()
     }
 
 
