@@ -432,7 +432,7 @@ MonoBehaviour:
   m_text: 10000P
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24f1f28a20369c747b04db12570671ff, type: 2}
-  m_sharedMaterial: {fileID: 8093429825672456385, guid: 24f1f28a20369c747b04db12570671ff,
+  m_sharedMaterial: {fileID: 6102703877615032989, guid: 24f1f28a20369c747b04db12570671ff,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1562,7 +1562,7 @@ MonoBehaviour:
   m_text: 2/4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24f1f28a20369c747b04db12570671ff, type: 2}
-  m_sharedMaterial: {fileID: 8093429825672456385, guid: 24f1f28a20369c747b04db12570671ff,
+  m_sharedMaterial: {fileID: 6102703877615032989, guid: 24f1f28a20369c747b04db12570671ff,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5549,6 +5549,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1253029479}
     m_Modifications:
+    - target: {fileID: 1082377011831332406, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 851b7d8121fec8241b570d649c2c2239,
+        type: 3}
     - target: {fileID: 4254940150971896866, guid: 2d62f86e3f6b80e448485e5b02805b3b,
         type: 3}
       propertyPath: m_AnchorMax.y
