@@ -7,7 +7,10 @@ public class Inventory : MonoBehaviour
 {
     public Button cartCloseButton;
     public GameObject mainPanel;
-    public GameObject inventoryPanel; 
+    public GameObject inventoryPanel;
+    [SerializeField]
+    private Camera c;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,5 +27,6 @@ public class Inventory : MonoBehaviour
     public void InventoryCloseButtonClicked(){
         mainPanel.SetActive(true);
         inventoryPanel.SetActive(false);
+        c.GetComponent<FollowCamera>().enabled = true;
     }
 }

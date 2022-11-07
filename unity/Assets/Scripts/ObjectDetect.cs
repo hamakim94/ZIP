@@ -19,14 +19,15 @@ public class ObjectDetect : MonoBehaviour
 
     private void UpdateTarget()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position, 5f);
-        if (cols.Length > 4)
+        Collider[] cols = Physics.OverlapSphere(transform.position, 3f);
+        if (cols.Length > 0)
         {
 
             for (int i = 0; i < cols.Length; i++)
             {
                 if (cols[i].tag == "Player")
                 {
+                    Debug.Log("들어왔니?");
                     target = cols[i].gameObject.transform;
                     BtnParent.transform.GetChild(0).gameObject.SetActive(true);
                 }

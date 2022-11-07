@@ -33,7 +33,8 @@ public class SelectObject : MonoBehaviour
             RaycastHit hit;
  
             // 광선으로 충돌된 collider를 hit에 넣습니다.
-            if(Physics.Raycast(ray, out hit))
+   /*         if(Physics.Raycast(ray, out hit))
+ 
             {
                 // 어떤 오브젝트인지 로그를 찍습니다.
                 if (hit.collider.name.Contains("Left") || hit.collider.name.Contains("Mid") || hit.collider.name.Contains("Right"))
@@ -49,8 +50,7 @@ public class SelectObject : MonoBehaviour
                     c.GetComponent<FollowCamera>().enabled = true;
                     inventoryPanel.SetActive(false);
                 }
-            }
- 
+            }*/
         }
     }
 
@@ -59,6 +59,20 @@ public class SelectObject : MonoBehaviour
         var resource = Resources.Load("Prefabs/prefab1");
         GameObject item = Instantiate(resource, go.position, Quaternion.identity) as GameObject;
         item.transform.parent = go.parent;
+    }
+
+    public void buttonOnClick()
+    {
+        inventoryPanel.SetActive(true);
+        Ray ray = c.ScreenPointToRay(m_vecMouseDownPos);
+        RaycastHit hit;
+        // 광선으로 충돌된 collider를 hit에 넣습니다.
+        if (Physics.Raycast(ray, out hit))
+        {
+            c.GetComponent<FollowCamera>().enabled = false;
+            c.transform.position = new Vector3(hit.transform.position.x - 0.52f, c.transform.position.y, hit.transform.position.z - 6.56f);
+            c.transform.LookAt(hit.transform);
+        }
     }
 }
  
