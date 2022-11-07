@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="40dp"
+    android:paddingBottom="20dp"
     >
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline"
-        app:layout_constraintGuide_percent="0.4"
+        app:layout_constraintGuide_percent="0.45"
         android:orientation="vertical"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -19,42 +19,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/white"
         android:drawableEnd="@drawable/ic_outline_edit_24"
         style="@style/Widget.AppCompat.Button.Borderless"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.AppCompatButton>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/dialog_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_marginHorizontal="100dp"
+        app:civ_border_color="@color/grey"
+        app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_btn"
-        ></de.hdodenhof.circleimageview.CircleImageView>
+        app:layout_constraintTop_toBottomOf="@id/edit_btn" />
+
+
+
     <TextView
         android:id="@+id/dialog_left_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
         android:text="@string/dialog_name"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintRight_toLeftOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/dialog_image"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/dialog_image" />
+
     <TextView
         android:id="@+id/dialog_right_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@color/black"
         app:layout_constraintLeft_toRightOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/dialog_image"
-        ></TextView>
+        app:layout_constraintTop_toBottomOf="@id/dialog_image" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_right_editname_layout"
@@ -87,23 +93,26 @@
         android:text="@string/dialog_family"
         android:textColor="@color/black"
         android:textStyle="bold"
+        android:layout_marginTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/dialog_left_name"
         app:layout_constraintRight_toLeftOf="@id/guideline"
         app:layout_constraintBottom_toTopOf="@id/dialog_left_nickname"
-        app:layout_constraintHorizontal_chainStyle="packed"></TextView>
+        app:layout_constraintHorizontal_chainStyle="packed" />
+
     <TextView
         android:id="@+id/dialog_right_family"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_marginTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/dialog_right_name"
         app:layout_constraintLeft_toRightOf="@id/guideline"
-        app:layout_constraintBottom_toTopOf="@id/dialog_right_nickname"
-        ></TextView>
+        app:layout_constraintBottom_toTopOf="@id/dialog_right_nickname" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_right_editfamily_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/dialog_left_name"
@@ -125,27 +134,32 @@
         android:id="@+id/dialog_left_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/dialog_nickname"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintRight_toLeftOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/dialog_left_family"
-        app:layout_constraintBottom_toTopOf="@id/dialog_button"></TextView>
+        app:layout_constraintBottom_toTopOf="@id/dialog_button" />
+
     <TextView
         android:id="@+id/dialog_right_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/dialog_right_family"
         app:layout_constraintBottom_toTopOf="@id/dialog_button"
-        app:layout_constraintLeft_toRightOf="@id/guideline"
-        ></TextView>
+        app:layout_constraintLeft_toRightOf="@id/guideline" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dialog_right_editnickname_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/dialog_right_editfamily_layout"
@@ -160,9 +174,13 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:textSize="12dp"
+            android:layout_marginBottom="15dp"
             android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+
+
+
     <Button
         android:id="@+id/dialog_button"
         android:layout_width="wrap_content"
@@ -170,7 +188,7 @@
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"></Button>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
