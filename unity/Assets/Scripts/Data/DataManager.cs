@@ -48,7 +48,7 @@ public class DataManager : MonoBehaviour
 
     private void LoadUserData()
     {
-        var ta = Resources.Load<TextAsset>("Data/user_item_data");
+        var ta = Resources.Load<TextAsset>("Data/user_item_data2"); // api 통신해서 json 가져오기 
         var json = ta.text;
         var arrData = JsonConvert.DeserializeObject<PositionUserItemData[]>(json);
 
