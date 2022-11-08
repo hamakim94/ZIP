@@ -62,21 +62,21 @@ class MainActivity : AppCompatActivity() {
                 // dp로 나타내야할듯
             }
         }
-        test()
+//        test()
     }
-    private fun test() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w("A", "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-
-            // Get new FCM registration token
-            val token = task.result
-            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"+token)
-        })
-
-    }
+//    private fun test() {
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+//            if (!task.isSuccessful) {
+//                Log.w("A", "Fetching FCM registration token failed", task.exception)
+//                return@OnCompleteListener
+//            }
+//
+//            // Get new FCM registration token
+//            val token = task.result
+//            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"+token)
+//        })
+//
+//    }
 
 
     // [START ask_post_notifications]
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     ) { isGranted: Boolean ->
         if (isGranted) {
             var token = FirebaseMessaging.getInstance().token;
-            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n" + token)
+            println("bbbbbbbbb권한 획득" )
             // FCM SDK (and your app) can post notifications.
         } else {
             // TODO: Inform user that that your app will not show notifications.

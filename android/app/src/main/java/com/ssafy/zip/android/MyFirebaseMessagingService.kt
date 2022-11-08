@@ -1,14 +1,28 @@
 package com.ssafy.zip.android
 
+import android.R
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
+
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+    var CHANNEL_ID = "ZIP_ID"
+    var CHANNEL_NAME = "ZIP"
+    var CHANNEL_DESCRIPTION = "알림 설정을 위한 채채널"
+
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // TODO(developer): Handle FCM messages here.
+        super.onMessageReceived(remoteMessage)
         Log.d(TAG, "From: ${remoteMessage.from}")
 
         if (remoteMessage.data.isNotEmpty()) {
@@ -22,14 +36,43 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //                handleNow()
             }
         }
-
         // Check if message contains a notification payload.
+
         remoteMessage.notification?.let {
-            Log.d(TAG, "Message Notification Body: ${it.body}")
+
+            Log.d(TAG, "Message Notification title: ${it.title}")
+            Log.d(TAG, "Message Notification link: ${it.link}")
+            Log.d(TAG, "Message Notification image: ${it.imageUrl}")
         }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
+        val notificationManager = NotificationManagerCompat.from(
+            applicationContext
+        )
+
+        // 채널 생성
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.description = CHANNEL_DESCRIPTION
+
+            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
+        }
+
+        // 변수 가져오기
+        val title = remoteMessage.data["title"]
+        val image = remoteMessage.data["imageUrl"]
+
+        // 실제 알림
+        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle("알람")
+            .setContentText(title)
+            .setSmallIcon(R.mipmap.sym_def_app_icon)
+
+        NotificationManagerCompat.from(this).notify(1, notificationBuilder.build())
+
     }
 
     /**

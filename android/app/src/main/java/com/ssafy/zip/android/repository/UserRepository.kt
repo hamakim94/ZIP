@@ -30,6 +30,14 @@ class UserRepository private constructor(application: Application) {
 
         return returnData
     }
+    suspend fun postFcmToken(
+        token : String
+    ) : String? {
+        val response = ApiService.getApiService.putFcmToken(token)
+        var returnData : String?
+        returnData = response.code().toString()
+        return returnData
+    }
 
     suspend fun signUp(
         img: MultipartBody.Part?,
