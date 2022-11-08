@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
 {
     public Button cartCloseButton;
     public GameObject mainPanel;
-    public GameObject inventoryPanel; 
+    public GameObject inventoryPanel;
 
     // Start is called before the first frame update
     void Start()

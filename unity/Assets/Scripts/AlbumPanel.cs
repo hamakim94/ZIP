@@ -11,7 +11,7 @@ public class AlbumPanel : MonoBehaviour
 
     private void Start()
     {
-        var albumData = DataManager.Instance.albumData;
+        /*var albumData = DataManager.Instance.albumData;
 
         for (int i = 0; i < albumData.Length; i++) // 앨범마다
         {
@@ -20,9 +20,20 @@ public class AlbumPanel : MonoBehaviour
             // 아이템 만들기 
             var listItem = Instantiate(this.albumItem, this.contents); // 게임 오브젝트의 복제본 생성 
             var album = listItem.GetComponent<AlbumListItem>();
-            /*StartCoroutine(GetTexture(data.pictures[0].url));*/
+            *//*StartCoroutine(GetTexture(data.pictures[0].url));*//*
             album.Init(data.id, data.name, data.pictures);
-            /*StartCoroutine(DataManager.GetTexture(data.pictures[data.pictures.Length - 1].url, album));*/
+            *//*StartCoroutine(DataManager.GetTexture(data.pictures[data.pictures.Length - 1].url, album));*//*
+        }*/
+
+        var albumDicData = DataManager.Instance.albumDicData;
+
+        foreach(var albumData in albumDicData)
+        {
+            var albumDataValue = (AlbumData)albumData.Value;
+            // 아이템 만들기 
+            var listItem = Instantiate(this.albumItem, this.contents); // 게임 오브젝트의 복제본 생성 
+            var album = listItem.GetComponent<AlbumListItem>();
+            album.Init(albumDataValue.id, albumDataValue.name, albumDataValue.pictures);
         }
     }
 

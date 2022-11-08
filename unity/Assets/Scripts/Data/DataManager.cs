@@ -10,7 +10,8 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance; // 객체를 만들지 않고도 다른 곳에서 꺼내쓸 수 있음. 
     public Dictionary<long, RawData[]> totalItemDicData;
     public Dictionary<long, RawData[]> userItemDicData;
-    public AlbumData[] albumData;
+    /*public AlbumData[] albumData;*/
+    public Dictionary<long, RawData> albumDicData;
     public Dictionary<long, RawData> dicData;
     public Texture texture;
     private void Awake()
@@ -67,7 +68,8 @@ public class DataManager : MonoBehaviour
 
     public void LoadAlbumData()
     {
-        var ta = Resources.Load<TextAsset>("Data/total_album_data"); // api 통신해서 json 가져오기 
+        this.albumDicData = new Dictionary<long, RawData>(); // album id : AlbumData
+        var ta = Resources.Load<TextAsset>("Data/total_album_data2"); // api 통신해서 json 가져오기 
         var json = ta.text;
         var arrData = JsonConvert.DeserializeObject<AlbumData[]>(json);
 
@@ -79,7 +81,10 @@ public class DataManager : MonoBehaviour
             }
         }
 
-        this.albumData = arrData;
+        foreach(var data in arrData)
+        {
+            this.albumDicData.Add(data.id, data);
+        }
     }
 
     public RawData itemIdToItem(long positionId, long itemId)

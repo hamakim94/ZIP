@@ -8,7 +8,7 @@ using System;
 public class PageInvert : MonoBehaviour
 {
     enum Panel{
-        main, shop, inventory, album
+        main, shop, inventory, album, photo
     }
 
     private GameObject[] panels;
@@ -16,12 +16,13 @@ public class PageInvert : MonoBehaviour
     public GameObject shopPanel;
     public GameObject inventoryPanel;
     public GameObject albumPanel;
+    public GameObject photoPanel;
 
  
     // Start is called before the first frame update
     void Start()
     {
-        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel};
+        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel};
         setActive((int)Panel.main);
     }
 
@@ -45,10 +46,9 @@ public class PageInvert : MonoBehaviour
 
     public void AlbumButtonClicked()
     {
-        // album ±×¸®±â 
-        setActive((int)Panel.album);
-
+        setActive(new int[] { (int)Panel.album, (int)Panel.main });
     }
+
 
     private void setActive(int panel){
         for(int i=0; i<panels.Length; i++){

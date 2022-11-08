@@ -1,0 +1,316 @@
+[
+  {
+    "id": 12,
+    "name": "앨범1",
+    "pictures": [
+      {
+        "id": 3,
+        "userId": 7,
+        "albumId": 12,
+        "fileName": "KakaoTalk_20221013_195252496_06.jpg",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/ec862133-184a-4df4-85bf-20ab945b5db8.jpg",
+        "reg": "2022-10-29T15:32:44"
+      },
+      {
+        "id": 4,
+        "userId": 7,
+        "albumId": 12,
+        "fileName": "KakaoTalk_20221024_025814314.jpg",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/ff89e631-e58f-44bd-bb62-da0ff3837b00.jpg",
+        "reg": "2022-10-29T15:32:44"
+      },
+      {
+        "id": 5,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "복숭아.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/424bac94-a965-45f9-b0fb-99c65f8c4319.png",
+        "reg": "2022-10-30T18:16:03"
+      },
+      {
+        "id": 6,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "아이유.jpg",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/4faefaf6-b8fc-407b-87b2-fcdb5d4ccdf3.jpg",
+        "reg": "2022-10-30T18:16:03"
+      },
+      {
+        "id": 93,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667536132660",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/891c1ed4-1717-4c76-bf44-e28c644a3823.",
+        "reg": "2022-11-04T04:28:53"
+      },
+      {
+        "id": 94,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667536734935",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/20428cb0-aa2e-481a-b050-2b0a3240a303.",
+        "reg": "2022-11-04T04:38:55"
+      },
+      {
+        "id": 95,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667536734966",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/14c29d77-003d-4736-9362-cd33fa59f866.",
+        "reg": "2022-11-04T04:38:55"
+      },
+      {
+        "id": 96,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667536824885",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/45946736-3faf-4554-8ce9-fe8605c0ceea.",
+        "reg": "2022-11-04T04:40:25"
+      },
+      {
+        "id": 97,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667538082087",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/d16134fe-16ff-4c67-a2a3-da0922da828e.",
+        "reg": "2022-11-04T05:01:22"
+      },
+      {
+        "id": 98,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667538279985",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/c5798b3e-9ec1-4eca-9318-bcada67095a3.",
+        "reg": "2022-11-04T05:04:40"
+      },
+      {
+        "id": 101,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171202.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/c5a9c440-d94f-4760-b5b5-032e0b4a07b2.png",
+        "reg": "2022-11-04T05:18:53"
+      },
+      {
+        "id": 102,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171451.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/5242a235-e6ad-4477-8f86-9e75bc153b80.png",
+        "reg": "2022-11-04T05:18:53"
+      },
+      {
+        "id": 103,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171202.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/c5b1ee19-6961-44f5-9b3d-d75af89da224.png",
+        "reg": "2022-11-04T05:22:05"
+      },
+      {
+        "id": 104,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171451.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/964265a9-9a16-4c80-a79c-ae94cc9143d5.png",
+        "reg": "2022-11-04T05:22:05"
+      },
+      {
+        "id": 105,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667539499053",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/d5ec8e0f-717d-494a-ba30-5f31689d6db5.",
+        "reg": "2022-11-04T05:24:59"
+      },
+      {
+        "id": 106,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171202.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/d63a7a5c-92b3-4d5d-9e55-b379ceb07ebc.png",
+        "reg": "2022-11-04T14:27:56"
+      },
+      {
+        "id": 107,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171451.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/b3e44851-0aef-4deb-a5cd-2743fd941ec5.png",
+        "reg": "2022-11-04T14:27:56"
+      },
+      {
+        "id": 108,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171202.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/c8a79786-5fc1-427f-83e5-7866a7d8f78c.png",
+        "reg": "2022-11-04T05:33:30"
+      },
+      {
+        "id": 109,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171451.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/caa95d0e-0015-474c-85e4-6d4196e71745.png",
+        "reg": "2022-11-04T05:33:30"
+      },
+      {
+        "id": 110,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667540018901",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/50af8ca5-27df-4810-8fa2-731a899a8310.",
+        "reg": "2022-11-04T14:33:40"
+      },
+      {
+        "id": 111,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171202.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/1b26dd67-b1f9-4cc8-befd-a73256ab2ada.png",
+        "reg": "2022-11-04T05:35:21"
+      },
+      {
+        "id": 112,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171451.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/ba280546-fb17-47f9-a3e6-13e819cc2c3e.png",
+        "reg": "2022-11-04T05:35:21"
+      },
+      {
+        "id": 113,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171202.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/c5583f2f-72e0-47fb-8195-b92efefb47ee.png",
+        "reg": "2022-11-04T05:37:56"
+      },
+      {
+        "id": 114,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171451.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/ba79c5ca-712f-4988-af08-76fe98432459.png",
+        "reg": "2022-11-04T05:37:56"
+      },
+      {
+        "id": 115,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171202.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/dd3fac97-1423-4f50-8389-92fbab08ca80.png",
+        "reg": "2022-11-04T05:41:57"
+      },
+      {
+        "id": 116,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171451.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/3266b5f8-ef7e-46af-8b20-213685ac907f.png",
+        "reg": "2022-11-04T05:41:57"
+      },
+      {
+        "id": 117,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171202.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/2d15a6fa-7ed1-40f6-9dbe-abfaf4a7a9e4.png",
+        "reg": "2022-11-04T05:43:06"
+      },
+      {
+        "id": 118,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "화면 캡처 2022-09-19 171451.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/33325f00-0d45-4987-86c9-c64fe28676d3.png",
+        "reg": "2022-11-04T05:43:06"
+      },
+      {
+        "id": 119,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667542821136",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/85a73b72-e33f-47bb-b49b-a1cfeed5bf59.",
+        "reg": "2022-11-04T15:19:49"
+      },
+      {
+        "id": 120,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667542831297",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/2315a61c-151f-4e30-bc60-a443394571b5.",
+        "reg": "2022-11-04T15:19:59"
+      },
+      {
+        "id": 121,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667542831385",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/e8223ec7-9fce-4248-9a97-b53306e379a2.",
+        "reg": "2022-11-04T15:19:59"
+      },
+      {
+        "id": 122,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667542831481",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/f7b816e9-749f-437d-a355-ab017fc2967c.",
+        "reg": "2022-11-04T15:19:59"
+      },
+      {
+        "id": 123,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "1667824849196",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/efe97967-769c-4490-9e71-466c825a74f8.",
+        "reg": "2022-11-07T21:40:50"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "album",
+    "pictures": [
+      {
+        "id": 99,
+        "userId": 5,
+        "albumId": 33,
+        "fileName": "1667538465969",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/b7e16ce8-278b-4e96-802e-c18621360d01.",
+        "reg": "2022-11-04T05:07:46"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "앨범3",
+    "pictures": [
+      {
+        "id": 3,
+        "userId": 7,
+        "albumId": 12,
+        "fileName": "KakaoTalk_20221013_195252496_06.jpg",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/ec862133-184a-4df4-85bf-20ab945b5db8.jpg",
+        "reg": "2022-10-29T15:32:44"
+      },
+      {
+        "id": 4,
+        "userId": 7,
+        "albumId": 12,
+        "fileName": "KakaoTalk_20221024_025814314.jpg",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/ff89e631-e58f-44bd-bb62-da0ff3837b00.jpg",
+        "reg": "2022-10-29T15:32:44"
+      },
+      {
+        "id": 5,
+        "userId": 5,
+        "albumId": 12,
+        "fileName": "복숭아.png",
+        "url": "https://projectzip.s3.ap-northeast-2.amazonaws.com/album/424bac94-a965-45f9-b0fb-99c65f8c4319.png",
+        "reg": "2022-10-30T18:16:03"
+      }
+    ]
+  }
+]
