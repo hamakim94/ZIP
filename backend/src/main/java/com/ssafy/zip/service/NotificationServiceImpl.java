@@ -13,6 +13,7 @@ import com.ssafy.zip.repository.NotificationRepository;
 import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.NotificationMapStruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
@@ -49,6 +51,7 @@ public class NotificationServiceImpl implements NotificationService {
             Optional<FCMToken> token = fcmTokenRepository.findById(id);
             if(token.isPresent()){
                 String tokenValue = token.get().getToken();
+                log.info("sending firebase notificaiton for id :" +id +" token:"+ tokenValue);
                 Message message = Message.builder().setToken(tokenValue).setNotification(notificationFire).build();
                 listMessage.add(message);
             }
@@ -73,6 +76,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void setToken(UserDTO userDTO, String token) {
         fcmTokenRepository.save(new FCMToken(userDTO.getId(),token));
+        log.info("setting token for : " + userDTO.getNickname() +"\ntoken as : "+token);
     }
     @Transactional
     @Override

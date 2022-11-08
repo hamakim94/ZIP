@@ -3,14 +3,12 @@ package com.ssafy.zip.service;
 import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.response.BoardDTO;
 import com.ssafy.zip.dto.response.BoardDetailDTO;
-import com.ssafy.zip.entity.Board;
-import com.ssafy.zip.entity.Comment;
-import com.ssafy.zip.entity.Notification;
-import com.ssafy.zip.entity.User;
+import com.ssafy.zip.entity.*;
 import com.ssafy.zip.exception.ResourceNotFoundException;
 import com.ssafy.zip.exception.UnauthorizedRequestException;
 import com.ssafy.zip.repository.BoardRepository;
 import com.ssafy.zip.repository.CommentRepository;
+import com.ssafy.zip.repository.FamilyRepository;
 import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.BoardMapStruct;
 import com.ssafy.zip.util.CommentDTOMapStruct;
@@ -36,6 +34,7 @@ public class BoardServiceImpl implements BoardService {
     private final CommentRepository commentRepository;
     private final AwsS3Service awsS3Service;
     private final NotificationServiceImpl notificationService;
+    private final FamilyRepository familyRepository;
 
     @Override
     public List<BoardDTO> listBoard(UserDTO userDTO) {
@@ -68,8 +67,9 @@ public class BoardServiceImpl implements BoardService {
             imageUrl = awsS3Service.uploadFiles("board", files).get(0)[0];
         }
 
-        boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).image(imageUrl).reg(LocalDateTime.now()).build());
 
+        boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).image(imageUrl).reg(LocalDateTime.now()).build());
+        notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false),user.getFamily().getUsers().stream().map(User::getId).filter(o->!o.equals(userDTO.getId())).collect(Collectors.toList()));
     }
     @Transactional
     @Override
