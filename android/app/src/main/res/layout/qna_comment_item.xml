@@ -23,10 +23,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/circleImageView"
             android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="@id/commentQnaProfileContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/commentQnaProfileContainer" />
 

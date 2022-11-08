@@ -58,8 +58,8 @@ class QnaProfileAdapter(
                 .load(homeImage.profileImg)
                 .into(holder.homeImage)
         }
-        holder.homeImage.borderWidth = 5
-        holder.homeImage.borderColor = R.color.grey
+        holder.homeImage.borderWidth = 1
+        holder.homeImage.borderColor = R.color.lightgray
         // 조건넣기
         var answerList = viewModel.qnaDetail.value?.answers
         var familyMemberId = homeList[position].id
