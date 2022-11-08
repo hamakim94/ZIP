@@ -35,8 +35,6 @@ public class NotificationServiceImpl implements NotificationService {
     public void sendNotification(Notification notification, List<Long> notifiedList) throws FirebaseMessagingException {
 
 
-        notificationRepository.save(notification);
-
         com.google.firebase.messaging.Notification notificationFire = com.google.firebase.messaging.Notification
                 .builder()
                 .setTitle(notification.getMessage())
