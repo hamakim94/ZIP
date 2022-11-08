@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using Newtonsoft.Json;
 
 
@@ -9,14 +10,17 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance; // 객체를 만들지 않고도 다른 곳에서 꺼내쓸 수 있음. 
     public Dictionary<long, RawData[]> totalItemDicData;
     public Dictionary<long, RawData[]> userItemDicData;
+    /*public AlbumData[] albumData;*/
+    public Dictionary<long, RawData> albumDicData;
     public Dictionary<long, RawData> dicData;
-
+    public Texture texture;
     private void Awake()
     {
         DataManager.Instance = this;
        
         LoadInitData();
         LoadUserData();
+        LoadAlbumData();
 
         this.dicData = new Dictionary<long, RawData>();
         DontDestroyOnLoad(gameObject);
@@ -51,7 +55,6 @@ public class DataManager : MonoBehaviour
 
     public void LoadUserData()
     {
-        Debug.Log("LoadUserData");
         this.userItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 사용자가구[](사용자가구 list)
         var ta = Resources.Load<TextAsset>("Data/user_item_data2"); // api 통신해서 json 가져오기 
         var json = ta.text;
@@ -59,9 +62,28 @@ public class DataManager : MonoBehaviour
 
         foreach (var data in arrData)
         {
-            /*Debug.Log("data.id: " + data.id);
-            Debug.Log("data.itemList: " + data.itemList);*/
             this.userItemDicData.Add(data.id, data.itemList);
+        }
+    }
+
+    public void LoadAlbumData()
+    {
+        this.albumDicData = new Dictionary<long, RawData>(); // album id : AlbumData
+        var ta = Resources.Load<TextAsset>("Data/total_album_data2"); // api 통신해서 json 가져오기 
+        var json = ta.text;
+        var arrData = JsonConvert.DeserializeObject<AlbumData[]>(json);
+
+        for(int i=0; i<arrData.Length; i++) // album 수
+        {
+            for(int j=0; j<arrData[i].pictures.Length; j++) // 해당 앨범의 사진 수 
+            {
+                StartCoroutine(GetTexture(arrData[i].pictures[j]));
+            }
+        }
+
+        foreach(var data in arrData)
+        {
+            this.albumDicData.Add(data.id, data);
         }
     }
 
@@ -79,4 +101,39 @@ public class DataManager : MonoBehaviour
 
         return null;
     }
+
+    IEnumerator GetTexture(PictureData picture)
+    {
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
+        yield return www.SendWebRequest();
+
+        picture.texture = DownloadHandlerTexture.GetContent(www);
+    }
+
+    /*public static IEnumerator GetTexture(string url, AlbumListItem album)
+    {
+        Debug.Log(url);
+        *//*UnityWebRequest www = APIManager.GetWWW("Texture", url, null);*//*
+        UnityWebRequest www = APIManager.GetWWW("GET", url, null);
+
+        *//*Debug.Log(www.SendWebRequest());*//*
+
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Texture2D tex = new Texture2D(2, 2);
+            byte[] data = www.downloadHandler.data;
+            ImageConversion.LoadImage(tex, data, true);
+            Debug.Log(www.downloadHandler.text);
+            album.picture.texture = tex;
+            *//*album.picture.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;*/
+    /*album.picture.texture = www.downloadHandler.data.;*//*
+    Debug.Log(album.picture.texture);
+}
+}*/
 }
