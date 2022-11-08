@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +51,7 @@ public class PostServiceImpl implements PostService {
 
         // add letter
         result.addAll(letterRepository.findByFrom_IdOrTo_Id(userDTO.getId(), userDTO.getId())
-                .stream().map(o-> new PostAllResponseDTO(2,LetterDTOMapStruct.INSTANCE.mapToLetterRequestDTO(o)))
+                .stream().map(o-> new PostAllResponseDTO(2,LetterDTOMapStruct.INSTANCE.mapToLetterResponseDTO(o)))
                 .toList());
 
         result.sort((o1,o2)->o2.data().reg().compareTo(o1.data().reg()));

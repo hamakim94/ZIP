@@ -57,7 +57,7 @@ public class LetterServiceImpl implements LetterService {
     @Override
     public List<LetterResponseDTO> listLetters(UserDTO userDTO) {
         return letterRepository.findByFrom_IdOrTo_Id(userDTO.getId(), userDTO.getId())
-                .stream().map(LetterDTOMapStruct.INSTANCE::mapToLetterRequestDTO)
+                .stream().map(LetterDTOMapStruct.INSTANCE::mapToLetterResponseDTO)
                 .sorted((o1, o2) -> o2.reg().compareTo(o1.reg()))
                 .collect(Collectors.toList());
     }

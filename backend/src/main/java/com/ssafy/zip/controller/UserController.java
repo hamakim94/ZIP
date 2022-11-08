@@ -5,7 +5,9 @@ import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.UserFindPWRequestDTO;
 import com.ssafy.zip.dto.request.UserLoginRequestDTO;
 import com.ssafy.zip.dto.request.UserSignupRequestDTO;
+import com.ssafy.zip.dto.response.NotificationResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
+import com.ssafy.zip.service.NotificationService;
 import com.ssafy.zip.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +30,7 @@ import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -42,6 +45,7 @@ public class UserController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
     private final RedisTemplate redisTemplate;
+    private final NotificationService notificationService;
 
     @PostMapping("/signup")
     @ApiOperation(value = "사용자 회원가입") // 요청 URL에 매핑된 API에 대한 설명
@@ -104,7 +108,7 @@ public class UserController {
         // 해당 access token의 유효시간 가지고 와서 logout된 access token 저장
         Long expiration = jwtTokenProvider.getExpiration(accessToken);
         redisTemplate.opsForValue().set(accessToken, "logout", expiration, TimeUnit.MILLISECONDS);
-
+        notificationService.eraseToken(user);
         return ResponseEntity.ok().build();
     }
 
@@ -231,5 +235,25 @@ public class UserController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/notification")
+    @ApiOperation(value = "FCM 토큰 설정")
+    ResponseEntity<?> setTokenForNotification(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO, @RequestParam String token){
+        notificationService.setToken(userDTO,token);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/notification")
+    @ApiOperation(value = "안 읽은 알림 리스트")
+    ResponseEntity<List<NotificationResponseDTO>> getNotifications(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO){
+        return ResponseEntity.ok(notificationService.getNotifications(userDTO));
+    }
+
+    @PostMapping("/notification/{notificationId}")
+    @ApiOperation(value = "알림 읽음")
+    ResponseEntity<?> readNotification(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long notificationId){
+        notificationService.readNotification(userDTO, notificationId);
+        return ResponseEntity.ok().build();
     }
 }
