@@ -1,22 +1,52 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class InventoryTabButton : MonoBehaviour
+ 
+public class PlusButton : MonoBehaviour
 {
-    public long id;
-    public string pos;
-    public RectTransform contents;
-    public GameObject inventoryItem;
+    Vector3 m_vecMouseDownPos;
+    [SerializeField]
+    private Camera c;
+    [SerializeField]
+    private GameObject inventoryPanel;
+
+    [SerializeField]
+    private long id;
+    [SerializeField]
+    private string pos;
+    [SerializeField]
+    private RectTransform contents;
+    [SerializeField]
+    private GameObject inventoryItem;
+    [SerializeField]
+    private GameObject closeButton;
     private List<GameObject> itemGOList;
     private int currentPlacedIdx;
 
-    private void OnEnable() {
+    public void changeCurState(int idx)
+    {
+        itemGOList[currentPlacedIdx].GetComponent<InventoryListItem>().changeBtn(false);
+        currentPlacedIdx = idx;
+    }
+
+    public void buttonOnClick()
+    {
+        inventoryPanel.SetActive(true);
+        Ray ray = c.ScreenPointToRay(m_vecMouseDownPos);
+        RaycastHit hit;
+        // 광선으로 충돌된 collider를 hit에 넣습니다.
+        if (Physics.Raycast(ray, out hit))
+        {
+            Debug.Log(hit.transform.position);
+            c.GetComponent<FollowCamera>().enabled = false;
+            c.transform.position = new Vector3(hit.transform.position.x - 0.52f, c.transform.position.y, hit.transform.position.z - 6.56f);
+            c.transform.LookAt(hit.transform);
+        }
         if (DataManager.Instance)
         {
             // 로드된 데이터 가져옴
             var filteredUserItemData = DataManager.Instance.userItemDicData[id]; // 해당 위치에 있는 user item list (UserItemData type)
-
+            Debug.Log("id: " + id + "data" + filteredUserItemData);
             itemGOList = new List<GameObject>(new GameObject[filteredUserItemData.Length]);
 
             for (int i = 0; i < filteredUserItemData.Length; i++)
@@ -47,25 +77,8 @@ public class InventoryTabButton : MonoBehaviour
                 }
             }
         }
+        closeButton.GetComponent<Inventory>().contents = contents;
+       
     }
-
-    private void OnDisable()
-    {
-        Transform[] childlist = contents.gameObject.GetComponentsInChildren<Transform>();
-        if (childlist != null)
-        {
-            for (int i = 1; i < childlist.Length; i++)
-            {
-                if (childlist[i] != transform)
-                    Destroy(childlist[i].gameObject);
-            }
-        }
-    }
-
-    public void changeCurState(int idx)
-    {
-        itemGOList[currentPlacedIdx].GetComponent<InventoryListItem>().changeBtn(false);
-        currentPlacedIdx = idx;
-    } 
 }
-*/
+ 

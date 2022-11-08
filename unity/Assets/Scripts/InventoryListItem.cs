@@ -12,9 +12,10 @@ public class InventoryListItem : MonoBehaviour
     public SpriteAtlas atlas;
     public GameObject placedItemBtn;
     public GameObject unplacedItemBtn;
-    private InventoryTabButton tabButton;
+    public Transform target;
+    private PlusButton tabButton;
 
-    public void Init(int idx, long id, string img, long posId, Boolean placed, InventoryTabButton go)
+    public void Init(int idx, long id, string img, long posId, Boolean placed, PlusButton go)
     {
         // 데이터 넣기 
         var spriteName = atlas.GetSprite(img);
@@ -29,8 +30,20 @@ public class InventoryListItem : MonoBehaviour
     {
         Debug.Log("OnClickButton: " + idx + ", " + posId);
         tabButton.changeCurState(idx);
+
+        target = GameObject.Find("SelectObject").transform.GetChild((int)posId-1);
         // 선택한 item 배치 
+        if(target.childCount > 1)
+        {
+            Destroy(target.GetChild(1).gameObject);
+        }
         changeBtn(true);
+
+        var resource = Resources.Load("Prefabs/prefab1"); // 여기에 이제 가구이름으로 동적 생성하기.
+        GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
+        item.transform.parent = target; // 부모 정해놓기
+
+        // 이제 기존에 것 치우고 하는식으로 해보기.
     }
 
     /*// 선택한 item만 배치, 나머지 배치X 

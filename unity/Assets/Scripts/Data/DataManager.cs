@@ -48,7 +48,6 @@ public class DataManager : MonoBehaviour
             this.totalItemDicData.Add(data.id, data.itemList);
         }
     }
-
     public void LoadUserData()
     {
         Debug.Log("LoadUserData");
