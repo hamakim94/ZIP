@@ -19,7 +19,7 @@ public class InventoryListItem : MonoBehaviour
         // 데이터 넣기 
         var spriteName = atlas.GetSprite(img);
         imgIcon.sprite = spriteName;
-        changeBtn(placed);
+        ChangeBtn(placed);
         tabButton = go;
         unplacedItemBtn.GetComponent<Button>().onClick.AddListener(() => OnClickButton(idx, posId));
     }
@@ -28,9 +28,9 @@ public class InventoryListItem : MonoBehaviour
     private void OnClickButton(int idx, long posId)
     {
         Debug.Log("OnClickButton: " + idx + ", " + posId);
-        tabButton.changeCurState(idx);
+        tabButton.ChangeCurState(idx);
         // 선택한 item 배치 
-        changeBtn(true);
+        ChangeBtn(true);
     }
 
     /*// 선택한 item만 배치, 나머지 배치X 
@@ -54,7 +54,7 @@ public class InventoryListItem : MonoBehaviour
         changeBtn(true);
     }*/
 
-    public void changeBtn(Boolean placed)
+    public void ChangeBtn(Boolean placed)
     {
         placedItemBtn.SetActive(placed);
         unplacedItemBtn.SetActive(!placed);

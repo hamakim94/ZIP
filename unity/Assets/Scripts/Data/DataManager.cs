@@ -102,7 +102,7 @@ public class DataManager : MonoBehaviour
         return null;
     }
 
-    IEnumerator GetTexture(PictureData picture)
+    IEnumerator GetTexture(PhotoData picture)
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
         yield return www.SendWebRequest();

@@ -6,6 +6,6 @@ using UnityEngine.UI;
 public class AlbumData : RawData
 {
     public string name;
-    public PictureData[] pictures;
+    public PhotoData[] pictures;
 
 }

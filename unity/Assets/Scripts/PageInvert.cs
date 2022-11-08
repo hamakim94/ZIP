@@ -41,7 +41,7 @@ public class PageInvert : MonoBehaviour
     public void InventoryButtonClicked(){
         DataManager.Instance.LoadUserData();
 
-        setActive(new int[]{(int)Panel.inventory, (int)Panel.main});
+        setActive(new int[]{ (int)Panel.inventory, (int)Panel.main });
     }
 
     public void AlbumButtonClicked()
