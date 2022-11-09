@@ -13,7 +13,7 @@ public class PhotoContent : MonoBehaviour
             // ¾Ù¹ü photo item 
             var photoOj = Instantiate(albumPhoto, this.transform);
             var photoScript = photoOj.GetComponent<PhotoListItem>();
-            photoScript.Init(p.id, p);
+            photoScript.Init(p);
         }
     }
 
