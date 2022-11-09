@@ -1,15 +1,23 @@
 package com.ssafy.zip.service;
 
+import ch.qos.logback.classic.spi.IThrowableProxy;
+import ch.qos.logback.core.html.IThrowableRenderer;
 import com.google.gson.Gson;
 import com.ssafy.zip.dto.UserDTO;
+import com.ssafy.zip.dto.request.UnityAlbumRequestDTO;
 import com.ssafy.zip.dto.request.UnityUseItemRequestDTO;
+import com.ssafy.zip.dto.response.UnityAlbumResponseDTO;
 import com.ssafy.zip.dto.response.UnityItemResponseDTO;
 import com.ssafy.zip.dto.response.UnityPositionItemsResponseDTO;
 import com.ssafy.zip.entity.FamilyFurniture;
+import com.ssafy.zip.entity.Picture;
+import com.ssafy.zip.entity.UnityAlbum;
 import com.ssafy.zip.exception.ErrorCode;
 import com.ssafy.zip.exception.ResourceNotFoundException;
 import com.ssafy.zip.exception.UnauthorizedRequestException;
 import com.ssafy.zip.repository.FamilyFurnitureRepository;
+import com.ssafy.zip.repository.PictureRepository;
+import com.ssafy.zip.repository.UnityAlbumRepository;
 import com.ssafy.zip.util.UnityItemResponseDTOMapStruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +33,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UnityServiceImpl implements UnityService {
     private final FamilyFurnitureRepository familyFurnitureRepository;
+    private final UnityAlbumRepository unityAlbumRepository;
+    private final PictureRepository pictureRepository;
     @Override
     public String getSerializedFurnitureInfo(UserDTO userDTO) {
         List<FamilyFurniture> furnitureList = familyFurnitureRepository.findAllByFamily_Id(userDTO.getFamilyId());
@@ -55,5 +65,32 @@ public class UnityServiceImpl implements UnityService {
             if(o.getFurniture().getId().equals(dto.furnitureId())) o.setHasItemCode(2);
             else o.setHasItemCode(1);
         });
+    }
+
+    @Override
+    public String getUnityAlbumInfo(UserDTO userDTO) {
+        return new Gson().toJson(unityAlbumRepository.findByFamilyId(userDTO.getFamilyId()).stream()
+                .map(o->new UnityAlbumResponseDTO(o.getId(), o.getPicture().getAlbum().getId(), o.getPicture().getId()))
+                .collect(Collectors.toList()));
+    }
+    @Transactional
+    @Override
+    public void selectUnityAlbum(UserDTO userDTO, UnityAlbumRequestDTO unityAlbumRequestDTO) {
+
+        pictureRepository.findById(unityAlbumRequestDTO.pictureId()).ifPresentOrElse(
+                    p -> {
+                        if(p.getUser().getFamily().getId().equals(userDTO.getFamilyId()))
+                            unityAlbumRepository.findByFamilyIdAndPosition(userDTO.getFamilyId(), unityAlbumRequestDTO.position())
+                                    .ifPresentOrElse(o->o.setPicture(p),
+                                                    ()->unityAlbumRepository.save(new UnityAlbum(null,unityAlbumRequestDTO.position(), userDTO.getFamilyId(), p)));
+                        else throw new UnauthorizedRequestException("가족의 사진이 아닙니다.", ErrorCode.FORBIDDEN);
+                        }
+                    ,()->  new ResourceNotFoundException("요청한 사진을 찾을 수 없습니다.", ErrorCode.NOT_FOUND)
+        );
+
+
+
+
+
     }
 }
