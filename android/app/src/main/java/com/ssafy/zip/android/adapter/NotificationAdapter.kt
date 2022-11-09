@@ -68,6 +68,8 @@ class NotificationAdapter(private val notificationList: ArrayList<Notification>)
             } else if (notificationList[position].message?.contains("성공") == true || notificationList[position].message?.contains("되었습니다. ") == true){
                 it.findNavController().navigate(R.id.action_notificationFragment_to_homeFragment)
             } else{
+                val args = Bundle()
+                args.putString("Board", "Board")
 //                데이터 가져와서 뿌려서 가면 좋았을 텐데 안 된다.,.,
 //                CoroutineScope(Dispatchers.Main).launch {
 //                    val args = Bundle()
@@ -81,7 +83,7 @@ class NotificationAdapter(private val notificationList: ArrayList<Notification>)
 //                        .setArguments(args)
 //                        .createPendingIntent()
 //                }
-                it.findNavController().navigate(R.id.action_notificationFragment_to_recordFragment)
+                it.findNavController().navigate(R.id.action_notificationFragment_to_recordFragment, args)
             }
         }
 
