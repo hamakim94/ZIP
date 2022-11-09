@@ -9,9 +9,10 @@ public class StartBuild : MonoBehaviour
         if (DataManager.Instance)
         {
             // 로드된 데이터 가져옴
-            for (int i = 1; i <= DataManager.Instance.userItemDicData.Count; i++)
+            for (int posId = 1; posId <= DataManager.Instance.userItemDicData.Count; posId++) // 전체 위치 아이디 길이??
             {
-                var filteredUserItemData = DataManager.Instance.userItemDicData[i]; // 해당 위치에 있는 user item list (UserItemData type)
+                // contains.key 처리하고
+                var filteredUserItemData = DataManager.Instance.userItemDicData[posId]; // 해당 위치에 있는 user item list (UserItemData type)
 
                 for (int j = 0; j < filteredUserItemData.Length; j++)
                 {
@@ -21,9 +22,9 @@ public class StartBuild : MonoBehaviour
                     if (data.hasItemCode == 2) // 보유, 사용O
                     {
                         /*Debug.Log(data.id);*/
-                        var itemData = (ItemData)DataManager.Instance.itemIdToItem(i, data.id);
+                        var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, data.id); // i 포지션 아이디
                         // 건물 짓기
-                        var target = transform.GetChild(i - 1);
+                        var target = transform.GetChild(posId - 1);
                         if (target.childCount > 1)
                         {
                             Destroy(target.GetChild(1).gameObject);
