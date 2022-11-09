@@ -33,4 +33,10 @@ public class UnityController {
         unityService.useFurniture(userDTO, unityUseItemRequestDTO);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/album")
+    @ApiOperation(value = "앨범 정보 가져오기")
+    ResponseEntity<String> getAlbums(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO){
+        return ResponseEntity.ok(unityService.getUnityAlbumInfo(userDTO));
+    }
 }

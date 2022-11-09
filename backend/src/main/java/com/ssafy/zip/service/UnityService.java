@@ -7,4 +7,5 @@ public interface UnityService {
     String getSerializedFurnitureInfo(UserDTO userDTO);
     void purchaseFurniture(UserDTO userDTO, Long furnitureId);
     void useFurniture(UserDTO userDTO, UnityUseItemRequestDTO unityUseItemRequestDTO);
+    String getUnityAlbumInfo(UserDTO userDTO);
 }
