@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -34,16 +33,6 @@ class HomeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
-    }
-
-    override fun onPause() {
-        super.onPause()
-        println("멈춤!")
-    }
-
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
-        var ft: FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
     }
 
     override fun onCreateView(
@@ -117,13 +106,15 @@ class HomeFragment : Fragment() {
     private fun observeMission(activity: MainActivity){
         val observer = Observer<Missions> { _ ->
             binding.viewmodel = viewModel
-            if(viewModel.familyData.value?.familyList?.size!!>0){
+            if(viewModel.familyData.value?.familyList?.size!!>1){
                 val size = viewModel.familyData.value?.familyList?.size!!.toDouble()
                 binding.mission1Progress.progress = ((viewModel.missions.value?.qna?.answerCnt!!/size)*100).toInt()
                 binding.mission2Progress.progress = ((viewModel.missions.value?.letter?.today!!/size)*100).toInt()
             } else{
+                binding.missionContainer.isGone = true
                 binding.mission1Progress.progress = 0
                 binding.mission2Progress.progress = 0
+                binding.missionContainerFamilyzero.isGone = false
             }
         }
         viewModel.missions.observe(viewLifecycleOwner, observer)
