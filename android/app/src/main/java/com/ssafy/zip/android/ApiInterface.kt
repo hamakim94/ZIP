@@ -186,4 +186,14 @@ interface ApiInterface {
         @Path("letterId") id : Long
     ) : Response<String>
 
+    // 알림 관련
+    @GET("users/notification")
+    suspend fun getNotification() : Response<ArrayList<Notification>>
+
+    @POST("users/notification/{notificationId}")
+    suspend fun postNotification(
+        @Path("notificationId")  id : Long
+    ) : Response<String>
+
+
 }

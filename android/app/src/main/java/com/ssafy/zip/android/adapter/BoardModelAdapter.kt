@@ -127,8 +127,6 @@ class BoardModelAdapter(
 
             var letter: BoardModel.Letter? = item.data as? BoardModel.Letter
             var userId = viewModel.userData.value?.id
-            println("bindLetter : " + letter.toString())
-            println("bindViewModel : " + userId.toString())
             if (userId != null) {
                 // 1. 보낸 편지인지, 그냥 mark,email 쓸거
                 if (userId == letter?.from?.id) {
