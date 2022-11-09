@@ -65,10 +65,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val title = remoteMessage.data["title"]
         val image = remoteMessage.data["imageUrl"]
 
-        // 실제 알림
+        // 실제 알림 -> 여기가 그냥 실행중일 때 알림 오는 곳, 나머지는 그냥 푸쉬알림 그대로 가져가는 듯
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("알람")
-            .setContentText(title)
+            .setContentTitle(title)
+            .setContentText("게시글 등록")
             .setSmallIcon(R.mipmap.sym_def_app_icon)
 
         NotificationManagerCompat.from(this).notify(1, notificationBuilder.build())
