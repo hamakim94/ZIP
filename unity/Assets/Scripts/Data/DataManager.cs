@@ -12,15 +12,16 @@ public class DataManager : MonoBehaviour
     public Dictionary<long, RawData[]> userItemDicData;
     /*public AlbumData[] albumData;*/
     public Dictionary<long, RawData> albumDicData;
+    public Dictionary<long, RawData> userAlbumDicData;
     public Dictionary<long, RawData> dicData;
     public Texture texture;
     private void Awake()
     {
         DataManager.Instance = this;
        
-        LoadInitData();
-        LoadUserData();
-        LoadAlbumData();
+        LoadTotalItemData();
+        LoadUserItemData();
+        LoadTotalAlbumData();
 
         this.dicData = new Dictionary<long, RawData>();
         DontDestroyOnLoad(gameObject);
@@ -39,7 +40,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private void LoadInitData()
+    private void LoadTotalItemData()
     {
         this.totalItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 가구[](가구 list)
         var ta = Resources.Load<TextAsset>("Data/total_item_data");
@@ -52,7 +53,7 @@ public class DataManager : MonoBehaviour
             this.totalItemDicData.Add(data.id, data.itemList);
         }
     }
-    public void LoadUserData()
+    public void LoadUserItemData()
     {
         this.userItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 사용자가구[](사용자가구 list)
         var ta = Resources.Load<TextAsset>("Data/user_item_data2"); // api 통신해서 json 가져오기 
@@ -65,7 +66,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public void LoadAlbumData()
+    public void LoadTotalAlbumData()
     {
         this.albumDicData = new Dictionary<long, RawData>(); // album id : AlbumData
         var ta = Resources.Load<TextAsset>("Data/total_album_data2"); // api 통신해서 json 가져오기 
@@ -86,6 +87,20 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    public void LoadUserAlbumData()
+    {
+        this.userAlbumDicData = new Dictionary<long, RawData>(); // 앨범 pos id : UserAlbumData
+        var ta = Resources.Load<TextAsset>("Data/user_album_data2"); // api 통신해서 json 가져오기 
+        var json = ta.text;
+        var arrData = JsonConvert.DeserializeObject<UserAlbumData[]>(json);
+
+        foreach (var data in arrData)
+        {
+
+            this.userAlbumDicData.Add(data.id, data);
+        }
+    }
+
     public RawData itemIdToItem(long positionId, long itemId)
     {
         var itemList = totalItemDicData[positionId];
@@ -99,6 +114,9 @@ public class DataManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void photoIdToPhoto(long albumId, long photoId) { 
     }
 
     IEnumerator GetTexture(PhotoData picture)

@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhotoData : RawData
+public class UserAlbumData : RawData
 {
-    public string fileName;
-    public string url;
+    public long albumId;
+    public long photoId;
     public Texture texture;
-
 }
