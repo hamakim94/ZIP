@@ -23,6 +23,7 @@ public class MoveObject : MonoBehaviour
     {       
             // 위치
             moveVec = new Vector3(joystick.Horizontal, 0, joystick.Vertical) * speed * Time.deltaTime;
+            
             rigid.MovePosition(rigid.position + moveVec);
 
             if(moveVec == Vector3.zero) return;
