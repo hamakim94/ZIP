@@ -6,10 +6,10 @@ public class MoveObject : MonoBehaviour
 {
     public bl_Joystick joystick; 
     public float speed;
-
+    public Animator animator;
     Rigidbody rigid;
     private Vector3 moveVec;
-
+    public GameObject ParentList;
     RaycastHit hit;
 
     // Start is called before the first frame update
@@ -32,12 +32,6 @@ public class MoveObject : MonoBehaviour
             Quaternion dirQuat = Quaternion.LookRotation(moveVec); // 게임 오브젝트의 3차원 방향을 저장
             Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.8f); // 회전 조작 
             rigid.MoveRotation(moveQuat);
-
-            if(Physics.Raycast(rigid.transform.position, rigid.transform.forward, out hit, 5))
-        {
-            Debug.Log(hit.collider.name);
-            Debug.DrawRay(rigid.transform.position, rigid.transform.forward * hit.distance, Color.red);
-        }
     }
 
     void LateUpdate(){

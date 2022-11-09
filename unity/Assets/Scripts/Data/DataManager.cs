@@ -52,7 +52,6 @@ public class DataManager : MonoBehaviour
             this.totalItemDicData.Add(data.id, data.itemList);
         }
     }
-
     public void LoadUserData()
     {
         this.userItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 사용자가구[](사용자가구 list)
