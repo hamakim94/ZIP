@@ -49,7 +49,7 @@ public class BoardServiceImpl implements BoardService {
         if(boardOpt.isPresent()){
             Board board = boardOpt.get();
             List<Comment> commentList = commentRepository.findByBoardId(boardId);
-            notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false),
+            notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),
                             userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(User::getId).collect(Collectors.toList()));
             return new BoardDetailDTO(BoardMapStruct.INSTANCE.mapToBoardDTO(board),
                     commentList.stream().map(CommentDTOMapStruct.INSTANCE::mapToCommentDTO).collect(Collectors.toList()));
@@ -69,7 +69,7 @@ public class BoardServiceImpl implements BoardService {
 
 
         boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).image(imageUrl).reg(LocalDateTime.now()).build());
-        notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false),user.getFamily().getUsers().stream().map(User::getId).filter(o->!o.equals(userDTO.getId())).collect(Collectors.toList()));
+        notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),user.getFamily().getUsers().stream().map(User::getId).filter(o->!o.equals(userDTO.getId())).collect(Collectors.toList()));
     }
     @Transactional
     @Override

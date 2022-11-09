@@ -1,4 +1,6 @@
 package com.ssafy.zip.dto.response;
 
-public record NotificationResponseDTO(Long id, String message, String link, String image, Boolean isRead) {
+import java.time.LocalDateTime;
+
+public record NotificationResponseDTO(Long id, String message, String link, String image, Boolean isRea, LocalDateTime reg) {
 }

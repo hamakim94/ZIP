@@ -18,6 +18,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class NotificationServiceImpl implements NotificationService {
                 Message message = Message.builder().setToken(tokenValue).setNotification(notificationFire).build();
                 listMessage.add(message);
             }
-            listNotification.add(new Notification(null, id, notification.getMessage(), notification.getLink(), notification.getImage(), false));
+            listNotification.add(new Notification(null, id, notification.getMessage(), notification.getLink(), notification.getImage(), false, LocalDateTime.now()));
         }
 
         notificationRepository.saveAll(listNotification);

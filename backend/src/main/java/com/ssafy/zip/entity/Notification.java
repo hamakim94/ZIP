@@ -3,6 +3,7 @@ package com.ssafy.zip.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -25,4 +26,5 @@ public class Notification{
 
     Boolean isRead;
 
+    LocalDateTime reg;
 }

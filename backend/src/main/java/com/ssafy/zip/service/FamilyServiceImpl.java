@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -59,7 +60,7 @@ public class FamilyServiceImpl implements FamilyService{
         FamilyResponseDTO familyResponseDTO = new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId());
 
 
-        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.FamilyEnrolled.getMessage(), userDTO.getNickname()),NotificationEnum.FamilyEnrolled.getLink(), userDTO.getProfileImg(),false),
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.FamilyEnrolled.getMessage(), userDTO.getNickname()),NotificationEnum.FamilyEnrolled.getLink(), userDTO.getProfileImg(),false, LocalDateTime.now()),
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
         // 편지 보낼 가족 선정!
         List<Long> usersIdList = family.getUsers().stream().map(User::getId).filter(o->!o.equals(user.getId())).collect(Collectors.toList());

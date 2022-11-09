@@ -71,7 +71,7 @@ public class LetterServiceImpl implements LetterService {
                 .to(toUser).stationery(letterRequestDTO.stationery())
                 .build()
         );
-        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterSentTome.getLink(), userDTO.getProfileImg(),false),
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterSentTome.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),
                 List.of(letterRequestDTO.toUserId()));
 
 
