@@ -7,15 +7,13 @@ public class MoveObject : MonoBehaviour
     public bl_Joystick joystick; 
     public float speed;
     public Animator animator;
-    Rigidbody rigid;
     private Vector3 moveVec;
     public GameObject ParentList;
-    RaycastHit hit;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -24,15 +22,24 @@ public class MoveObject : MonoBehaviour
             // 위치
             moveVec = new Vector3(joystick.Horizontal, 0, joystick.Vertical) * speed * Time.deltaTime;
             
-            rigid.MovePosition(rigid.position + moveVec);
+            /*tranform.position(tranform.position + moveVec);*/
+            transform.position = transform.position + moveVec;
+        if (moveVec == Vector3.zero)
+        {
+            animator.SetTrigger("A");
+            return;
+        }
+        else if (moveVec != Vector3.zero)
+        {
+            animator.SetTrigger("Walk");
+        }
+        // 회전 
+        if (moveVec.sqrMagnitude == 0) return; // input이 없으면 rotation 없음
 
-            if(moveVec == Vector3.zero) return;
-            // 회전 
-            // if(moveVec.sqrMagnitude == 0) return; // input이 없으면 rotation 없음
-
-            Quaternion dirQuat = Quaternion.LookRotation(moveVec); // 게임 오브젝트의 3차원 방향을 저장
-            Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.8f); // 회전 조작 
-            rigid.MoveRotation(moveQuat);
+        Quaternion dirQuat = Quaternion.LookRotation(moveVec); // 게임 오브젝트의 3차원 방향을 저장
+        Quaternion moveQuat = Quaternion.Slerp(transform.rotation, dirQuat, 0.8f); // 회전 조작 
+        /* rigid.MoveRotation(moveQuat);*/
+        transform.rotation = moveQuat;
     }
 
     void LateUpdate(){
