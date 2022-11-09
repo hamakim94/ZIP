@@ -32,7 +32,7 @@ public class LoadingSceneManager : MonoBehaviour
 
         while (!operation.isDone) // 로딩 완료
         {
-            time += Time.time; // 시작 후 실행 시간 
+            time = Time.time; // 시작 후 실행 시간 
             slider.value = time / 5f;
             if(time > 5)
             {
