@@ -7,14 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.HomeAdapter
-import com.ssafy.zip.android.data.Family
-import com.ssafy.zip.android.data.FamilyMember
-import com.ssafy.zip.android.data.Missions
+import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.repository.UserRepository
 import com.ssafy.zip.android.viewmodel.HomeViewModel
@@ -32,8 +33,17 @@ class HomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         activity = context as MainActivity
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("멈춤!")
+    }
+
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 
     override fun onCreateView(
@@ -54,13 +64,25 @@ class HomeFragment : Fragment() {
             }
         }
         binding.mission1Btn.setOnClickListener{
-            val action = HomeFragmentDirections.actionHomeFragmentToRecordFragment()
-            binding.root.findNavController().navigate(action)
+            var bundle = Bundle()
+            bundle.putParcelable("Qna",  viewModel.missions.value?.qna)
+            binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordQnaDetailFragment, bundle)
         }
 
         binding.mission2Btn.setOnClickListener{
-            val action = HomeFragmentDirections.actionHomeFragmentToRecordFragment()
-            binding.root.findNavController().navigate(action)
+            var bundle = Bundle()
+            bundle.putParcelable("Letter", viewModel.missions.value?.letter)
+            bundle.putParcelable("User", viewModel.userData.value)
+            if(viewModel.missions.value?.letter?.isSent == true){
+                MaterialAlertDialogBuilder(activity)
+                    .setMessage("이미 작성하셨습니다")
+                    .setPositiveButton("확인") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            } else{
+                binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordLetterCreateFragment, bundle)
+            }
         }
         return binding.root
     }

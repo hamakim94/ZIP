@@ -1,6 +1,7 @@
 package com.ssafy.zip.android
 
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.data.request.RequestSignup
 import com.ssafy.zip.android.databinding.FragmentSignupBinding
 import com.ssafy.zip.android.repository.UserRepository
@@ -44,6 +46,7 @@ class SignupFragment : Fragment() {
                     if(response.equals("200")){
                         emailCheck = true
                         flagCheck()
+                        Toast.makeText(context,"확인됐습니다.", Toast.LENGTH_SHORT).show()
                     }
                     else{
                         emailCheck = false
@@ -54,7 +57,7 @@ class SignupFragment : Fragment() {
             }
         }
         binding.btnSignup.setOnClickListener{
-            CoroutineScope(Dispatchers.IO).launch {
+            CoroutineScope(Dispatchers.Main).launch {
                 val instance = UserRepository.getInstance(Application())
                 var response = instance?.signUp(
                     img = null,

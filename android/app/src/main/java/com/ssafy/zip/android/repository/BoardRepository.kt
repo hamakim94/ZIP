@@ -18,7 +18,7 @@ class BoardRepository private constructor(application: Application) {
     // 전체 정보 가져오기
     suspend fun getBoardAll(): ArrayList<ResponseBoardAll>? {
         val response = ApiService.getApiService.getBoardAll()
-        println("BoardRepository getBoard response: " + response)
+//        println("BoardRepository getBoard response: " + response)
         return if(response.isSuccessful) response.body() as ArrayList<ResponseBoardAll> else null
     }
 
@@ -27,7 +27,7 @@ class BoardRepository private constructor(application: Application) {
         id : Long
     ) : BoardDetail? {
         val response = ApiService.getApiService.getBoardDetailById(id)
-        println("BoardRepository getBoardDetail response: " + response)
+//        println("BoardRepository getBoardDetail response: " + response)
         return if(response.isSuccessful) response.body() as BoardDetail else null
     }
     // 게시글 상세 댓글 달기
@@ -54,21 +54,21 @@ class BoardRepository private constructor(application: Application) {
     // 오늘의 미션 가져오기
     suspend fun getMission():Missions?{
         val response = ApiService.getApiService.getMission()
-        println("BoardRepository getMission response: " + response)
+//        println("BoardRepository getMission response: " + response)
         return if(response.isSuccessful) response.body() as Missions else null
     }
 
     // 유저 정보 가져오기
     suspend fun getUserData() : User? {
         val response = ApiService.getApiService.getUserData()
-        println("BoardRepository getUserData response: " + response)
+//        println("BoardRepository getUserData response: " + response)
         return if(response.isSuccessful) response.body() as User else null
     }
 
     //가족 정보 가져오기
     suspend fun getFamily():Family?{
         val response = ApiService.getApiService.getFamily()
-        println("BoardRepository getFamily response: " + response)
+//        println("BoardRepository getFamily response: " + response)
         return if(response.isSuccessful) response.body() as Family else null
     }
 

@@ -20,7 +20,7 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
         viewModelScope.launch {
             // .value : livedata가 가지고 있는 값으로 접근
             _albumList.value = repository.getAllAlbumList()
-            println("AlbumViewModel repository.getAllAlbumList() " + repository.getAllAlbumList())
+//            println("AlbumViewModel repository.getAllAlbumList() " + repository.getAllAlbumList())
         }
     }
 
@@ -45,7 +45,7 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
             val response = repository.deleteAlbum(album.id)
             _albumList.value?.remove(album)
             _albumList.value = _albumList.value
-            println("AlbumViewModel deleteAlbum response: " + response)
+//            println("AlbumViewModel deleteAlbum response: " + response)
         }
     }
 }

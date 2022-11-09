@@ -1,16 +1,15 @@
 package com.ssafy.zip.android.adapter
 
-import android.R.attr.left
-import android.R.attr.right
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.utils.widget.ImageFilterButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
+import androidx.core.view.setPadding
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -24,14 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 
 class BoardModelAdapter(
-    private val adapterData: ArrayList<ResponseBoardAll>,
-    private val viewModel: BoardViewModel
-) :
-    RecyclerView.Adapter<BoardModelAdapter.BoardModelAdapterViewHolder>() {
+    private val adapterData: ArrayList<ResponseBoardAll>, private val viewModel: BoardViewModel
+) : RecyclerView.Adapter<BoardModelAdapter.BoardModelAdapterViewHolder>() {
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): BoardModelAdapterViewHolder {
         val layout = when (viewType) {
             TYPE_BOARD -> R.layout.board_item
@@ -40,17 +36,14 @@ class BoardModelAdapter(
             else -> throw IllegalArgumentException("Invalid type")
         }
 
-        val view = LayoutInflater
-            .from(parent.context)
-            .inflate(layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
 
         return BoardModelAdapterViewHolder(view)
     }
 
 
     override fun onBindViewHolder(
-        holder: BoardModelAdapterViewHolder,
-        position: Int
+        holder: BoardModelAdapterViewHolder, position: Int
     ) {
         holder.bind(adapterData[position], viewModel)
         // 게시글 바인딩 시켜야함
@@ -91,8 +84,7 @@ class BoardModelAdapter(
         private const val TYPE_LETTER = 2
     }
 
-    class BoardModelAdapterViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
+    class BoardModelAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private fun bindBoard(item: ResponseBoardAll) {
             var board: BoardModel.Board = item.data as BoardModel.Board
@@ -109,8 +101,10 @@ class BoardModelAdapter(
                 //Glide 쓰기..
                 if (board.image != null) {
                     itemView.findViewById<ImageView>(R.id.boardImage).layoutParams.height = 800
-                    Glide.with(itemView)
-                        .load(board.image)
+                    itemView.findViewById<ImageView>(R.id.boardImage)
+                        .setBackgroundResource(R.drawable.layout_vertical)
+                    itemView.findViewById<ImageView>(R.id.boardImage).setPadding(4)
+                    Glide.with(itemView).load(board.image)
                         .into(itemView.findViewById<ImageView>(R.id.boardImage))
                 }
                 itemView.findViewById<TextView>(R.id.boardContent).text = board.content
@@ -133,8 +127,6 @@ class BoardModelAdapter(
 
             var letter: BoardModel.Letter? = item.data as? BoardModel.Letter
             var userId = viewModel.userData.value?.id
-            println("bindLetter : " + letter.toString())
-            println("bindViewModel : " + userId.toString())
             if (userId != null) {
                 // 1. 보낸 편지인지, 그냥 mark,email 쓸거
                 if (userId == letter?.from?.id) {

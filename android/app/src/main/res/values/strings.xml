@@ -59,4 +59,6 @@
     <string name="enter_text">입장하기</string>
     <string name="room_hint">방 코드를 입력해주세요.</string>
     <string name="room_message"><u>아직 초대된 방이 없으신가요?</u></string>
+    <string name="notification_channel_id">ZIP_ID</string>
+    <string name="msg_token_fmt" translatable="false">토큰 : %s</string>
 </resources>

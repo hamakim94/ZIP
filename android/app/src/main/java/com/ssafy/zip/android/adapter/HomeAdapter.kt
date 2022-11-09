@@ -41,12 +41,12 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
                 .load(homeImage.profileImg)
                 .into(holder.homeImage)
         }
-
         holder.homeImage.setOnClickListener {
             val dialog = CustomDialog()
             val args = Bundle()
             args.putParcelable("key", homeImage)
             args.putString("familyName", familyName)
+            args.putLong("familyUserId", homeImage.id) // 가족 구성원 아이디
             dialog.arguments = args
             dialog.show(mFragmentManager, "됐다")
         }

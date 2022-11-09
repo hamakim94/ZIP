@@ -16,6 +16,7 @@ interface ApiInterface {
         @Body body: RequestLoginData
     ): Response<User> // 받을 데이터 클래스
 
+
     @POST("users/reissue")
     suspend fun tokenReissue(): Response<String>
 
@@ -35,6 +36,12 @@ interface ApiInterface {
     suspend fun getUserData(
     ) : Response<User>
 
+    @POST("users/notification")
+    suspend fun putFcmToken(
+        @Query(value = "token") token : String
+    ) : Response<String>
+
+
     @PUT("rooms/enter")
     suspend fun enterRoom(
         @Body code: Int,
@@ -44,6 +51,8 @@ interface ApiInterface {
     suspend fun createFamily(
         @Body body: RequestFamilyroom
     ) : Response<UserFamily>
+
+
 
     // 앨범 관련
 
@@ -153,6 +162,14 @@ interface ApiInterface {
         @Part image : MultipartBody.Part?
     ) :Response<String>
 
+//    @Multipart
+//    @PUT("users/profiles")
+//    suspend fun modifyUser(
+//        @Part profileImg: MultipartBody.Part?,
+//        @Part("familyName") familyName : RequestBody,
+//        @Part("nickname") nickname : RequestBody
+//    ): Response<User>
+
     // 편지 관련
     @GET("post/letter/today")
     suspend fun getTodayLetter(
@@ -168,5 +185,15 @@ interface ApiInterface {
     suspend fun postLetterRead(
         @Path("letterId") id : Long
     ) : Response<String>
+
+    // 알림 관련
+    @GET("users/notification")
+    suspend fun getNotification() : Response<ArrayList<Notification>>
+
+    @POST("users/notification/{notificationId}")
+    suspend fun postNotification(
+        @Path("notificationId")  id : Long
+    ) : Response<String>
+
 
 }

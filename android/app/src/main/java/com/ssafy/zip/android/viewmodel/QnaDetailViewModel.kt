@@ -20,7 +20,7 @@ class QnaDetailViewModel(private val repository: BoardRepository) : ViewModel() 
 
 
     init {
-        Log.d("TAG", "QnaDetailViewModel 생성자 호출")
+//        Log.d("TAG", "QnaDetailViewModel 생성자 호출")
         viewModelScope.launch {
             _familyData.value = repository.getFamily()
             _userData.value = repository.getUserData()
@@ -35,7 +35,7 @@ class QnaDetailViewModel(private val repository: BoardRepository) : ViewModel() 
 
     // 백문백답 상세 페이지
     fun getQnaDetail(id : Long){
-        Log.d("TAG", "QnaDetailViewModel 데이터 가져오기")
+//        Log.d("TAG", "QnaDetailViewModel 데이터 가져오기")
         viewModelScope.launch {
             _qnaDetail.value = repository.getQnaDetail(id)
         }
