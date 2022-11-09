@@ -44,7 +44,7 @@ public class InventoryTabButton : MonoBehaviour
                     inventoryListItem.Init(i, itemData.id, itemData.img, id, true, this);
                     itemGOList[i] = listItem;
                     currentPlacedIdx = i;
-                }
+                }            
             }
         }
     }
@@ -62,9 +62,9 @@ public class InventoryTabButton : MonoBehaviour
         }
     }
 
-    public void changeCurState(int idx)
+    public void ChangeCurState(int idx)
     {
-        itemGOList[currentPlacedIdx].GetComponent<InventoryListItem>().changeBtn(false);
+        itemGOList[currentPlacedIdx].GetComponent<InventoryListItem>().ChangeBtn(false);
         currentPlacedIdx = idx;
     } 
 }

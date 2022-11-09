@@ -19,13 +19,13 @@ public class PhotoPanel : MonoBehaviour
             // 아이템 만들기 
             var listItem = Instantiate(this.albumItem, this.contents); // 게임 오브젝트의 복제본 생성 
             var album = listItem.GetComponent<AlbumListItem>();
-            *//*StartCoroutine(GetTexture(data.pictures[0].url));*//*
+            StartCoroutine(GetTexture(data.pictures[0].url));
             album.Init(data.id, data.name, data.pictures);
-            *//*StartCoroutine(DataManager.GetTexture(data.pictures[data.pictures.Length - 1].url, album));*//*
+            StartCoroutine(DataManager.GetTexture(data.pictures[data.pictures.Length - 1].url, album));
         }
     }
 
-    *//*public void OnEnable()
+    public void OnEnable()
     {
         if (isStarted)
         {
@@ -40,13 +40,13 @@ public class PhotoPanel : MonoBehaviour
                 // 아이템 만들기 
                 var listItem = Instantiate(this.albumItem, this.contents); // 게임 오브젝트의 복제본 생성 
                 var album = listItem.GetComponent<AlbumListItem>();
-                *//*StartCoroutine(GetTexture(data.pictures[0].url));*//*
+                StartCoroutine(GetTexture(data.pictures[0].url));
                 album.Init(data.id, data.name, data.pictures);
-                *//*StartCoroutine(DataManager.GetTexture(data.pictures[data.pictures.Length - 1].url, album));*//*
+                StartCoroutine(DataManager.GetTexture(data.pictures[data.pictures.Length - 1].url, album));
             }
         }
-    }*/
-/*
+    }
+
     public void OnDisable()
     {
         Transform[] childlist = contents.gameObject.GetComponentsInChildren<Transform>();
@@ -58,15 +58,15 @@ public class PhotoPanel : MonoBehaviour
                     Destroy(childlist[i].gameObject);
             }
         }
-    }*//*
+    }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    *//*public static IEnumerator GetTexture(string url)
+    public static IEnumerator GetTexture(string url)
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
@@ -79,6 +79,6 @@ public class PhotoPanel : MonoBehaviour
             Debug.Log(www.downloadHandler.text);
             Debug.Log(((DownloadHandlerTexture)www.downloadHandler).texture);
         }
-    }*//*
+    }
 }
 */

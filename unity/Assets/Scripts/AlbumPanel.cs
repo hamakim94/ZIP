@@ -7,89 +7,32 @@ public class AlbumPanel : MonoBehaviour
 {
     public GameObject albumItem;
     public RectTransform contents;
-    /*private bool isStarted = false;*/
+    public GameObject albumPhotosContent;
+    public Transform viewPort;
+    private List<GameObject> albumContentList;
 
     private void Start()
     {
-        /*var albumData = DataManager.Instance.albumData;
-
-        for (int i = 0; i < albumData.Length; i++) // 앨범마다
-        {
-            var data = (AlbumData)albumData[i];
-
-            // 아이템 만들기 
-            var listItem = Instantiate(this.albumItem, this.contents); // 게임 오브젝트의 복제본 생성 
-            var album = listItem.GetComponent<AlbumListItem>();
-            *//*StartCoroutine(GetTexture(data.pictures[0].url));*//*
-            album.Init(data.id, data.name, data.pictures);
-            *//*StartCoroutine(DataManager.GetTexture(data.pictures[data.pictures.Length - 1].url, album));*//*
-        }*/
-
         var albumDicData = DataManager.Instance.albumDicData;
+        var i = 0;
+        albumContentList = new List<GameObject>(new GameObject[albumDicData.Count]);
 
-        foreach(var albumData in albumDicData)
+        foreach (var albumData in albumDicData)
         {
             var albumDataValue = (AlbumData)albumData.Value;
-            // 아이템 만들기 
-            var listItem = Instantiate(this.albumItem, this.contents); // 게임 오브젝트의 복제본 생성 
-            var album = listItem.GetComponent<AlbumListItem>();
-            album.Init(albumDataValue.id, albumDataValue.name, albumDataValue.pictures);
+
+            // 앨범 item 
+            var albumItemOj = Instantiate(this.albumItem, this.contents); // 게임 오브젝트의 복제본 생성 
+            var albumScript = albumItemOj.GetComponent<AlbumListItem>();
+            albumScript.Init(i, albumDataValue.id, albumDataValue.name, albumDataValue.pictures, albumContentList);
+
+            // 앨범 content item 
+            var albumPicturesOj = Instantiate(albumPhotosContent, viewPort);
+            var albumPictures = albumPicturesOj.GetComponent<PhotoContent>(); 
+            albumPictures.Init(i, albumDataValue.pictures);
+            albumContentList[i] = albumPicturesOj; // 나중에 하나만 활성화하기 위함 
+
+            i++;
         }
     }
-
-    /*public void OnEnable()
-    {
-        if (isStarted)
-        {
-            Debug.Log("OnEnable");
-            // 로드된 데이터 가져옴
-            var albumData = DataManager.Instance.albumData;
-
-            for (int i = 0; i < albumData.Length; i++) // 앨범마다
-            {
-                var data = (AlbumData)albumData[i];
-
-                // 아이템 만들기 
-                var listItem = Instantiate(this.albumItem, this.contents); // 게임 오브젝트의 복제본 생성 
-                var album = listItem.GetComponent<AlbumListItem>();
-                *//*StartCoroutine(GetTexture(data.pictures[0].url));*//*
-                album.Init(data.id, data.name, data.pictures);
-                *//*StartCoroutine(DataManager.GetTexture(data.pictures[data.pictures.Length - 1].url, album));*//*
-            }
-        }
-    }*/
-/*
-    public void OnDisable()
-    {
-        Transform[] childlist = contents.gameObject.GetComponentsInChildren<Transform>();
-        if (childlist != null)
-        {
-            for (int i = 1; i < childlist.Length; i++)
-            {
-                if (childlist[i] != transform)
-                    Destroy(childlist[i].gameObject);
-            }
-        }
-    }*/
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    /*public static IEnumerator GetTexture(string url)
-    {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-        yield return www.SendWebRequest();
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Debug.Log(www.downloadHandler.text);
-            Debug.Log(((DownloadHandlerTexture)www.downloadHandler).texture);
-        }
-    }*/
 }
