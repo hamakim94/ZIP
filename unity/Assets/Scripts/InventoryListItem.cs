@@ -28,11 +28,14 @@ public class InventoryListItem : MonoBehaviour
     // 선택한 item만 배치, 나머지 배치X 
     private void OnClickButton(int idx, long posId, long id)
     {
-        /*Debug.Log("OnClickButton: " + idx + ", " + posId +"id: " + id);*/
-        var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
-        /*Debug.Log(itemData.img);*/
         tabButton.changeCurState(idx);
-
+        changeBtn(true);
+        setFuniture(posId, id);
+        // 이제 기존에 것 치우고 하는식으로 해보기.
+    }
+    public void setFuniture(long posId, long id)
+    {
+        var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
         target = GameObject.Find("SelectObject").transform.GetChild((int)posId - 1);
         // 선택한 item 배치 
         if (target.childCount > 1)
@@ -43,13 +46,9 @@ public class InventoryListItem : MonoBehaviour
         {
             target.GetChild(0).gameObject.SetActive(false);
         }
-        changeBtn(true);
-
-        var resource = Resources.Load("Prefabs/"+itemData.img); // 여기에 이제 가구이름으로 동적 생성하기.
+        var resource = Resources.Load("Prefabs/" + itemData.img); // 여기에 이제 가구이름으로 동적 생성하기.
         GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
         item.transform.parent = target; // 부모 정해놓기
-
-        // 이제 기존에 것 치우고 하는식으로 해보기.
     }
     private void Update()
     {

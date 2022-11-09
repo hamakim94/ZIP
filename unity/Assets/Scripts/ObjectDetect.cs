@@ -13,7 +13,7 @@ public class ObjectDetect : MonoBehaviour
     private bool check;
     private void OnDrawGizmos() { 
         Gizmos.color = Color.white;
-        Gizmos.DrawSphere(transform.position, 5f);
+        Gizmos.DrawSphere(transform.position, 2f);
     }
     private void Start()
     {
@@ -27,7 +27,7 @@ public class ObjectDetect : MonoBehaviour
 
     private void UpdateTarget()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position, 3f);
+        Collider[] cols = Physics.OverlapSphere(transform.position, 2f);
         check = false;
         if (cols.Length > 2)
         {
