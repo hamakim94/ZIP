@@ -2426,7 +2426,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 200, y: 100}
+  m_CellSize: {x: 198.88887, y: 100}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
@@ -2580,6 +2580,8 @@ MonoBehaviour:
   mainPanel: {fileID: 677724324}
   shopPanel: {fileID: 1558297530}
   inventoryPanel: {fileID: 1988296329}
+  albumPanel: {fileID: 0}
+  photoPanel: {fileID: 0}
 --- !u!114 &441274648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6149,7 +6151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1114792566
 Transform:
   m_ObjectHideFlags: 0
@@ -8393,6 +8395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99e5430cd01e1b45b77110c6613d968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  texture: {fileID: 0}
 --- !u!1 &1529498940
 GameObject:
   m_ObjectHideFlags: 0
@@ -10904,6 +10907,8 @@ MonoBehaviour:
   mainPanel: {fileID: 677724324}
   shopPanel: {fileID: 1558297530}
   inventoryPanel: {fileID: 1988296329}
+  albumPanel: {fileID: 0}
+  photoPanel: {fileID: 0}
 --- !u!114 &2133717663
 MonoBehaviour:
   m_ObjectHideFlags: 0

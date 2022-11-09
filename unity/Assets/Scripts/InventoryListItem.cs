@@ -17,7 +17,7 @@ public class InventoryListItem : MonoBehaviour
 
     public void Init(int idx, long id, string img, long posId, Boolean placed, PlusButton go)
     {
-        // µ¥ÀÌÅÍ ³Ö±â 
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½ 
         var spriteName = atlas.GetSprite(img);
         imgIcon.sprite = spriteName;
         changeBtn(placed);
@@ -25,33 +25,33 @@ public class InventoryListItem : MonoBehaviour
         unplacedItemBtn.GetComponent<Button>().onClick.AddListener(() => OnClickButton(idx, posId));
     }
 
-    // ¼±ÅÃÇÑ item¸¸ ¹èÄ¡, ³ª¸ÓÁö ¹èÄ¡X 
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½Ä¡, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡X 
     private void OnClickButton(int idx, long posId)
     {
         Debug.Log("OnClickButton: " + idx + ", " + posId);
         tabButton.changeCurState(idx);
 
         target = GameObject.Find("SelectObject").transform.GetChild((int)posId-1);
-        // ¼±ÅÃÇÑ item ¹èÄ¡ 
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ item ï¿½ï¿½Ä¡ 
         if(target.childCount > 1)
         {
             Destroy(target.GetChild(1).gameObject);
         }
         changeBtn(true);
 
-        var resource = Resources.Load("Prefabs/prefab1"); // ¿©±â¿¡ ÀÌÁ¦ °¡±¸ÀÌ¸§À¸·Î µ¿Àû »ý¼ºÇÏ±â.
+        var resource = Resources.Load("Prefabs/prefab1"); // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½.
         GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
-        item.transform.parent = target; // ºÎ¸ð Á¤ÇØ³õ±â
+        item.transform.parent = target; // ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½
 
-        // ÀÌÁ¦ ±âÁ¸¿¡ °Í Ä¡¿ì°í ÇÏ´Â½ÄÀ¸·Î ÇØº¸±â.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä¡ï¿½ï¿½ï¿½ ï¿½Ï´Â½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½ï¿½ï¿½.
     }
 
-    /*// ¼±ÅÃÇÑ item¸¸ ¹èÄ¡, ³ª¸ÓÁö ¹èÄ¡X 
+    /*// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½Ä¡, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡X 
     private void OnClickButton(int idx, long posId)
     {
         var itemList = DataManager.Instance.userItemDicData[posId];
 
-        // ¸ðµç item¿¡ ´ëÇØ ¹èÄ¡X 
+        // ï¿½ï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡X 
         for (int i = 0; i < itemList.Length; i++)
         {
             var item = (UserItemData)itemList[i];
@@ -63,7 +63,7 @@ public class InventoryListItem : MonoBehaviour
             }
         }
 
-        // ¼±ÅÃÇÑ item ¹èÄ¡ 
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ item ï¿½ï¿½Ä¡ 
         changeBtn(true);
     }*/
 
