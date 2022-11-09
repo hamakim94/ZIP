@@ -8,21 +8,23 @@ public class Inventory : MonoBehaviour
     public Button cartCloseButton;
     public GameObject mainPanel;
     public GameObject inventoryPanel;
+    public RectTransform contents;
+    [SerializeField]
+    private Camera c;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void InventoryCloseButtonClicked(){
         mainPanel.SetActive(true);
         inventoryPanel.SetActive(false);
+        c.GetComponent<FollowCamera>().enabled = true;
+        Transform[] childlist = contents.gameObject.GetComponentsInChildren<Transform>();
+        if (childlist != null)
+        {
+            for (int i = 1; i < childlist.Length; i++)
+            {
+                if (childlist[i] != transform)
+                    Destroy(childlist[i].gameObject);
+            }
+        }
     }
 }

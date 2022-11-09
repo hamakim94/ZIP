@@ -6,9 +6,11 @@ public class MoveObject : MonoBehaviour
 {
     public bl_Joystick joystick; 
     public float speed;
-
+    public Animator animator;
     Rigidbody rigid;
     private Vector3 moveVec;
+    public GameObject ParentList;
+    RaycastHit hit;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +20,7 @@ public class MoveObject : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {       
             // 위치
             moveVec = new Vector3(joystick.Horizontal, 0, joystick.Vertical) * speed * Time.deltaTime;
             rigid.MovePosition(rigid.position + moveVec);
