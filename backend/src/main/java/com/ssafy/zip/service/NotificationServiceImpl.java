@@ -14,6 +14,7 @@ import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.NotificationMapStruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.N;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,12 +67,9 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional
     @Override
     public void readNotification(UserDTO userDTO, Long notificationId) {
-        Optional<Notification> notificationOptional = notificationRepository.findById(notificationId);
-        if(notificationOptional.isPresent()){
-            Notification notification = notificationOptional.get();
-            if(notification.getUserId().equals(userDTO.getId()))
-            notification.setIsRead(true);
-        }
+        notificationRepository.findById(notificationId).ifPresent(o->{
+            if(o.getUserId().equals(userDTO.getId()))o.setIsRead(true);
+        });
     }
     @Transactional
     @Override
@@ -82,13 +80,14 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional
     @Override
     public void eraseToken(UserDTO userDTO) {
-        fcmTokenRepository.delete(fcmTokenRepository.findById(userDTO.getId()).get());
+        fcmTokenRepository.findById(userDTO.getId()).ifPresent(fcmTokenRepository::delete);
     }
 
     @Override
     public List<NotificationResponseDTO> getNotifications(UserDTO userDTO) {
-        return notificationRepository.findByUserId(userDTO.getId()).stream()
+        return notificationRepository.findByUserIdAndIsRead(userDTO.getId(),false).stream()
                 .map(NotificationMapStruct.INSTANCE::mapToNotificationDTO)
+                .sorted((o1, o2) -> o2.id().compareTo(o1.id()))
                 .collect(Collectors.toList());
     }
 
