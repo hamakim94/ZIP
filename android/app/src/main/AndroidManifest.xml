@@ -32,6 +32,15 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/notification_channel_id" />
 
+        <meta-data
+            android:name="unityplayer.UnityActivity"
+            android:value="true" />
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+
+        <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -59,12 +68,6 @@
             android:process=":UnityKillsMe"
             tools:replace="android:screenOrientation"
             >
-            <meta-data
-                android:name="unityplayer.UnityActivity"
-                android:value="true" />
-            <meta-data
-                android:name="android.notch_support"
-                android:value="true" />
         </activity>
         <service
             android:name="com.ssafy.zip.android.MyFirebaseMessagingService"

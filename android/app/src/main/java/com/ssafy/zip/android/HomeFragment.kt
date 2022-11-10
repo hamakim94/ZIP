@@ -24,10 +24,10 @@ import com.ssafy.zip.android.data.Missions
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.repository.UserRepository
 import com.ssafy.zip.android.viewmodel.HomeViewModel
+import com.unity3d.player.UnityPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeList: ArrayList<FamilyMember>
     private lateinit var homeAdapter: HomeAdapter
     private val viewModel by viewModels<HomeViewModel>{HomeViewModel.Factory(Application())}
+    private lateinit var mUnityPlayer : UnityPlayer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -86,6 +87,13 @@ class HomeFragment : Fragment() {
             clipboard.setPrimaryClip(clip)
             Toast.makeText(context, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
+        mUnityPlayer = UnityPlayer(activity);
+        var glesMode = mUnityPlayer.settings.getInt("gles_mode", 1);
+        var trueColor8888 = false;
+        mUnityPlayer.init(glesMode, trueColor8888);
+
+        binding.qwwer.addView(mUnityPlayer.view,0);
+
         return binding.root
     }
 
