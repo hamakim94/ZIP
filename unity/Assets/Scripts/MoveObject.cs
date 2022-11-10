@@ -14,8 +14,10 @@ public class MoveObject : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        joystick = GameObject.Find("Joystick").GetComponent<bl_Joystick>();
+        ParentList = GameObject.Find("BtnParent");
     }
-
+    
     // Update is called once per frame
     void Update()
     {       
@@ -40,9 +42,5 @@ public class MoveObject : MonoBehaviour
         Quaternion moveQuat = Quaternion.Slerp(transform.rotation, dirQuat, 0.8f); // 회전 조작 
         /* rigid.MoveRotation(moveQuat);*/
         transform.rotation = moveQuat;
-    }
-
-    void LateUpdate(){
-        
     }
 }
