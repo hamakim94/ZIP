@@ -7,6 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".RecordBoardFragment"
     android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/letter_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/letter_detail_appbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:text="백문백답"
+            app:maxButtonHeight="48dp"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +41,6 @@
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/circleImageView"
             android:adjustViewBounds="true"
-            android:src="@drawable/userimage1"
             app:layout_constraintBottom_toBottomOf="@id/profileContanier"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/profileContanier" />
@@ -33,7 +49,6 @@
             android:id="@+id/letterUserNicknameDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="누구누구 에게서 온 편지"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -49,7 +64,6 @@
             android:layout_width="22dp"
             android:layout_height="20dp"
             android:layout_marginStart="4dp"
-            android:src="@drawable/ic_baseline_mail_24"
             app:layout_constraintStart_toEndOf="@id/letterUserNicknameDetail"
             app:layout_constraintTop_toTopOf="@id/letterUserNicknameDetail">
 
@@ -59,7 +73,6 @@
             android:id="@+id/letterRegDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="22/10/22"
             android:textSize="10sp"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,12 +88,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/textview_border"
-        android:padding="8dp">
+        android:padding="20dp">
         <TextView
             android:id="@+id/letterContentDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="편지내용상세"
             android:textColor="@color/black"></TextView>
     </LinearLayout>
 

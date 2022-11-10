@@ -33,7 +33,7 @@ class CalendarViewModel(private val repository: CalendarRepository) : ViewModel(
             // .value : livedata가 가지고 있는 값으로 접근
             _calendarFamilyData.value = repository?.getFamilyData()
             _calendarList.value = repository?.getCalendarMonthList(year, month) as ArrayList<Calendar>?
-            println("CalendarViewModel repository.getCalendarMonthList(): " + _calendarList.value)
+//            println("CalendarViewModel repository.getCalendarMonthList(): " + _calendarList.value)
         }
     }
 

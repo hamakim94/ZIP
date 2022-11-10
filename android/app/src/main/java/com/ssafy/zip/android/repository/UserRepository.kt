@@ -5,6 +5,7 @@ import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.App
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.UserFamily
+import com.ssafy.zip.android.data.request.RequestFamilyroom
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.data.request.RequestSignup
 import okhttp3.MultipartBody
@@ -28,6 +29,14 @@ class UserRepository private constructor(application: Application) {
             response.code()
         }
 
+        return returnData
+    }
+    suspend fun postFcmToken(
+        token : String
+    ) : String? {
+        val response = ApiService.getApiService.putFcmToken(token)
+        var returnData : String?
+        returnData = response.code().toString()
         return returnData
     }
 
@@ -59,6 +68,19 @@ class UserRepository private constructor(application: Application) {
         returnData = if(response.isSuccessful) {
             response.body() as UserFamily
         } else {
+            response.code()
+        }
+        return returnData
+    }
+
+    suspend fun createRoom(
+        requestFamilyroom: RequestFamilyroom
+    ) : Any? {
+        val response = ApiService.getApiService.createFamily(requestFamilyroom)
+        var returnData : Any?
+        returnData = if(response.isSuccessful) {
+            response.body() as UserFamily
+        } else{
             response.code()
         }
         return returnData

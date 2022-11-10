@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android</string>
+    <string name="app_name">ZIP</string>
     <string name="home">홈</string>
     <string name="record">기록</string>
     <string name="calendar">캘린더</string>
@@ -17,7 +17,7 @@
     <string name="mission1_title">오늘의 백문백답</string>
     <string name="mission1_content">백문백답 미션에 참여해보세요!</string>
     <string name="mission2_title">오늘의 편지</string>
-    <string name="mission2_content">편지쓰기 미션을 해보세요!</string>
+    <string name="mission2_content">편지쓰기 미션에 참여해보세요!</string>
     <string name="dialog_name">이름</string>
     <string name="dialog_family">가족명</string>
     <string name="dialog_nickname">나의 애칭</string>
@@ -35,7 +35,7 @@
     <string name="login_text">로그인</string>
     <string name="email">이메일</string>
     <string name="email_hint">이메일</string>
-    <string name="passwordfind_text">비밀번호찾기</string>
+    <string name="passwordfind_text">비밀번호 찾기</string>
     <string name="password">비밀번호</string>
     <string name="password_hint">비밀번호 입력</string>
     <string name="password_check">비밀번호 확인</string>
@@ -59,4 +59,6 @@
     <string name="enter_text">입장하기</string>
     <string name="room_hint">방 코드를 입력해주세요.</string>
     <string name="room_message"><u>아직 초대된 방이 없으신가요?</u></string>
+    <string name="notification_channel_id">ZIP_ID</string>
+    <string name="msg_token_fmt" translatable="false">토큰 : %s</string>
 </resources>

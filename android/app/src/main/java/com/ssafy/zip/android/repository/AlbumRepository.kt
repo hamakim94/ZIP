@@ -13,35 +13,35 @@ class AlbumRepository private constructor(application : Application) {
     // Retrofit 사용
     suspend fun getAllAlbumList(): ArrayList<Album>? {
         val response = ApiService.getApiService.getAllAlbumList()
-        println("AlbumRepository getAllAlbumList response: " + response)
+//        println("AlbumRepository getAllAlbumList response: " + response)
 //        Log.d("log", response.body().toString())
         return if(response.isSuccessful) response.body() as ArrayList<Album> else null
     }
 
     suspend fun updateAlbum(title: String): Album? {
         val response = ApiService.getApiService.updateAlbum(title)
-        println("AlbumRepository updateAlbum response: " + response.body())
+//        println("AlbumRepository updateAlbum response: " + response.body())
 
         return if(response.isSuccessful) response.body() as Album else null
     }
 
     suspend fun getAlbumById(id: Long): Album? {
         val response = ApiService.getApiService.getAlbumById(id)
-        println("AlbumRepository getAlbumById response: " + response.body())
+//        println("AlbumRepository getAlbumById response: " + response.body())
 
         return if(response.isSuccessful) response.body() as Album else null
     }
 
     suspend fun deleteAlbum(id: Long): String? {
         val response = ApiService.getApiService.deleteAlbum(id)
-        println("AlbumRepository deleteAlbum response: " + response.body())
+//        println("AlbumRepository deleteAlbum response: " + response.body())
 
         return if(response.isSuccessful) response.body() else null
     }
 
     suspend fun uploadPhotos(images : List<MultipartBody.Part>, albumId : Long?, pictureId : Long?) : List<Photo>? {
         val response = ApiService.getApiService.uploadPhotos(images, RequestPhoto(albumId, pictureId))
-        println("AlbumRepository uploadPhotos response: " + response)
+//        println("AlbumRepository uploadPhotos response: " + response)
 
         return if(response.isSuccessful) response.body() as List<Photo> else null
     }
