@@ -37,13 +37,13 @@ public class DataManager : MonoBehaviour
 
     #region Public Methods
     // path에 있는 json 파일을 load해서 dictionary 형태로 return 
-    public void LoadData(string path) 
+    public void LoadData(string path)
     {
         var ta = Resources.Load<TextAsset>(path);
         var json = ta.text;
         var arrData = JsonConvert.DeserializeObject<ShopItemData[]>(json);
 
-        foreach(var data in arrData)
+        foreach (var data in arrData)
         {
             this.dicData.Add(data.id, data);
         }
@@ -89,9 +89,9 @@ public class DataManager : MonoBehaviour
     {
         var itemList = totalItemDicData[positionId];
 
-        for(int i=0; i<itemList.Length; i++)
+        for (int i = 0; i < itemList.Length; i++)
         {
-            if(itemId == itemList[i].id)
+            if (itemId == itemList[i].id)
             {
                 return itemList[i];
             }
@@ -100,7 +100,8 @@ public class DataManager : MonoBehaviour
         return null;
     }
 
-    public void photoIdToPhoto(long albumId, long photoId) { 
+    public void photoIdToPhoto(long albumId, long photoId)
+    {
     }
     #endregion
 
@@ -113,7 +114,7 @@ public class DataManager : MonoBehaviour
         Debug.Log(ta.text);
         var arrData = JsonConvert.DeserializeObject<PositionData[]>(json);
 
-        foreach(var data in arrData)
+        foreach (var data in arrData)
         {
             this.totalItemDicData.Add(data.id, data.itemList);
         }
