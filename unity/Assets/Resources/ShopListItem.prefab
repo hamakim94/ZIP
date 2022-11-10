@@ -539,7 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imgIcon: {fileID: 5090156007076016182}
   priceText: {fileID: 5090156006082994414}
-  atlas: {fileID: 4343727234628468602, guid: 62d9309d7a1aea8419c28d4f0d61d573, type: 2}
+  atlas: {fileID: 4343727234628468602, guid: 245d179deb03a2440a4711a468787e0d, type: 2}
   ownedBtn: {fileID: 7753638545153204014}
   unownedBtn: {fileID: 5090156005570078048}
 --- !u!222 &5090156006489720199
