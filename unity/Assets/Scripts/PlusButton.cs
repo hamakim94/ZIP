@@ -9,17 +9,16 @@ public class PlusButton : MonoBehaviour
     private Camera c;
     [SerializeField]
     private GameObject inventoryPanel;
-
     [SerializeField]
     private long id;
-    [SerializeField]
-    private string pos;
     [SerializeField]
     private RectTransform contents;
     [SerializeField]
     private GameObject inventoryItem;
     [SerializeField]
     private GameObject closeButton;
+    [SerializeField]
+    private GameObject obj;
     private List<GameObject> itemGOList;
     private int currentPlacedIdx;
 
@@ -31,18 +30,18 @@ public class PlusButton : MonoBehaviour
 
     public void buttonOnClick()
     {
+       
         inventoryPanel.SetActive(true);
         Ray ray = c.ScreenPointToRay(m_vecMouseDownPos);
         RaycastHit hit;
         var itemText = inventoryPanel.transform.GetChild(0).GetChild(0);
         // 광선으로 충돌된 collider를 hit에 넣습니다.
-        if (Physics.Raycast(ray, out hit))
-        {
-            Debug.Log(hit.transform.position);
-            c.GetComponent<FollowCamera>().enabled = false;
-            c.transform.position = new Vector3(hit.transform.position.x - 0.52f, c.transform.position.y, hit.transform.position.z - 6.56f);
-            c.transform.LookAt(hit.transform);
-        }
+        var childObj = obj.transform.GetChild((int)id - 1);
+        childObj.GetChild(0).gameObject.SetActive(true);
+        closeButton.GetComponent<Inventory>().getObj(childObj);
+        c.GetComponent<FollowCamera>().enabled = false;
+        c.transform.position = new Vector3(childObj.position.x - 0.52f, c.transform.position.y, childObj.position.z - 6.56f);
+        c.transform.LookAt(childObj);
         if (DataManager.Instance)
         {
             // 로드된 데이터 가져옴

@@ -17,8 +17,11 @@ public class PageInvert : MonoBehaviour
     public GameObject inventoryPanel;
     public GameObject albumPanel;
     public GameObject photoPanel;
+    public GameObject BtnList;
+    public GameObject BuildList;
     Vector3 m_vecMouseDownPos;
-    public static GameObject photoGO; 
+    public static GameObject photoGO;
+    private bool toggle = true;
 
     // Start is called before the first frame update
     void Start()
@@ -91,9 +94,15 @@ public class PageInvert : MonoBehaviour
         setActive(new int[] { (int)Panel.album, (int)Panel.main });
     }
 
-    public void PhotoButtonClicked()
+    public void PlusButtonClicked()
     {
-
+       for(int i = 0; i< BtnList.transform.childCount; i++)
+        {
+            if(true)
+            BtnList.transform.GetChild(i).gameObject.SetActive(toggle);
+            BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(toggle);
+        }
+        toggle = !toggle;
     }
 
 
