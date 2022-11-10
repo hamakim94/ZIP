@@ -21,7 +21,7 @@ public class MainPanel : MonoBehaviourPunCallbacks
     private Text pointLegacy;
     private DataManager Instance;
     #endregion
-    #region MonoBehavior Callbacsk
+    #region MonoBehavior Callbacks
     void Awake()
     {
         Instance = DataManager.Instance;
