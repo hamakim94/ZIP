@@ -54,21 +54,63 @@
                 android:background="@drawable/house"
                 app:layout_constraintTop_toBottomOf="@+id/familyName">
 
-                <TextView
-                    android:id="@+id/textView3"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/family_code_copy_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/lightgray"
-                    android:text="코드 들어갈 자리"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="4dp"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="@tools:sample/cities">
+                    android:background="@color/lightgray"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="4dp">
 
-                </TextView>
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/family_code"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="방 코드 : ">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/family_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/copy_button"
+                        app:layout_constraintStart_toEndOf="@id/text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@tools:sample/cities">
+
+                    </TextView>
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterButton
+                        android:id="@+id/copy_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
+                        android:src="@drawable/ic_outline_content_copy_24"
+                        app:layout_constraintStart_toEndOf="@id/family_code"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="4dp"
+                        >
+
+                    </androidx.constraintlayout.utils.widget.ImageFilterButton>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
