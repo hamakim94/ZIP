@@ -47,7 +47,25 @@
                 android:value="" />
             <nav-graph android:value="@navigation/bottom_bar_nav_graph"></nav-graph>
         </activity>
-
+        <activity
+            android:name="com.unity3d.player.UnityPlayerActivity"
+            android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
+            android:exported="true"
+            android:hardwareAccelerated="false"
+            android:launchMode="singleTask"
+            android:resizeableActivity="false"
+            android:screenOrientation="fullUser"
+            android:theme="@style/UnityThemeSelector"
+            android:process=":UnityKillsMe"
+            tools:replace="android:screenOrientation"
+            >
+            <meta-data
+                android:name="unityplayer.UnityActivity"
+                android:value="true" />
+            <meta-data
+                android:name="android.notch_support"
+                android:value="true" />
+        </activity>
         <service
             android:name="com.ssafy.zip.android.MyFirebaseMessagingService"
             android:exported="false"

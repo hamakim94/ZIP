@@ -19,7 +19,7 @@ public class PageInvert : MonoBehaviour
     public GameObject photoPanel;
     public GameObject BtnList;
     public GameObject BuildList;
-    Vector3 m_vecMouseDownPos;
+    public Vector3 m_vecMouseDownPos;
     public static GameObject photoGO;
     private bool toggle = true;
 
@@ -46,7 +46,7 @@ public class PageInvert : MonoBehaviour
 #else
             m_vecMouseDownPos = Input.GetTouch(0).position;
             if(Input.GetTouch(0).phase != TouchPhase.Began)
-                return;z
+                return;
 #endif
             // 카메라에서 스크린에 마우스 클릭 위치를 통과하는 광선을 반환합니다.
             Ray ray = Camera.main.ScreenPointToRay(m_vecMouseDownPos);

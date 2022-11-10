@@ -14,9 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Exoa/FloorMapDesigner/Scenes/FloorMapEditor.unity
-    guid: 03455621e2df65d45bf262cac0f80c38
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: dc403dc8ad73a5947ba9160deb161746,
+      type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: d4e3cce3ce82ffa419af03c3d7e7efa1, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 6dcddac7c5a94604d897df41d9bfdabc, type: 2}
