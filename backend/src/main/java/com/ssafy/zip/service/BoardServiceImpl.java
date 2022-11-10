@@ -13,6 +13,7 @@ import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.util.BoardMapStruct;
 import com.ssafy.zip.util.CommentDTOMapStruct;
 import com.ssafy.zip.exception.ErrorCode;
+import com.ssafy.zip.util.CommonCodeEnum;
 import com.ssafy.zip.util.NotificationEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -34,6 +35,7 @@ public class BoardServiceImpl implements BoardService {
     private final CommentRepository commentRepository;
     private final AwsS3Service awsS3Service;
     private final NotificationServiceImpl notificationService;
+    private final PointService pointService;
     private final FamilyRepository familyRepository;
 
     @Override
@@ -69,6 +71,7 @@ public class BoardServiceImpl implements BoardService {
 
         boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).image(imageUrl).reg(LocalDateTime.now()).build());
         notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),user.getFamily().getUsers().stream().map(User::getId).filter(o->!o.equals(userDTO.getId())).collect(Collectors.toList()));
+        pointService.updatePoint(userDTO, CommonCodeEnum.BoardUploaded.getCode());
     }
     @Transactional
     @Override
@@ -104,6 +107,7 @@ public class BoardServiceImpl implements BoardService {
     public void writeComment(UserDTO userDTO, Long boardId, String content) {
         User user = userRepository.getReferenceById(userDTO.getId());
         commentRepository.save(new Comment(null,boardId,user,content,LocalDateTime.now()));
+        pointService.updatePoint(userDTO, CommonCodeEnum.BoardCommentUploaded.getCode());
     }
     @Transactional
     @Override

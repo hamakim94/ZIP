@@ -16,6 +16,7 @@ import com.ssafy.zip.repository.CommonCodeRepository;
 import com.ssafy.zip.repository.LetterFromAndToRepository;
 import com.ssafy.zip.repository.LetterRepository;
 import com.ssafy.zip.repository.UserRepository;
+import com.ssafy.zip.util.CommonCodeEnum;
 import com.ssafy.zip.util.LetterDTOMapStruct;
 import com.ssafy.zip.util.NotificationEnum;
 import com.ssafy.zip.util.UserResponseDTOMapStruct;
@@ -37,7 +38,7 @@ public class LetterServiceImpl implements LetterService {
     private final LetterRepository letterRepository;
     private final LetterFromAndToRepository letterFromAndToRepository;
     private final UserRepository userRepository;
-    private final CommonCodeRepository commonCodeRepository;
+    private final PointService pointService;
     private final NotificationServiceImpl notificationService;
     @PostConstruct
     private void initial(){
@@ -73,7 +74,13 @@ public class LetterServiceImpl implements LetterService {
         );
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterSentTome.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),
                 List.of(letterRequestDTO.toUserId()));
-
+        pointService.updatePoint(userDTO, CommonCodeEnum.LetterSentForEach.getCode());
+        List<Letter> list = letterRepository.findByFrom_FamilyIdAndRegAfter(userDTO.getFamilyId(), LocalDateTime.now().toLocalDate().atTime(0, 0));
+        if(list.get(0).getFrom().getFamily().getMemberNum()==list.size()){
+            pointService.updatePoint(userDTO, CommonCodeEnum.LetterSentForFamily.getCode());
+            notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.TodayLetterMissionAccomplished.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterMissionAccomplished.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),
+                    toUser.getFamily().getUsers().stream().map(User::getId).collect(Collectors.toList()) );
+        }
 
     }
 

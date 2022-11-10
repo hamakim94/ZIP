@@ -14,6 +14,7 @@ import com.ssafy.zip.repository.QnaLogRepository;
 import com.ssafy.zip.repository.QnaRepository;
 import com.ssafy.zip.repository.UserRepository;
 import com.ssafy.zip.exception.ErrorCode;
+import com.ssafy.zip.util.CommonCodeEnum;
 import com.ssafy.zip.util.NotificationEnum;
 import com.ssafy.zip.util.QnaAnswerMapStruct;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,7 @@ public class QnaServiceImpl implements QnaService {
     private final QnaLogRepository qnaLogRepository;
     private final FamilyRepository familyRepository;
     private final NotificationServiceImpl notificationService;
+    private final PointService pointService;
     @Override
     public Qna saveQuestion(String question) {
         return qnaRepository.save(new Qna(null, question));
@@ -50,6 +52,13 @@ public class QnaServiceImpl implements QnaService {
         qnaLogRepository.save(new QnaLog(null, dto.content(), user.getFamilyId(), userTmp, qna, LocalDateTime.now()));
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaAnswered.getMessage(), user.getNickname()),NotificationEnum.QnaAnswered.getLink(), user.getProfileImg(),false,LocalDateTime.now()),
                 userRepository.findByFamily_Id(user.getFamilyId()).stream().filter(o->!o.getId().equals(user.getId())).map(User::getId).collect(Collectors.toList()));
+        pointService.updatePoint(user,CommonCodeEnum.QnaAnsweredForEach.getCode());
+
+        if(userTmp.getFamily().getMemberNum().equals(qnaLogRepository.findByFamilyIdAndQnaId(user.getFamilyId(), dto.qnaId()).size())){
+            pointService.updatePoint(user, CommonCodeEnum.QnaAnsweredForFamily.getCode());
+            notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaMissionAccomplished.getMessage(), user.getNickname()),NotificationEnum.QnaMissionAccomplished.getLink(), user.getProfileImg(),false,LocalDateTime.now()),
+                    userTmp.getFamily().getUsers().stream().map(User::getId).collect(Collectors.toList()));
+        }
     }
 
     @Override

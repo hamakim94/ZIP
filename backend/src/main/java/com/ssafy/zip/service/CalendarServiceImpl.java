@@ -8,6 +8,7 @@ import com.ssafy.zip.entity.*;
 import com.ssafy.zip.repository.CalendarRepository;
 import com.ssafy.zip.repository.CalendarUserRepository;
 import com.ssafy.zip.repository.UserRepository;
+import com.ssafy.zip.util.CommonCodeEnum;
 import com.ssafy.zip.util.NotificationEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -30,8 +31,9 @@ public class CalendarServiceImpl implements CalendarServcie {
     private final CalendarUserRepository calendarUserRepository;
     private final UserRepository userRepository;
     private final NotificationServiceImpl notificationService;
+    private final PointService pointService;
     @Override
-    public List<CalendarResponseDTO> getListByMonth(UserDTO userDTO, int year, int month) throws Exception {
+    public List<CalendarResponseDTO> getListByMonth(UserDTO userDTO, int year, int month) {
         List<CalendarResponseDTO> results = new ArrayList<>();
 
         User user = userRepository.findById(userDTO.getId()).get();
@@ -112,6 +114,8 @@ public class CalendarServiceImpl implements CalendarServcie {
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.ScheduleRegistedForMe.getMessage(), userDTO.getNickname()),NotificationEnum.ScheduleRegistedForMe.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),
                 setParticipants.stream().toList());
         calendar.setCalendarUsers(calendarUserList);
+        pointService.updatePoint(userDTO, CommonCodeEnum.ScheduleRegistered.getCode());
+
         return calendarToCalendarResponseDTO(calendar);
     }
 

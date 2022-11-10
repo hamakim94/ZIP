@@ -25,7 +25,13 @@ public class Point {
     @JoinColumn(name = "user_id")
     User user;
 
+    Boolean isMission;
+
     @ManyToOne
     @JoinColumn(name = "code")
     CommonCode code;
+
+    @ManyToOne
+    @JoinColumn(name = "furniture_id")
+    Furniture furniture;
 }

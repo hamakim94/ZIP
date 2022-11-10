@@ -11,6 +11,7 @@ import com.ssafy.zip.entity.User;
 import com.ssafy.zip.repository.AlbumRepository;
 import com.ssafy.zip.repository.PictureRepository;
 import com.ssafy.zip.repository.UserRepository;
+import com.ssafy.zip.util.CommonCodeEnum;
 import com.ssafy.zip.util.NotificationEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class AlbumServiceImpl implements AlbumService{
     private final UserRepository userRepository;
     private final AwsS3Service awsS3Service;
     private final NotificationServiceImpl notificationService;
+    private final PointService pointService;
 
     @Override
     public AlbumResponseDTO createFolder(long userId, String name) throws Exception {
@@ -76,7 +78,7 @@ public class AlbumServiceImpl implements AlbumService{
         }
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.PictureUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.PictureUploaded.getLink(), userDTO.getProfileImg(),false, LocalDateTime.now()),
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
-
+        pointService.updatePoint(userDTO, CommonCodeEnum.PictureUploaded.getCode());
         return results;
     }
 
