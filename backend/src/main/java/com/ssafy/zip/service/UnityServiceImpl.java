@@ -70,7 +70,7 @@ public class UnityServiceImpl implements UnityService {
     @Override
     public String getUnityAlbumInfo(UserDTO userDTO) {
         return new Gson().toJson(unityAlbumRepository.findByFamilyId(userDTO.getFamilyId()).stream()
-                .map(o->new UnityAlbumResponseDTO(o.getId(), o.getPicture().getAlbum().getId(), o.getPicture().getId()))
+                .map(o->new UnityAlbumResponseDTO(o.getPosition(), o.getPicture().getAlbum().getId(), o.getPicture().getId()))
                 .collect(Collectors.toList()));
     }
     @Transactional
