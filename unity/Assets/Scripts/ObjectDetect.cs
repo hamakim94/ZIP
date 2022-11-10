@@ -42,11 +42,13 @@ public class ObjectDetect : MonoBehaviour
             }
             if (check)
             {
-                Btn.SetActive(true);
+         /*       Btn.SetActive(true);
+                transform.GetChild(0).gameObject.SetActive(true);*/
             }
             else
             {
-                Btn.SetActive(false);
+                /*Btn.SetActive(false);
+                transform.GetChild(0).gameObject.SetActive(false);*/
                 target = null;
             }
         }

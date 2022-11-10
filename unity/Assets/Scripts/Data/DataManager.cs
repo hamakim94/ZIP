@@ -47,7 +47,6 @@ public class DataManager : MonoBehaviour
         var json = ta.text;
         Debug.Log(ta.text);
         var arrData = JsonConvert.DeserializeObject<PositionData[]>(json);
-
         foreach(var data in arrData)
         {
             this.totalItemDicData.Add(data.id, data.itemList);

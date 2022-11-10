@@ -11,9 +11,14 @@ public class Inventory : MonoBehaviour
     public RectTransform contents;
     [SerializeField]
     private Camera c;
+    private Transform obj;
 
-
+    public void getObj(Transform child)
+    {
+        obj = child;
+    }
     public void InventoryCloseButtonClicked(){
+        obj.GetChild(0).gameObject.SetActive(false);
         mainPanel.SetActive(true);
         inventoryPanel.SetActive(false);
         c.GetComponent<FollowCamera>().enabled = true;
