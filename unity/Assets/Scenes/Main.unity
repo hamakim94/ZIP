@@ -6033,6 +6033,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Btn: {fileID: 489159383}
   camera: {fileID: 118392139}
+--- !u!114 &1302090348 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1082377011831332406, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4254940152108104853}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1307503871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7210,6 +7222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1541809078}
   - component: {fileID: 1541809079}
+  - component: {fileID: 1541809080}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -7262,6 +7275,22 @@ MonoBehaviour:
   inventoryPanel: {fileID: 369621582}
   albumPanel: {fileID: 53439612}
   photoPanel: {fileID: 264895336}
+--- !u!114 &1541809080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541809077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3e02a11aedd924a82b2ecd50d03006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photo1: {fileID: 0}
+  peopleNumText: {fileID: 591803654}
+  pointText: {fileID: 57744188}
+  pointLegacy: {fileID: 1302090348}
 --- !u!1 &1560374519
 GameObject:
   m_ObjectHideFlags: 0
