@@ -43,7 +43,7 @@ public class UnityController {
 
     @PostMapping("/album")
     @ApiOperation(value = "앨범 사진 선택")
-    ResponseEntity<?> chooseAlbum(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO, UnityAlbumRequestDTO unityAlbumRequestDTO){
+    ResponseEntity<?> chooseAlbum(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO, @RequestBody UnityAlbumRequestDTO unityAlbumRequestDTO){
         unityService.selectUnityAlbum(userDTO, unityAlbumRequestDTO);
         return ResponseEntity.ok().build();
     }
