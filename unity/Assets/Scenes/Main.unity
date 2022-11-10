@@ -5476,6 +5476,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106726300}
   m_CullTransparentMesh: 1
+--- !u!114 &1113313425 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1082377011831332406, guid: 2d62f86e3f6b80e448485e5b02805b3b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4254940152108104853}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1136694734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7202,6 +7214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1541809078}
   - component: {fileID: 1541809079}
+  - component: {fileID: 1541809080}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -7256,6 +7269,22 @@ MonoBehaviour:
   photoPanel: {fileID: 264895336}
   BtnList: {fileID: 697806478}
   BuildList: {fileID: 163361712}
+--- !u!114 &1541809080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541809077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3e02a11aedd924a82b2ecd50d03006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photo1: {fileID: 0}
+  peopleNumText: {fileID: 591803654}
+  pointText: {fileID: 57744188}
+  pointLegacy: {fileID: 1113313425}
 --- !u!1 &1560374519
 GameObject:
   m_ObjectHideFlags: 0
