@@ -4,13 +4,16 @@ import android.R
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ssafy.zip.android.databinding.FragmentRecordBoardDetailBinding
@@ -24,6 +27,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
+
         // TODO(developer): Handle FCM messages here.
         super.onMessageReceived(remoteMessage)
 
@@ -57,7 +61,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        // 여기에 어떤걸 넣어야할지
+
+        // 이건 클릭시 해당 페이지로 가주세연
+        val clickIntent = Intent(Intent.ACTION_VIEW, "myapp://zip.com/board/29".toUri(), baseContext, MainActivity::class.java)
+        val clickPendingIntent: PendingIntent = TaskStackBuilder.create(baseContext).run{
+            addNextIntentWithParentStack(clickIntent)
+            getPendingIntent(1, PendingIntent.FLAG_CANCEL_CURRENT)
+        }
+
+        // 그냥 열어주세연
         val intent = Intent(baseContext, FragmentRecordBoardDetailBinding::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val fullScreenPendingIntent = PendingIntent.getActivity(baseContext, 0,
@@ -68,12 +80,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // 실제 알림 -> 여기가 그냥 실행중일 때 알림 오는 곳, 나머지는 그냥 푸쉬알림 그대로 가져가는 듯
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.mipmap.sym_def_app_icon)
+//            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable))
             .setContentTitle("알림")
             .setContentText(remoteMessage.notification?.title)
             .setAutoCancel(true)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setFullScreenIntent(fullScreenPendingIntent, true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(clickPendingIntent)
 
         NotificationManagerCompat.from(this).notify(1, notificationBuilder.build())
 

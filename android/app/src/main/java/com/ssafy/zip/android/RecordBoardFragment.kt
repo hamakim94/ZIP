@@ -138,6 +138,7 @@ class RecordBoardFragment : Fragment() {
                 R.id.qna_create -> {
                     val bundle = Bundle()
                     bundle.putParcelable("Qna", viewModel.missions.value?.qna)
+                    bundle.putLong("id", 0)
                     v.findNavController().navigate(R.id.action_recordFragment_to_recordQnaDetailFragment, bundle)
                 }
                 R.id.letter_create -> {

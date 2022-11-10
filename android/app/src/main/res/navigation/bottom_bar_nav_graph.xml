@@ -77,7 +77,8 @@
         <action
             android:id="@+id/action_recordBoardFragment2_to_recordQnaDetailFragment"
             app:destination="@id/recordQnaDetailFragment" />
-        <argument android:name="id"
+        <argument
+            android:name="id"
             app:argType="long" />
         <deepLink
             android:id="@+id/deepLink"
@@ -86,7 +87,14 @@
     <fragment
         android:id="@+id/recordQnaDetailFragment"
         android:name="com.ssafy.zip.android.RecordQnaDetailFragment"
-        android:label="RecordQnaDetailFragment" />
+        android:label="RecordQnaDetailFragment">
+        <deepLink
+            android:id="@+id/deepLink3"
+            app:uri="myapp://zip.com/qna/{id}" />
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/recordAlbumPicturesFragment2"
         android:name="com.ssafy.zip.android.RecordAlbumPhotoFragment"
@@ -182,5 +190,6 @@
     <fragment
         android:id="@+id/recordQnaCreateFragment"
         android:name="com.ssafy.zip.android.RecordQnaCreateFragment"
-        android:label="RecordQnaCreateFragment" />
+        android:label="RecordQnaCreateFragment">
+    </fragment>
 </navigation>

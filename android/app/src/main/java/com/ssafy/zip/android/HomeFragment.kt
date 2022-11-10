@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
         binding.mission1Btn.setOnClickListener{
             var bundle = Bundle()
             bundle.putParcelable("Qna",  viewModel.missions.value?.qna)
+            bundle.putLong("id", 0)
             binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordQnaDetailFragment, bundle)
         }
 
