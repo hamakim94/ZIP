@@ -29,7 +29,7 @@ public class ObjectDetect : MonoBehaviour
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, 2f);
         check = false;
-        if (cols.Length > 2)
+        if (cols.Length > 0)
         {
 
             for (int i = 0; i < cols.Length; i++)
@@ -42,11 +42,13 @@ public class ObjectDetect : MonoBehaviour
             }
             if (check)
             {
-                Btn.SetActive(true);
+         /*       Btn.SetActive(true);
+                transform.GetChild(0).gameObject.SetActive(true);*/
             }
             else
             {
-                Btn.SetActive(false);
+                /*Btn.SetActive(false);
+                transform.GetChild(0).gameObject.SetActive(false);*/
                 target = null;
             }
         }

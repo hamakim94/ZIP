@@ -36,7 +36,7 @@ public class PhotoListItem : MonoBehaviour
          */
 
         // 해당 액자에 사진 넣기 
-        PageInvert.photoGO.GetComponent<Photo>().SetTexture(photoData);
+        PageInvert.photoGO.GetComponent<Photo>().SetTexture(photoData.id);
 
         /*Material[] materials = PageInvert.photoGO.transform.GetComponent<MeshRenderer>().materials;
         materials[0].SetTexture("_MainTex", photo.texture);*/

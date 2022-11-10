@@ -54,10 +54,12 @@ public class InventoryListItem : MonoBehaviour
     {
         if (target) { 
         // 확인 버튼이라서 기존의 것 터트리기
-        // 확인 버튼 눌렀을 때 사용하기 버튼 로직 넣기 ex) changeCurState(idx), changeBtn(true)
+        // 확인 버튼 눌렀을 때 사용하기 버튼 로직 넣기 ex changeCurState(idx), changeBtn(true)
         // 그런 의미로 confirm 패널을 여기서 좀 만져야할듯???
         if (Input.GetKeyDown(KeyCode.Q))
         {
+                
+
             // target.childCount 로 처리하기
             Destroy(target.GetChild(1).gameObject);
         }

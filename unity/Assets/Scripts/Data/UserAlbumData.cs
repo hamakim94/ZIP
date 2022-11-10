@@ -5,6 +5,6 @@ using UnityEngine;
 public class UserAlbumData : RawData
 {
     public long albumId;
-    public long photoId;
+    public long pictureId;
     public Texture texture;
 }

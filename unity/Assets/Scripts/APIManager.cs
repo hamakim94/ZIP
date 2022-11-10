@@ -14,7 +14,7 @@ public static class APIManager
         switch (method)
         {
             case "GET":
-                www = UnityWebRequest.Get(url);
+                www = UnityWebRequest.Get(apiURL);
                 break;
             case "POST":
                 www = UnityWebRequest.Post(apiURL, jsonfile);
