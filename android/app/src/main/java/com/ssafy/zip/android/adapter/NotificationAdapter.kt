@@ -2,6 +2,7 @@ package com.ssafy.zip.android
 
 import android.app.Application
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,7 +84,9 @@ class NotificationAdapter(private val notificationList: ArrayList<Notification>)
 //                        .setArguments(args)
 //                        .createPendingIntent()
 //                }
-                it.findNavController().navigate(R.id.action_notificationFragment_to_recordFragment, args)
+                val uri = Uri.parse("myapp://zip.com/board/20")
+                it.findNavController().navigate(uri)
+//                it.findNavController().navigate(R.id.action_notificationFragment_to_recordFragment, args)
             }
         }
 
