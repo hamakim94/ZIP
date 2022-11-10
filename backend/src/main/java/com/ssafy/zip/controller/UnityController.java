@@ -1,6 +1,7 @@
 package com.ssafy.zip.controller;
 
 import com.ssafy.zip.dto.UserDTO;
+import com.ssafy.zip.dto.request.UnityAlbumRequestDTO;
 import com.ssafy.zip.dto.request.UnityUseItemRequestDTO;
 import com.ssafy.zip.service.UnityService;
 import io.swagger.annotations.Api;
@@ -38,5 +39,12 @@ public class UnityController {
     @ApiOperation(value = "앨범 정보 가져오기")
     ResponseEntity<String> getAlbums(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO){
         return ResponseEntity.ok(unityService.getUnityAlbumInfo(userDTO));
+    }
+
+    @PostMapping("/album")
+    @ApiOperation(value = "앨범 사진 선택")
+    ResponseEntity<?> chooseAlbum(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO, UnityAlbumRequestDTO unityAlbumRequestDTO){
+        unityService.selectUnityAlbum(userDTO, unityAlbumRequestDTO);
+        return ResponseEntity.ok().build();
     }
 }
