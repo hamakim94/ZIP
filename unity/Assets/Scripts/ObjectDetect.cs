@@ -29,7 +29,7 @@ public class ObjectDetect : MonoBehaviour
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, 2f);
         check = false;
-        if (cols.Length > 2)
+        if (cols.Length > 0)
         {
 
             for (int i = 0; i < cols.Length; i++)
