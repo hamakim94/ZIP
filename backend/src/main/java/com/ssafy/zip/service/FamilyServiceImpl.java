@@ -63,10 +63,17 @@ public class FamilyServiceImpl implements FamilyService{
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.FamilyEnrolled.getMessage(), userDTO.getNickname()),NotificationEnum.FamilyEnrolled.getLink(), userDTO.getProfileImg(),false, LocalDateTime.now()),
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
         // 편지 보낼 가족 선정!
-        List<Long> usersIdList = family.getUsers().stream().map(User::getId).filter(o->!o.equals(user.getId())).collect(Collectors.toList());
-        if(usersIdList.size()>0){
-            Long sendLetterTo = usersIdList.get((int)(Math.random()* usersIdList.size()));
-            letterFromAndToRepository.save(new LetterFromAndTo(userDTO.getId(), sendLetterTo));
+        List<Long> usersIdList = family.getUsers().stream().map(User::getId).collect(Collectors.toList());
+        if(usersIdList.size()==2){
+            Long userA = usersIdList.get(0);
+            Long userB = usersIdList.get(1);
+            letterFromAndToRepository.saveAll(List.of(
+                    new LetterFromAndTo(userA, userB),
+                    new LetterFromAndTo(userB, userA)
+            ));
+        } else if (usersIdList.size()>2) {
+            letterFromAndToRepository.save(new LetterFromAndTo(userDTO.getId(),
+                    usersIdList.stream().filter(o->!o.equals(user.getId())).findAny().get()));
         }
 
         return familyResponseDTO;
