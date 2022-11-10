@@ -16,13 +16,13 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/edit_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:background="@color/white"
         android:drawableEnd="@drawable/ic_outline_edit_24"
-        style="@style/Widget.AppCompat.Button.Borderless"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

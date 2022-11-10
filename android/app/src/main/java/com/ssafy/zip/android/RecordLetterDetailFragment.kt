@@ -37,6 +37,9 @@ class RecordLetterDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRecordLetterDetailBinding.inflate(inflater, container, false)
+
+        // 여기서 couroutinescope 로 id를 가져와야 한다
+
         val view = binding.root
         return view
     }

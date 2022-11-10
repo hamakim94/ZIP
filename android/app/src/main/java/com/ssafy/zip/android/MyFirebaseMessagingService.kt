@@ -3,14 +3,17 @@ package com.ssafy.zip.android
 import android.R
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.ssafy.zip.android.databinding.FragmentRecordBoardDetailBinding
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -23,7 +26,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // TODO(developer): Handle FCM messages here.
         super.onMessageReceived(remoteMessage)
-        Log.d(TAG, "From: ${remoteMessage.from}")
 
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(TAG, "Message data payload: ${remoteMessage.data}")
@@ -37,41 +39,47 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
         }
         // Check if message contains a notification payload.
-
         remoteMessage.notification?.let {
-
             Log.d(TAG, "Message Notification title: ${it.title}")
             Log.d(TAG, "Message Notification link: ${it.link}")
             Log.d(TAG, "Message Notification image: ${it.imageUrl}")
         }
-
-        val notificationManager = NotificationManagerCompat.from(
-            applicationContext
-        )
 
         // 채널 생성
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_HIGH
             )
             channel.description = CHANNEL_DESCRIPTION
-
-            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
 
-        // 변수 가져오기
-        val title = remoteMessage.data["title"]
-        val image = remoteMessage.data["imageUrl"]
+        // 여기에 어떤걸 넣어야할지
+        val intent = Intent(baseContext, FragmentRecordBoardDetailBinding::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val fullScreenPendingIntent = PendingIntent.getActivity(baseContext, 0,
+            intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+
 
         // 실제 알림 -> 여기가 그냥 실행중일 때 알림 오는 곳, 나머지는 그냥 푸쉬알림 그대로 가져가는 듯
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(title)
-            .setContentText("게시글 등록")
             .setSmallIcon(R.mipmap.sym_def_app_icon)
+            .setContentTitle("알림")
+            .setContentText(remoteMessage.notification?.title)
+            .setAutoCancel(true)
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
+            .setFullScreenIntent(fullScreenPendingIntent, true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
 
         NotificationManagerCompat.from(this).notify(1, notificationBuilder.build())
+
+
+
+
 
     }
 
@@ -94,7 +102,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // TODO: Implement this method to send token to your app server.
         Log.d(TAG, "sendRegistrationTokenToServer($token)")
     }
-
 
 
 }

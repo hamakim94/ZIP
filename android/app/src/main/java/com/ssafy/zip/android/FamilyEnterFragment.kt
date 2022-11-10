@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.ssafy.zip.android.data.UserFamily
 import com.ssafy.zip.android.databinding.FragmentFamilyEnterBinding
 import com.ssafy.zip.android.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -29,7 +30,10 @@ class FamilyEnterFragment : Fragment() {
                 val instance = UserRepository.getInstance(Application())
                 var response = instance?.enterRoom(
                     code = binding.editRoom.text.toString().toInt())
-                println(response)
+                if(response is UserFamily){
+                    binding.root.findNavController().navigate(R.id.action_familyEnterFragment_to_homeFragment)
+                }
+
             }
         }
         binding.roomMessage.setOnClickListener {

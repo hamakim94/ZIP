@@ -1,27 +1,33 @@
 package com.ssafy.zip.android
 
 import android.app.Application
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.HomeAdapter
-import com.ssafy.zip.android.data.*
+import com.ssafy.zip.android.data.Family
+import com.ssafy.zip.android.data.FamilyMember
+import com.ssafy.zip.android.data.Missions
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.repository.UserRepository
 import com.ssafy.zip.android.viewmodel.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -34,16 +40,6 @@ class HomeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
-    }
-
-    override fun onPause() {
-        super.onPause()
-        println("멈춤!")
-    }
-
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
-        var ft: FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
     }
 
     override fun onCreateView(
@@ -84,6 +80,12 @@ class HomeFragment : Fragment() {
                 binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordLetterCreateFragment, bundle)
             }
         }
+        binding.familyCodeCopyContainer.setOnClickListener{
+            val clipboard = requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("label", binding.familyCode.text)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(context, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
+        }
         return binding.root
     }
 
@@ -93,6 +95,7 @@ class HomeFragment : Fragment() {
         observeFamily(activity)
         observeMission(activity)
         homeList = ArrayList()
+
     }
 
     private fun observeFamily(activity: MainActivity){
@@ -110,6 +113,7 @@ class HomeFragment : Fragment() {
                 else -> 4
             }
             binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
+            binding.familyCode.text = viewModel.familyData.value?.code.toString()
         }
         viewModel.familyData.observe(viewLifecycleOwner, observer)
     }
@@ -117,13 +121,15 @@ class HomeFragment : Fragment() {
     private fun observeMission(activity: MainActivity){
         val observer = Observer<Missions> { _ ->
             binding.viewmodel = viewModel
-            if(viewModel.familyData.value?.familyList?.size!!>0){
+            if(viewModel.familyData.value?.familyList?.size!!>1){
                 val size = viewModel.familyData.value?.familyList?.size!!.toDouble()
                 binding.mission1Progress.progress = ((viewModel.missions.value?.qna?.answerCnt!!/size)*100).toInt()
                 binding.mission2Progress.progress = ((viewModel.missions.value?.letter?.today!!/size)*100).toInt()
             } else{
+                binding.missionContainer.isGone = true
                 binding.mission1Progress.progress = 0
                 binding.mission2Progress.progress = 0
+                binding.missionContainerFamilyzero.isGone = false
             }
         }
         viewModel.missions.observe(viewLifecycleOwner, observer)

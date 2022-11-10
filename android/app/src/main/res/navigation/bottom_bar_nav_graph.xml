@@ -8,7 +8,7 @@
         android:id="@+id/homeFragment"
         android:name="com.ssafy.zip.android.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_recordFragment"
             app:destination="@id/recordFragment" />
@@ -26,7 +26,7 @@
         android:id="@+id/recordFragment"
         android:name="com.ssafy.zip.android.RecordFragment"
         android:label="fragment_record"
-        tools:layout="@layout/fragment_record" >
+        tools:layout="@layout/fragment_record">
         <action
             android:id="@+id/action_recordFragment_to_recordBoardFragment2"
             app:destination="@id/recordBoardDetailFragment" />
@@ -58,7 +58,7 @@
         android:id="@+id/notificationFragment"
         android:name="com.ssafy.zip.android.NotificationFragment"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" >
+        tools:layout="@layout/fragment_notification">
         <action
             android:id="@+id/action_notificationFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -73,10 +73,15 @@
         android:id="@+id/recordBoardDetailFragment"
         android:name="com.ssafy.zip.android.RecordBoardDetailFragment"
         android:label="fragment_record_board_detail"
-        tools:layout="@layout/fragment_record_board_detail" >
+        tools:layout="@layout/fragment_record_board_detail">
         <action
             android:id="@+id/action_recordBoardFragment2_to_recordQnaDetailFragment"
             app:destination="@id/recordQnaDetailFragment" />
+        <argument android:name="id"
+            app:argType="long" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="myapp://zip.com/board/{id}" />
     </fragment>
     <fragment
         android:id="@+id/recordQnaDetailFragment"
@@ -86,7 +91,7 @@
         android:id="@+id/recordAlbumPicturesFragment2"
         android:name="com.ssafy.zip.android.RecordAlbumPhotoFragment"
         android:label="fragment_record_album_photo"
-        tools:layout="@layout/fragment_record_album_photo" >
+        tools:layout="@layout/fragment_record_album_photo">
         <action
             android:id="@+id/action_recordAlbumPicturesFragment2_to_recordAlbumPhotoDetailFragment2"
             app:destination="@id/recordAlbumPhotoDetailFragment2" />
@@ -100,7 +105,7 @@
         android:id="@+id/loginFragment"
         android:name="com.ssafy.zip.android.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -115,7 +120,7 @@
         android:id="@+id/signupFragment"
         android:name="com.ssafy.zip.android.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
+        tools:layout="@layout/fragment_signup">
         <action
             android:id="@+id/action_signupFragment_to_signUpCompleteFragment"
             app:destination="@id/signUpCompleteFragment" />
@@ -124,7 +129,7 @@
         android:id="@+id/signUpCompleteFragment"
         android:name="com.ssafy.zip.android.SignUpCompleteFragment"
         android:label="fragment_sign_up_complete"
-        tools:layout="@layout/fragment_sign_up_complete" >
+        tools:layout="@layout/fragment_sign_up_complete">
         <action
             android:id="@+id/action_signUpCompleteFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -137,16 +142,19 @@
         android:id="@+id/familyEnterFragment"
         android:name="com.ssafy.zip.android.FamilyEnterFragment"
         android:label="fragment_family_enter"
-        tools:layout="@layout/fragment_family_enter" >
+        tools:layout="@layout/fragment_family_enter">
         <action
             android:id="@+id/action_familyEnterFragment_to_familyCreateFragment"
             app:destination="@id/familyCreateFragment" />
+        <action
+            android:id="@+id/action_familyEnterFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/familyCreateFragment"
         android:name="com.ssafy.zip.android.FamilyCreateFragment"
         android:label="fragment_family_create"
-        tools:layout="@layout/fragment_family_create" >
+        tools:layout="@layout/fragment_family_create">
         <action
             android:id="@+id/action_familyCreateFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -155,7 +163,7 @@
         android:id="@+id/recordBoardCreateFragment"
         android:name="com.ssafy.zip.android.RecordBoardCreateFragment"
         android:label="fragment_record_board_create"
-        tools:layout="@layout/fragment_record_board_create" >
+        tools:layout="@layout/fragment_record_board_create">
         <action
             android:id="@+id/action_recordBoardCreateFragment_pop"
             app:popUpTo="@id/recordBoardCreateFragment"
@@ -165,7 +173,7 @@
         android:id="@+id/recordLetterCreateFragment"
         android:name="com.ssafy.zip.android.RecordLetterCreateFragment"
         android:label="fragment_record_letter_create"
-        tools:layout="@layout/fragment_record_letter_create" >
+        tools:layout="@layout/fragment_record_letter_create">
         <action
             android:id="@+id/action_recordLetterCreateFragment_pop"
             app:popUpTo="@id/recordLetterCreateFragment"
