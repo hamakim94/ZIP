@@ -1408,7 +1408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195787930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: -3}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 12, y: 1, z: 16}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1825,10 +1825,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 2
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &264895336
 GameObject:
@@ -2641,10 +2637,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 3
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &456373309
 GameObject:
@@ -2888,10 +2880,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 1
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1001 &489159381
 PrefabInstance:
@@ -3068,10 +3056,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 14
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &492280287
 GameObject:
@@ -4159,10 +4143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 13
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1001 &789286018
 PrefabInstance:
@@ -4339,10 +4319,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 7
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &799679629
 GameObject:
@@ -5659,10 +5635,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 9
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &1106726300
 GameObject:
@@ -6633,10 +6605,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 8
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &1314994602
 GameObject:
@@ -6898,10 +6866,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 10
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1001 &1369981116
 PrefabInstance:
@@ -7078,10 +7042,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 5
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &1396249885
 GameObject:
@@ -8358,10 +8318,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 12
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &1655850986
 GameObject:
@@ -9149,10 +9105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 4
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1001 &1806372578
 PrefabInstance:
@@ -9733,10 +9685,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 6
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1001 &1928470190
 PrefabInstance:
@@ -9913,10 +9861,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c: {fileID: 118392139}
   id: 11
-  contents: {fileID: 918490741}
-  inventoryItem: {fileID: 5198209267480081108, guid: f2ac16fda78d94e4ebf20018533f3b55,
-    type: 3}
-  closeButton: {fileID: 168666620}
   obj: {fileID: 163361712}
 --- !u!1 &1957966581
 GameObject:

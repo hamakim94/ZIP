@@ -82,7 +82,7 @@ public class FurniturePanel : MonoBehaviour
             {
                 listItem = Instantiate(this.furnitureItem, this.contents);
                 furnitureItem = listItem.GetComponent<FurnitureItem>();
-                furnitureItem.Init(usedItem.id, usedItem.img, usedItem.name, usedItem.price, 2);
+                furnitureItem.Init(usedItem.id, posId, usedItem.img, usedItem.name, usedItem.price, 2);
             }
 
             // 보유중인 가구 아이템 
@@ -91,7 +91,7 @@ public class FurniturePanel : MonoBehaviour
                 listItem = Instantiate(this.furnitureItem, this.contents);
                 furnitureItem = listItem.GetComponent<FurnitureItem>();
                 var ownedItem = (ItemData)ownedItemList[i];
-                furnitureItem.Init(ownedItem.id, ownedItem.img, ownedItem.name, ownedItem.price, 1);
+                furnitureItem.Init(ownedItem.id, posId, ownedItem.img, ownedItem.name, ownedItem.price, 1);
             }
 
             // 잠겨있는 가구 아이템 
@@ -100,7 +100,7 @@ public class FurniturePanel : MonoBehaviour
                 listItem = Instantiate(this.furnitureItem, this.contents);
                 furnitureItem = listItem.GetComponent<FurnitureItem>();
                 var lockedItem = (ItemData)lockedItemList[i];
-                furnitureItem.Init(lockedItem.id, lockedItem.img, lockedItem.name, lockedItem.price, 0);
+                furnitureItem.Init(lockedItem.id, posId, lockedItem.img, lockedItem.name, lockedItem.price, 0);
             }
 
 

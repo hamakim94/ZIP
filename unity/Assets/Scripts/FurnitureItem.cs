@@ -15,16 +15,18 @@ public class FurnitureItem : MonoBehaviour
     public GameObject priceBtn;
     public GameObject locked;
     public TMP_Text priceText;
-    private long id; 
+    private long id;
+    private long posId;
     public int hasItemId; // 0, 1, 2
 
 
     /*public Transform target;*/
 
-    public void Init(long id, string img, string name, int price, int hasItemId)
+    public void Init(long id, long posId, string img, string name, int price, int hasItemId)
     {
         // 데이터 초기화  
         this.id = id;
+        this.posId = posId;
         var spriteName = atlas.GetSprite(img);
         imgIcon.sprite = spriteName;
         imgName.text = name;
@@ -53,6 +55,26 @@ public class FurnitureItem : MonoBehaviour
 
         SetState(2);
         FurniturePanel.idx = transform.GetSiblingIndex();
+        setFuniture(posId, id);
+    }
+
+    public static void setFuniture(long posId, long id)
+    {
+        var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
+        var target = GameObject.Find("SelectObject").transform.GetChild((int)posId - 1);
+        // 선택한 item 배치 
+        if (target.childCount > 1)
+        {
+            Destroy(target.GetChild(1).gameObject);
+        }
+        else
+        {
+            target.GetChild(0).gameObject.SetActive(false);
+        }
+
+        var resource = Resources.Load("Furniture/" + itemData.img.Split("(")[0] + "/" + itemData.img); // 여기에 이제 가구이름으로 동적 생성하기.
+        GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
+        item.transform.parent = target; // 부모 정해놓기
     }
 
     // state에 따라서 GO를 activate, deactivate하는 함수 
