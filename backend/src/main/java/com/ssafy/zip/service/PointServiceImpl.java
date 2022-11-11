@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -43,11 +44,19 @@ public class PointServiceImpl implements PointService {
         Optional<Furniture> furnitureOptional = furnitureRepository.findById(furnitureId);
         furnitureOptional.ifPresent(
                 f-> {
-                    Integer familyPoint = pointRepository.getFamilyTotalPoint(userDTO.getFamilyId());
-                    if(familyPoint>=f.getPoint()) pointRepository.save(new Point(null,LocalDateTime.now(),userDTO.getFamilyId(),userRepository.getReferenceById(userDTO.getId()),false,null,furnitureRepository.getReferenceById(furnitureId)));
+                    if(getfamilyPoint(userDTO)>=f.getPoint()) pointRepository.save(new Point(null,LocalDateTime.now(),userDTO.getFamilyId(),userRepository.getReferenceById(userDTO.getId()),false,null,furnitureRepository.getReferenceById(furnitureId)));
                     else throw new UnauthorizedRequestException("포인트가 충분하지 않습니다.", ErrorCode.FORBIDDEN);
                 }
         );
         furnitureOptional.orElseThrow(()->new ResourceNotFoundException("요청한 가구가 존재하지 않습니다.", ErrorCode.NOT_FOUND));
+    }
+
+    @Override
+    public Integer getfamilyPoint(UserDTO userDTO) {
+        return pointRepository.findByFamilyId(userDTO.getFamilyId()).stream().map(o->{
+            if(o.getIsMission()) return o.getCode().getPoint();
+            else return (-o.getFurniture().getPoint());
+        }).reduce(0,Integer::sum);
+
     }
 }

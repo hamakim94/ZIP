@@ -8,6 +8,7 @@ import com.ssafy.zip.dto.request.UserSignupRequestDTO;
 import com.ssafy.zip.dto.response.NotificationResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.service.NotificationService;
+import com.ssafy.zip.service.PointService;
 import com.ssafy.zip.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +47,7 @@ public class UserController {
     private final UserService userService;
     private final RedisTemplate redisTemplate;
     private final NotificationService notificationService;
+    private final PointService pointService;
 
     @PostMapping("/signup")
     @ApiOperation(value = "사용자 회원가입") // 요청 URL에 매핑된 API에 대한 설명
@@ -255,5 +257,11 @@ public class UserController {
     ResponseEntity<?> readNotification(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long notificationId){
         notificationService.readNotification(userDTO, notificationId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/points")
+    @ApiOperation(value = "가족 보유 포인트 조회")
+    ResponseEntity<Integer> getFamilyPoint(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO){
+        return ResponseEntity.ok(pointService.getfamilyPoint(userDTO));
     }
 }

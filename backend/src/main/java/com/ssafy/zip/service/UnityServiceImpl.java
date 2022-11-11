@@ -35,6 +35,7 @@ public class UnityServiceImpl implements UnityService {
     private final FamilyFurnitureRepository familyFurnitureRepository;
     private final UnityAlbumRepository unityAlbumRepository;
     private final PictureRepository pictureRepository;
+    private final PointService pointService;
     @Override
     public String getSerializedFurnitureInfo(UserDTO userDTO) {
         List<FamilyFurniture> furnitureList = familyFurnitureRepository.findAllByFamily_Id(userDTO.getFamilyId());
@@ -54,7 +55,7 @@ public class UnityServiceImpl implements UnityService {
 
     @Override
     public void purchaseFurniture(UserDTO userDTO, Long furnitureId) {
-
+        pointService.updatePoint(userDTO, furnitureId);
     }
     @Transactional
     @Override
@@ -85,7 +86,7 @@ public class UnityServiceImpl implements UnityService {
                                                     ()->unityAlbumRepository.save(new UnityAlbum(null,unityAlbumRequestDTO.position(), userDTO.getFamilyId(), p)));
                         else throw new UnauthorizedRequestException("가족의 사진이 아닙니다.", ErrorCode.FORBIDDEN);
                         }
-                    ,()->  new ResourceNotFoundException("요청한 사진을 찾을 수 없습니다.", ErrorCode.NOT_FOUND)
+                    ,()-> {throw  new ResourceNotFoundException("요청한 사진을 찾을 수 없습니다.", ErrorCode.NOT_FOUND);}
         );
 
 

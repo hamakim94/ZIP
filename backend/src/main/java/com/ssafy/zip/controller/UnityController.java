@@ -35,6 +35,13 @@ public class UnityController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/shop/{furnitureId}")
+    @ApiOperation(value = "가구 구매")
+    ResponseEntity<?> buyFurniture(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, Long furnitureId){
+        unityService.purchaseFurniture(userDTO, furnitureId);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/album")
     @ApiOperation(value = "앨범 정보 가져오기")
     ResponseEntity<String> getAlbums(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO){

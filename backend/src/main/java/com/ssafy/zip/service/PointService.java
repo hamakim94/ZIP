@@ -7,4 +7,5 @@ import com.ssafy.zip.util.CommonCodeEnum;
 public interface PointService {
     void updatePoint(UserDTO userDTO, String code);
     void updatePoint(UserDTO userDTO, Long furnitureId);
+    Integer getfamilyPoint(UserDTO userDTO);
 }
