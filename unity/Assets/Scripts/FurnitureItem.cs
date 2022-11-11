@@ -15,32 +15,53 @@ public class FurnitureItem : MonoBehaviour
     public GameObject priceBtn;
     public GameObject locked;
     public TMP_Text priceText;
-    private int state; // 0, 1, 2
+    private long id; 
+    public int hasItemId; // 0, 1, 2
+
 
     /*public Transform target;*/
 
     public void Init(long id, string img, string name, int price, int hasItemId)
     {
-        // 데이터 넣기 
-        // 사진 넣기 
+        // 데이터 초기화  
+        this.id = id;
         var spriteName = atlas.GetSprite(img);
         imgIcon.sprite = spriteName;
         imgName.text = name;
         priceText.text = price.ToString();
-        state = hasItemId;
-        SetState(state);
+        this.hasItemId = hasItemId;
+        SetState(hasItemId);
+    }
 
+    public void OnClickPriceBtn()
+    {
+        // 구매 api 통신 
+        SetState(1);
+    }
 
-        /*hangeBtn(placed);
-        tabButton = go;
-        unplacedItemBtn.GetComponent<Button>().onClick.AddListener(() => OnClickButton(idx, posId, id));*/
+    public void OnClickOwnedItemBtn()
+    {
+        // 가구 배치 변경 통신
+
+        // 이 가구를 사용중으로 바꾸면 사용중이었던 item은 보유중 상태로 변경해야함. (사용중인 아이템이 있을 경우, 맨 앞에 있는 애가 사용중)
+        FurnitureItem furnitureItem = transform.parent.GetChild(FurniturePanel.idx).GetComponent<FurnitureItem>();
+
+        if (furnitureItem.hasItemId == 2)
+        {
+            furnitureItem.SetState(1);
+        }
+
+        SetState(2);
+        FurniturePanel.idx = transform.GetSiblingIndex();
     }
 
     // state에 따라서 GO를 activate, deactivate하는 함수 
-    private void SetState(int state)
+    private void SetState(int hasItemId)
     {
-        switch(state){
+        switch(hasItemId)
+        {
             case 0: // 소유X 
+                this.hasItemId = hasItemId;
                 locked.SetActive(true);
                 ownedItemBtn.SetActive(false);
                 usedItemBtn.SetActive(false);
@@ -48,6 +69,7 @@ public class FurnitureItem : MonoBehaviour
                 break;
 
             case 1: // 보유, 사용X
+                this.hasItemId = hasItemId;
                 ownedItemBtn.SetActive(true);
                 locked.SetActive(false);
                 usedItemBtn.SetActive(false);
@@ -55,6 +77,7 @@ public class FurnitureItem : MonoBehaviour
                 break;
 
             case 2: // 보유, 사용O
+                this.hasItemId = hasItemId;
                 usedItemBtn.SetActive(true);
                 locked.SetActive(false);
                 ownedItemBtn.SetActive(false);

@@ -11,7 +11,8 @@ public class FurniturePanel : MonoBehaviour
     private ItemData usedItem; 
     private ArrayList ownedItemList;
     private ArrayList lockedItemList;
-    private bool isStarted = false; 
+    private bool isStarted = false;
+    public static int idx;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class FurniturePanel : MonoBehaviour
     {
         if (isStarted && DataManager.Instance)
         {
+            idx = 0;
             usedItem = null;
             ownedItemList = new ArrayList();
             lockedItemList = new ArrayList();
