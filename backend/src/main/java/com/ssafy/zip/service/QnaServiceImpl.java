@@ -56,7 +56,7 @@ public class QnaServiceImpl implements QnaService {
 
         if(userTmp.getFamily().getMemberNum().equals(qnaLogRepository.findByFamilyIdAndQnaId(user.getFamilyId(), dto.qnaId()).size())){
             pointService.updatePoint(user, CommonCodeEnum.QnaAnsweredForFamily.getCode());
-            notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaMissionAccomplished.getMessage(), user.getNickname()),NotificationEnum.QnaMissionAccomplished.getLink(), user.getProfileImg(),false,LocalDateTime.now()),
+            notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaMissionAccomplished.getMessage(), user.getNickname()),String.format(NotificationEnum.QnaAnswered.getLink(), qna.getId()), user.getProfileImg(),false,LocalDateTime.now()),
                     userTmp.getFamily().getUsers().stream().map(User::getId).collect(Collectors.toList()));
         }
     }
