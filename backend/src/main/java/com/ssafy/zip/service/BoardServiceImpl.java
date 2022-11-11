@@ -69,8 +69,8 @@ public class BoardServiceImpl implements BoardService {
         }
 
 
-        boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).image(imageUrl).reg(LocalDateTime.now()).build());
-        notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.BoardUploaded.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),user.getFamily().getUsers().stream().map(User::getId).filter(o->!o.equals(userDTO.getId())).collect(Collectors.toList()));
+        Board board = boardRepository.save(Board.builder().user(user).familyId(userDTO.getFamilyId()).content(content).image(imageUrl).reg(LocalDateTime.now()).build());
+        notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.BoardUploaded.getMessage(), userDTO.getNickname()),String.format(NotificationEnum.BoardUploaded.getLink(), board.getId()), userDTO.getProfileImg(),false,LocalDateTime.now()),user.getFamily().getUsers().stream().map(User::getId).filter(o->!o.equals(userDTO.getId())).collect(Collectors.toList()));
         pointService.updatePoint(userDTO, CommonCodeEnum.BoardUploaded.getCode());
     }
     @Transactional

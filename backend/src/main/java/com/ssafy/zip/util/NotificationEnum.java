@@ -8,8 +8,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 @RequiredArgsConstructor
 public enum NotificationEnum {
 
-    QnaAnswered("%s님이 오늘의 백문백답을 등록했습니다. 확인해보세요!",""),
-    BoardUploaded("%s님이 게시글을 등록했습니다. 확인해보세요!",""),
+    QnaAnswered("%s님이 오늘의 백문백답을 등록했습니다. 확인해보세요!","myapp://zip.com/qna/%s"),
+    BoardUploaded("%s님이 게시글을 등록했습니다. 확인해보세요!","myapp://zip.com/board/%s"),
     PictureUploaded("%s님이 사진을 올렸습니다. 확인해보세요!",""),
     FamilyEnrolled("%s님이 가족이 되었습니다. 확인해보세요!",""),
     ScheduleRegistered("%s님이 일정을 등록했습니다. 확인해보세요!",""),
