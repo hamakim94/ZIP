@@ -10,8 +10,11 @@ public class Photo : MonoBehaviour
     
     public void SetTexture(PhotoData photoData)
     {
-        Material[] materials = transform.GetComponent<MeshRenderer>().materials;
-        materials[0].SetTexture("_MainTex", photoData.texture);
+        if(photoData != null)
+        {
+            Material[] materials = transform.GetComponent<MeshRenderer>().materials;
+            materials[0].SetTexture("_MainTex", photoData.texture);
+        }
     }
     public void SetTexture(UserAlbumData photoData)
     {

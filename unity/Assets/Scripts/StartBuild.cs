@@ -58,7 +58,8 @@ public class StartBuild : MonoBehaviour
         {
             target.GetChild(0).gameObject.SetActive(false);
         }
-        var resource = Resources.Load("Prefabs/" + itemData.img); // 여기에 이제 가구이름으로 동적 생성하기.
+        
+        var resource = Resources.Load("Furniture/"+ itemData.img.Split("(")[0] + "/" + itemData.img); // 여기에 이제 가구이름으로 동적 생성하기.
         GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
         item.transform.parent = target; // 부모 정해놓기
     }
