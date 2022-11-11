@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.app.TaskStackBuilder
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -66,21 +67,21 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             remoteMessage.data["link"].toString().toUri(), baseContext, MainActivity::class.java)
         val clickPendingIntent: PendingIntent = TaskStackBuilder.create(baseContext).run{
             addNextIntentWithParentStack(clickIntent)
-            getPendingIntent(1, PendingIntent.FLAG_CANCEL_CURRENT)
+            getPendingIntent(1, PendingIntent.FLAG_IMMUTABLE)
         }
 
         // 그냥 열어주세연
         val intent = Intent(baseContext, FragmentRecordBoardDetailBinding::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val fullScreenPendingIntent = PendingIntent.getActivity(baseContext, 0,
-            intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            intent, PendingIntent.FLAG_IMMUTABLE)
 
 
 
         // 실제 알림 -> 여기가 그냥 실행중일 때 알림 오는 곳, 나머지는 그냥 푸쉬알림 그대로 가져가는 듯
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.sym_def_app_icon)
-//            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable))
+            .setSmallIcon(com.ssafy.zip.android.R.drawable.zip_logo2)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, com.ssafy.zip.android.R.drawable.zip_logo2))
             .setContentTitle(remoteMessage.notification?.title)
             .setContentText(remoteMessage.notification?.body)
             .setAutoCancel(true)

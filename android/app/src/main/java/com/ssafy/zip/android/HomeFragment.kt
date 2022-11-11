@@ -61,8 +61,7 @@ class HomeFragment : Fragment() {
         }
         binding.mission1Btn.setOnClickListener{
             var bundle = Bundle()
-            bundle.putParcelable("Qna",  viewModel.missions.value?.qna)
-            bundle.putLong("id", 0)
+            viewModel.missions.value?.qna?.let { it1 -> bundle.putLong("id",  it1.id) }
             binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordQnaDetailFragment, bundle)
         }
 
@@ -115,6 +114,7 @@ class HomeFragment : Fragment() {
             }
             binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
             binding.familyCode.text = viewModel.familyData.value?.code.toString()
+            binding.familyPoint.text = viewModel.familyData.value?.points.toString()
         }
         viewModel.familyData.observe(viewLifecycleOwner, observer)
     }
