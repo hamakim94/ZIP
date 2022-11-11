@@ -36,6 +36,7 @@ public class FamilyServiceImpl implements FamilyService{
     private final UserRepository userRepository;
     private final NotificationServiceImpl notificationService;
     private final LetterFromAndToRepository letterFromAndToRepository;
+    private final PointService pointService;
     @Transactional
     @Override
     public FamilyResponseDTO createFamilyRoom(UserDTO userDTO, FamilyRequestDTO familyRequestDTO) throws Exception {
@@ -101,7 +102,7 @@ public class FamilyServiceImpl implements FamilyService{
                     .profileImg(user.getProfileImg())
                     .build());
         }
-        FamilyMemberResponseDTO familyMemberResponseDTO = new FamilyMemberResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId(), simpleUserResponseDTOList);
+        FamilyMemberResponseDTO familyMemberResponseDTO = new FamilyMemberResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId(), pointService.getfamilyPoint(userDTO), simpleUserResponseDTOList);
         return familyMemberResponseDTO;
     }
 
