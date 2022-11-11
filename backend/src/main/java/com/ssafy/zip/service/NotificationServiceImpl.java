@@ -1,9 +1,6 @@
 package com.ssafy.zip.service;
 
-import com.google.firebase.messaging.BatchResponse;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.*;
 import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.response.NotificationResponseDTO;
 import com.ssafy.zip.entity.FCMToken;
@@ -41,11 +38,10 @@ public class NotificationServiceImpl implements NotificationService {
 
         com.google.firebase.messaging.Notification notificationFire = com.google.firebase.messaging.Notification
                 .builder()
-                .setTitle(notification.getMessage())
-                .setBody(notification.getLink())
+                .setTitle("ZIP에서 찾아요!!")
+                .setBody(notification.getMessage())
                 .setImage(notification.getImage())
                 .build();
-
         List<Message> listMessage = new ArrayList<>();
         List<Notification> listNotification = new ArrayList<>();
 
@@ -54,7 +50,7 @@ public class NotificationServiceImpl implements NotificationService {
             if(token.isPresent()){
                 String tokenValue = token.get().getToken();
                 log.info("sending firebase notificaiton for id :" +id +" token:"+ tokenValue);
-                Message message = Message.builder().setToken(tokenValue).setNotification(notificationFire).build();
+                Message message = Message.builder().putData("link", notification.getLink()).setToken(tokenValue).setNotification(notificationFire).build();
                 listMessage.add(message);
             }
             listNotification.add(new Notification(null, id, notification.getMessage(), notification.getLink(), notification.getImage(), false, LocalDateTime.now()));
