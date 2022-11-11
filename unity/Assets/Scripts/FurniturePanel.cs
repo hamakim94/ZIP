@@ -30,7 +30,15 @@ public class FurniturePanel : MonoBehaviour
 
             // 로드된 데이터 가져옴
             var totalItemData = DataManager.Instance.totalItemDicData[posId];
-            var filteredUserItemData = DataManager.Instance.userItemDicData[posId]; // 해당 위치에 있는 user item list (UserItemData type)
+            RawData[] filteredUserItemData; // 해당 위치에 있는 user item list (UserItemData type)
+
+            if (DataManager.Instance.userItemDicData.ContainsKey(posId))
+            {
+                filteredUserItemData = DataManager.Instance.userItemDicData[posId];
+            } else
+            {
+                filteredUserItemData = new RawData[] { };
+            }
 
 
             // 0, 1, 2 
