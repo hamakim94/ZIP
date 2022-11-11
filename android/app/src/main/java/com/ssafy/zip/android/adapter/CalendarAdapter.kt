@@ -12,6 +12,7 @@ import com.ssafy.zip.android.data.Calendar
 import com.ssafy.zip.android.databinding.AlbumItemBinding
 import com.ssafy.zip.android.databinding.CalendarItemBinding
 import com.ssafy.zip.android.databinding.DialogAddCalendarBinding
+import kotlin.math.absoluteValue
 
 class CalendarAdapter(
     private val calendarList: List<Calendar>,
