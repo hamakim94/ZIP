@@ -109,18 +109,9 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = GridLayoutManager(activity, 1)
 
-
-//        val dateTime = LocalDateTime.now()
-//        val zoneIdKorea = ZoneId.of("Asia/Seoul")
-//        val zoneDateTime = dateTime.atZone(zoneIdKorea)
-
         curYear = CalendarDay.today().year
         curMonth = CalendarDay.today().month
         curDay = CalendarDay.today().day
-
-//        curYear = zoneDateTime.year
-//        curMonth = zoneDateTime.monthValue
-//        curDay = zoneDateTime.dayOfMonth
 
         // 일단 adapter reset
         calendarAdapter = CalendarAdapter(
@@ -243,7 +234,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                     .setNegativeButtonText("취소")
                     .setHour(12)
                     .setMinute(10)
-                    .setTimeFormat(TimeFormat.CLOCK_12H)
+//                    .setTimeFormat(TimeFormat.CLOCK_12H)
                     .build()
 
 
@@ -330,7 +321,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                     .setNegativeButtonText("취소")
                     .setHour(12)
                     .setMinute(10)
-                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    //                    .setTimeFormat(TimeFormat.CLOCK_12H)
                     .build()
 
 
@@ -488,10 +479,11 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 //                            today.year, today.monthValue - 1, today.dayOfMonth,
 //                            viewModel.calendarList.value!!
 //                        ) // 날짜 필터링
-                    println("선택된 날짜: " + curYear + "/" + curMonth + "/" + curDay)
+//                    println("선택된 날짜: " + curYear + "/" + curMonth + "/" + curDay)
 
                     // 현재 선택된 날짜에 해당하는 일정 필터링
                     var dayCalendarList = getDayCalendarList(curYear, curMonth, curDay, viewModel.calendarList.value!!)
+
 
                     binding.calendarRecyclerView.setHasFixedSize(true)
                     binding.calendarRecyclerView.layoutManager = GridLayoutManager(activity, 1)
@@ -535,6 +527,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         }
 
         return dayCalendarList
+
+
     }
 
     private fun hasCalendar(

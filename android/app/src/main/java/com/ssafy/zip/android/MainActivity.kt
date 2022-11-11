@@ -17,6 +17,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var User: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        TimeZone.setDefault(TimeZone.getTimeZone("GMT+9"))
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
