@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
         }
         binding.mission1Btn.setOnClickListener{
             var bundle = Bundle()
-            bundle.putParcelable("Qna",  viewModel.missions.value?.qna)
+            viewModel.missions.value?.qna?.let { it1 -> bundle.putLong("id",  it1.id) }
             binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordQnaDetailFragment, bundle)
         }
 
@@ -84,7 +84,7 @@ class HomeFragment : Fragment() {
             val clipboard = requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("label", binding.familyCode.text)
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.family_code_clipboard, Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }
@@ -114,6 +114,7 @@ class HomeFragment : Fragment() {
             }
             binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
             binding.familyCode.text = viewModel.familyData.value?.code.toString()
+            binding.familyPoint.text = viewModel.familyData.value?.points.toString()
         }
         viewModel.familyData.observe(viewLifecycleOwner, observer)
     }

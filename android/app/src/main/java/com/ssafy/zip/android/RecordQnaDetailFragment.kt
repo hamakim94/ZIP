@@ -119,8 +119,8 @@ class RecordQnaDetailFragment : Fragment() {
         // 앨범명으로 appbar title 지정
         toolbar.title = "백문백답"
 
-        val qnaData = arguments?.getParcelable<BoardModel.Qna>("Qna")
-        val id = qnaData?.id
+
+        val id = arguments?.getLong("id")
         if (id != null) {
             viewModel.getQnaDetail(id)
             binding.homeRecyclerView.setHasFixedSize(true)
@@ -182,14 +182,14 @@ class RecordQnaDetailFragment : Fragment() {
 
 
     private fun onUpdateQnaDetail() {
-        val qnaData = arguments?.getParcelable<BoardModel.Qna>("Qna")
+        val id = arguments?.getLong("id")
         val qnaDetail: QnaDetail? = viewModel.qnaDetail.value
         // 사용자 프로필 이미지
         if (qnaDetail != null) {
             binding.qnaDetailReg.text = DateUtil.getRegDate(qnaDetail.reg)
             binding.qnaDetailContent.text = qnaDetail.question
             commentList = qnaDetail.answers
-            commentQnaAdapter = CommentQnaAdapter(commentList, qnaData?.id)
+            commentQnaAdapter = CommentQnaAdapter(commentList, id)
             binding.commentRecyclerView.adapter = commentQnaAdapter
             binding.commentRecyclerView.layoutManager = LinearLayoutManager(activity)
 
