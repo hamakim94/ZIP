@@ -72,8 +72,9 @@ public class FurnitureItem : MonoBehaviour
             target.GetChild(0).gameObject.SetActive(false);
         }
 
-        var resource = Resources.Load("Furniture/" + itemData.img.Split("(")[0] + "/" + itemData.img); // 여기에 이제 가구이름으로 동적 생성하기.
-        GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
+        GameObject resource = Resources.Load("Furniture/" + itemData.img.Split("(")[0] + "/" + itemData.img) as GameObject; // 여기에 이제 가구이름으로 동적 생성하기.
+        Vector3 pos = new Vector3(target.position.x, target.position.y - 0.5f, target.position.z);
+        GameObject item = Instantiate(resource, pos, resource.transform.rotation);
         item.transform.parent = target; // 부모 정해놓기
     }
 
