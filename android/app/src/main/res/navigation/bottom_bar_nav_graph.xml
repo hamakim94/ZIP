@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_homeFragment_to_recordQnaDetailFragment"
             app:destination="@id/recordQnaDetailFragment" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="myapp://zip.com/home" />
     </fragment>
     <fragment
         android:id="@+id/recordFragment"
@@ -48,12 +51,19 @@
         <action
             android:id="@+id/action_recordFragment_to_recordLetterCreateFragment"
             app:destination="@id/recordLetterCreateFragment" />
+        <deepLink
+            android:id="@+id/deepLink5"
+            app:uri="myapp://zip.com/board" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.ssafy.zip.android.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar">
+        <deepLink
+            android:id="@+id/deepLink4"
+            app:uri="myapp://zip.com/calendar" />
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.ssafy.zip.android.NotificationFragment"

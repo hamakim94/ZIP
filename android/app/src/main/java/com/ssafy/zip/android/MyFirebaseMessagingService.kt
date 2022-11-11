@@ -6,9 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.TaskStackBuilder
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -45,9 +43,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification title: ${it.title}")
-            Log.d(TAG, "Message Notification link: ${it.link}")
+            Log.d(TAG, "Message Notification Body: ${it.body}")
             Log.d(TAG, "Message Notification image: ${it.imageUrl}")
         }
+        Log.d(TAG, "Message Notification data: " + remoteMessage.data.toString())
 
         // 채널 생성
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -63,7 +62,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
         // 이건 클릭시 해당 페이지로 가주세연
-        val clickIntent = Intent(Intent.ACTION_VIEW, "myapp://zip.com/board/29".toUri(), baseContext, MainActivity::class.java)
+        val clickIntent = Intent(Intent.ACTION_VIEW,
+            remoteMessage.data["link"].toString().toUri(), baseContext, MainActivity::class.java)
         val clickPendingIntent: PendingIntent = TaskStackBuilder.create(baseContext).run{
             addNextIntentWithParentStack(clickIntent)
             getPendingIntent(1, PendingIntent.FLAG_CANCEL_CURRENT)
@@ -81,8 +81,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.mipmap.sym_def_app_icon)
 //            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable))
-            .setContentTitle("알림")
-            .setContentText(remoteMessage.notification?.title)
+            .setContentTitle(remoteMessage.notification?.title)
+            .setContentText(remoteMessage.notification?.body)
             .setAutoCancel(true)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setFullScreenIntent(fullScreenPendingIntent, true)

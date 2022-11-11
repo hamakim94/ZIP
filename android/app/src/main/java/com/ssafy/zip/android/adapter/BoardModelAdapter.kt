@@ -52,15 +52,15 @@ class BoardModelAdapter(
                 "Board" -> {
                     val bundle = Bundle()
                     bundle.putParcelable("Board", adapterData[position].data)
-                    bundle.putLong("id", 0)
-                    println("aaaaaaaaaaaaaaaa\n" + adapterData[position].toString())
+                    val data = adapterData[position].data as BoardModel.Board
+                    bundle.putLong("id", data.id)
                     it.findNavController()
                         .navigate(R.id.action_recordFragment_to_recordBoardFragment2, bundle)
                 }
                 "Qna" -> {
                     val bundle = Bundle()
-                    bundle.putParcelable("Qna", adapterData[position].data)
-                    bundle.putLong("id", 0)
+                    val data = adapterData[position].data as BoardModel.Qna
+                    bundle.putLong("id", data.id)
                     it.findNavController()
                         .navigate(R.id.action_recordFragment_to_recordQnaDetailFragment, bundle)
                 }
