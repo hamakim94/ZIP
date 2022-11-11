@@ -28,7 +28,6 @@ public class InventoryListItem : MonoBehaviour
     // 선택한 item만 배치, 나머지 배치X 
     private void OnClickButton(int idx, long posId, long id)
     {
-        tabButton.changeCurState(idx);
         changeBtn(true);
         setFuniture(posId, id);
         // 이제 기존에 것 치우고 하는식으로 해보기.
