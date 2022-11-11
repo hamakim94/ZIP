@@ -8,7 +8,7 @@ using System;
 public class PageInvert : MonoBehaviour
 {
     enum Panel{
-        main, shop, inventory, album, photo
+        main, shop, inventory, album, photo, furniture
     }
 
     private GameObject[] panels;
@@ -17,6 +17,7 @@ public class PageInvert : MonoBehaviour
     public GameObject inventoryPanel;
     public GameObject albumPanel;
     public GameObject photoPanel;
+    public GameObject furniturePanel;
     public GameObject BtnList;
     public GameObject BuildList;
     Vector3 m_vecMouseDownPos;
@@ -26,8 +27,8 @@ public class PageInvert : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel};
-        setActive((int)Panel.main);
+        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel, furniturePanel};
+        MainButtonClicked();
     }
 
     // Update is called once per frame
@@ -77,6 +78,11 @@ public class PageInvert : MonoBehaviour
         }
     }
 
+    public void MainButtonClicked()
+    {
+        setActive((int)Panel.main);
+    }
+
     public void ShopButtonClicked(){
         DataManager.Instance.LoadUserItemData();
 
@@ -96,6 +102,7 @@ public class PageInvert : MonoBehaviour
 
     public void PlusButtonClicked()
     {
+       // 배치 버튼 
        for(int i = 0; i< BtnList.transform.childCount; i++)
         {
             if(true)
@@ -104,7 +111,6 @@ public class PageInvert : MonoBehaviour
         }
         toggle = !toggle;
     }
-
 
     private void setActive(int panel){
         for(int i=0; i<panels.Length; i++){

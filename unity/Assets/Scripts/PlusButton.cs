@@ -7,8 +7,7 @@ public class PlusButton : MonoBehaviour
     Vector3 m_vecMouseDownPos;
     [SerializeField]
     private Camera c;
-    [SerializeField]
-    private GameObject inventoryPanel;
+    private GameObject furniturePanel;
     [SerializeField]
     private long id;
     [SerializeField]
@@ -21,6 +20,16 @@ public class PlusButton : MonoBehaviour
     private GameObject obj;
     private List<GameObject> itemGOList;
     private int currentPlacedIdx;
+    /*private GameObject canvas;*/
+
+
+    private void Start()
+    {
+        /*canvas = GameObject.Find("Canvas");
+        Debug.Log("canvas: " + canvas);*/
+        /*Debug.Log(transform.parent.parent);*/
+        furniturePanel = transform.parent.parent.Find("FurniturePanel").gameObject;
+    }
 
     public void changeCurState(int idx)
     {
@@ -30,11 +39,12 @@ public class PlusButton : MonoBehaviour
 
     public void buttonOnClick()
     {
-       
-        inventoryPanel.SetActive(true);
-        Ray ray = c.ScreenPointToRay(m_vecMouseDownPos);
+        furniturePanel.GetComponent<FurniturePanel>().SetPosId(id);
+        furniturePanel.SetActive(false);
+        furniturePanel.SetActive(true);
+        /*Ray ray = c.ScreenPointToRay(m_vecMouseDownPos);
         RaycastHit hit;
-        var itemText = inventoryPanel.transform.GetChild(0).GetChild(0);
+        var itemText = furniturePanel.transform.GetChild(0).GetChild(0);
         // 광선으로 충돌된 collider를 hit에 넣습니다.
         var childObj = obj.transform.GetChild((int)id - 1);
         childObj.GetChild(0).gameObject.SetActive(true);
@@ -65,7 +75,6 @@ public class PlusButton : MonoBehaviour
 
                         inventoryListItem.Init(i, itemData.id, itemData.img, id, false, this);
                         itemGOList[i] = listItem;
-
                     }
                     else if (data.hasItemCode == 2) // 보유, 사용O
                     {
@@ -85,7 +94,7 @@ public class PlusButton : MonoBehaviour
                 itemText.gameObject.SetActive(true);
             }
         }
-        closeButton.GetComponent<Inventory>().contents = contents;
+        closeButton.GetComponent<Inventory>().contents = contents;*/
        
     }
 }

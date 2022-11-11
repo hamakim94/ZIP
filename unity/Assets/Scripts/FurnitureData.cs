@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemData : RawData
+public class FurnitureData : RawData
 {
-    public string img; // 이미지 
     public string name; // 이름 
-    public int price; // 가격 
+    public string img; // 이미지파일명
+    public int price;  // 가격 
 }
