@@ -70,7 +70,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val languageToLoad = "kor" // your language
         val locale = Locale(languageToLoad)
         Locale.setDefault(locale)
@@ -136,7 +135,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         // 캘린더 height 조절
         calendarView.setDynamicHeightEnabled(true)
         // 날짜 선택시 동그라미
-        calendarView.setOnDateChangedListener(this)
+        /*calendarView.setOnDateChangedListener(this)*/
         // 오늘 날짜 색상 변경
         calendarView.addDecorator(oneDayDecorator)
 
@@ -145,6 +144,11 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         calendarView.setOnMonthChangedListener(object : OnMonthChangedListener{
             override fun onMonthChanged(widget: MaterialCalendarView?, date: CalendarDay?) {
                 if(date?.year != null && date?.month != null){
+                    curYear = date.year
+                    curMonth = date.month
+                    curDay = date.day
+                    dayText.text = "${curMonth}월 ${curDay}일"
+
                     viewModel.updateCalendarList(date.year, date.month) // 일정 list 업데이트
                 }
                 calendarView.setTitleFormatter(TitleFormatter { "${date?.year}년 ${date?.month}월" })
@@ -160,10 +164,9 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 curMonth = curDate.monthValue
                 curDay = curDate.dayOfMonth
 
-                calendarView.setTitleFormatter(TitleFormatter { "${curDate.year}년 ${curDate.dayOfMonth}월" })
+                /*calendarView.setTitleFormatter(TitleFormatter { "${curDate.year}년 ${curDate.dayOfMonth}월" })*/
 
                 dayText.text = "${curMonth}월 ${curDay}일"
-
 
                 var dayCalendarList = getDayCalendarList(curYear, curMonth, curDay, viewModel.calendarList.value!!) // 날짜 필터링
                 recyclerView.setHasFixedSize(true)
