@@ -11,4 +11,5 @@ public interface UnityService {
     void useFurniture(UserDTO userDTO, UnityUseItemRequestDTO unityUseItemRequestDTO);
     String getUnityAlbumInfo(UserDTO userDTO);
     void selectUnityAlbum(UserDTO userDTO, UnityAlbumRequestDTO unityAlbumRequestDTO);
+    String getCharacterAsset(UserDTO userDTO);
 }

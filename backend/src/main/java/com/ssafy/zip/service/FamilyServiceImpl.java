@@ -61,7 +61,7 @@ public class FamilyServiceImpl implements FamilyService{
         FamilyResponseDTO familyResponseDTO = new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId());
 
 
-        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.FamilyEnrolled.getMessage(), userDTO.getNickname()),NotificationEnum.FamilyEnrolled.getLink(), userDTO.getProfileImg(),false, LocalDateTime.now()),
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.FamilyEnrolled.getMessage(), userDTO.getNickname()),NotificationEnum.FamilyEnrolled.getLink(), userDTO.getProfileImg().getImage(),false, LocalDateTime.now()),
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
         // 편지 보낼 가족 선정!
         List<Long> usersIdList = family.getUsers().stream().map(User::getId).collect(Collectors.toList());
@@ -99,7 +99,7 @@ public class FamilyServiceImpl implements FamilyService{
                     .id(user.getId())
                     .nickname(user.getNickname())
                     .name(user.getName())
-                    .profileImg(user.getProfileImg())
+                    .profileImg(user.getProfileImg().getImage())
                     .build());
         }
         FamilyMemberResponseDTO familyMemberResponseDTO = new FamilyMemberResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId(), pointService.getfamilyPoint(userDTO), simpleUserResponseDTOList);

@@ -54,4 +54,10 @@ public class UnityController {
         unityService.selectUnityAlbum(userDTO, unityAlbumRequestDTO);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/character")
+    @ApiOperation(value = "캐릭터 에셋 파일명")
+    ResponseEntity<String> getCharacterAsset(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO){
+        return ResponseEntity.ok(unityService.getCharacterAsset(userDTO));
+    }
 }

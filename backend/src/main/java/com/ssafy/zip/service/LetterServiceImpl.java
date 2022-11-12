@@ -72,13 +72,13 @@ public class LetterServiceImpl implements LetterService {
                 .to(toUser).stationery(letterRequestDTO.stationery())
                 .build()
         );
-        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterSentTome.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterSentTome.getLink(), userDTO.getProfileImg().getImage(),false,LocalDateTime.now()),
                 List.of(letterRequestDTO.toUserId()));
         pointService.updatePoint(userDTO, CommonCodeEnum.LetterSentForEach.getCode());
         List<Letter> list = letterRepository.findByFrom_FamilyIdAndRegAfter(userDTO.getFamilyId(), LocalDateTime.now().toLocalDate().atTime(0, 0));
         if(list.get(0).getFrom().getFamily().getMemberNum()==list.size()){
             pointService.updatePoint(userDTO, CommonCodeEnum.LetterSentForFamily.getCode());
-            notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.TodayLetterMissionAccomplished.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterMissionAccomplished.getLink(), userDTO.getProfileImg(),false,LocalDateTime.now()),
+            notificationService.sendNotification(new Notification(null,null,String.format(NotificationEnum.TodayLetterMissionAccomplished.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterMissionAccomplished.getLink(), userDTO.getProfileImg().getImage(),false,LocalDateTime.now()),
                     toUser.getFamily().getUsers().stream().map(User::getId).collect(Collectors.toList()) );
         }
 

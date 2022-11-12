@@ -2,9 +2,11 @@ package com.ssafy.zip.controller;
 
 import com.ssafy.zip.config.security.JwtTokenProvider;
 import com.ssafy.zip.dto.UserDTO;
+import com.ssafy.zip.dto.request.UserModifyRequestDTO;
 import com.ssafy.zip.dto.request.UserFindPWRequestDTO;
 import com.ssafy.zip.dto.request.UserLoginRequestDTO;
 import com.ssafy.zip.dto.request.UserSignupRequestDTO;
+import com.ssafy.zip.dto.response.CharacterResponseDTO;
 import com.ssafy.zip.dto.response.NotificationResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.service.NotificationService;
@@ -24,7 +26,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.security.auth.message.AuthException;
@@ -51,7 +52,7 @@ public class UserController {
 
     @PostMapping("/signup")
     @ApiOperation(value = "사용자 회원가입") // 요청 URL에 매핑된 API에 대한 설명
-    public ResponseEntity<?> userSignup(@RequestPart(value = "profileImg", required = false) MultipartFile profileImg, @Valid @RequestPart(value="userDTO") UserSignupRequestDTO userSignupRequestDTO,@ApiIgnore Errors errors){
+    public ResponseEntity<?> userSignup(@Valid @RequestBody UserSignupRequestDTO userSignupRequestDTO,@ApiIgnore Errors errors){
         if(errors.hasErrors()){ // 유효성 검사 실패
             Map<String, String> validatorResult = userService.validateHandling(errors);
             for (String key : validatorResult.keySet()) {
@@ -64,7 +65,7 @@ public class UserController {
         }
 
         try{
-            userService.signup(userSignupRequestDTO, profileImg, passwordEncoder);
+            userService.signup(userSignupRequestDTO, passwordEncoder);
         } catch (Exception e){
             log.error("회원가입 오류");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -126,11 +127,11 @@ public class UserController {
     @PutMapping("/profiles")
     @ApiOperation(value = "회원정보 수정") // 요청 URL에 매핑된 API에 대한 설명
     public ResponseEntity<UserResponseDTO> editProfiles(@ApiIgnore @AuthenticationPrincipal UserDTO user,
-                                          @RequestPart(value = "profileImg", required = false) MultipartFile profileImg, @Valid @RequestPart String nickname, @RequestPart String familyName){
+                                                        @RequestBody UserModifyRequestDTO userModifyRequestDTO){
         UserResponseDTO changedUserDTO;
 
         try {
-            changedUserDTO = userService.modifyUser(user.getId(), nickname, profileImg, familyName);
+            changedUserDTO = userService.modifyUser(user.getId(), userModifyRequestDTO.nickname(), userModifyRequestDTO.familyName(), userModifyRequestDTO.characterId());
         } catch (Exception e){
             log.error("userProfileEdit user 조회 실패 : " + e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -263,5 +264,11 @@ public class UserController {
     @ApiOperation(value = "가족 보유 포인트 조회")
     ResponseEntity<Integer> getFamilyPoint(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO){
         return ResponseEntity.ok(pointService.getfamilyPoint(userDTO));
+    }
+
+    @GetMapping("/characters")
+    @ApiOperation(value = "캐릭터 리스트 가져오기")
+    ResponseEntity<List<CharacterResponseDTO>> getCharacterList(){
+        return ResponseEntity.ok(userService.getCharacterList());
     }
 }

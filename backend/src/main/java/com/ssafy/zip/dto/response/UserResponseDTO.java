@@ -1,5 +1,6 @@
 package com.ssafy.zip.dto.response;
 
+import com.ssafy.zip.entity.Character;
 import lombok.*;
 
 @Getter
@@ -13,7 +14,7 @@ public class UserResponseDTO {
     Long id;
     String name;
     String nickname;
-    String profileImg;
+    Character profileImg;
     boolean hasFamily;
     FamilyResponseDTO family;
 }

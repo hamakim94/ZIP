@@ -50,13 +50,13 @@ public class QnaServiceImpl implements QnaService {
         Qna qna = qnaRepository.getReferenceById(dto.qnaId());
         if(qnaLogRepository.existsByUser_IdAndQna_id(user.getId(), dto.qnaId())) throw new UnauthorizedRequestException("이미 답변을 했습니다.", ErrorCode.ANSWER_MORE_THAN_ONCE_ERROR);
         qnaLogRepository.save(new QnaLog(null, dto.content(), user.getFamilyId(), userTmp, qna, LocalDateTime.now()));
-        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaAnswered.getMessage(), user.getNickname()),String.format(NotificationEnum.QnaAnswered.getLink(), qna.getId()), user.getProfileImg(),false,LocalDateTime.now()),
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaAnswered.getMessage(), user.getNickname()),String.format(NotificationEnum.QnaAnswered.getLink(), qna.getId()), user.getProfileImg().getImage(),false,LocalDateTime.now()),
                 userRepository.findByFamily_Id(user.getFamilyId()).stream().filter(o->!o.getId().equals(user.getId())).map(User::getId).collect(Collectors.toList()));
         pointService.updatePoint(user,CommonCodeEnum.QnaAnsweredForEach.getCode());
 
         if(userTmp.getFamily().getMemberNum().equals(qnaLogRepository.findByFamilyIdAndQnaId(user.getFamilyId(), dto.qnaId()).size())){
             pointService.updatePoint(user, CommonCodeEnum.QnaAnsweredForFamily.getCode());
-            notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaMissionAccomplished.getMessage(), user.getNickname()),String.format(NotificationEnum.QnaAnswered.getLink(), qna.getId()), user.getProfileImg(),false,LocalDateTime.now()),
+            notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.QnaMissionAccomplished.getMessage(), user.getNickname()),String.format(NotificationEnum.QnaAnswered.getLink(), qna.getId()), user.getProfileImg().getImage(),false,LocalDateTime.now()),
                     userTmp.getFamily().getUsers().stream().map(User::getId).collect(Collectors.toList()));
         }
     }

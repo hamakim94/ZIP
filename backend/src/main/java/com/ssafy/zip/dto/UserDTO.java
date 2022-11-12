@@ -1,5 +1,6 @@
 package com.ssafy.zip.dto;
 
+import com.ssafy.zip.entity.Character;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,7 @@ public class UserDTO implements UserDetails {
     private Long id;
     private String name;
     private String nickname;
-    private String profileImg;
+    private Character profileImg;
     private String email;
     private Long familyId;
 

@@ -4,15 +4,14 @@ import com.ssafy.zip.dto.UserDTO;
 import com.ssafy.zip.dto.request.UserFindPWRequestDTO;
 import com.ssafy.zip.dto.request.UserLoginRequestDTO;
 import com.ssafy.zip.dto.request.UserSignupRequestDTO;
+import com.ssafy.zip.dto.response.CharacterResponseDTO;
 import com.ssafy.zip.dto.response.FamilyResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
 import com.ssafy.zip.entity.EmailAuth;
 import com.ssafy.zip.entity.Family;
 import com.ssafy.zip.entity.User;
-import com.ssafy.zip.repository.EmailAuthRepository;
-import com.ssafy.zip.repository.EmailAuthRepositoryCustom;
-import com.ssafy.zip.repository.FamilyRepository;
-import com.ssafy.zip.repository.UserRepository;
+import com.ssafy.zip.repository.*;
+import com.ssafy.zip.util.CharacterResponseDTOMapStruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,6 +28,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService{
     private final EmailService emailService;
     private final AwsS3Service awsS3Service;
     private final FamilyRepository familyRepository;
+    private final CharacterRepository characterRepository;
 
 
     @Override
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void signup(UserSignupRequestDTO userSignupRequestDTO, MultipartFile profileImg, PasswordEncoder passwordEncoder) throws Exception {
+    public void signup(UserSignupRequestDTO userSignupRequestDTO, PasswordEncoder passwordEncoder) throws Exception {
         User user = null;
 
         if(userSignupRequestDTO.getEmail() == null || userSignupRequestDTO.getPassword() == null){ // email, password null check
@@ -74,16 +75,10 @@ public class UserServiceImpl implements UserService{
 
         log.info("회원가입");
         String profileImgUrl = null;
-        if (profileImg != null){
-            List<MultipartFile> files = new ArrayList<>();
-            files.add(profileImg);
-            profileImgUrl = awsS3Service.uploadFiles("profiles", files).get(0)[0];
-        }
         user = User.builder()
                 .name(userSignupRequestDTO.getName())
                 .nickname(userSignupRequestDTO.getNickname())
-
-                .profileImg(profileImgUrl)
+                .profileImg(characterRepository.getReferenceById(userSignupRequestDTO.getCharacterId()))
                 .email(userSignupRequestDTO.getEmail())
                 .password(userSignupRequestDTO.getPassword())
                 .build();
@@ -127,17 +122,12 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public UserResponseDTO modifyUser(Long id, String nickname, MultipartFile profileImg, String familyName) throws Exception{
+    public UserResponseDTO modifyUser(Long id, String nickname, String familyName, Long characterId) throws Exception{
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User : " + id + " was not found"));
 
-        String profileImgUrl = null;
-        if (profileImg != null){
-            List<MultipartFile> files = new ArrayList<>();
-            files.add(profileImg);
-            profileImgUrl = awsS3Service.uploadFiles("profiles", files).get(0)[0];
-        }
-        user.setProfileImgAndNickname(profileImgUrl, nickname);
+        user.setProfileImg(characterRepository.getReferenceById(characterId));
+        user.setNickname(nickname);
         Family family = user.getFamily();
         family.modifyFamily(familyName, family.getMemberNum());
         familyRepository.save(family); // family update
@@ -215,6 +205,13 @@ public class UserServiceImpl implements UserService{
                 .email(user.getEmail())
                 .familyId(user.getFamily()==null?null:user.getFamily().getId())
                 .build();
+    }
+
+    @Override
+    public List<CharacterResponseDTO> getCharacterList() {
+        return characterRepository.findAll().stream()
+                .map(CharacterResponseDTOMapStruct.INSTANCE::mapToCharacterResponseDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

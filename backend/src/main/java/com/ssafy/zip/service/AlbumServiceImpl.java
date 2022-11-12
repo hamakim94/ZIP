@@ -76,7 +76,7 @@ public class AlbumServiceImpl implements AlbumService{
         for (Picture picture:list) {
             results.add(new PictureResponseDTO(picture.getId(), userId, albumId, picture.getFileName(), picture.getDirectory(), picture.getReg()));
         }
-        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.PictureUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.PictureUploaded.getLink(), userDTO.getProfileImg(),false, LocalDateTime.now()),
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.PictureUploaded.getMessage(), userDTO.getNickname()),NotificationEnum.PictureUploaded.getLink(), userDTO.getProfileImg().getImage(),false, LocalDateTime.now()),
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())).map(o->o.getId()).collect(Collectors.toList()));
         pointService.updatePoint(userDTO, CommonCodeEnum.PictureUploaded.getCode());
         return results;

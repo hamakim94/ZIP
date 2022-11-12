@@ -15,6 +15,7 @@ import com.ssafy.zip.entity.UnityAlbum;
 import com.ssafy.zip.exception.ErrorCode;
 import com.ssafy.zip.exception.ResourceNotFoundException;
 import com.ssafy.zip.exception.UnauthorizedRequestException;
+import com.ssafy.zip.repository.CharacterRepository;
 import com.ssafy.zip.repository.FamilyFurnitureRepository;
 import com.ssafy.zip.repository.PictureRepository;
 import com.ssafy.zip.repository.UnityAlbumRepository;
@@ -36,6 +37,7 @@ public class UnityServiceImpl implements UnityService {
     private final UnityAlbumRepository unityAlbumRepository;
     private final PictureRepository pictureRepository;
     private final PointService pointService;
+    private final CharacterRepository characterRepository;
     @Override
     public String getSerializedFurnitureInfo(UserDTO userDTO) {
         List<FamilyFurniture> furnitureList = familyFurnitureRepository.findAllByFamily_Id(userDTO.getFamilyId());
@@ -88,10 +90,10 @@ public class UnityServiceImpl implements UnityService {
                         }
                     ,()-> {throw  new ResourceNotFoundException("요청한 사진을 찾을 수 없습니다.", ErrorCode.NOT_FOUND);}
         );
+    }
 
-
-
-
-
+    @Override
+    public String getCharacterAsset(UserDTO userDTO) {
+        return userDTO.getProfileImg().getAssetName();
     }
 }

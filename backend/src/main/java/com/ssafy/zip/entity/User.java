@@ -24,8 +24,9 @@ public class User {
 
     String nickname;
 
-    @Column(name = "profile_img")
-    String profileImg;
+    @ManyToOne
+    @JoinColumn(name = "profile_img")
+    Character profileImg;
 
     String email;
 
@@ -41,10 +42,6 @@ public class User {
     @JoinColumn(name = "family_id")
     Family family;
 
-    public void setProfileImgAndNickname(String profileImg, String nickname){
-        this.profileImg = profileImg;
-        this.nickname = nickname;
-    }
 
     public void setPassword(String password){
         this.password = password;

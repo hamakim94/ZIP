@@ -26,4 +26,7 @@ public class UserSignupRequestDTO {
 
     @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}", message = "비밀번호는 8~20자 영문 대소문자, 숫자, 특수문자를 사용하세요.")
     private String password;
+
+    @NotBlank(message = "프로필 사진 선택은 필수입니다.")
+    private Long characterId;
 }
