@@ -4,9 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class FamilyMember(
+data class Character(
     var id : Long,
-    var name : String,
-    var nickname : String,
-    var profileImg : Character?
-): Parcelable
+    var image : String,
+    var assetName : String,
+):Parcelable

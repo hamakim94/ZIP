@@ -24,6 +24,9 @@
         <deepLink
             android:id="@+id/deepLink2"
             app:uri="myapp://zip.com/home" />
+        <action
+            android:id="@+id/action_homeFragment_to_modifyFragment"
+            app:destination="@id/modifyFragment" />
     </fragment>
     <fragment
         android:id="@+id/recordFragment"
@@ -204,5 +207,14 @@
         android:id="@+id/recordQnaCreateFragment"
         android:name="com.ssafy.zip.android.RecordQnaCreateFragment"
         android:label="RecordQnaCreateFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/modifyFragment"
+        android:name="com.ssafy.zip.android.ModifyFragment"
+        android:label="fragment_modify"
+        tools:layout="@layout/fragment_modify" >
+        <action
+            android:id="@+id/action_modifyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

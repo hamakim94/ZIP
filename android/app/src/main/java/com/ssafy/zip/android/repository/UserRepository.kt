@@ -28,7 +28,6 @@ class UserRepository private constructor(application: Application) {
         } else {
             response.code()
         }
-
         return returnData
     }
     suspend fun postFcmToken(

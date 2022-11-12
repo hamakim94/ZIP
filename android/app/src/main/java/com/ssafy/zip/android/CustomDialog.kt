@@ -9,19 +9,15 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.FamilyMember
-import com.ssafy.zip.android.data.User
-import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.databinding.FragmentDialogBinding
-import com.ssafy.zip.android.repository.BoardRepository
+import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.repository.HomeRepository
 import com.ssafy.zip.android.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -95,21 +91,23 @@ class CustomDialog : DialogFragment() {
             }
         }
         binding.editBtn.setOnClickListener {
-            if (!editflag) {
-                editflag = true
-                binding.dialogRightFamily.isGone = true
-                binding.dialogRightEditfamilyLayout.isGone = false
-                binding.dialogRightNickname.isGone = true
-                binding.dialogRightEditnicknameLayout.isGone = false
-                binding.dialogButton.text = "수정하기"
-            } else {
-                editflag = false
-                binding.dialogRightFamily.isGone = false
-                binding.dialogRightEditfamilyLayout.isGone = true
-                binding.dialogRightNickname.isGone = false
-                binding.dialogRightEditnicknameLayout.isGone = true
-                binding.dialogButton.text = "닫기"
-            }
+            FragmentHomeBinding.inflate(inflater, container, true).root.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToModifyFragment())
+
+//            if (!editflag) {
+//                editflag = true
+//                binding.dialogRightFamily.isGone = true
+//                binding.dialogRightEditfamilyLayout.isGone = false
+//                binding.dialogRightNickname.isGone = true
+//                binding.dialogRightEditnicknameLayout.isGone = false
+//                binding.dialogButton.text = "수정하기"
+//            } else {
+//                editflag = false
+//                binding.dialogRightFamily.isGone = false
+//                binding.dialogRightEditfamilyLayout.isGone = true
+//                binding.dialogRightNickname.isGone = false
+//                binding.dialogRightEditnicknameLayout.isGone = true
+//                binding.dialogButton.text = "닫기"
+//            }
 
         }
         binding.dialogRightEditname.hint = binding.dialogRightName.text

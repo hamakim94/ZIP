@@ -52,6 +52,7 @@ class LoginFragment : Fragment() {
                         password = binding.editPassword.text.toString()
                     )
                 )
+                println(loginData)
                 if (loginData is User) {
                     var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                     FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -73,6 +74,7 @@ class LoginFragment : Fragment() {
                                     binding.root.findNavController().navigate(action)
                                 }
                             }
+                            else binding.root.findNavController().navigate(action)
                         }
 
                     })
