@@ -74,13 +74,13 @@ class HomeFragment : Fragment() {
 //            clipboard.setPrimaryClip(clip)
 //            Toast.makeText(context, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
 //        }
-        mUnityPlayer = UnityPlayer(App.ApplicationContext());
+        mUnityPlayer = UnityPlayer(activity);
         var glesMode = mUnityPlayer.settings.getInt("gles_mode", 1);
         var trueColor8888 = false;
         mUnityPlayer.init(glesMode, trueColor8888);
         val lp = LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         binding.homeTest.addView(mUnityPlayer.view, 0, lp)
-
+        mUnityPlayer.requestFocus()
         return binding.root
     }
 //
