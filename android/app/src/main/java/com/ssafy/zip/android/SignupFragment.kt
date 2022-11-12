@@ -31,6 +31,13 @@ class SignupFragment : Fragment() {
     private var nameFlag = false
     private var nicknameFlag = false
 
+    private lateinit var activity: MainActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as MainActivity
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,11 +51,24 @@ class SignupFragment : Fragment() {
                         email = binding.editEmail.text.toString()
                     )
                     if(response.equals("200")){
+                        MaterialAlertDialogBuilder(activity)
+                            .setMessage("확인됐습니다.")
+                            .setPositiveButton("확인") { dialog, which ->
+                                dialog.dismiss()
+                            }
+                            .show()
+
                         emailCheck = true
                         flagCheck()
-                        Toast.makeText(context,"확인됐습니다.", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context,"확인됐습니다.", Toast.LENGTH_SHORT).show()
                     }
                     else{
+                        MaterialAlertDialogBuilder(activity)
+                            .setMessage("중복된 이메일입니다.")
+                            .setPositiveButton("확인") { dialog, which ->
+                                dialog.dismiss()
+                            }
+                            .show()
                         emailCheck = false
                         flagCheck()
                         binding.signupEmail.error = "중복된 이메일입니다."
