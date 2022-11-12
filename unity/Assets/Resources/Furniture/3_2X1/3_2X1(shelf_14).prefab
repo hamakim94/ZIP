@@ -173,7 +173,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f7c9e057c13b51a49b3068f27b28b328,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f7c9e057c13b51a49b3068f27b28b328,
         type: 3}
@@ -223,7 +223,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f7c9e057c13b51a49b3068f27b28b328,
         type: 3}
       propertyPath: m_Name
-      value: 2_2X1(shelf_14)
+      value: 3_2X1(shelf_14)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7c9e057c13b51a49b3068f27b28b328, type: 3}
