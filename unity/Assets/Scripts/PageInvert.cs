@@ -57,8 +57,7 @@ public class PageInvert : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 // 어떤 오브젝트인지 로그를 찍습니다.
-
-                if (hit.collider.name == "photoImg")
+                if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
                 {
                     Debug.Log(hit.transform.GetComponent<Photo>().id);
                     photoGO = hit.transform.gameObject;
