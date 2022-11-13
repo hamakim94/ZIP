@@ -176,7 +176,8 @@ public class CalendarServiceImpl implements CalendarServcie {
                         .id(calendarUser.getUser().getId())
                         .name(calendarUser.getUser().getName())
                         .nickname(calendarUser.getUser().getNickname())
-                        .profileImg(calendarUser.getUser().getProfileImg().getImage())
+                        /*.profileImg(calendarUser.getUser().getProfileImg().getImage())*/
+                        .profileImg(calendarUser.getUser().getProfileImg())
                         .build());
             }
         }
