@@ -5,7 +5,7 @@
 ```plaintext
 master -> develop -> FE_develop -> feat-frontend/기능명
 	          -> BE_develop -> feat-backend/기능명
-                  -> BC_develop -> feat-domain/기능명
+                  -> MV_develop -> feat-unity/기능명
 ```
 
 
