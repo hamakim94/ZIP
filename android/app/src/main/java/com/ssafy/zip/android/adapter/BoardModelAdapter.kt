@@ -103,7 +103,6 @@ class BoardModelAdapter(
                 itemView.findViewById<TextView>(R.id.boardReg).text = DateUtil.getRegDate(board.reg)
                 //Glide 쓰기..
                 if (board.image != null) {
-                    itemView.findViewById<ImageView>(R.id.boardImage).layoutParams.height = 800
                     itemView.findViewById<ImageView>(R.id.boardImage)
                         .setBackgroundResource(R.drawable.layout_vertical)
                     itemView.findViewById<ImageView>(R.id.boardImage).setPadding(4)

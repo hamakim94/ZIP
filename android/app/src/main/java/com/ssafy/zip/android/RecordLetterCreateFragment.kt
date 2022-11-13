@@ -74,7 +74,7 @@ class RecordLetterCreateFragment : Fragment() {
         binding.greenBtn.setOnClickListener{
             binding.greenBtn.setImageResource(R.drawable.circle_green_selected)
             binding.yellowBtn.setImageResource(R.drawable.circle_yellow)
-            binding.pinkBtn.setImageResource(R.drawable.circle_green)
+            binding.pinkBtn.setImageResource(R.drawable.circle_pink)
             binding.letterContainer.setBackgroundColor(Color.parseColor("#F4FFDC"))
             letterBackGroundColor = "green"
         }

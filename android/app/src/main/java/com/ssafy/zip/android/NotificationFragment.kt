@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isGone
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -55,6 +57,8 @@ class NotificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeNotificationList(activity)
+        val toolbar: Toolbar = binding.notificationDetailAppbar
+        toolbar.title = "알림"
 
         recyclerView = view.findViewById(R.id.notification_recycler_view)
         recyclerView.setHasFixedSize(true)
@@ -71,6 +75,11 @@ class NotificationFragment : Fragment() {
             override fun onChanged(notificationList : ArrayList<Notification>?) {
                 notificationAdapter = notificationList?.let { NotificationAdapter(it) }!!
                 recyclerView.adapter = notificationAdapter
+                if(notificationList.isEmpty()){
+                    binding.notificationZero.isGone = false
+                } else{
+                    binding.notificationZero.isGone = true
+                }
             }
 
         }

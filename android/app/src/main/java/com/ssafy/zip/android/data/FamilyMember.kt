@@ -8,5 +8,5 @@ data class FamilyMember(
     var id : Long,
     var name : String,
     var nickname : String,
-    var profileImg : String?
+    var profileImg : Character?
 ): Parcelable
