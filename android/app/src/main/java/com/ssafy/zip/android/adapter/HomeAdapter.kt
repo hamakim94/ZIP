@@ -38,7 +38,7 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
             holder.homeImage.setImageResource(R.drawable.ex)
         } else{
             Glide.with(holder.itemView)
-                .load(homeImage.profileImg)
+                .load(homeImage.profileImg!!.img)
                 .into(holder.homeImage)
         }
         holder.homeImage.setOnClickListener {

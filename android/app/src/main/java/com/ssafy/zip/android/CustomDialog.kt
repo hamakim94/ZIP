@@ -9,19 +9,13 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.FamilyMember
-import com.ssafy.zip.android.data.User
-import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.databinding.FragmentDialogBinding
-import com.ssafy.zip.android.repository.BoardRepository
 import com.ssafy.zip.android.repository.HomeRepository
 import com.ssafy.zip.android.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -53,7 +47,7 @@ class CustomDialog : DialogFragment() {
                 binding.dialogImage.setImageResource(R.drawable.ex)
             } else {
                 Glide.with(binding.root)
-                    .load(data.profileImg)
+                    .load(data.profileImg!!.img)
                     .into(binding.dialogImage)
             }
             binding.dialogRightName.text = data.name

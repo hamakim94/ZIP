@@ -1,31 +1,15 @@
 package com.ssafy.zip.android.adapter
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ssafy.zip.android.CustomDialog
 import com.ssafy.zip.android.R
-import com.ssafy.zip.android.data.Comment
 import com.ssafy.zip.android.data.FamilyMember
-import com.ssafy.zip.android.data.QnaDetail
-import com.ssafy.zip.android.repository.BoardRepository
-import com.ssafy.zip.android.repository.HomeRepository
 import com.ssafy.zip.android.viewmodel.QnaDetailViewModel
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.MediaType
-import okhttp3.RequestBody
 
 
 class QnaProfileAdapter(
@@ -55,7 +39,7 @@ class QnaProfileAdapter(
 
         } else {
             Glide.with(holder.itemView)
-                .load(homeImage.profileImg)
+                .load(homeImage.profileImg!!.img)
                 .into(holder.homeImage)
         }
         holder.homeImage.borderWidth = 1
