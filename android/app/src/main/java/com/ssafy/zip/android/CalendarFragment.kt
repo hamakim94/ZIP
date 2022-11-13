@@ -135,7 +135,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
         // 캘린더 height 조절
         calendarView.setDynamicHeightEnabled(true)
         // 날짜 선택시 동그라미
-        /*calendarView.setOnDateChangedListener(this)*/
+
         // 오늘 날짜 색상 변경
         calendarView.addDecorator(oneDayDecorator)
 
@@ -244,7 +244,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 materialTimePicker.show(requireActivity().supportFragmentManager, "MainActivity")
 
                 materialTimePicker.addOnPositiveButtonClickListener {
-
                     pickedHour = materialTimePicker.hour
                     pickedMinute = materialTimePicker.minute
 
@@ -324,7 +323,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                     .setNegativeButtonText("취소")
                     .setHour(12)
                     .setMinute(10)
-                    //                    .setTimeFormat(TimeFormat.CLOCK_12H)
+//                    .setTimeFormat(TimeFormat.CLOCK_12H)
                     .build()
 
 
@@ -401,9 +400,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                             1,
                         )
 
-                        println(endDate)
                         var addedCalendar = RequestCalendar(content.toString(), endDate.toString(), startDate.toString(), selectedMemberList)
-                        println(addedCalendar)
+                        println("호잇챠"+addedCalendar)
 
                         viewModel.addCalendar(addedCalendar)
                         Toast.makeText(activity, "일정 추가", Toast.LENGTH_SHORT).show()

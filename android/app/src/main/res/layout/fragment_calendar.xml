@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".CalendarFragment"
         tools:ignore="MissingClass">
@@ -52,20 +52,27 @@
             app:layout_constraintTop_toBottomOf="@id/day_text"
             tools:ignore="DuplicateIds" />
 
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="270dp"
+            android:fillViewport="true"
             app:layout_constraintTop_toBottomOf="@id/endLayout">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/calendar_recycler_view"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/calendar_item" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:descendantFocusability="blocksDescendants"
+                    android:id="@+id/calendar_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/calendar_item" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_calendar_fab"
