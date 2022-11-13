@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.databinding.FragmentDialogBinding
-import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.repository.HomeRepository
 import com.ssafy.zip.android.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -91,7 +90,9 @@ class CustomDialog : DialogFragment() {
             }
         }
         binding.editBtn.setOnClickListener {
-            FragmentHomeBinding.inflate(inflater, container, true).root.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToModifyFragment())
+            val args = Bundle()
+            args.putParcelable("data", data)
+           findNavController().navigate(R.id.action_to_modify, args)
 
 //            if (!editflag) {
 //                editflag = true

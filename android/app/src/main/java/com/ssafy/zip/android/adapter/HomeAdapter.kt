@@ -1,12 +1,13 @@
 package com.ssafy.zip.android.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ssafy.zip.android.CustomDialog
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.FamilyMember
 import de.hdodenhof.circleimageview.CircleImageView
@@ -41,14 +42,13 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
                 .into(holder.homeImage)
         }
         holder.homeImage.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_modifyFragment);
-//            val dialog = CustomDialog()
-//            val args = Bundle()
-//            args.putParcelable("key", homeImage)
-//            args.putString("familyName", familyName)
-//            args.putLong("familyUserId", homeImage.id) // 가족 구성원 아이디
-//            dialog.arguments = args
-//            dialog.show(mFragmentManager, "됐다")
+            val dialog = CustomDialog()
+            val args = Bundle()
+            args.putParcelable("key", homeImage)
+            args.putString("familyName", familyName)
+            args.putLong("familyUserId", homeImage.id) // 가족 구성원 아이디
+            dialog.arguments = args
+            dialog.show(mFragmentManager, "됐다")
         }
 
     }

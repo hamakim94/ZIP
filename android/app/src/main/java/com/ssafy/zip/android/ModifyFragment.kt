@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.databinding.FragmentModifyBinding
 
 class ModifyFragment : Fragment() {
@@ -17,7 +18,7 @@ class ModifyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentModifyBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
+        val data = requireArguments().getParcelable<FamilyMember>("data")
         return binding.root;
     }
 }
