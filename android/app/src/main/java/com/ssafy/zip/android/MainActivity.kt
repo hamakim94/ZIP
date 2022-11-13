@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 val size = Math.round(56 * dm.density)
                 binding.mainFlContainer.setPadding(0,0, 0,size)
                 // dp로 나타내야할듯
-            }
+                            }
         }
 //        test()
     }

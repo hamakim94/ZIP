@@ -16,13 +16,16 @@ import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
 import com.ssafy.zip.android.repository.UserRepository
+import com.unity3d.player.UnityPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private lateinit var mUnityPlayer : UnityPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +33,7 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         // 로그인 후 FCM 토큰 등록
+
         binding.btnLogin.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = UserRepository.getInstance(Application())
@@ -60,6 +64,8 @@ class LoginFragment : Fragment() {
                                         LoginFragmentDirections.actionLoginFragmentToFamilyEnterFragment()
                                     binding.root.findNavController().navigate(action)
                                 }
+                            } else{
+                                binding.root.findNavController().navigate(action)
                             }
                         }
 
