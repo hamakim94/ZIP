@@ -1,6 +1,7 @@
 package com.ssafy.zip.dto.response;
 
 import lombok.*;
+import com.ssafy.zip.entity.Character;
 
 @Getter
 @Setter
@@ -13,5 +14,5 @@ public class SimpleUserResponseDTO {
     Long id;
     String name;
     String nickname;
-    String profileImg;
+    Character profileImg;
 }

@@ -99,7 +99,8 @@ public class FamilyServiceImpl implements FamilyService{
                     .id(user.getId())
                     .nickname(user.getNickname())
                     .name(user.getName())
-                    .profileImg(user.getProfileImg().getImage())
+                    .profileImg(user.getProfileImg())
+                    /*.profileImg(user.getProfileImg().getImage())*/
                     .build());
         }
         FamilyMemberResponseDTO familyMemberResponseDTO = new FamilyMemberResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId(), pointService.getfamilyPoint(userDTO), simpleUserResponseDTOList);
