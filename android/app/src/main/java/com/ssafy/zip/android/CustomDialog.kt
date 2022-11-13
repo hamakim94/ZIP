@@ -48,7 +48,7 @@ class CustomDialog : DialogFragment() {
                 binding.dialogImage.setImageResource(R.drawable.ex)
             } else {
                 Glide.with(binding.root)
-                    .load(data.profileImg)
+                    .load(data.profileImg!!.img)
                     .into(binding.dialogImage)
             }
             binding.dialogRightName.text = data.name
