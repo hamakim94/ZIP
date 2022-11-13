@@ -58,7 +58,7 @@ public static class APIManager
 
     #region Private methods
 
-    private static string accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjY3ODY3MDY5LCJleHAiOjE3Mjc4NjcwNjl9.ulckIf9tjEBrR2iasNfC0wk4yP9NaaOGHULpWKdbOT4";
+    private static string accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjY4MzYyNjIzLCJleHAiOjE2NzA5NTQ2MjN9.MorS6oMCQMNz4RdeeJ3JTXy2E7ZjPemdOzEU6drqU7o";
     private static string refreshToken;
     private static string baseURL = "https://k7a407.p.ssafy.io/api";
 
