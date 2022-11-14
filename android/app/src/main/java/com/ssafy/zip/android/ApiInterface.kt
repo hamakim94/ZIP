@@ -88,12 +88,9 @@ interface ApiInterface {
     @GET("post/missions")
     suspend fun getMission():Response<Missions>
 
-    @Multipart
     @PUT("users/profiles")
     suspend fun modifyUser(
-        @Part profileImg: MultipartBody.Part?,
-        @Part("familyName") familyName : RequestBody,
-        @Part("nickname") nickname : RequestBody
+        @Body body : RequestModify
     ): Response<User>
 
     @GET("users/logout")

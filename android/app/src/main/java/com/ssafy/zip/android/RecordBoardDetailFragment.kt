@@ -3,34 +3,24 @@ package com.ssafy.zip.android
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Nickname
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.imageview.ShapeableImageView
-import com.ssafy.zip.android.adapter.BoardModelAdapter
 import com.ssafy.zip.android.adapter.CommentAdapter
 import com.ssafy.zip.android.data.BoardDetail
 import com.ssafy.zip.android.data.BoardModel
-import com.ssafy.zip.android.data.Comment
-import com.ssafy.zip.android.data.response.ResponseBoardAll
 import com.ssafy.zip.android.databinding.FragmentRecordBoardDetailBinding
 import com.ssafy.zip.android.viewmodel.BoardDetailViewModel
-import com.ssafy.zip.android.viewmodel.BoardViewModel
 
 class RecordBoardDetailFragment : Fragment() {
 
@@ -121,12 +111,13 @@ class RecordBoardDetailFragment : Fragment() {
             if (boardDetail.board.user.profileImg == null) {
                 binding.profileImageDetail.setImageResource(R.drawable.ex)
             } else {
-                Glide.with(activity).load(boardDetail?.board?.user?.profileImg)
+                Glide.with(activity).load(boardDetail?.board?.user?.profileImg!!.img)
                     .into(binding.profileImageDetail)
             }
         }
 
         // 닉네임, 게시글 내용
+        binding.commentCnt.text = boardDetail?.board?.commentCnt.toString()
         binding.userNicknameDetail.text = boardDetail?.board?.user?.nickname
         binding.boardRegDetail.text = boardDetail?.board?.reg?.let { DateUtil.getRegDate(it) }
         // 게시글 이미지

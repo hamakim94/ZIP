@@ -7,6 +7,7 @@ import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.UserFamily
 import com.ssafy.zip.android.data.request.RequestFamilyroom
 import com.ssafy.zip.android.data.request.RequestLoginData
+import com.ssafy.zip.android.data.request.RequestModify
 import com.ssafy.zip.android.data.request.RequestSignup
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -28,7 +29,6 @@ class UserRepository private constructor(application: Application) {
         } else {
             response.code()
         }
-
         return returnData
     }
     suspend fun postFcmToken(
@@ -95,16 +95,14 @@ class UserRepository private constructor(application: Application) {
     }
 
     suspend fun modifyUser(
-        profileImg: MultipartBody.Part?,
-        familyName : RequestBody,
-        nickname : RequestBody
+       requestModify: RequestModify
     ) : Any?{
-        val response = ApiService.getApiService.modifyUser(profileImg, familyName, nickname)
+        val response = ApiService.getApiService.modifyUser(requestModify)
         var returnData : Any?
         returnData = if(response.isSuccessful) {
             response.body() as User
         } else {
-            response.code()
+            null
         }
         return returnData
     }
