@@ -21,7 +21,7 @@ public class Furniture implements Serializable {
 
     Long position;
 
-    String furnitureName;
+    String name;
 
     Integer point;
 }
