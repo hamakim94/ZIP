@@ -15,10 +15,7 @@ import com.ssafy.zip.entity.UnityAlbum;
 import com.ssafy.zip.exception.ErrorCode;
 import com.ssafy.zip.exception.ResourceNotFoundException;
 import com.ssafy.zip.exception.UnauthorizedRequestException;
-import com.ssafy.zip.repository.CharacterRepository;
-import com.ssafy.zip.repository.FamilyFurnitureRepository;
-import com.ssafy.zip.repository.PictureRepository;
-import com.ssafy.zip.repository.UnityAlbumRepository;
+import com.ssafy.zip.repository.*;
 import com.ssafy.zip.util.UnityItemResponseDTOMapStruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +23,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +36,8 @@ public class UnityServiceImpl implements UnityService {
     private final PictureRepository pictureRepository;
     private final PointService pointService;
     private final CharacterRepository characterRepository;
+    private final FurnitureRepository furnitureRepository;
+    private final FamilyRepository familyRepository;
     @Override
     public String getSerializedFurnitureInfo(UserDTO userDTO) {
         List<FamilyFurniture> furnitureList = familyFurnitureRepository.findAllByFamily_Id(userDTO.getFamilyId());
@@ -58,6 +58,8 @@ public class UnityServiceImpl implements UnityService {
     @Override
     public void purchaseFurniture(UserDTO userDTO, Long furnitureId) {
         pointService.updatePoint(userDTO, furnitureId);
+        familyFurnitureRepository.save(new FamilyFurniture(null, familyRepository.getReferenceById(userDTO.getFamilyId()),
+                furnitureRepository.getReferenceById(furnitureId),1, LocalDateTime.now()));
     }
     @Transactional
     @Override
