@@ -7,48 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".SignupFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/signup_toolbar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:background="@null"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:contentInsetStart="0dp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/signup_title_bar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="회원가입"
-            android:textSize="15dp"
-            android:layout_marginTop="30dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            />
-
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            app:maxButtonHeight="48dp"
+            app:title="@string/signup_text"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/signup_toolbar"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signup_toolbar"
+        app:layout_constraintVertical_bias="0.23000002"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="15dp">
 
         <FrameLayout
             android:id="@+id/frame_profile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:orientation="vertical"
             android:layout_marginBottom="15dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/label_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
