@@ -37,7 +37,7 @@ public class UnityController {
 
     @PostMapping("/shop/{furnitureId}")
     @ApiOperation(value = "가구 구매")
-    ResponseEntity<?> buyFurniture(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, Long furnitureId){
+    ResponseEntity<?> buyFurniture(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO,@PathVariable Long furnitureId){
         unityService.purchaseFurniture(userDTO, furnitureId);
         return ResponseEntity.ok().build();
     }
