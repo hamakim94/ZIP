@@ -36,6 +36,12 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignupBinding.inflate(inflater,container,false)
+
+        // 캐릭터 선택
+        binding.profile.setOnClickListener{
+            binding.root.findNavController().navigate(R.id.action_signupFragment_to_characterFragment)
+        }
+
         binding.btnDuplicate.setOnClickListener{
             if(binding.editEmail.text.toString().length>0) {
                 CoroutineScope(Dispatchers.Main).launch {

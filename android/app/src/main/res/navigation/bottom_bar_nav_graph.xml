@@ -142,6 +142,9 @@
         <action
             android:id="@+id/action_signupFragment_to_signUpCompleteFragment"
             app:destination="@id/signUpCompleteFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpCompleteFragment"
@@ -202,4 +205,8 @@
         android:name="com.ssafy.zip.android.RecordQnaCreateFragment"
         android:label="RecordQnaCreateFragment">
     </fragment>
+    <fragment
+        android:id="@+id/characterFragment"
+        android:name="com.ssafy.zip.android.CharacterFragment"
+        android:label="CharacterFragment" />
 </navigation>
