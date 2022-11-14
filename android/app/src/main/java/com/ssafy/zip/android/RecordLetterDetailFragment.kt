@@ -54,8 +54,8 @@ class RecordLetterDetailFragment : Fragment() {
                 binding.letterUserNicknameDetail.text = (letterData.from.nickname + "에게서 온 편지")
 
             }
-            if(letterData.from.profileImg != null){
-                Glide.with(view).load(letterData.from.profileImg!!.img)
+            if(letterData.from.character != null){
+                Glide.with(view).load(letterData.from.character!!.img)
                     .into(binding.letterImageDetail)
             } else{
                 binding.letterImageDetail.setImageResource(R.drawable.ex)

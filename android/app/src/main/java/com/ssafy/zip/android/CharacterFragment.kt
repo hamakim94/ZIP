@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.CharacterAdapter
 import com.ssafy.zip.android.databinding.FragmentCharacterBinding
 import com.ssafy.zip.android.viewmodel.CharacterViewModel
@@ -55,9 +56,16 @@ class CharacterFragment : Fragment() {
         observeCharacterList(activity)
 
         binding.characterSelectBtn.setOnClickListener{
-            it.findNavController().previousBackStackEntry?.savedStateHandle?.set("character", selectedCharacter)
-            /*it.findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSignupFragment())*/
-            it.findNavController().popBackStack()
+            if(selectedCharacter != null){
+                it.findNavController().previousBackStackEntry?.savedStateHandle?.set("character", selectedCharacter)
+                /*it.findNavController().navigate(CharacterFragmentDirections.actionCharacterFragmentToSignupFragment())*/
+                it.findNavController().popBackStack()
+            } else {
+                MaterialAlertDialogBuilder(activity).setMessage("캐릭터를 선택해주세요.")
+                    .setPositiveButton("확인") { dialog, which ->
+                        dialog.dismiss()
+                    }.show()
+            }
         }
 
         val args: CharacterFragmentArgs by navArgs()

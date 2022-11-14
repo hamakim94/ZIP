@@ -32,6 +32,7 @@ class SignupFragment : Fragment() {
     private var passwordCheckFlag = false
     private var nameFlag = false
     private var nicknameFlag = false
+    private var characterFlag = false
 
     private lateinit var activity: MainActivity
 
@@ -97,6 +98,7 @@ class SignupFragment : Fragment() {
                 var response = instance?.signUp(
                     img = null,
                     RequestSignup(
+                        /*characterId = selectedCharacter?.id,*/
                         email = binding.editEmail.text.toString(),
                         password = binding.editPassword.text.toString(),
                         name = binding.editName.text.toString(),
@@ -123,16 +125,18 @@ class SignupFragment : Fragment() {
             ?.getLiveData<com.ssafy.zip.android.data.Character>("character")
             ?.observe(viewLifecycleOwner) {
                 selectedCharacter = it
+                characterFlag = true
                 Glide.with(view)
                     .load(it.img)
                     .into(binding.profile)
+                flagCheck()
             }
     }
 
    private fun initView(){
        binding.btnDuplicate.isEnabled = false
        binding.btnSignup.isEnabled = false
-        binding.signupEmail.editText?.addTextChangedListener(emailListner)
+        binding.signupEmail.editText?.addTextChangedListener(emailListener)
         binding.editEmail.hint = resources.getString(R.string.email_hint)
         binding.editEmail.setOnFocusChangeListener {_,hasFocus ->
             if(hasFocus){
@@ -187,9 +191,9 @@ class SignupFragment : Fragment() {
     }
 
     private fun flagCheck() {
-        binding.btnSignup.isEnabled = emailFlag && emailCheck && passwordFlag && passwordCheckFlag && nameFlag && nicknameFlag
+        binding.btnSignup.isEnabled = emailFlag && emailCheck && passwordFlag && passwordCheckFlag && nameFlag && nicknameFlag && characterFlag
     }
-    private val emailListner = object : TextWatcher {
+    private val emailListener = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

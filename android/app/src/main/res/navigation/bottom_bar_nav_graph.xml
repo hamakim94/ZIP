@@ -214,6 +214,9 @@
             app:argType="com.ssafy.zip.android.data.Character"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_characterFragment_to_modifyFragment"
+            app:destination="@id/modifyFragment" />
     </fragment>
     <fragment
         android:id="@+id/modifyFragment"
@@ -223,6 +226,9 @@
         <action
             android:id="@+id/action_modifyFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_modifyFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
     </fragment>
     <action
         android:id="@+id/action_to_modify" app:destination="@id/modifyFragment"/>

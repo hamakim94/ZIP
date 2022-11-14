@@ -105,11 +105,11 @@ class RecordLetterCreateFragment : Fragment() {
         // 앨범명으로 appbar title 지정
         toolbar.title = "오늘의 편지 작성"
 
-        if (user.profileImg == null) {
+        if (user.character == null) {
             binding.profileImage.setImageResource(R.drawable.ex)
         } else {
             Glide.with(view)
-                .load(user.profileImg!!.img)
+                .load(user.character!!.img)
                 .into(binding.profileImage)
         }
         binding.userNickname.text = user.nickname

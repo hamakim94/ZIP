@@ -98,6 +98,8 @@ class UserRepository private constructor(application: Application) {
        requestModify: RequestModify
     ) : Any?{
         val response = ApiService.getApiService.modifyUser(requestModify)
+        println("modifyUser response: " + response)
+
         var returnData : Any?
         returnData = if(response.isSuccessful) {
             response.body() as User

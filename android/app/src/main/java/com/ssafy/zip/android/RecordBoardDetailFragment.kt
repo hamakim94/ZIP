@@ -108,10 +108,10 @@ class RecordBoardDetailFragment : Fragment() {
         val boardDetail: BoardDetail? = viewModel.boardDetail.value
         // 사용자 프로필 이미지
         if (boardDetail != null) {
-            if (boardDetail.board.user.profileImg == null) {
+            if (boardDetail.board.user.character == null) {
                 binding.profileImageDetail.setImageResource(R.drawable.ex)
             } else {
-                Glide.with(activity).load(boardDetail?.board?.user?.profileImg!!.img)
+                Glide.with(activity).load(boardDetail?.board?.user?.character!!.img)
                     .into(binding.profileImageDetail)
             }
         }

@@ -34,12 +34,12 @@ class QnaProfileAdapter(
         var answered = false
 
         val homeImage = homeList[position]
-        if (homeImage.profileImg == null) {
+        if (homeImage.character == null) {
             holder.homeImage.setImageResource(R.drawable.ex)
 
         } else {
             Glide.with(holder.itemView)
-                .load(homeImage.profileImg!!.img)
+                .load(homeImage.character!!.img)
                 .into(holder.homeImage)
         }
         holder.homeImage.borderWidth = 1
