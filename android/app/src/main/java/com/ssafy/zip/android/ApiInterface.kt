@@ -196,6 +196,6 @@ interface ApiInterface {
     ) : Response<String>
 
     @GET("users/characters")
-    suspend fun getCharacterList() : Response<Any?>
-            /*Response<ArrayList<Character>>*/
+    suspend fun getCharacterList() : Response<ArrayList<Character>>
+
 }

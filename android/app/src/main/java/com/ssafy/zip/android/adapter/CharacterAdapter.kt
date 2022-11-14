@@ -43,6 +43,7 @@ class CharacterAdapter(private val characterItemList:ArrayList<CharacterItem>, v
             /*holder.characterImage.setImageResource(characterItem.character.img)*/
             Glide.with(holder.itemView)
                 .load(characterItem.character.img)
+                .override(200, 200)
                 .into(holder.characterImage)
         }
 
@@ -74,6 +75,7 @@ class CharacterAdapter(private val characterItemList:ArrayList<CharacterItem>, v
                 /*holder.characterImage.setImageResource(characterItem.character.img)*/
                 Glide.with(holder.itemView)
                 .load(characterItem.character.img)
+                .override(200, 200)
                 .into(holder.characterImage)
             }
 

@@ -17,6 +17,7 @@ import com.ssafy.zip.android.viewmodel.CharacterViewModel
 import com.ssafy.zip.android.data.Character
 import com.ssafy.zip.android.data.CharacterItem
 import com.ssafy.zip.android.databinding.FragmentRecordAlbumBinding
+import com.ssafy.zip.android.repository.CharacterRepository
 import com.ssafy.zip.android.viewmodel.HomeViewModel
 
 class CharacterFragment : Fragment() {
@@ -73,7 +74,7 @@ class CharacterFragment : Fragment() {
             if(viewModel.characterList.value != null){
                 characterList = viewModel.characterList.value!!
 
-                for(character in characterList){
+                for(character : Character in characterList){
                     characterItemList.add(CharacterItem(false, character))
                 }
             }
