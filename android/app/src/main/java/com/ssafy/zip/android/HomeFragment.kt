@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout.LayoutParams
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -87,6 +88,14 @@ class HomeFragment : Fragment() {
             clipboard.setPrimaryClip(clip)
             Toast.makeText(context, R.string.family_code_clipboard, Toast.LENGTH_SHORT).show()
         }
+        mUnityPlayer = UnityPlayer(App.ApplicationContext())
+        val glesMode: Int = mUnityPlayer.getSettings().getInt("gles_mode", 1)
+        val trueColor8888 = false
+        mUnityPlayer.init(glesMode, trueColor8888)
+        var lp = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
+        mUnityPlayer.resume()
+        mUnityPlayer.windowFocusChanged(true)
 
         return binding.root
     }
