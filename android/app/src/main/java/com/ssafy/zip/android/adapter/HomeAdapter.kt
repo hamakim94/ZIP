@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,6 +23,7 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
     
     class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val homeImage: CircleImageView = itemView.findViewById(R.id.home_image)
+        val homeText : TextView = itemView.findViewById(R.id.home_nickname)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -34,6 +36,7 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val homeImage = homeList[position]
+        holder.homeText.text = homeImage.nickname
         if(homeImage.profileImg==null) {
             holder.homeImage.setImageResource(R.drawable.ex)
         } else{
