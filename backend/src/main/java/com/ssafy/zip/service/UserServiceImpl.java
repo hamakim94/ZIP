@@ -7,6 +7,7 @@ import com.ssafy.zip.dto.request.UserSignupRequestDTO;
 import com.ssafy.zip.dto.response.CharacterResponseDTO;
 import com.ssafy.zip.dto.response.FamilyResponseDTO;
 import com.ssafy.zip.dto.response.UserResponseDTO;
+import com.ssafy.zip.entity.Character;
 import com.ssafy.zip.entity.EmailAuth;
 import com.ssafy.zip.entity.Family;
 import com.ssafy.zip.entity.User;
@@ -226,7 +227,7 @@ public class UserServiceImpl implements UserService{
                 .id(user.getId())
                 .name(user.getName())
                 .nickname(user.getNickname())
-                .profileImg(user.getProfileImg())
+                .profileImg(new Character(user.getProfileImg().getId(), user.getProfileImg().getImage(), user.getProfileImg().getAssetName()))
                 .hasFamily(user.getFamily()==null?false:true)
                 .family(family != null?new FamilyResponseDTO(family.getId(), family.getCode(), family.getFamilyName(), family.getMemberNum(), family.getReg(), family.getQna().getId()):null)
                 .build();
