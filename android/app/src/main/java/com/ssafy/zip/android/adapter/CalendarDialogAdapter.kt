@@ -29,7 +29,7 @@ class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?, va
             holder.familyImage.setImageResource(R.drawable.ex2)
         } else {
             Glide.with(holder.itemView)
-                .load(member.profileImg)
+                .load(member.profileImg!!.img)
                 .into(holder.familyImage)
         }
 
