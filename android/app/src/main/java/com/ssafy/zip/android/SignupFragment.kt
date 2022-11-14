@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.data.request.RequestSignup
 import com.ssafy.zip.android.databinding.FragmentSignupBinding
@@ -30,8 +32,11 @@ class SignupFragment : Fragment() {
     private var passwordCheckFlag = false
     private var nameFlag = false
     private var nicknameFlag = false
+    private var characterFlag = false
 
     private lateinit var activity: MainActivity
+
+    private var selectedCharacter : com.ssafy.zip.android.data.Character? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,7 +47,18 @@ class SignupFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("signup create")
+
         _binding = FragmentSignupBinding.inflate(inflater,container,false)
+        println("binding.editEmail.text: " + binding.editEmail.text)
+
+        // 캐릭터 선택
+        binding.profile.setOnClickListener{
+            val action = SignupFragmentDirections.actionSignupFragmentToCharacterFragment(selectedCharacter)
+            binding.root.findNavController().navigate(action)
+            /*binding.root.findNavController().navigate(R.id.action_signupFragment_to_characterFragment)*/
+        }
+
         binding.btnDuplicate.setOnClickListener{
             if(binding.editEmail.text.toString().length>0) {
                 CoroutineScope(Dispatchers.Main).launch {
@@ -82,6 +98,7 @@ class SignupFragment : Fragment() {
                 var response = instance?.signUp(
                     img = null,
                     RequestSignup(
+                        /*characterId = selectedCharacter?.id,*/
                         email = binding.editEmail.text.toString(),
                         password = binding.editPassword.text.toString(),
                         name = binding.editName.text.toString(),
@@ -102,12 +119,24 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+
+        findNavController().currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<com.ssafy.zip.android.data.Character>("character")
+            ?.observe(viewLifecycleOwner) {
+                selectedCharacter = it
+                characterFlag = true
+                Glide.with(view)
+                    .load(it.img)
+                    .into(binding.profile)
+                flagCheck()
+            }
     }
 
    private fun initView(){
        binding.btnDuplicate.isEnabled = false
        binding.btnSignup.isEnabled = false
-        binding.signupEmail.editText?.addTextChangedListener(emailListner)
+        binding.signupEmail.editText?.addTextChangedListener(emailListener)
         binding.editEmail.hint = resources.getString(R.string.email_hint)
         binding.editEmail.setOnFocusChangeListener {_,hasFocus ->
             if(hasFocus){
@@ -143,7 +172,7 @@ class SignupFragment : Fragment() {
                binding.editName.hint = resources.getString(R.string.name_hint)
            }
        }
-       binding.signupNickname.editText?.addTextChangedListener(nicknameListner)
+       binding.signupNickname.editText?.addTextChangedListener(nicknameListener)
         binding.editNickname.hint = resources.getString(R.string.nickname_hint)
         binding.editNickname.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus){
@@ -162,9 +191,9 @@ class SignupFragment : Fragment() {
     }
 
     private fun flagCheck() {
-        binding.btnSignup.isEnabled = emailFlag && emailCheck && passwordFlag && passwordCheckFlag && nameFlag && nicknameFlag
+        binding.btnSignup.isEnabled = emailFlag && emailCheck && passwordFlag && passwordCheckFlag && nameFlag && nicknameFlag && characterFlag
     }
-    private val emailListner = object : TextWatcher {
+    private val emailListener = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -290,7 +319,7 @@ class SignupFragment : Fragment() {
         }
     }
 
-    private val nicknameListner = object : TextWatcher {
+    private val nicknameListener = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -313,6 +342,7 @@ class SignupFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        println("signup destroy")
         super.onDestroyView()
         _binding = null
     }

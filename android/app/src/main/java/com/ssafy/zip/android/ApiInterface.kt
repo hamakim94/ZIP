@@ -192,5 +192,7 @@ interface ApiInterface {
         @Path("notificationId")  id : Long
     ) : Response<String>
 
+    @GET("users/characters")
+    suspend fun getCharacterList() : Response<ArrayList<Character>>
 
 }

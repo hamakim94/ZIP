@@ -91,11 +91,11 @@ class BoardModelAdapter(
         private fun bindBoard(item: ResponseBoardAll) {
             var board: BoardModel.Board = item.data as BoardModel.Board
             if (board != null) {
-                if (board.user.profileImg == null) {
+                if (board.user.character == null) {
                     itemView.findViewById<ShapeableImageView>(R.id.profileImage)
                         .setImageResource(R.drawable.ex)
                 } else {
-                    Glide.with(itemView).load(board.user.profileImg!!.img)
+                    Glide.with(itemView).load(board.user.character!!.img)
                         .into(itemView.findViewById<ShapeableImageView>(R.id.profileImage))
                 }
                 itemView.findViewById<TextView>(R.id.userNickname).text = board.user.nickname

@@ -37,10 +37,10 @@
 
         <FrameLayout
             android:id="@+id/frame_profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="15dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:orientation="vertical"
+            android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toTopOf="@+id/label_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,19 +48,20 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/profile640"
                 app:civ_border_color="@color/grey"
-                app:civ_border_width="1dp" />
+                app:civ_border_width="1dp"
+                app:civ_circle_background_color="@color/darkgray"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_camera"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="bottom|right"
-                android:src="@drawable/ic_baseline_camera_alt_24" />
+                android:src="@drawable/ic_baseline_child_care_24" />
         </FrameLayout>
 
 

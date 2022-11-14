@@ -37,11 +37,11 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val homeImage = homeList[position]
         holder.homeText.text = homeImage.nickname
-        if(homeImage.profileImg==null) {
+        if(homeImage.character==null) {
             holder.homeImage.setImageResource(R.drawable.ex)
         } else{
             Glide.with(holder.itemView)
-                .load(homeImage.profileImg!!.img)
+                .load(homeImage.character!!.img)
                 .into(holder.homeImage)
         }
         holder.homeImage.setOnClickListener {
