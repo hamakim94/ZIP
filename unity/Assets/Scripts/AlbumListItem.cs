@@ -21,7 +21,7 @@ public class AlbumListItem : MonoBehaviour
 
     public void Init(int idx, long id, string name, PhotoData[] pictures, List<GameObject> albumContentList)
     {
-        // µ¥ÀÌÅÍ ³Ö±â 
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½ 
         title.text = name;
         picture.texture = pictures[pictures.Length - 1].texture;
 
@@ -41,12 +41,12 @@ public class AlbumListItem : MonoBehaviour
         albumContentList[idx].SetActive(true);
         photoPanel.transform.GetChild(0).GetComponent<ScrollRect>().content = albumContentList[idx].GetComponent<RectTransform>();
 
-        /*for (int i = 0; i < pictures.Length; i++) // ¾Ù¹ü¸¶´Ù
+        /*for (int i = 0; i < pictures.Length; i++) // ï¿½Ù¹ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             var data = (PictureData)pictures[i];
 
-            // ¾ÆÀÌÅÛ ¸¸µé±â 
-            var listItem = Instantiate(this.photoItem, this.contents); // °ÔÀÓ ¿ÀºêÁ§Æ®ÀÇ º¹Á¦º» »ý¼º 
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
+            var listItem = Instantiate(this.photoItem, this.contents); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
             var album = listItem.GetComponent<AlbumListItem>();
             *//*StartCoroutine(GetTexture(data.pictures[0].url));*//*
             album.Init(data.id, data.name, data.pictures);

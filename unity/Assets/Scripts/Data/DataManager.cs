@@ -27,7 +27,6 @@ public class DataManager : MonoBehaviour
             DataManager.Instance = this;
 
             LoadTotalItemData();
-            /*LoadTotalAlbumData();*/
 
             this.dicData = new Dictionary<long, RawData>();
             DontDestroyOnLoad(gameObject);
@@ -71,20 +70,6 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    /*public void LoadUserAlbumData()
-    {
-        this.userAlbumDicData = new Dictionary<long, RawData>(); // 앨범 pos id : UserAlbumData
-        var ta = Resources.Load<TextAsset>("Data/user_album_data2"); // api 통신해서 json 가져오기 
-        var json = ta.text;
-        var arrData = JsonConvert.DeserializeObject<UserAlbumData[]>(json);
-
-        foreach (var data in arrData)
-        {
-
-            this.userAlbumDicData.Add(data.id, data);
-        }
-    }*/
-
     public RawData itemIdToItem(long positionId, long itemId)
     {
         var itemList = totalItemDicData[positionId];
@@ -120,39 +105,4 @@ public class DataManager : MonoBehaviour
         }
     }
     #endregion
-
-    /*IEnumerator GetTexture(PhotoData picture)
-    {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
-        yield return www.SendWebRequest();
-
-        picture.texture = DownloadHandlerTexture.GetContent(www);
-    }*/
-
-    /*public static IEnumerator GetTexture(string url, AlbumListItem album)
-    {
-        Debug.Log(url);
-        *//*UnityWebRequest www = APIManager.GetWWW("Texture", url, null);*//*
-        UnityWebRequest www = APIManager.GetWWW("GET", url, null);
-
-        *//*Debug.Log(www.SendWebRequest());*//*
-
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Texture2D tex = new Texture2D(2, 2);
-            byte[] data = www.downloadHandler.data;
-            ImageConversion.LoadImage(tex, data, true);
-            Debug.Log(www.downloadHandler.text);
-            album.picture.texture = tex;
-            *//*album.picture.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;*/
-    /*album.picture.texture = www.downloadHandler.data.;*//*
-    Debug.Log(album.picture.texture);
-}
-}*/
 }

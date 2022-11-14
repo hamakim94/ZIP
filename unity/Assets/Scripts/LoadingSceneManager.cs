@@ -20,7 +20,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     private float doneGage = 0;
     private float tempGage = 0;
     private string gameVersion = "1";
-    private static bool isAlbumLoaded = false;
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -57,10 +56,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         {
             foreach (RawData data in furnitureData[positionId])
             {
-                bool temp = false;
                 if (((UserItemData)data).hasItemCode == 2)
                 {
-                    temp = true;
                     if (furnitureSet.ContainsKey(positionId))
                     {
                         furnitureSet.Remove(positionId);
@@ -77,10 +74,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         Dictionary<long, RawData> photoData = DataManager.Instance.userAlbumDicData;
         foreach (long albumId in photoData.Keys)
         {
-            bool temp = false;
             if (((UserAlbumData)photoData[albumId]).texture != null)
             {
-                temp = true;
                 if (photoSet.ContainsKey(albumId))
                 {
                     photoSet.Remove(albumId);
@@ -110,7 +105,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Create Success");
         //가구 정보 저장
-        
+
     }
     /*public override void OnCreatedRoom()
     {
@@ -143,6 +138,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     #region Private Methods
     private void Connect()
     {
+        PhotonNetwork.NickName = DataManager.Instance.user.name;
         Debug.Log("connect");
         if (PhotonNetwork.IsConnected)
         {
@@ -206,7 +202,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         dataManager.albumDicData = new Dictionary<long, RawData>(); // album id : AlbumData
         UnityWebRequest www = APIManager.GetWWW("GET", "/album", null);
         yield return www.SendWebRequest();
-        if(www.result != UnityWebRequest.Result.Success)
+        if (www.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(www.error);
         }
@@ -250,12 +246,12 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         var albums = DataManager.Instance.albumDicData;
         foreach (UserAlbumData data in arrData)
         {
-            foreach(AlbumData Value in albums.Values)
+            foreach (AlbumData Value in albums.Values)
             {
                 foreach (PhotoData photo in Value.pictures)
                 /*foreach(var photo in ((AlbumData)albums[albumId]).pictures)*/
                 {
-                    if(photo.id == data.pictureId)
+                    if (photo.id == data.pictureId)
                     {
                         data.texture = photo.texture;
                         break;
@@ -265,7 +261,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             Debug.Log(data);
             DataManager.Instance.userAlbumDicData.Add(data.id, data);
         }
-        isAlbumLoaded = true;
     }
     private IEnumerator GetTexture(PhotoData picture)
     {
