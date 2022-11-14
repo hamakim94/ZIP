@@ -9,6 +9,7 @@
         android:id="@+id/member_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:civ_circle_background_color="@color/darkgray"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

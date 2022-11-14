@@ -1,31 +1,20 @@
 package com.ssafy.zip.android
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.utils.widget.ImageFilterButton
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.google.android.material.imageview.ShapeableImageView
 import com.ssafy.zip.android.data.BoardModel
-import com.ssafy.zip.android.databinding.FragmentRecordLetterBinding
 import com.ssafy.zip.android.databinding.FragmentRecordLetterDetailBinding
 import com.ssafy.zip.android.repository.BoardRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
-import okhttp3.RequestBody
 
 class RecordLetterDetailFragment : Fragment() {
     private var _binding: FragmentRecordLetterDetailBinding? = null
@@ -66,7 +55,7 @@ class RecordLetterDetailFragment : Fragment() {
 
             }
             if(letterData.from.profileImg != null){
-                Glide.with(view).load(letterData.from.profileImg)
+                Glide.with(view).load(letterData.from.profileImg!!.img)
                     .into(binding.letterImageDetail)
             } else{
                 binding.letterImageDetail.setImageResource(R.drawable.ex)

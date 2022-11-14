@@ -39,6 +39,7 @@
             android:layout_marginStart="8dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            android:background="@color/darkgray"
             android:src="@drawable/userimage1"
             app:layout_constraintBottom_toBottomOf="@id/profileContainer"
             app:layout_constraintStart_toStartOf="parent"

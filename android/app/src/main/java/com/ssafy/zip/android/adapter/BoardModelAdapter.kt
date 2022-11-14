@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.setPadding
 import androidx.navigation.findNavController
@@ -96,7 +95,7 @@ class BoardModelAdapter(
                     itemView.findViewById<ShapeableImageView>(R.id.profileImage)
                         .setImageResource(R.drawable.ex)
                 } else {
-                    Glide.with(itemView).load(board.user.profileImg)
+                    Glide.with(itemView).load(board.user.profileImg!!.img)
                         .into(itemView.findViewById<ShapeableImageView>(R.id.profileImage))
                 }
                 itemView.findViewById<TextView>(R.id.userNickname).text = board.user.nickname
