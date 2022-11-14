@@ -1,5 +1,8 @@
 package com.ssafy.zip.android
 
+import android.Manifest
+import android.app.Application
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -10,15 +13,11 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.databinding.ActivityMainBinding
-import android.Manifest
-import android.app.Application
-import android.util.Log
-import android.widget.Toast
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.zip.android.repository.HomeRepository
+import com.unity3d.player.UnityPlayerActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,6 +41,11 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         // 네비게이션 컨트롤러 (네비게이션 그래프 정보를 바탕으로 네비게이션 간 이동을 담당)
         val navController = navHostFragment.navController
+        binding.fab.setOnClickListener{
+            var Bundle = Bundle()
+            Bundle.putString("token", App.prefs.getString("accesstoken",""))
+            startActivity(Intent(this@MainActivity, UnityPlayerActivity::class.java), Bundle)
+        }
         // 자동 로그인
         if (!App.prefs.getString("accesstoken", "").equals("")) {
             CoroutineScope(Dispatchers.Main).launch {

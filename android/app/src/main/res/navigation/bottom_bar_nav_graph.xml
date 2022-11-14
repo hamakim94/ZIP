@@ -46,9 +46,6 @@
             android:id="@+id/action_recordFragment_to_recordBoardCreateFragment"
             app:destination="@id/recordBoardCreateFragment" />
         <action
-            android:id="@+id/action_recordFragment_to_recordQnaCreateFragment"
-            app:destination="@id/recordQnaCreateFragment" />
-        <action
             android:id="@+id/action_recordFragment_to_recordLetterCreateFragment"
             app:destination="@id/recordLetterCreateFragment" />
         <deepLink

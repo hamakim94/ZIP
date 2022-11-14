@@ -9,8 +9,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout.LayoutParams
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
         val glesMode: Int = mUnityPlayer.getSettings().getInt("gles_mode", 1)
         val trueColor8888 = false
         mUnityPlayer.init(glesMode, trueColor8888)
-        var lp = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        var lp = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT)
         binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
         mUnityPlayer.resume()
         mUnityPlayer.windowFocusChanged(true)

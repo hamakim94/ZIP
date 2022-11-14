@@ -77,11 +77,9 @@ class LoginFragment : Fragment() {
                                         LoginFragmentDirections.actionLoginFragmentToFamilyEnterFragment()
                                     binding.root.findNavController().navigate(action)
                                 }
-                            } else{
+                            } else {
                                 binding.root.findNavController().navigate(action)
-                            }
-                            else binding.root.findNavController().navigate(action)
-                        }
+                            }                        }
 
                     })
 
