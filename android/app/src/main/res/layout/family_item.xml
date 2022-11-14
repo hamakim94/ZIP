@@ -7,6 +7,7 @@
     android:layout_margin="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        app:civ_circle_background_color="@color/darkgray"
         android:id="@+id/family_image"
         android:alpha="0.6"
         android:layout_width="55dp"
