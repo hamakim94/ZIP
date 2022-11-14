@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.data.request.RequestSignup
 import com.ssafy.zip.android.databinding.FragmentSignupBinding
@@ -33,6 +35,8 @@ class SignupFragment : Fragment() {
 
     private lateinit var activity: MainActivity
 
+    private var selectedCharacter : com.ssafy.zip.android.data.Character? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
@@ -42,11 +46,16 @@ class SignupFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("signup create")
+
         _binding = FragmentSignupBinding.inflate(inflater,container,false)
+        println("binding.editEmail.text: " + binding.editEmail.text)
 
         // 캐릭터 선택
         binding.profile.setOnClickListener{
-            binding.root.findNavController().navigate(R.id.action_signupFragment_to_characterFragment)
+            val action = SignupFragmentDirections.actionSignupFragmentToCharacterFragment(selectedCharacter)
+            binding.root.findNavController().navigate(action)
+            /*binding.root.findNavController().navigate(R.id.action_signupFragment_to_characterFragment)*/
         }
 
         binding.btnDuplicate.setOnClickListener{
@@ -108,6 +117,16 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+
+        findNavController().currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<com.ssafy.zip.android.data.Character>("character")
+            ?.observe(viewLifecycleOwner) {
+                selectedCharacter = it
+                Glide.with(view)
+                    .load(it.img)
+                    .into(binding.profile)
+            }
     }
 
    private fun initView(){
@@ -149,7 +168,7 @@ class SignupFragment : Fragment() {
                binding.editName.hint = resources.getString(R.string.name_hint)
            }
        }
-       binding.signupNickname.editText?.addTextChangedListener(nicknameListner)
+       binding.signupNickname.editText?.addTextChangedListener(nicknameListener)
         binding.editNickname.hint = resources.getString(R.string.nickname_hint)
         binding.editNickname.setOnFocusChangeListener { _, hasFocus ->
             if(hasFocus){
@@ -296,7 +315,7 @@ class SignupFragment : Fragment() {
         }
     }
 
-    private val nicknameListner = object : TextWatcher {
+    private val nicknameListener = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -319,6 +338,7 @@ class SignupFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        println("signup destroy")
         super.onDestroyView()
         _binding = null
     }

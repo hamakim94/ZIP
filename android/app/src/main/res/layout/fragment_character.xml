@@ -24,8 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:minHeight="48dp"
-                android:text="@string/select_character"
-                app:title="@string/select_character"
+                android:text="@string/select_character_header"
+                app:title="@string/select_character_header"
                 app:maxButtonHeight="48dp"
                 app:titleCentered="true"
                 app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -47,13 +47,13 @@
             app:layoutManager="GridLayoutManager"
             tools:listitem="@layout/character_item" />
             <Button
-                android:id="@+id/btn_modify"
+                android:id="@+id/character_select_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/modify_btn"
+                android:text="@string/select_character"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
