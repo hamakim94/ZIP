@@ -45,7 +45,7 @@
     <string name="name">이름</string>
     <string name="name_hint">이름</string>
     <string name="nickname">애칭</string>
-    <string name="nickname_hint">늘곰, 귀요미 등</string>
+    <string name="nickname_hint">애칭</string>
     <string name="family_code_clipboard">클립보드에 복사되었습니다.</string>
     <string name="select_character_header">캐릭터 선택</string>
     <string name="select_character">선택하기</string>

@@ -155,7 +155,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 calendarView.setTitleFormatter(TitleFormatter { "${date?.year}년 ${date?.month}월" })
             }
         })
-
         // 캘린더에서 선택한 날짜 변경됐을 때
         // 아래 일정 변경해줌
         calendarView.setOnDateChangedListener(object : OnDateSelectedListener{
@@ -213,7 +212,6 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
             startShowSelectedTimeText = customAlertDialogView.findViewById(R.id.btn_startTime)
             var materialDateBuilder: MaterialDatePicker.Builder<*> =
                 MaterialDatePicker.Builder.datePicker()
-
             materialDateBuilder.setTitleText("시작날짜")
             materialDateBuilder.setPositiveButtonText("확인")
             materialDateBuilder.setNegativeButtonText("취소")
@@ -236,8 +234,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                     .setTitleText("시작 시간")
                     .setPositiveButtonText("확인")
                     .setNegativeButtonText("취소")
-                    .setHour(12)
-                    .setMinute(10)
+                    .setHour(0)
+                    .setMinute(0)
 //                    .setTimeFormat(TimeFormat.CLOCK_12H)
                     .build()
 
@@ -322,8 +320,8 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                     .setTitleText("종료시간")
                     .setPositiveButtonText("확인")
                     .setNegativeButtonText("취소")
-                    .setHour(12)
-                    .setMinute(10)
+                    .setHour(0)
+                    .setMinute(0)
 //                    .setTimeFormat(TimeFormat.CLOCK_12H)
                     .build()
 
