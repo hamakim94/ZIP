@@ -27,9 +27,7 @@ class CharacterFragment : Fragment() {
     private lateinit var characterAdapter: CharacterAdapter
     private lateinit var characterList: ArrayList<Character>
     private lateinit var characterItemList: ArrayList<CharacterItem>
-    private lateinit var selectedCharacter: Character
     private var selectedCharacterIdx: Int = -1
-    /*var link = CharacterFunc()*/
 
     private val viewModel by viewModels<CharacterViewModel>{CharacterViewModel.Factory(Application())}
 
@@ -67,8 +65,6 @@ class CharacterFragment : Fragment() {
 
     private fun observeCharacterList(activity: MainActivity){
         val observer = Observer<ArrayList<Character>> {
-            println("observeCharacterList")
-
             binding.viewmodel = viewModel
             characterItemList = arrayListOf()
             if(viewModel.characterList.value != null){
@@ -78,23 +74,17 @@ class CharacterFragment : Fragment() {
                     characterItemList.add(CharacterItem(false, character))
                 }
             }
-            println(1)
-
             characterAdapter = CharacterAdapter(characterItemList, activity)
-            println(2)
 
             characterAdapter.setOnItemClickListener(object: CharacterAdapter.OnItemClickListener{
                 override fun onItemClick(view: View, position: Int) {
                     if(selectedCharacterIdx == -1){ // 선택된게 없을 경우
-                        println("1 position: " + position)
                         characterAdapter.notifyItemChanged(position) // 선택O 상태로 변경해야됨
                         selectedCharacterIdx = position
                     } else if(selectedCharacterIdx == position){ // 현재 선택되어있는 캐릭터를 다시 선택한 경우
-                        println("2 position: " + position)
                         characterAdapter.notifyItemChanged(selectedCharacterIdx) // 선택X 상태로 변경해야됨
                         selectedCharacterIdx = -1
                     } else{ // 선택한 캐릭터가 있고 본인이 아닐 경우
-                        println("3 position: " + position)
                         characterAdapter.notifyItemChanged(selectedCharacterIdx, "unselect") // 선택X 상태로 변경해야됨
                         characterAdapter.notifyItemChanged(position) // 선택O 상태로 변경해야됨
                         selectedCharacterIdx = position
@@ -106,25 +96,4 @@ class CharacterFragment : Fragment() {
         }
         viewModel.characterList.observe(viewLifecycleOwner, observer)
     }
-
-    /*inner class CharacterFunc{
-        fun selectCharacter(characterIdx : Int, character: Character){
-            println("notifyItemChanged to " + selectedCharacterIdx)
-            // 이전 selectedCharacterId의 adapter
-            characterAdapter.notifyItemChanged(selectedCharacterIdx, character)
-
-            println("selectCharacter: " + characterIdx)
-            selectedCharacterIdx = characterIdx
-            selectedCharacter = character
-        }
-    }*/
-
-
-    /*public interface OnItemClickEventListener{
-        fun OnItemClick(pos : Int)
-    }
-
-    private var itemClickListener : OnItemClickEventListener{
-
-    }*/
 }
