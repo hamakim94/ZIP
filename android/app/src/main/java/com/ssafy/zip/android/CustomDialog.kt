@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.FamilyMember
+import com.ssafy.zip.android.data.request.RequestModify
 import com.ssafy.zip.android.databinding.FragmentDialogBinding
 import com.ssafy.zip.android.repository.HomeRepository
 import com.ssafy.zip.android.repository.UserRepository
@@ -55,82 +57,32 @@ class CustomDialog : DialogFragment() {
             binding.dialogRightNickname.text = data.nickname
         }
         binding.dialogButton.setOnClickListener {
-            if (binding.dialogButton.text.equals("닫기")) {
-                dismiss()
-            } else {
-                CoroutineScope(Dispatchers.Main).launch {
-                    val instance = UserRepository.getInstance(Application())
-                    val bodyFamilyName = RequestBody.create(
-                        MediaType.get("application/json; charset=utf-8"),
-                        binding.dialogRightEditfamily.text.toString()
-                    )
-                    val bodyNickName = RequestBody.create(
-                        MediaType.get("application/json; charset=utf-8"),
-                        binding.dialogRightEditnickname.text.toString()
-                    )
-                    var response = instance?.modifyUser(
-                        profileImg = null,
-                        familyName = bodyFamilyName,
-                        nickname = bodyNickName
-                    )
-                    println("response in Dialog :  " + response.toString())
-                    if (response != null) {
-                        editflag = true
-                        binding.dialogRightFamily.isGone = false
-                        binding.dialogRightEditfamilyLayout.isGone = true
-                        binding.dialogRightNickname.isGone = false
-                        binding.dialogRightEditnicknameLayout.isGone = true
-                        binding.dialogButton.text = "닫기"
-                        dismiss()
-
+            dismiss()
                     }
-
-                }
-            }
-        }
         binding.editBtn.setOnClickListener {
-            if (!editflag) {
-                editflag = true
-                binding.dialogRightFamily.isGone = true
-                binding.dialogRightEditfamilyLayout.isGone = false
-                binding.dialogRightNickname.isGone = true
-                binding.dialogRightEditnicknameLayout.isGone = false
-                binding.dialogButton.text = "수정하기"
-            } else {
-                editflag = false
-                binding.dialogRightFamily.isGone = false
-                binding.dialogRightEditfamilyLayout.isGone = true
-                binding.dialogRightNickname.isGone = false
-                binding.dialogRightEditnicknameLayout.isGone = true
-                binding.dialogButton.text = "닫기"
-            }
+            val args = Bundle()
+            args.putParcelable("data", data)
+            args.putString("familyName", familyName)
+           findNavController().navigate(R.id.action_to_modify, args)
+
+//            if (!editflag) {
+//                editflag = true
+//                binding.dialogRightFamily.isGone = true
+//                binding.dialogRightEditfamilyLayout.isGone = false
+//                binding.dialogRightNickname.isGone = true
+//                binding.dialogRightEditnicknameLayout.isGone = false
+//                binding.dialogButton.text = "수정하기"
+//            } else {
+//                editflag = false
+//                binding.dialogRightFamily.isGone = false
+//                binding.dialogRightEditfamilyLayout.isGone = true
+//                binding.dialogRightNickname.isGone = false
+//                binding.dialogRightEditnicknameLayout.isGone = true
+//                binding.dialogButton.text = "닫기"
+//            }
 
         }
-        binding.dialogRightEditname.hint = binding.dialogRightName.text
-        binding.dialogRightEditfamily.hint = binding.dialogRightFamily.text
-        binding.dialogRightEditnickname.hint = binding.dialogRightNickname.text
 
-        binding.dialogRightEditname.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding.dialogRightEditname.hint = ""
-            } else {
-                binding.dialogRightEditname.hint = binding.dialogRightName.text
-            }
-        }
-        binding.dialogRightEditfamily.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding.dialogRightEditfamily.hint = ""
-            } else {
-                binding.dialogRightEditfamily.hint = binding.dialogRightFamily.text
-            }
-        }
-        binding.dialogRightEditnickname.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding.dialogRightEditnickname.hint = ""
-            } else {
-                binding.dialogRightEditnickname.hint = binding.dialogRightNickname.text
-            }
-        }
         return binding.root
     }
 

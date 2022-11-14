@@ -46,9 +46,12 @@
     <string name="name_hint">이름</string>
     <string name="nickname">애칭</string>
     <string name="nickname_hint">늘곰, 귀요미 등</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="family_code_clipboard">클립보드에 복사되었습니다.</string>
+
+    <!-- modify -->
+    <string name="modify_fragment">회원정보 수정</string>
+    <string name="modify_familyName">가족명</string>
+    <string name="modify_btn">수정하기</string>
 
     <!-- spinner    -->
     <string name="selected_item">Selected item:</string>

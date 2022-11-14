@@ -205,4 +205,15 @@
         android:name="com.ssafy.zip.android.RecordQnaCreateFragment"
         android:label="RecordQnaCreateFragment">
     </fragment>
+    <fragment
+        android:id="@+id/modifyFragment"
+        android:name="com.ssafy.zip.android.ModifyFragment"
+        android:label="fragment_modify"
+        tools:layout="@layout/fragment_modify" >
+        <action
+            android:id="@+id/action_modifyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_to_modify" app:destination="@id/modifyFragment"/>
 </navigation>
