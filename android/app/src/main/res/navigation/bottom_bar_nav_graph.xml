@@ -201,11 +201,6 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/recordQnaCreateFragment"
-        android:name="com.ssafy.zip.android.RecordQnaCreateFragment"
-        android:label="RecordQnaCreateFragment">
-    </fragment>
-    <fragment
         android:id="@+id/modifyFragment"
         android:name="com.ssafy.zip.android.ModifyFragment"
         android:label="fragment_modify"
