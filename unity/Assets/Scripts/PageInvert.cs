@@ -8,7 +8,7 @@ using System;
 public class PageInvert : MonoBehaviour
 {
     enum Panel{
-        main, shop, inventory, album, photo
+        main, shop, inventory, album, photo, furniture
     }
 
     private GameObject[] panels;
@@ -17,6 +17,7 @@ public class PageInvert : MonoBehaviour
     public GameObject inventoryPanel;
     public GameObject albumPanel;
     public GameObject photoPanel;
+    public GameObject furniturePanel;
     public GameObject BtnList;
     public GameObject BuildList;
     public Vector3 m_vecMouseDownPos;
@@ -26,8 +27,8 @@ public class PageInvert : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel};
-        setActive((int)Panel.main);
+        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel, furniturePanel};
+        MainButtonClicked();
     }
 
     // Update is called once per frame
@@ -56,8 +57,7 @@ public class PageInvert : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 // 어떤 오브젝트인지 로그를 찍습니다.
-
-                if (hit.collider.name == "photoImg")
+                if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
                 {
                     Debug.Log(hit.transform.GetComponent<Photo>().id);
                     photoGO = hit.transform.gameObject;
@@ -75,6 +75,11 @@ public class PageInvert : MonoBehaviour
                     Debug.Log("Cylinder Hit");*/
             }
         }
+    }
+
+    public void MainButtonClicked()
+    {
+        setActive((int)Panel.main);
     }
 
     public void ShopButtonClicked(){
@@ -96,6 +101,7 @@ public class PageInvert : MonoBehaviour
 
     public void PlusButtonClicked()
     {
+       // 배치 버튼 
        for(int i = 0; i< BtnList.transform.childCount; i++)
         {
             if(true)
@@ -105,9 +111,21 @@ public class PageInvert : MonoBehaviour
         toggle = !toggle;
     }
 
-
     private void setActive(int panel){
-        for(int i=0; i<panels.Length; i++){
+        if (panel == 0)
+        {
+            //PlayerUI 활성화
+            PlayerUI.isActive = true;
+            Debug.Log("active");
+        }
+        else
+        {
+            //PlayerUI 비활성화
+            PlayerUI.isActive = false;
+            PlayerManager.isPlayerUIVisible = false;
+            Debug.Log("deactive");
+        }
+        for (int i=0; i<panels.Length; i++){
             if(i == panel){
                 panels[i].SetActive(true);
             } else {
@@ -117,7 +135,16 @@ public class PageInvert : MonoBehaviour
     }
 
     private void setActive(int[] panelList){
-        for(int i=0; i<panels.Length; i++){
+        if (Array.Exists(panelList, idx => idx == (int)Panel.main))
+        {
+            PlayerUI.isActive = true;
+        }
+        else
+        {
+            PlayerUI.isActive = false;
+            PlayerManager.isPlayerUIVisible = false;
+        }
+        for (int i=0; i<panels.Length; i++){
             if(Array.Exists(panelList, idx => idx == i)){
                 panels[i].SetActive(true);
             } else {

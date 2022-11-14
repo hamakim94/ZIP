@@ -5,7 +5,6 @@ using UnityEngine;
 public class ShopTabButton : MonoBehaviour
 {
     public long id;
-    public string pos;
     public RectTransform contents;
     public GameObject shopItem;
     public RawData[] totalItemData;

@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 public class DataManager : MonoBehaviour
 {
+    #region Public Fields
     public static DataManager Instance; // 객체를 만들지 않고도 다른 곳에서 꺼내쓸 수 있음. 
     public Dictionary<long, RawData[]> totalItemDicData;
     public Dictionary<long, RawData[]> userItemDicData;
@@ -14,89 +15,58 @@ public class DataManager : MonoBehaviour
     public Dictionary<long, RawData> albumDicData;
     public Dictionary<long, RawData> userAlbumDicData;
     public Dictionary<long, RawData> dicData;
-    public Texture texture;
+    /*public Texture texture;*/
+    public UserInfo user;
+    #endregion
+
+    #region MonoBehaviour Callbacks
     private void Awake()
     {
-        DataManager.Instance = this;
-       
-        LoadTotalItemData();
-        LoadUserItemData();
-        LoadTotalAlbumData();
+        if (Instance == null)
+        {
+            DataManager.Instance = this;
 
-        this.dicData = new Dictionary<long, RawData>();
-        DontDestroyOnLoad(gameObject);
+            LoadTotalItemData();
+
+            this.dicData = new Dictionary<long, RawData>();
+            DontDestroyOnLoad(gameObject);
+        }
     }
+    #endregion
 
+    #region Public Methods
     // path에 있는 json 파일을 load해서 dictionary 형태로 return 
-    public void LoadData(string path) 
+    public void LoadData(string path)
     {
         var ta = Resources.Load<TextAsset>(path);
         var json = ta.text;
         var arrData = JsonConvert.DeserializeObject<ShopItemData[]>(json);
 
-        foreach(var data in arrData)
+        foreach (var data in arrData)
         {
             this.dicData.Add(data.id, data);
         }
     }
 
-    private void LoadTotalItemData()
-    {
-        this.totalItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 가구[](가구 list)
-        var ta = Resources.Load<TextAsset>("Data/total_item_data");
-        var json = ta.text;
-        Debug.Log(ta.text);
-        var arrData = JsonConvert.DeserializeObject<PositionData[]>(json);
-        foreach(var data in arrData)
-        {
-            this.totalItemDicData.Add(data.id, data.itemList);
-        }
-    }
-    public void LoadUserItemData()
+    public IEnumerator LoadUserItemData()
     {
         this.userItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 사용자가구[](사용자가구 list)
-        var ta = Resources.Load<TextAsset>("Data/user_item_data2"); // api 통신해서 json 가져오기 
-        var json = ta.text;
-        var arrData = JsonConvert.DeserializeObject<PositionUserItemData[]>(json);
-
-        foreach (var data in arrData)
+        var json = "";
+        UnityWebRequest www = APIManager.GetWWW("GET", "/unity/create", null);
+        yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
         {
-            this.userItemDicData.Add(data.id, data.itemList);
+            Debug.LogError(www.error);
         }
-    }
-
-    public void LoadTotalAlbumData()
-    {
-        this.albumDicData = new Dictionary<long, RawData>(); // album id : AlbumData
-        var ta = Resources.Load<TextAsset>("Data/total_album_data2"); // api 통신해서 json 가져오기 
-        var json = ta.text;
-        var arrData = JsonConvert.DeserializeObject<AlbumData[]>(json);
-
-        for(int i=0; i<arrData.Length; i++) // album 수
+        else
         {
-            for(int j=0; j<arrData[i].pictures.Length; j++) // 해당 앨범의 사진 수 
+            json = www.downloadHandler.text;
+            var arrData = JsonConvert.DeserializeObject<PositionUserItemData[]>(json);
+
+            foreach (var data in arrData)
             {
-                StartCoroutine(GetTexture(arrData[i].pictures[j]));
+                this.userItemDicData.Add(data.id, data.itemList);
             }
-        }
-
-        foreach(var data in arrData)
-        {
-            this.albumDicData.Add(data.id, data);
-        }
-    }
-
-    public void LoadUserAlbumData()
-    {
-        this.userAlbumDicData = new Dictionary<long, RawData>(); // 앨범 pos id : UserAlbumData
-        var ta = Resources.Load<TextAsset>("Data/user_album_data2"); // api 통신해서 json 가져오기 
-        var json = ta.text;
-        var arrData = JsonConvert.DeserializeObject<UserAlbumData[]>(json);
-
-        foreach (var data in arrData)
-        {
-
-            this.userAlbumDicData.Add(data.id, data);
         }
     }
 
@@ -104,9 +74,9 @@ public class DataManager : MonoBehaviour
     {
         var itemList = totalItemDicData[positionId];
 
-        for(int i=0; i<itemList.Length; i++)
+        for (int i = 0; i < itemList.Length; i++)
         {
-            if(itemId == itemList[i].id)
+            if (itemId == itemList[i].id)
             {
                 return itemList[i];
             }
@@ -115,41 +85,24 @@ public class DataManager : MonoBehaviour
         return null;
     }
 
-    public void photoIdToPhoto(long albumId, long photoId) { 
-    }
-
-    IEnumerator GetTexture(PhotoData picture)
+    public void photoIdToPhoto(long albumId, long photoId)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
-        yield return www.SendWebRequest();
-
-        picture.texture = DownloadHandlerTexture.GetContent(www);
     }
+    #endregion
 
-    /*public static IEnumerator GetTexture(string url, AlbumListItem album)
+    #region Private Methods
+    private void LoadTotalItemData()
     {
-        Debug.Log(url);
-        *//*UnityWebRequest www = APIManager.GetWWW("Texture", url, null);*//*
-        UnityWebRequest www = APIManager.GetWWW("GET", url, null);
+        this.totalItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 가구[](가구 list)
+        var ta = Resources.Load<TextAsset>("Data/total_item_data");
+        var json = ta.text;
+        Debug.Log(ta.text);
+        var arrData = JsonConvert.DeserializeObject<PositionData[]>(json);
 
-        *//*Debug.Log(www.SendWebRequest());*//*
-
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        foreach (var data in arrData)
         {
-            Debug.Log(www.error);
+            this.totalItemDicData.Add(data.id, data.itemList);
         }
-        else
-        {
-            Texture2D tex = new Texture2D(2, 2);
-            byte[] data = www.downloadHandler.data;
-            ImageConversion.LoadImage(tex, data, true);
-            Debug.Log(www.downloadHandler.text);
-            album.picture.texture = tex;
-            *//*album.picture.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;*/
-    /*album.picture.texture = www.downloadHandler.data.;*//*
-    Debug.Log(album.picture.texture);
-}
-}*/
+    }
+    #endregion
 }
