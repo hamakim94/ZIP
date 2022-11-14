@@ -167,7 +167,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/grey"
+                    android:background="@color/lightgray"
                     android:gravity="start"
                     android:hint="답변 작성하기"
                     android:padding="20dp"

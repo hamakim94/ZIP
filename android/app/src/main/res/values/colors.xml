@@ -15,5 +15,6 @@
     <color name="letter_color_yellow">#FFFBD9</color>
     <color name="letter_color_red">#FFE5E5</color>
     <color name="letter_color_green">#F4FFDC</color>
+    <color name="white_transparent">#CCFFFFFF</color>
 
 </resources>

@@ -1,32 +1,17 @@
 package com.ssafy.zip.android.adapter
 
-import android.app.Application
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.utils.widget.ImageFilterButton
-import androidx.core.view.isGone
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.ssafy.zip.android.App
 import com.ssafy.zip.android.DateUtil
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.Comment
-import com.ssafy.zip.android.data.request.RequestQnaAnswer
-import com.ssafy.zip.android.repository.BoardRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import okhttp3.MediaType
-import okhttp3.RequestBody
 
 class CommentQnaAdapter(private val commentList: ArrayList<Comment>, id: Long?) :
     RecyclerView.Adapter<CommentQnaAdapter.CommentViewHolder>() {
@@ -99,7 +84,7 @@ class CommentQnaAdapter(private val commentList: ArrayList<Comment>, id: Long?) 
         if (currentItem.user.profileImg == null) {
             holder.commentQnaProfileImage.setImageResource(R.drawable.ex)
         } else {
-            Glide.with(holder.itemView).load(currentItem.user.profileImg)
+            Glide.with(holder.itemView).load(currentItem.user.profileImg!!.img)
                 .into(holder.itemView.findViewById(R.id.commentQnaProfileImage))
         }
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.setPadding
 import androidx.navigation.findNavController
@@ -52,12 +51,15 @@ class BoardModelAdapter(
                 "Board" -> {
                     val bundle = Bundle()
                     bundle.putParcelable("Board", adapterData[position].data)
+                    val data = adapterData[position].data as BoardModel.Board
+                    bundle.putLong("id", data.id)
                     it.findNavController()
                         .navigate(R.id.action_recordFragment_to_recordBoardFragment2, bundle)
                 }
                 "Qna" -> {
                     val bundle = Bundle()
-                    bundle.putParcelable("Qna", adapterData[position].data)
+                    val data = adapterData[position].data as BoardModel.Qna
+                    bundle.putLong("id", data.id)
                     it.findNavController()
                         .navigate(R.id.action_recordFragment_to_recordQnaDetailFragment, bundle)
                 }
@@ -93,14 +95,13 @@ class BoardModelAdapter(
                     itemView.findViewById<ShapeableImageView>(R.id.profileImage)
                         .setImageResource(R.drawable.ex)
                 } else {
-                    Glide.with(itemView).load(board.user.profileImg)
+                    Glide.with(itemView).load(board.user.profileImg!!.img)
                         .into(itemView.findViewById<ShapeableImageView>(R.id.profileImage))
                 }
                 itemView.findViewById<TextView>(R.id.userNickname).text = board.user.nickname
                 itemView.findViewById<TextView>(R.id.boardReg).text = DateUtil.getRegDate(board.reg)
                 //Glide 쓰기..
                 if (board.image != null) {
-                    itemView.findViewById<ImageView>(R.id.boardImage).layoutParams.height = 800
                     itemView.findViewById<ImageView>(R.id.boardImage)
                         .setBackgroundResource(R.drawable.layout_vertical)
                     itemView.findViewById<ImageView>(R.id.boardImage).setPadding(4)

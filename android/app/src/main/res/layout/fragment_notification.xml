@@ -9,35 +9,27 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".NotificationFragment">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/notification_toolbar"
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/notification_detail_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@null"
-            android:theme="?attr/actionBarTheme"
-            app:contentInsetStart="0dp"
-            app:layout_constraintBottom_toTopOf="@id/notification_recycler_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/notification_title_bar"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/notification_detail_appbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Surface"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
                 android:text="알림"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
-
-        </androidx.appcompat.widget.Toolbar>
+                app:maxButtonHeight="48dp"
+                app:titleCentered="true"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/notification_recycler_view"
@@ -45,8 +37,46 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             app:layoutManager="GridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/notification_toolbar"
+            app:layout_constraintTop_toBottomOf="@id/notification_detail_layout"
             tools:listitem="@layout/notification_item" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notification_zero"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/zip_app_circle"
+               android:layout_marginTop="150dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+            </androidx.constraintlayout.utils.widget.ImageFilterView>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="받은 알림이 없습니다."
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo"
+                app:layout_constraintVertical_bias="0.5">
+
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

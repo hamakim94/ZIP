@@ -16,6 +16,7 @@
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_circle_background_color="@color/darkgray"
             android:clickable="true"
             android:id="@+id/calendar_member_image"
             android:layout_width="30dp"
