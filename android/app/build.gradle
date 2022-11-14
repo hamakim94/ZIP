@@ -16,6 +16,11 @@ android {
         dataBinding true
     }
 
+    aaptOptions {
+        cruncherEnabled = false
+    }
+
+
     defaultConfig {
         applicationId "com.ssafy.zip.android"
         minSdk 26
@@ -24,6 +29,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
