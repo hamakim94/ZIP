@@ -14,7 +14,7 @@
 
 ---
 
-<img src="C:\Users\SSAFY\Desktop\S07P31A407\docs\img\zip_logo.png" width="200" height="200"/>
+<img src="docs/img/zip_logo.png" width="200" height="200"/>
 
 <br/>
 <br/>
@@ -90,38 +90,17 @@ SSAFY 7기 2학기 자율프로젝트 - ZIP
 
 **Backend - Spring**
 
-- IntelliJ IDEA : 2021.3.1
-- IntelliJ Runtime: 11.0.13+7-b1751.21 amd64
-- JDK : 17-ea
-- JRE : build 17-ea+14
-- JVM : build 17-ea+14, mixed mode, sharing
-- DB : 8.0.30-MySQL
-- Springboot : 2.7.3
-- Gradle : 7.5
-- ffmpeg : 4.4.1
+- 
 
-**Frontend**
+**Frontend  - Android Studio(kotlin)**
 
-- Visual Studio Code IDE 1.69.0
-- React : ^18.2.0
-- React-Toastify : ^9.0.8
-- Solc : ^0.8.17
-- Web3 : ^1.8.0
-- Node : 16.17.0
+- 
 
 **CI/CD**
 
-- Server : AWS EC2 Ubuntu 20.04 LTS
-- Docker : 20.10.12
-- nginx : 1.18.0
-- Jenkins : 2.346.2
+- 
 
-**BlockChain**
 
-- go1.19
-- Geth 1.9.24-stable
-- Vagrant 2.3.0
-- truffle v5.5.29
 
 <br/>
 
@@ -168,7 +147,7 @@ SSAFY 7기 2학기 자율프로젝트 - ZIP
 ---
 
 - [기능명세서](docs/기능명세서.xlsx)
-- [와이어프레임 & 스토리보드](https://www.figma.com/file/4ahkuF2GWXhVbXjb0zasqJ/WireFrame?node-id=0%3A1)
+- [와이어프레임 & 스토리보드](https://www.figma.com/file/aC89F6soyl5QbX70gaD6wz/%EC%A7%91?node-id=0%3A1&t=n19OvcgovOTmOLc5-0)
 - [프로젝트계획서](docs/프로젝트계획서.pdf)
 - [컨벤션&git](doc/컨벤션&Git.md)
 - [API명세서](docs/API명세서.xlsx)
@@ -180,35 +159,13 @@ SSAFY 7기 2학기 자율프로젝트 - ZIP
 ---
 
 - [중간발표자료](docs/중간발표자료.pptx)
-- [최종발표자료](docs/최종발표자료.pptx)
+- [최종발표자료]()
   <br/>
 
 ## :heavy_check_mark: 폴더 구조 - Frontend
 
 ```
-src
-├─assets
-│  ├─fonts
-│  ├─img
-│  └─sound
-├─components
-│  ├─challenge
-│  │  └─select
-│  ├─common
-│  ├─community
-│  ├─donation
-│  ├─home
-│  ├─my
-│  ├─savana
-│  ├─search
-│  ├─setting
-│  ├─sign
-│  ├─star
-│  └─wallet
-├─pages
-│  └─settings
-├─smartcontract
-└─utils
+
 ```
 
 <br/>
@@ -216,36 +173,7 @@ src
 ## :heavy_check_mark: 폴더 구조 - Backend
 
 ```
-src
-├─main
-│  ├─java
-│  │  └─com
-│  │      └─ssafy
-│  │          └─kirin
-│  │              ├─config
-│  │              │  └─security
-│  │              ├─contracts
-│  │              ├─controller
-│  │              ├─dto
-│  │              │  ├─request
-│  │              │  └─response
-│  │              ├─entity
-│  │              ├─repository
-│  │              ├─service
-│  │              ├─util
-│  │              └─webhook
-│  ├─resources
-│  └─solidity
-│      ├─build
-│      │  └─contracts
-│      ├─contracts
-│      ├─migrations
-│      └─test
-└─test
-    └─java
-        └─com
-            └─ssafy
-                └─kirin
+
 ```
 
 <br/>
@@ -253,35 +181,10 @@ src
 ## :heavy_check_mark: CI/CD
 
 ```
-Ubuntu
-├─Docker
-│  ├─kirin-front : 0.0.0.0:443 -> 443/tcp, 0.0.0.0:80 -> 80/tcp
-│  ├─kirin-back : 0.0.0.0:8999 -> 8999/tcp
-│  ├─redis-container : 0.0.0.0:8379 -> 8379/tcp
-│  └─mysql-container : 0.0.0.0:3306 -> 3306/tcp
-│ 
-└─Docker volume
-   └─kirin_vol
+
 ```
 
 <br/>
 
 ## :heavy_check_mark: 페이지 기능 소개 
 
-- 홈
-  <img src="/uploads/d0325e30954f080af03072ce5f735f40/홈.gif" width='220' height="450" />
-
-- 스타페이지
-  <img src="/uploads/d5923ac85515ff24402dcc42bb7ea100/스타페이지.gif" width="220" height="450">
-
-- 사바나 - 상세페이지
-  <img src="/uploads/c9782d6ebb85fb90c3bb96fb51e96a3a/사바나상세.gif"  width="220" height="450" >
-
-- 챌린지 참여 - 기부
-  <img src="/uploads/a6428f3a12ad57690a4f1cb26c50b008/기부충전.gif" width='220' height="450"/>
-
-- 마이페이지
-  <img src="/uploads/34c70a0e76e134cf20f6341f63b30ad4/마이페이지.gif" width="220" height="450"/>
-
-- 블록-트랜잭션
-  <img src="/uploads/26430d46a2e4ffdaa48a291c9d31c86c/블록체인.gif" width="220" height="450"/>
