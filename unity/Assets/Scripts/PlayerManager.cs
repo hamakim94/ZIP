@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             FollowCamera.target = gameObject.transform;
             gameObject.tag = "Player";
         }
+        DontDestroyOnLoad(gameObject);
     }
     void Update()
     {
