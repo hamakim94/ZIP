@@ -11,22 +11,22 @@ public class StartBuild : MonoBehaviour
 
         if (DataManager.Instance)
         {
-            // ·ÎµåµÈ µ¥ÀÌÅÍ °¡Á®¿È
-            for (int posId = 1; posId <= DataManager.Instance.userItemDicData.Count; posId++) // ÀüÃ¼ À§Ä¡ ¾ÆÀÌµğ ±æÀÌ??
+            // ë¡œë“œëœ ë°ì´í„° ê°€ì ¸ì˜´
+            for (int posId = 1; posId <= DataManager.Instance.userItemDicData.Count; posId++) // ì „ì²´ ìœ„ì¹˜ ì•„ì´ë”” ê¸¸ì´??
             {
-                // contains.key Ã³¸®ÇÏ°í
-                var filteredUserItemData = DataManager.Instance.userItemDicData[posId]; // ÇØ´ç À§Ä¡¿¡ ÀÖ´Â user item list (UserItemData type)
+                // contains.key ì²˜ë¦¬í•˜ê³ 
+                var filteredUserItemData = DataManager.Instance.userItemDicData[posId]; // í•´ë‹¹ ìœ„ì¹˜ì— ìˆëŠ” user item list (UserItemData type)
 
                 for (int j = 0; j < filteredUserItemData.Length; j++)
                 {
                     var data = (UserItemData)filteredUserItemData[j];
 
     
-                    if (data.hasItemCode == 2) // º¸À¯, »ç¿ëO
+                    if (data.hasItemCode == 2) // ë³´ìœ , ì‚¬ìš©O
                     {
                         *//*Debug.Log(data.id);*//*
-                        var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, data.id); // i Æ÷Áö¼Ç ¾ÆÀÌµğ
-                        // °Ç¹° Áş±â
+                        var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, data.id); // i í¬ì§€ì…˜ ì•„ì´ë””
+                        // ê±´ë¬¼ ì§“ê¸°
                         var target = transform.GetChild(posId - 1);
                         if (target.childCount > 1)
                         {
@@ -36,9 +36,9 @@ public class StartBuild : MonoBehaviour
                         {
                             target.GetChild(0).gameObject.SetActive(false);
                         }
-                        var resource = Resources.Load("Prefabs/"+ itemData.img); // ¿©±â¿¡ ÀÌÁ¦ °¡±¸ÀÌ¸§À¸·Î µ¿Àû »ı¼ºÇÏ±â.
+                        var resource = Resources.Load("Prefabs/"+ itemData.img); // ì—¬ê¸°ì— ì´ì œ ê°€êµ¬ì´ë¦„ìœ¼ë¡œ ë™ì  ìƒì„±í•˜ê¸°.
                         GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
-                        item.transform.parent = target; // ºÎ¸ğ Á¤ÇØ³õ±â
+                        item.transform.parent = target; // ë¶€ëª¨ ì •í•´ë†“ê¸°
                     }
                 }
             }
@@ -47,10 +47,9 @@ public class StartBuild : MonoBehaviour
 
     public static void setFuniture(long posId, long id)
     {
-        Debug.Log("posId: " + posId + ", " + "id: " + id);
         var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
         var target = GameObject.Find("SelectObject").transform.GetChild((int)posId - 1);
-        // ¼±ÅÃÇÑ item ¹èÄ¡ 
+        // ì„ íƒí•œ item ë°°ì¹˜ 
         if (target.childCount > 1)
         {
             Destroy(target.GetChild(1).gameObject);
@@ -60,11 +59,33 @@ public class StartBuild : MonoBehaviour
             target.GetChild(0).gameObject.SetActive(false);
         }
 
-        /*Debug.Log("itemData: " + itemData);*/
+        GameObject resource = Resources.Load("Furniture/" + itemData.img.Split("(")[0] + "/" + itemData.img) as GameObject; // ì—¬ê¸°ì— ì´ì œ ê°€êµ¬ì´ë¦„ìœ¼ë¡œ ë™ì  ìƒì„±í•˜ê¸°.
+
+        Vector3 pos = new Vector3(target.position.x, resource.transform.position.y, target.position.z);
+        if (itemData.img.Equals("2_2X1(kids_02)"))
+        {
+            pos = new Vector3(target.position.x + 0.6f, resource.transform.position.y, target.position.z);
+        }
+        GameObject item = Instantiate(resource, pos, resource.transform.rotation);
+        item.transform.parent = target; // ë¶€ëª¨ ì •í•´ë†“ê¸°
+        /*Debug.Log("posId: " + posId + ", " + "id: " + id);
+        var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
+        var target = GameObject.Find("SelectObject").transform.GetChild((int)posId - 1);
+        // ì„ íƒí•œ item ë°°ì¹˜ 
+        if (target.childCount > 1)
+        {
+            Destroy(target.GetChild(1).gameObject);
+        }
+        else
+        {
+            target.GetChild(0).gameObject.SetActive(false);
+        }
+
+        *//*Debug.Log("itemData: " + itemData);*//*
         
-        var resource = Resources.Load("Furniture/"+ itemData.img.Split("(")[0] + "/" + itemData.img); // ¿©±â¿¡ ÀÌÁ¦ °¡±¸ÀÌ¸§À¸·Î µ¿Àû »ı¼ºÇÏ±â.
+        var resource = Resources.Load("Furniture/"+ itemData.img.Split("(")[0] + "/" + itemData.img); // ì—¬ê¸°ì— ì´ì œ ê°€êµ¬ì´ë¦„ìœ¼ë¡œ ë™ì  ìƒì„±í•˜ê¸°.
         GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
-        item.transform.parent = target; // ºÎ¸ğ Á¤ÇØ³õ±â
+        item.transform.parent = target; // ë¶€ëª¨ ì •í•´ë†“ê¸°*/
     }
 
 }

@@ -3,24 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using Photon.Pun;
 
 
 public class DataManager : MonoBehaviour
 {
     #region Public Fields
-    public static DataManager Instance; // °´Ã¼¸¦ ¸¸µéÁö ¾Ê°íµµ ´Ù¸¥ °÷¿¡¼­ ²¨³»¾µ ¼ö ÀÖÀ½. 
+    public static DataManager Instance; // ê°ì²´ë¥¼ ë§Œë“¤ì§€ ì•Šê³ ë„ ë‹¤ë¥¸ ê³³ì—ì„œ êº¼ë‚´ì“¸ ìˆ˜ ìˆìŒ. 
     public Dictionary<long, RawData[]> totalItemDicData;
     public Dictionary<long, RawData[]> userItemDicData;
     /*public AlbumData[] albumData;*/
     public Dictionary<long, RawData> albumDicData;
     public Dictionary<long, RawData> userAlbumDicData;
     public Dictionary<long, RawData> dicData;
+    public delegate void afterBuyFurniture(int i);
     /*public Texture texture;*/
     public UserInfo user;
     #endregion
 
-    #region MonoBehaviour Callbacks
-    private void Awake()
+    #region Private Fields
+    class UnityUseItemRequestDTO
+    {
+        public long furniturePosition;
+        public long furnitureId;
+    }
+#endregion
+#region MonoBehaviour Callbacks
+private void Awake()
     {
         if (Instance == null)
         {
@@ -35,7 +44,7 @@ public class DataManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    // path¿¡ ÀÖ´Â json ÆÄÀÏÀ» loadÇØ¼­ dictionary ÇüÅÂ·Î return 
+    // pathì— ìˆëŠ” json íŒŒì¼ì„ loadí•´ì„œ dictionary í˜•íƒœë¡œ return 
     public void LoadData(string path)
     {
         var ta = Resources.Load<TextAsset>(path);
@@ -50,7 +59,7 @@ public class DataManager : MonoBehaviour
 
     public IEnumerator LoadUserItemData()
     {
-        this.userItemDicData = new Dictionary<long, RawData[]>(); // À§Ä¡id : »ç¿ëÀÚ°¡±¸[](»ç¿ëÀÚ°¡±¸ list)
+        this.userItemDicData = new Dictionary<long, RawData[]>(); // ìœ„ì¹˜id : ì‚¬ìš©ìê°€êµ¬[](ì‚¬ìš©ìê°€êµ¬ list)
         var json = "";
         UnityWebRequest www = APIManager.GetWWW("GET", "/unity/create", null);
         yield return www.SendWebRequest();
@@ -88,12 +97,76 @@ public class DataManager : MonoBehaviour
     public void photoIdToPhoto(long albumId, long photoId)
     {
     }
+
+    public IEnumerator BuyFurniture(long furnitureId, afterBuyFurniture afterBuyFurniture)
+    {
+        string url = "/unity/shop/" + furnitureId.ToString();
+        Debug.Log(url);
+        UnityWebRequest www = APIManager.GetWWW("POST", url, null);
+        yield return www.SendWebRequest();
+        if(www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            MainPanel.Instance.UpdatePoint();
+            afterBuyFurniture(1);
+        }
+    }
+
+    public IEnumerator SetFurniture(long positionId, long furnitureId)
+    {
+        Debug.Log("posId" + positionId + " furnitureId " + furnitureId);
+        UnityUseItemRequestDTO unityUseItemRequestDTO = new UnityUseItemRequestDTO();
+        unityUseItemRequestDTO.furniturePosition = positionId;
+        unityUseItemRequestDTO.furnitureId = furnitureId;
+        string json = JsonUtility.ToJson(unityUseItemRequestDTO);
+        UnityWebRequest www = APIManager.GetWWW("POST", "/unity/use", json);
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+        www.uploadHandler = new UploadHandlerRaw(jsonToSend);
+        www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+        yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("success");
+            ExitGames.Client.Photon.Hashtable customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+            ExitGames.Client.Photon.Hashtable furnitureSet = (ExitGames.Client.Photon.Hashtable)customProperties["furniture"];
+            if (customProperties.ContainsKey("furniture"))
+            {
+                customProperties.Remove("furniture");
+            }
+            if (furnitureSet.ContainsKey(positionId))
+            {
+                furnitureSet.Remove(positionId);
+            }
+            if (customProperties.ContainsKey("action"))
+            {
+                customProperties.Remove("action");
+            }
+            if (customProperties.ContainsKey("id"))
+            {
+                customProperties.Remove("id");
+            }
+            furnitureSet.Add(positionId, furnitureId);
+            customProperties.Add("furniture", furnitureSet);
+            customProperties.Add("action", "furniture");
+            customProperties.Add("id", positionId);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
+            StartBuild.setFuniture(positionId, furnitureId);
+        }
+    }
     #endregion
 
     #region Private Methods
     private void LoadTotalItemData()
     {
-        this.totalItemDicData = new Dictionary<long, RawData[]>(); // À§Ä¡id : °¡±¸[](°¡±¸ list)
+        this.totalItemDicData = new Dictionary<long, RawData[]>(); // ìœ„ì¹˜id : ê°€êµ¬[](ê°€êµ¬ list)
         var ta = Resources.Load<TextAsset>("Data/total_item_data");
         var json = ta.text;
         Debug.Log(ta.text);

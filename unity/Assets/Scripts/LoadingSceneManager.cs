@@ -69,7 +69,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         }
         setValue.Add("furniture", furnitureSet);
 
-        //¾×ÀÚ Á¤º¸ ÀúÀå
+        //ì•¡ì ì •ë³´ ì €ì¥
         ExitGames.Client.Photon.Hashtable photoSet = new ExitGames.Client.Photon.Hashtable();
         Dictionary<long, RawData> photoData = DataManager.Instance.userAlbumDicData;
         foreach (long albumId in photoData.Keys)
@@ -86,7 +86,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         setValue.Add("photo", photoSet);
         setValue.Add("action", "init");
         Debug.Log(photoSet);
-        //photon¿¡ ÀúÀå
+        //photonì— ì €ì¥
         /*PhotonNetwork.CurrentRoom.SetCustomProperties(setValue);*/
         PhotonNetwork.CreateRoom(dataManager.user.family.id.ToString(), new RoomOptions { MaxPlayers = (byte)dataManager.user.family.memberNum, CustomRoomProperties = setValue });
     }
@@ -104,7 +104,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log("Create Success");
-        //°¡±¸ Á¤º¸ ÀúÀå
+        //ê°€êµ¬ ì •ë³´ ì €ì¥
 
     }
     /*public override void OnCreatedRoom()
@@ -135,6 +135,11 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     }*/
     #endregion
 
+    public void Init(string token)
+    {
+        APIManager.SetAccessToken(token);
+        StartCoroutine(StartLoading());
+    }
     #region Private Methods
     private void Connect()
     {
@@ -167,15 +172,15 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     private IEnumerator LoadAsynSceneCoroutine()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName); // sceneÀ» ºñµ¿±âÀûÀ¸·Î ·Îµå ½ÃÀÛ 
-        operation.allowSceneActivation = false;  // ·Îµå°¡ ¿Ï·áµÇ¾îµµ Àå¸é ÀüÈ¯ ¾ÈµÇµµ·Ï 
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName); // sceneì„ ë¹„ë™ê¸°ì ìœ¼ë¡œ ë¡œë“œ ì‹œì‘ 
+        operation.allowSceneActivation = false;  // ë¡œë“œê°€ ì™„ë£Œë˜ì–´ë„ ì¥ë©´ ì „í™˜ ì•ˆë˜ë„ë¡ 
 
-        while (!operation.isDone) // ·Îµù ¿Ï·á
+        while (!operation.isDone) // ë¡œë”© ì™„ë£Œ
         {
             slider.value = doneGage / gage;
             if (doneGage == gage)
             {
-                operation.allowSceneActivation = true; // ·ÎµùÀÌ ¿Ï·áµÇ´Â´ë·Î Àå¸é È°¼ºÈ­ 
+                operation.allowSceneActivation = true; // ë¡œë”©ì´ ì™„ë£Œë˜ëŠ”ëŒ€ë¡œ ì¥ë©´ í™œì„±í™” 
             }
 
             yield return null;
@@ -208,16 +213,16 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            var json = www.downloadHandler.text; // api Åë½ÅÇØ¼­ json °¡Á®¿À±â 
+            var json = www.downloadHandler.text; // api í†µì‹ í•´ì„œ json ê°€ì ¸ì˜¤ê¸° 
             var arrData = JsonConvert.DeserializeObject<AlbumData[]>(json);
-            for (int i = 0; i < arrData.Length; i++) // album ¼ö
+            for (int i = 0; i < arrData.Length; i++) // album ìˆ˜
             {
                 tempGage += arrData[i].pictures.Length;
             }
             gage = tempGage + 10;
-            for (int i = 0; i < arrData.Length; i++) // album ¼ö
+            for (int i = 0; i < arrData.Length; i++) // album ìˆ˜
             {
-                for (int j = 0; j < arrData[i].pictures.Length; j++) // ÇØ´ç ¾Ù¹üÀÇ »çÁø ¼ö 
+                for (int j = 0; j < arrData[i].pictures.Length; j++) // í•´ë‹¹ ì•¨ë²”ì˜ ì‚¬ì§„ ìˆ˜ 
                 {
                     yield return StartCoroutine(GetTexture(arrData[i].pictures[j]));
                     for (int k = 0; k < 10000; k++)
@@ -238,9 +243,9 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     private IEnumerator LoadUserAlbumData()
     {
-        DataManager.Instance.userAlbumDicData = new Dictionary<long, RawData>(); // ¾Ù¹ü pos id : UserAlbumData
+        DataManager.Instance.userAlbumDicData = new Dictionary<long, RawData>(); // ì•¨ë²” pos id : UserAlbumData
         UnityWebRequest www = APIManager.GetWWW("GET", "/unity/album", null);
-        yield return www.SendWebRequest(); // api Åë½ÅÇØ¼­ json °¡Á®¿À±â 
+        yield return www.SendWebRequest(); // api í†µì‹ í•´ì„œ json ê°€ì ¸ì˜¤ê¸° 
         var json = www.downloadHandler.text;
         var arrData = JsonConvert.DeserializeObject<UserAlbumData[]>(json);
         var albums = DataManager.Instance.albumDicData;
