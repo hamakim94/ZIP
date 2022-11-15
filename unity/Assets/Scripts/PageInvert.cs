@@ -49,10 +49,10 @@ public class PageInvert : MonoBehaviour
 #else
             m_vecMouseDownPos = Input.GetTouch(0).position;
             if(Input.GetTouch(0).phase != TouchPhase.Began)
-                return;z
+                return;
 #endif
             // 카메라에서 스크린에 마우스 클릭 위치를 통과하는 광선을 반환합니다.
-            Ray ray = Camera.main.ScreenPointToRay(m_vecMouseDownPos);
+            Ray ray = mainCamera.ScreenPointToRay(m_vecMouseDownPos);
             RaycastHit hit;
 
             // 광선으로 충돌된 collider를 hit에 넣습니다.
