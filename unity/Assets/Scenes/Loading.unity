@@ -414,7 +414,7 @@ MonoBehaviour:
   microphoneType: 0
   audioClip: {fileID: 0}
   loopAudioClip: 1
-  recordingEnabled: 1
+  recordingEnabled: 0
   audioSessionParameters:
     Category: 4
     Mode: 0
@@ -427,7 +427,7 @@ MonoBehaviour:
   stopRecordingWhenPaused: 0
   useOnAudioFilterRead: 0
   useMicrophoneTypeFallback: 1
-  recordWhenJoined: 1
+  recordWhenJoined: 0
 --- !u!114 &394310406
 MonoBehaviour:
   m_ObjectHideFlags: 0

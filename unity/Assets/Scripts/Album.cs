@@ -9,8 +9,9 @@ public class Album : MonoBehaviour
     public GameObject mainPanel;
     public GameObject albumPanel;
 
+
     // Start is called before the first frame update
-    void Start()
+/*    void Start()
     {
         
     }
@@ -20,7 +21,7 @@ public class Album : MonoBehaviour
     {
         
     }
-
+*/
     public void AlbumCloseButtonClicked(){
         mainPanel.SetActive(true);
         albumPanel.SetActive(false);
