@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using TMPro;
+using System.Collections;
+using UnityEngine.Networking;
 
 public class MainPanel : MonoBehaviour
 {
@@ -25,20 +27,19 @@ public class MainPanel : MonoBehaviour
             Instance = this;
         }
         UpdatePeopleNum();
-        SetPoint(DataManager.Instance.user.family.memberNum);
     }
 
     void Update()
     {
     }
+    void Start()
+    {
+        StartCoroutine(UpdatePoint());
+    }
     #endregion
 
     #region Public Methods
-    public void SetPoint(int _point)
-    {
-        point = _point;
-        UpdatePoint(point);
-    }
+    
     public void UpdatePeopleNum()
     {
         peopleNumText.text = PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
@@ -46,10 +47,21 @@ public class MainPanel : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private void UpdatePoint(int point)
+    public IEnumerator UpdatePoint()
     {
-        pointText.text = point.ToString();
-        pointLegacy.text = point.ToString();
+        UnityWebRequest www = APIManager.GetWWW("GET", "/users/points", null);
+
+        yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("success update point");
+            pointText.text = www.downloadHandler.text.ToString();
+            pointLegacy.text = www.downloadHandler.text.ToString();
+        }
     }
     #endregion
 }
