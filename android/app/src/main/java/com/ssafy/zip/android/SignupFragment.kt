@@ -95,16 +95,22 @@ class SignupFragment : Fragment() {
         binding.btnSignup.setOnClickListener{
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = UserRepository.getInstance(Application())
-                var response = instance?.signUp(
-                    img = null,
-                    RequestSignup(
-                        /*characterId = selectedCharacter?.id,*/
-                        email = binding.editEmail.text.toString(),
-                        password = binding.editPassword.text.toString(),
-                        name = binding.editName.text.toString(),
-                        nickname = binding.editNickname.text.toString()
+                var response : String? = ""
+
+                if(selectedCharacter != null){
+                    println("selectedCharacter: " + selectedCharacter)
+                    println("selectedCharacter!!.id: " + selectedCharacter!!.id)
+                    response = instance?.signUp(
+                        RequestSignup(
+                            characterId = selectedCharacter!!.id,
+                            email = binding.editEmail.text.toString(),
+                            password = binding.editPassword.text.toString(),
+                            name = binding.editName.text.toString(),
+                            nickname = binding.editNickname.text.toString()
+                        )
                     )
-                )
+                }
+
                 if(response.equals("200")){
                     val action = SignupFragmentDirections.actionSignupFragmentToSignUpCompleteFragment()
                     binding.root.findNavController().navigate(action)

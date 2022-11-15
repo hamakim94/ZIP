@@ -41,10 +41,10 @@ class UserRepository private constructor(application: Application) {
     }
 
     suspend fun signUp(
-        img: MultipartBody.Part?,
         requestSignup: RequestSignup,
     ): String?{
-        val response = ApiService.getApiService.userSignup(img, requestSignup)
+        val response = ApiService.getApiService.userSignup(requestSignup)
+        println("UserRepository signUp response: " + response)
         var returnData : String?
         returnData = response.code().toString()
         return returnData

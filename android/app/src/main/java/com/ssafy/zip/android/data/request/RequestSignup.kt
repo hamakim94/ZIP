@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class RequestSignup(
-    /*var characterId : Long,*/
+    var characterId : Long,
     var email : String,
     var name: String,
     var nickname : String,

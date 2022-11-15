@@ -20,11 +20,9 @@ interface ApiInterface {
     @POST("users/reissue")
     suspend fun tokenReissue(): Response<String>
 
-    @Multipart
     @POST("users/signup")
     suspend fun userSignup(
-        @Part profileImg : MultipartBody.Part?,
-        @Part("userDTO") userDTO : RequestSignup
+        @Body userDTO : RequestSignup
     ):Response<String>
 
     @GET("users/duplication-check")
