@@ -1,11 +1,11 @@
 package com.ssafy.zip.android
 
 import com.google.gson.*
+import com.ssafy.zip.android.data.BoardModel
+import com.ssafy.zip.android.data.response.ResponseBoardAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import com.ssafy.zip.android.data.BoardModel
-import com.ssafy.zip.android.data.response.ResponseBoardAll
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -164,5 +164,6 @@ object ApiService {
 
         }
     }
+
 
 }

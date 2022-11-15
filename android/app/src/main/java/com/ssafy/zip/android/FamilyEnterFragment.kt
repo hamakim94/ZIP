@@ -1,6 +1,7 @@
 package com.ssafy.zip.android
 
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ssafy.zip.android.data.User
+import com.ssafy.zip.android.data.UserFamily
 import com.ssafy.zip.android.databinding.FragmentFamilyEnterBinding
+import com.ssafy.zip.android.repository.HomeRepository
 import com.ssafy.zip.android.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,21 +24,43 @@ class FamilyEnterFragment : Fragment() {
     private var _binding: FragmentFamilyEnterBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var activity: MainActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as MainActivity
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFamilyEnterBinding.inflate(inflater, container, false)
-        binding.btnEnter.setOnClickListener{
+        binding.btnEnter.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = UserRepository.getInstance(Application())
                 var response = instance?.enterRoom(
-                    code = binding.editRoom.text.toString().toInt())
-                println(response)
+                    code = binding.editRoom.text.toString().toInt()
+                )
+                if (response is UserFamily) {
+                    binding.root.findNavController()
+                        .navigate(R.id.action_familyEnterFragment_to_homeFragment)
+                } else {
+                    MaterialAlertDialogBuilder(activity)
+                        .setMessage("가족 코드를 다시 확인해주세요")
+                        .setPositiveButton("확인") { dialog, which ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                }
+
+
             }
         }
         binding.roomMessage.setOnClickListener {
-            val action = FamilyEnterFragmentDirections.actionFamilyEnterFragmentToFamilyCreateFragment()
+            val action =
+                FamilyEnterFragmentDirections.actionFamilyEnterFragmentToFamilyCreateFragment()
             binding.root.findNavController().navigate(action)
         }
         return binding.root
@@ -48,19 +75,22 @@ class FamilyEnterFragment : Fragment() {
         binding.btnEnter.isEnabled = false
         binding.enterRoom.editText?.addTextChangedListener(roomListener)
         binding.editRoom.hint = resources.getString(R.string.room_hint)
-        binding.editRoom.setOnFocusChangeListener{_, hasFocus->
-            if(hasFocus){
+        binding.editRoom.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
                 binding.editRoom.hint = ""
-            } else{
+            } else {
                 binding.editRoom.hint = resources.getString(R.string.room_hint)
             }
         }
     }
+
     private val roomListener = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
+
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
+
         override fun afterTextChanged(s: Editable?) {
             if (s != null) {
                 when {
@@ -75,4 +105,6 @@ class FamilyEnterFragment : Fragment() {
             }
         }
     }
+
+
 }

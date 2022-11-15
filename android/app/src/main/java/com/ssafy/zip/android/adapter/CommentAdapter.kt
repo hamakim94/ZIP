@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ssafy.zip.android.DateUtil
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.Comment
 
@@ -28,10 +29,10 @@ class CommentAdapter(private val commentList: ArrayList<Comment>) :
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val currentItem = commentList[position]
         holder.commentUser.text = currentItem.user.nickname
-        holder.commentReg.text = currentItem.reg.toString()
+        holder.commentReg.text = DateUtil.txtDate(currentItem.reg)
         holder.commentContent.text = currentItem.content
-        if(currentItem.user.profileImg != null) {
-            Glide.with(holder.itemView).load(currentItem.user.profileImg)
+        if(currentItem.user.character != null) {
+            Glide.with(holder.itemView).load(currentItem.user.character!!.img)
                 .into(holder.commentUserImage)
         } else{
             holder.commentUserImage.setImageResource(R.drawable.ex)

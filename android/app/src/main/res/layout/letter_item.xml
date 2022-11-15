@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/letter_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/layout_bottom"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    android:paddingTop="8dp">
+    android:padding="8dp">
     <!--    -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/letterInfoContainer"
@@ -17,21 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- 이제 여기서 3가지 경우의 수가 나뉜다
-               1.letterFrom == 나 ? letterTo에게 보낸 편지
-               2.letterTo == 나 ? letterFrom에게서 온 편지
-                  2-1. is_read ? 아직 안 읽은 편지함
-                  2-2. !is_read -> 읽은 편지함. -->
-        <androidx.constraintlayout.utils.widget.ImageFilterButton
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mailIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             app:layout_constraintBottom_toBottomOf="@id/letterInfoContainer"
             app:layout_constraintStart_toStartOf="@id/letterInfoContainer">
 
-        </androidx.constraintlayout.utils.widget.ImageFilterButton>
+        </de.hdodenhof.circleimageview.CircleImageView>
 
         <TextView
             android:id="@+id/letterTitle"
@@ -73,8 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:layout_margin="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,14 +74,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/qnaDivider"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/grey"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@id/letterContentContainer"
-        app:layout_constraintTop_toBottomOf="@id/letterContentContainer"></LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

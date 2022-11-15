@@ -8,22 +8,31 @@
         android:id="@+id/homeFragment"
         android:name="com.ssafy.zip.android.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_recordFragment"
             app:destination="@id/recordFragment" />
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recordLetterCreateFragment"
+            app:destination="@id/recordLetterCreateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recordQnaDetailFragment"
+            app:destination="@id/recordQnaDetailFragment" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="myapp://zip.com/home" />
     </fragment>
     <fragment
         android:id="@+id/recordFragment"
         android:name="com.ssafy.zip.android.RecordFragment"
         android:label="fragment_record"
-        tools:layout="@layout/fragment_record" >
+        tools:layout="@layout/fragment_record">
         <action
             android:id="@+id/action_recordFragment_to_recordBoardFragment2"
-            app:destination="@id/recordBoardFragment2" />
+            app:destination="@id/recordBoardDetailFragment" />
         <action
             android:id="@+id/action_recordFragment_to_recordQnaDetailFragment"
             app:destination="@id/recordQnaDetailFragment" />
@@ -37,40 +46,67 @@
             android:id="@+id/action_recordFragment_to_recordBoardCreateFragment"
             app:destination="@id/recordBoardCreateFragment" />
         <action
-            android:id="@+id/action_recordFragment_to_recordQnaCreateFragment"
-            app:destination="@id/recordQnaCreateFragment" />
-        <action
             android:id="@+id/action_recordFragment_to_recordLetterCreateFragment"
             app:destination="@id/recordLetterCreateFragment" />
+        <deepLink
+            android:id="@+id/deepLink5"
+            app:uri="myapp://zip.com/board" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.ssafy.zip.android.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar">
+        <deepLink
+            android:id="@+id/deepLink4"
+            app:uri="myapp://zip.com/calendar" />
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.ssafy.zip.android.NotificationFragment"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification">
+        <action
+            android:id="@+id/action_notificationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/recordBoardFragment2"
+        android:id="@+id/recordBoardDetailFragment"
         android:name="com.ssafy.zip.android.RecordBoardDetailFragment"
         android:label="fragment_record_board_detail"
-        tools:layout="@layout/fragment_record_board_detail" >
+        tools:layout="@layout/fragment_record_board_detail">
         <action
             android:id="@+id/action_recordBoardFragment2_to_recordQnaDetailFragment"
             app:destination="@id/recordQnaDetailFragment" />
+        <argument
+            android:name="id"
+            app:argType="long" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="myapp://zip.com/board/{id}" />
     </fragment>
     <fragment
         android:id="@+id/recordQnaDetailFragment"
         android:name="com.ssafy.zip.android.RecordQnaDetailFragment"
-        android:label="RecordQnaDetailFragment" />
+        android:label="RecordQnaDetailFragment">
+        <deepLink
+            android:id="@+id/deepLink3"
+            app:uri="myapp://zip.com/qna/{id}" />
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/recordAlbumPicturesFragment2"
         android:name="com.ssafy.zip.android.RecordAlbumPhotoFragment"
         android:label="fragment_record_album_photo"
-        tools:layout="@layout/fragment_record_album_photo" >
+        tools:layout="@layout/fragment_record_album_photo">
         <action
             android:id="@+id/action_recordAlbumPicturesFragment2_to_recordAlbumPhotoDetailFragment2"
             app:destination="@id/recordAlbumPhotoDetailFragment2" />
@@ -84,7 +120,7 @@
         android:id="@+id/loginFragment"
         android:name="com.ssafy.zip.android.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -94,21 +130,27 @@
         <action
             android:id="@+id/action_loginFragment_to_familyEnterFragment"
             app:destination="@id/familyEnterFragment" />
+        <deepLink
+            android:id="@+id/deepLink6"
+            app:uri="myapp://zip.com/login" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.ssafy.zip.android.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
+        tools:layout="@layout/fragment_signup">
         <action
             android:id="@+id/action_signupFragment_to_signUpCompleteFragment"
             app:destination="@id/signUpCompleteFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpCompleteFragment"
         android:name="com.ssafy.zip.android.SignUpCompleteFragment"
         android:label="fragment_sign_up_complete"
-        tools:layout="@layout/fragment_sign_up_complete" >
+        tools:layout="@layout/fragment_sign_up_complete">
         <action
             android:id="@+id/action_signUpCompleteFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -121,16 +163,19 @@
         android:id="@+id/familyEnterFragment"
         android:name="com.ssafy.zip.android.FamilyEnterFragment"
         android:label="fragment_family_enter"
-        tools:layout="@layout/fragment_family_enter" >
+        tools:layout="@layout/fragment_family_enter">
         <action
             android:id="@+id/action_familyEnterFragment_to_familyCreateFragment"
             app:destination="@id/familyCreateFragment" />
+        <action
+            android:id="@+id/action_familyEnterFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/familyCreateFragment"
         android:name="com.ssafy.zip.android.FamilyCreateFragment"
         android:label="fragment_family_create"
-        tools:layout="@layout/fragment_family_create" >
+        tools:layout="@layout/fragment_family_create">
         <action
             android:id="@+id/action_familyCreateFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -139,7 +184,7 @@
         android:id="@+id/recordBoardCreateFragment"
         android:name="com.ssafy.zip.android.RecordBoardCreateFragment"
         android:label="fragment_record_board_create"
-        tools:layout="@layout/fragment_record_board_create" >
+        tools:layout="@layout/fragment_record_board_create">
         <action
             android:id="@+id/action_recordBoardCreateFragment_pop"
             app:popUpTo="@id/recordBoardCreateFragment"
@@ -149,14 +194,42 @@
         android:id="@+id/recordLetterCreateFragment"
         android:name="com.ssafy.zip.android.RecordLetterCreateFragment"
         android:label="fragment_record_letter_create"
-        tools:layout="@layout/fragment_record_letter_create" >
+        tools:layout="@layout/fragment_record_letter_create">
         <action
             android:id="@+id/action_recordLetterCreateFragment_pop"
             app:popUpTo="@id/recordLetterCreateFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/recordQnaCreateFragment"
-        android:name="com.ssafy.zip.android.RecordQnaCreateFragment"
-        android:label="RecordQnaCreateFragment" />
+        android:id="@+id/characterFragment"
+        android:name="com.ssafy.zip.android.CharacterFragment"
+        android:label="CharacterFragment" >
+        <action
+            android:id="@+id/action_characterFragment_to_signupFragment"
+            app:destination="@id/signupFragment"
+            app:popUpTo="@id/signupFragment"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="character"
+            app:argType="com.ssafy.zip.android.data.Character"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_characterFragment_to_modifyFragment"
+            app:destination="@id/modifyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modifyFragment"
+        android:name="com.ssafy.zip.android.ModifyFragment"
+        android:label="fragment_modify"
+        tools:layout="@layout/fragment_modify" >
+        <action
+            android:id="@+id/action_modifyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_modifyFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_to_modify" app:destination="@id/modifyFragment"/>
 </navigation>

@@ -3,7 +3,9 @@ package com.ssafy.zip.android.viewmodel
 import android.app.Application
 import android.service.controls.ControlsProviderService
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
+import com.ssafy.zip.android.MainActivity
 import com.ssafy.zip.android.data.Calendar
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.request.RequestCalendar
@@ -33,7 +35,7 @@ class CalendarViewModel(private val repository: CalendarRepository) : ViewModel(
             // .value : livedata가 가지고 있는 값으로 접근
             _calendarFamilyData.value = repository?.getFamilyData()
             _calendarList.value = repository?.getCalendarMonthList(year, month) as ArrayList<Calendar>?
-            println("CalendarViewModel repository.getCalendarMonthList(): " + _calendarList.value)
+//            println("CalendarViewModel repository.getCalendarMonthList(): " + _calendarList.value)
         }
     }
 

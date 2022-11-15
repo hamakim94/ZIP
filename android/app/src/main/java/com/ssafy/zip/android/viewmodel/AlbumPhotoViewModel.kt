@@ -29,7 +29,7 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
     val album: LiveData<Album> get() = _album
 
     init { // 초기화 시 서버에서 데이터를 받아옴
-        Log.d(ControlsProviderService.TAG, "AlbumPhotoViewModel 생성자 호출")
+//        Log.d(ControlsProviderService.TAG, "AlbumPhotoViewModel 생성자 호출")
         viewModelScope.launch {
             _album.value = id?.let { repository.getAlbumById(it) }
         }
@@ -73,7 +73,7 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
         viewModelScope.launch {
             val photoList = repository.uploadPhotos(imageList.toList(), albumId, pictureId)
 
-            println("추가된 photoList: " + photoList)
+//            println("추가된 photoList: " + photoList)
             if (photoList != null) {
                 for(index in 0 until photoList.size){
                     _album.value?.photoList?.add(photoList[index])

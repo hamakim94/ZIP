@@ -4,6 +4,7 @@ import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.Missions
+import com.ssafy.zip.android.data.User
 
 class HomeRepository private constructor(application: Application) {
 
@@ -15,8 +16,13 @@ class HomeRepository private constructor(application: Application) {
 
     suspend fun getMission():Missions?{
         val response = ApiService.getApiService.getMission()
-        println("HomeRepository getMission response: " + response)
+//        println("HomeRepository getMission response: " + response)
         return if(response.isSuccessful) response.body() as Missions else null
+    }
+    suspend fun getUserData() : User? {
+        val response = ApiService.getApiService.getUserData()
+//        println("BoardRepository getUserData response: " + response)
+        return if(response.isSuccessful) response.body() as User else null
     }
 
     companion object {

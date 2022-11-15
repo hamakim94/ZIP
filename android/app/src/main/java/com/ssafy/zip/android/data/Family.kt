@@ -12,6 +12,7 @@ data class Family(
     var id: Int,
     var memberNum: Int,
     var qnaId: Int,
+    var points : Int,
     var reg: Date,
     @SerializedName("simpleUserResponseDTOList")
     var familyList : ArrayList<FamilyMember>

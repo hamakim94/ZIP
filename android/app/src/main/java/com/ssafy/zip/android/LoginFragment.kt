@@ -1,14 +1,20 @@
 package com.ssafy.zip.android
 
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.databinding.FragmentLoginBinding
@@ -21,11 +27,22 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var activity: MainActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as MainActivity
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        // 로그인 후 FCM 토큰 등록
         binding.btnLogin.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = UserRepository.getInstance(Application())
@@ -34,17 +51,43 @@ class LoginFragment : Fragment() {
                         email = binding.editEmail.text.toString(),
                         password = binding.editPassword.text.toString()
                     )
-                ) 
+                )
+                println(loginData)
                 if (loginData is User) {
                     var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                    if (loginData.hasFamily) {
-                        binding.root.findNavController().navigate(action)
-                    } else {
-                        action = LoginFragmentDirections.actionLoginFragmentToFamilyEnterFragment()
-                        binding.root.findNavController().navigate(action)
-                    }
+                    FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                        if (!task.isSuccessful) {
+                            Log.w("A", "Fetching FCM registration token failed", task.exception)
+                            return@OnCompleteListener
+                        }
+
+                        // Get new FCM registration token
+                        val token = task.result
+                        CoroutineScope(Dispatchers.Main).launch {
+                            var response = instance?.postFcmToken(token)
+                            if (response.equals("200")) {
+                                if (loginData.hasFamily) {
+                                    binding.root.findNavController().navigate(action)
+                                } else {
+                                    action =
+                                        LoginFragmentDirections.actionLoginFragmentToFamilyEnterFragment()
+                                    binding.root.findNavController().navigate(action)
+                                }
+                            }
+                            else binding.root.findNavController().navigate(action)
+                        }
+
+                    })
+
                 } else {
-                    println(loginData)
+                    MaterialAlertDialogBuilder(activity)
+                        .setMessage("아이디 혹은 비밀번호가 일치하지 않습니다.")
+                        .setPositiveButton("확인") { dialog, which ->
+                            dialog.dismiss()
+                        }
+                        .show()
+
+                    hideKeyboard(inputMethodManager, binding.root)
                 }
             }
 
@@ -113,6 +156,10 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun hideKeyboard(inputMethodManager: InputMethodManager, view: View) {
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
+        view.clearFocus()
     }
 
     override fun onDestroyView() {

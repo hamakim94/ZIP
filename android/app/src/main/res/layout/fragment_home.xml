@@ -26,36 +26,172 @@
                 android:id="@+id/topText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/one_mobile_pop"
                 android:gravity="center_horizontal"
                 android:text="@string/home_logo"
-                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:textSize="30sp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/familyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/one_mobile_pop"
                 android:gravity="center_horizontal"
                 android:text="@{viewmodel.familyData.familyName}"
+                android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@+id/topText" />
 
-            <FrameLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/home_house"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/house"
-                app:layout_constraintTop_toBottomOf="@+id/familyName" />
+                app:layout_constraintTop_toBottomOf="@+id/familyName">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/family_code_copy_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/home_button"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/room_code_name"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:alpha="1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/family_code"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/family_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:alpha="1"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@tools:sample/cities">
+
+                    </TextView>
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterButton
+                        android:id="@+id/copy_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_outline_content_copy_20"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/family_code"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.constraintlayout.utils.widget.ImageFilterButton>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/family_point_container"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/home_button"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/family_code_copy_container"
+                    app:layout_constraintTop_toBottomOf="@+id/family_code_copy_container">
+
+                    <ImageView
+                        android:id="@+id/mission_point"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="4dp"
+                        android:elevation="15dp"
+                        android:outlineProvider="none"
+                        android:src="@drawable/point"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+                    <TextView
+                        android:id="@+id/text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/point_name"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/family_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/mission_point"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@tools:sample/cities">
+
+                    </TextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/familyMember"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:fontFamily="@font/one_mobile_pop"
                 android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:paddingBottom="12dp"
                 android:text="@string/home_member"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/home_house" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -69,207 +205,245 @@
                 app:layout_constraintTop_toBottomOf="@id/familyMember"
                 tools:listitem="@layout/home_item" />
 
-            <FrameLayout
-                android:id="@+id/home_mission"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/card_background"
-                android:elevation="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_recycler_view"></FrameLayout>
-
-            <TextView
-                android:id="@+id/mission_top"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mission_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:layout_marginStart="24dp"
-                android:elevation="10dp"
-                android:outlineProvider="none"
-                android:text="@string/mission_top"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/mission1"
-                app:layout_constraintEnd_toEndOf="@id/home_mission"
-                app:layout_constraintStart_toStartOf="@id/home_mission"
-                app:layout_constraintTop_toTopOf="@+id/home_mission"></TextView>
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/home_recycler_view">
 
-            <FrameLayout
-                android:id="@+id/mission1"
+                <FrameLayout
+                    android:id="@+id/home_mission"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/card_background"
+                    android:elevation="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></FrameLayout>
+
+                <TextView
+                    android:id="@+id/mission_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/one_mobile_pop"
+                    android:gravity="center_horizontal"
+                    android:outlineProvider="none"
+                    android:paddingVertical="15dp"
+                    android:text="@string/mission_top"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@id/mission1"
+                    app:layout_constraintEnd_toEndOf="@id/home_mission"
+                    app:layout_constraintStart_toStartOf="@id/home_mission"
+                    app:layout_constraintTop_toTopOf="@+id/home_mission"></TextView>
+
+                <FrameLayout
+                    android:id="@+id/mission1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/card_background"
+                    android:elevation="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/mission2"
+                    app:layout_constraintEnd_toEndOf="@id/home_mission"
+                    app:layout_constraintStart_toStartOf="@id/home_mission"
+                    app:layout_constraintTop_toBottomOf="@id/mission_top"
+                    app:layout_constraintVertical_weight="1"></FrameLayout>
+
+                <ImageView
+                    android:id="@+id/mission1_point"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="7dp"
+                    android:elevation="15dp"
+                    android:outlineProvider="none"
+                    android:src="@drawable/point"
+                    app:layout_constraintBottom_toBottomOf="@id/mission1"
+                    app:layout_constraintEnd_toStartOf="@id/mission1_content"
+                    app:layout_constraintStart_toStartOf="@id/mission1"
+                    app:layout_constraintTop_toTopOf="@id/mission1"></ImageView>
+
+                <TextView
+                    android:id="@+id/mission1_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="8dp"
+                    android:elevation="15dp"
+                    android:gravity="center_vertical"
+                    android:outlineProvider="none"
+                    android:text="@string/mission1_title"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/mission1_content"
+                    app:layout_constraintEnd_toStartOf="@id/mission1_btn"
+                    app:layout_constraintStart_toEndOf="@id/mission1_point"
+                    app:layout_constraintTop_toTopOf="@id/mission1"
+                    app:layout_constraintVertical_chainStyle="packed"></TextView>
+
+                <TextView
+                    android:id="@+id/mission1_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:drawableEnd="@drawable/ic_baseline_chevron_right_24"
+                    android:elevation="15dp"
+                    android:gravity="center_vertical"
+                    android:outlineProvider="none"
+                    android:text="@string/mission_btn"
+                    android:textColor="@color/main_color"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toTopOf="@id/mission1_content"
+                    app:layout_constraintEnd_toEndOf="@id/mission1"
+                    app:layout_constraintTop_toTopOf="@id/mission1"></TextView>
+
+                <TextView
+                    android:id="@+id/mission1_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:elevation="15dp"
+                    android:outlineProvider="none"
+                    android:text="@string/mission1_content"
+                    app:layout_constraintBottom_toTopOf="@+id/mission1_progress"
+                    app:layout_constraintEnd_toEndOf="@id/mission1"
+                    app:layout_constraintStart_toEndOf="@id/mission1_point"
+                    app:layout_constraintTop_toBottomOf="@id/mission1_title"></TextView>
+
+                <ProgressBar
+                    android:id="@+id/mission1_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:elevation="15dp"
+                    android:outlineProvider="none"
+                    android:progressDrawable="@drawable/progress_drawable"
+                    app:layout_constraintBottom_toBottomOf="@id/mission1"
+                    app:layout_constraintEnd_toEndOf="@id/mission1"
+                    app:layout_constraintStart_toEndOf="@id/mission1_point"
+                    app:layout_constraintTop_toBottomOf="@id/mission1_content"></ProgressBar>
+
+                <FrameLayout
+                    android:id="@+id/mission2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/card_background"
+                    android:elevation="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/home_mission"
+                    app:layout_constraintTop_toBottomOf="@id/mission1"
+                    app:layout_constraintVertical_weight="1"></FrameLayout>
+
+                <ImageView
+                    android:id="@+id/mission2_point"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="7dp"
+                    android:elevation="15dp"
+                    android:outlineProvider="none"
+                    android:src="@drawable/point"
+                    app:layout_constraintBottom_toBottomOf="@id/mission2"
+                    app:layout_constraintStart_toStartOf="@id/mission2"
+                    app:layout_constraintTop_toTopOf="@id/mission2"></ImageView>
+
+                <TextView
+                    android:id="@+id/mission2_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="8dp"
+                    android:elevation="15dp"
+                    android:outlineProvider="none"
+                    android:text="@string/mission2_title"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/mission2_content"
+                    app:layout_constraintEnd_toStartOf="@id/mission2_btn"
+                    app:layout_constraintStart_toEndOf="@id/mission2_point"
+                    app:layout_constraintTop_toTopOf="@id/mission2"
+                    app:layout_constraintVertical_chainStyle="packed"></TextView>
+
+                <TextView
+                    android:id="@+id/mission2_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:drawableEnd="@drawable/ic_baseline_chevron_right_24"
+                    android:elevation="15dp"
+                    android:gravity="center_vertical"
+                    android:outlineProvider="none"
+                    android:text="@string/mission_btn"
+                    android:textColor="@color/main_color"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toTopOf="@id/mission2_content"
+                    app:layout_constraintEnd_toEndOf="@id/mission2"
+                    app:layout_constraintTop_toTopOf="@id/mission2"></TextView>
+
+                <TextView
+                    android:id="@+id/mission2_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:elevation="15dp"
+                    android:outlineProvider="none"
+                    android:text="@string/mission2_content"
+                    app:layout_constraintBottom_toTopOf="@id/mission2_progress"
+                    app:layout_constraintEnd_toEndOf="@id/mission2"
+                    app:layout_constraintStart_toEndOf="@id/mission2_point"
+                    app:layout_constraintTop_toBottomOf="@id/mission2_title"></TextView>
+
+                <ProgressBar
+                    android:id="@+id/mission2_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:elevation="15dp"
+                    android:outlineProvider="none"
+                    android:progressDrawable="@drawable/progress_drawable"
+                    app:layout_constraintBottom_toBottomOf="@id/mission2"
+                    app:layout_constraintEnd_toEndOf="@id/mission2"
+                    app:layout_constraintStart_toEndOf="@id/mission2_point"
+                    app:layout_constraintTop_toBottomOf="@id/mission2_content"></ProgressBar>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mission_container_familyzero"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/card_background"
-                android:elevation="10dp"
-                app:layout_constraintBottom_toTopOf="@id/mission2"
-                app:layout_constraintEnd_toEndOf="@id/home_mission"
-                app:layout_constraintStart_toStartOf="@id/home_mission"
-                app:layout_constraintTop_toBottomOf="@id/mission_top"
-                app:layout_constraintVertical_weight="1"></FrameLayout>
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/home_recycler_view">
 
-            <ImageView
-                android:id="@+id/mission1_point"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="4dp"
-                android:elevation="15dp"
-                android:outlineProvider="none"
-                android:src="@drawable/point"
-                app:layout_constraintBottom_toBottomOf="@id/mission1"
-                app:layout_constraintEnd_toStartOf="@id/mission1_content"
-                app:layout_constraintStart_toStartOf="@id/mission1"
-                app:layout_constraintTop_toTopOf="@id/mission1"></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="가족을 등록해주세요!!"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/mission1_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="8dp"
-                android:elevation="15dp"
-                android:gravity="center_vertical"
-                android:outlineProvider="none"
-                android:text="@string/mission1_title"
-                app:layout_constraintBottom_toTopOf="@id/mission1_content"
-                app:layout_constraintEnd_toStartOf="@id/mission1_btn"
-                app:layout_constraintStart_toEndOf="@id/mission1_point"
-                app:layout_constraintTop_toTopOf="@id/mission1"
-                app:layout_constraintVertical_chainStyle="packed"></TextView>
+                </TextView>
 
-            <TextView
-                android:id="@+id/mission1_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:drawableEnd="@drawable/ic_baseline_chevron_right_24"
-                android:elevation="15dp"
-                android:gravity="center_vertical"
-                android:outlineProvider="none"
-                android:text="@string/mission_btn"
-                android:textColor="@color/main_color"
-                app:layout_constraintBottom_toTopOf="@id/mission1_content"
-                app:layout_constraintEnd_toEndOf="@id/mission1"
-                app:layout_constraintTop_toTopOf="@id/mission1"></TextView>
-
-            <TextView
-                android:id="@+id/mission1_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="15dp"
-                android:outlineProvider="none"
-                android:text="@string/mission1_content"
-                app:layout_constraintBottom_toTopOf="@+id/mission1_progress"
-                app:layout_constraintEnd_toEndOf="@id/mission1"
-                app:layout_constraintStart_toEndOf="@id/mission1_point"
-                app:layout_constraintTop_toBottomOf="@id/mission1_title"></TextView>
-
-            <ProgressBar
-                android:id="@+id/mission1_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="15dp"
-                android:outlineProvider="none"
-                android:progressDrawable="@drawable/progress_drawable"
-                app:layout_constraintBottom_toBottomOf="@id/mission1"
-                app:layout_constraintEnd_toEndOf="@id/mission1"
-                app:layout_constraintStart_toEndOf="@id/mission1_point"
-                app:layout_constraintTop_toBottomOf="@id/mission1_content"></ProgressBar>
-
-            <FrameLayout
-                android:id="@+id/mission2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/card_background"
-                android:elevation="10dp"
-                app:layout_constraintBottom_toBottomOf="@id/home_mission"
-                app:layout_constraintTop_toBottomOf="@id/mission1"
-                app:layout_constraintVertical_weight="1"></FrameLayout>
-
-            <ImageView
-                android:id="@+id/mission2_point"
-                android:layout_width="50dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="4dp"
-                android:elevation="15dp"
-                android:outlineProvider="none"
-                android:src="@drawable/point"
-                app:layout_constraintBottom_toBottomOf="@id/mission2"
-                app:layout_constraintStart_toStartOf="@id/mission2"
-                app:layout_constraintTop_toTopOf="@id/mission2"></ImageView>
-
-            <TextView
-                android:id="@+id/mission2_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="8dp"
-                android:elevation="15dp"
-                android:outlineProvider="none"
-                android:text="@string/mission2_title"
-                app:layout_constraintBottom_toTopOf="@id/mission2_content"
-                app:layout_constraintEnd_toStartOf="@id/mission2_btn"
-                app:layout_constraintStart_toEndOf="@id/mission2_point"
-                app:layout_constraintTop_toTopOf="@id/mission2"
-                app:layout_constraintVertical_chainStyle="packed"></TextView>
-
-            <TextView
-                android:id="@+id/mission2_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:drawableEnd="@drawable/ic_baseline_chevron_right_24"
-                android:elevation="15dp"
-                android:gravity="center_vertical"
-                android:outlineProvider="none"
-                android:text="@string/mission_btn"
-                android:textColor="@color/main_color"
-                app:layout_constraintBottom_toTopOf="@id/mission2_content"
-                app:layout_constraintEnd_toEndOf="@id/mission2"
-                app:layout_constraintTop_toTopOf="@id/mission2"></TextView>
-
-            <TextView
-                android:id="@+id/mission2_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="15dp"
-                android:outlineProvider="none"
-                android:text="@string/mission2_content"
-                app:layout_constraintBottom_toTopOf="@id/mission2_progress"
-                app:layout_constraintEnd_toEndOf="@id/mission2"
-                app:layout_constraintStart_toEndOf="@id/mission2_point"
-                app:layout_constraintTop_toBottomOf="@id/mission2_title"></TextView>
-
-            <ProgressBar
-                android:id="@+id/mission2_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="15dp"
-                android:outlineProvider="none"
-                android:progressDrawable="@drawable/progress_drawable"
-                app:layout_constraintBottom_toBottomOf="@id/mission2"
-                app:layout_constraintEnd_toEndOf="@id/mission2"
-                app:layout_constraintStart_toEndOf="@id/mission2_point"
-                app:layout_constraintTop_toBottomOf="@id/mission2_content"></ProgressBar>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.core.widget.NestedScrollView>
 </layout>
