@@ -4,8 +4,7 @@
 
 ```plaintext
 master -> develop -> FE_develop -> feat-frontend/기능명
-	          -> BE_develop -> feat-backend/기능명
-                  -> MV_develop -> feat-unity/기능명
+	              -> BE_develop -> feat-backend/기능명
 ```
 
 
@@ -14,17 +13,14 @@ master -> develop -> FE_develop -> feat-frontend/기능명
   - develop
     - BE_develop
     - FE_develop
-    - BC_develop
-
-#### merge
 
 - 각 파트 maintainer들만 각 파트에 대한 merge 권한을 가짐.
-- maintainer가 아닌 개발자들은 mr
+- maintainer가 아닌 개발자들은 merge request 요청
 
 #### commit 메시지
 
 ```plaintext
-FE/BE/BC/DOCS_날짜_개발한(중인)기능: 개발 내용 (진행중/ 완료/ 수정 완료/ 수정 진행중) 
+FE/BE/DOCS_날짜_개발한(중인)기능: 개발 내용 (진행중/ 완료/ 수정 완료/ 수정 진행중) 
 ```
 
 
@@ -44,9 +40,9 @@ FE/BE/BC/DOCS_날짜_개발한(중인)기능: 개발 내용 (진행중/ 완료/ 
 
 #### 이름규칙
 
-| Domain | Frontend                                                     | Backend                                                      |
-| ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-|        | 1. Component 파일명: Pascal case 2. Non-component 파일명: Camel case  3. 속성명: Camel case 4. 변수명: Camel case, 숫자/ 특수문자 사용 가능 5. CSS 파일명: component 이름과 동일하게 6. jsx, js을 js로 통일 | **db**  1. db table, 속성명: snake case    **back server**  1. class, interface명(파일명): Pascal case  2. 디렉토리명: Camel case  3. 변수명: Camel case |
+| Frontend                                                     | Backend                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1. .kt 파일 명 : Pascal case 2. 함수 명 : Camel case 3. 변수 명 : Camel case 4. layout_xml : Snake case | ***\*db\****  1. db table, 속성명: snake case   ***\*back server\****  1. class, interface명(파일명): Pascal case  2. 디렉토리명: Camel case  3. 변수명: Camel case |
 
 - Boolean 타입의 변수 작명규칙 : is 접두사 사용 -> (ex) isExist
 - 들여쓰기 (indent)
