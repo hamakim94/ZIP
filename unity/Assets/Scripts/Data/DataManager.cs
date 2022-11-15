@@ -17,6 +17,7 @@ public class DataManager : MonoBehaviour
     public Dictionary<long, RawData> userAlbumDicData;
     public Dictionary<long, RawData> dicData;
     public delegate void afterBuyFurniture(int i);
+    public delegate void afterReloadUserItemData(long id);
     /*public Texture texture;*/
     public UserInfo user;
     #endregion
@@ -76,6 +77,30 @@ private void Awake()
             {
                 this.userItemDicData.Add(data.id, data.itemList);
             }
+        }
+        www.Dispose();
+    }
+
+    public IEnumerator LoadUserItemData(long id, afterReloadUserItemData afterReloadUserItemData)
+    {
+        this.userItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 사용자가구[](사용자가구 list)
+        var json = "";
+        using UnityWebRequest www = APIManager.GetWWW("GET", "/unity/create", null);
+        yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError(www.error);
+        }
+        else
+        {
+            json = www.downloadHandler.text;
+            var arrData = JsonConvert.DeserializeObject<PositionUserItemData[]>(json);
+
+            foreach (var data in arrData)
+            {
+                this.userItemDicData.Add(data.id, data.itemList);
+            }
+                afterReloadUserItemData(id);
         }
         www.Dispose();
     }
