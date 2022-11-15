@@ -24,7 +24,7 @@ public class FurnitureItem : MonoBehaviour
 
     public void Init(long id, long posId, string img, string name, int price, int hasItemId)
     {
-        // µ¥ÀÌÅÍ ÃÊ±âÈ­  
+        // ë°ì´í„° ì´ˆê¸°í™”  
         this.id = id;
         this.posId = posId;
         var spriteName = atlas.GetSprite(img);
@@ -37,15 +37,16 @@ public class FurnitureItem : MonoBehaviour
 
     public void OnClickPriceBtn()
     {
-        // ±¸¸Å api Åë½Å 
-        SetState(1);
+        // êµ¬ë§¤ api í†µì‹  
+        Debug.Log(id);
+        StartCoroutine(DataManager.Instance.BuyFurniture(id, SetState));
     }
 
     public void OnClickOwnedItemBtn()
     {
-        // °¡±¸ ¹èÄ¡ º¯°æ Åë½Å
+        // ê°€êµ¬ ë°°ì¹˜ ë³€ê²½ í†µì‹ 
 
-        // ÀÌ °¡±¸¸¦ »ç¿ëÁßÀ¸·Î ¹Ù²Ù¸é »ç¿ëÁßÀÌ¾ú´ø itemÀº º¸À¯Áß »óÅÂ·Î º¯°æÇØ¾ßÇÔ. (»ç¿ëÁßÀÎ ¾ÆÀÌÅÛÀÌ ÀÖÀ» °æ¿ì, ¸Ç ¾Õ¿¡ ÀÖ´Â ¾Ö°¡ »ç¿ëÁß)
+        // ì´ ê°€êµ¬ë¥¼ ì‚¬ìš©ì¤‘ìœ¼ë¡œ ë°”ê¾¸ë©´ ì‚¬ìš©ì¤‘ì´ì—ˆë˜ itemì€ ë³´ìœ ì¤‘ ìƒíƒœë¡œ ë³€ê²½í•´ì•¼í•¨. (ì‚¬ìš©ì¤‘ì¸ ì•„ì´í…œì´ ìˆì„ ê²½ìš°, ë§¨ ì•ì— ìˆëŠ” ì• ê°€ ì‚¬ìš©ì¤‘)
         FurnitureItem furnitureItem = transform.parent.GetChild(FurniturePanel.idx).GetComponent<FurnitureItem>();
 
         if (furnitureItem.hasItemId == 2)
@@ -55,14 +56,20 @@ public class FurnitureItem : MonoBehaviour
 
         SetState(2);
         FurniturePanel.idx = transform.GetSiblingIndex();
+        Debug.Log("start");
         setFuniture(posId, id);
+        Debug.Log("end");
+
     }
 
-    public static void setFuniture(long posId, long id)
+    public void setFuniture(long posId, long id)
     {
-        var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
+        Debug.Log("set start");
+        StartCoroutine(DataManager.Instance.SetFurniture(posId, id));
+        Debug.Log("set end");
+        /*var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
         var target = GameObject.Find("SelectObject").transform.GetChild((int)posId - 1);
-        // ¼±ÅÃÇÑ item ¹èÄ¡ 
+        // ì„ íƒí•œ item ë°°ì¹˜ 
         if (target.childCount > 1)
         {
             Destroy(target.GetChild(1).gameObject);
@@ -72,23 +79,23 @@ public class FurnitureItem : MonoBehaviour
             target.GetChild(0).gameObject.SetActive(false);
         }
 
-        GameObject resource = Resources.Load("Furniture/" + itemData.img.Split("(")[0] + "/" + itemData.img) as GameObject; // ¿©±â¿¡ ÀÌÁ¦ °¡±¸ÀÌ¸§À¸·Î µ¿Àû »ı¼ºÇÏ±â.
-        
+        GameObject resource = Resources.Load("Furniture/" + itemData.img.Split("(")[0] + "/" + itemData.img) as GameObject; // ì—¬ê¸°ì— ì´ì œ ê°€êµ¬ì´ë¦„ìœ¼ë¡œ ë™ì  ìƒì„±í•˜ê¸°.
+
         Vector3 pos = new Vector3(target.position.x, resource.transform.position.y, target.position.z);
         if (itemData.img.Equals("2_2X1(kids_02)"))
         {
-            pos = new Vector3(target.position.x+0.6f, resource.transform.position.y, target.position.z);
+            pos = new Vector3(target.position.x + 0.6f, resource.transform.position.y, target.position.z);
         }
         GameObject item = Instantiate(resource, pos, resource.transform.rotation);
-        item.transform.parent = target; // ºÎ¸ğ Á¤ÇØ³õ±â
+        item.transform.parent = target; // ë¶€ëª¨ ì •í•´ë†“ê¸°*/
     }
 
-    // state¿¡ µû¶ó¼­ GO¸¦ activate, deactivateÇÏ´Â ÇÔ¼ö 
+    // stateì— ë”°ë¼ì„œ GOë¥¼ activate, deactivateí•˜ëŠ” í•¨ìˆ˜ 
     private void SetState(int hasItemId)
     {
         switch(hasItemId)
         {
-            case 0: // ¼ÒÀ¯X 
+            case 0: // ì†Œìœ X 
                 this.hasItemId = hasItemId;
                 locked.SetActive(true);
                 ownedItemBtn.SetActive(false);
@@ -96,7 +103,7 @@ public class FurnitureItem : MonoBehaviour
 
                 break;
 
-            case 1: // º¸À¯, »ç¿ëX
+            case 1: // ë³´ìœ , ì‚¬ìš©X
                 this.hasItemId = hasItemId;
                 ownedItemBtn.SetActive(true);
                 locked.SetActive(false);
@@ -104,7 +111,7 @@ public class FurnitureItem : MonoBehaviour
 
                 break;
 
-            case 2: // º¸À¯, »ç¿ëO
+            case 2: // ë³´ìœ , ì‚¬ìš©O
                 this.hasItemId = hasItemId;
                 usedItemBtn.SetActive(true);
                 locked.SetActive(false);

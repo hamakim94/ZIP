@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Instance = DataManager.Instance;
         GMInstance = this;
+
     }
     void Start()
     {
