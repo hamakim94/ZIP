@@ -35,10 +35,10 @@ public class PageInvert : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        // ¸¶¿ì½º Å¬¸¯ ½Ã
+        // ë§ˆìš°ìŠ¤ í´ë¦­ ì‹œ
         if (Input.GetMouseButtonDown(0))
 #else
-        // ÅÍÄ¡ ½Ã
+        // í„°ì¹˜ ì‹œ
         if (Input.touchCount > 0)
 #endif
         {
@@ -49,14 +49,14 @@ public class PageInvert : MonoBehaviour
             if(Input.GetTouch(0).phase != TouchPhase.Began)
                 return;z
 #endif
-            // Ä«¸Ş¶ó¿¡¼­ ½ºÅ©¸°¿¡ ¸¶¿ì½º Å¬¸¯ À§Ä¡¸¦ Åë°úÇÏ´Â ±¤¼±À» ¹İÈ¯ÇÕ´Ï´Ù.
+            // ì¹´ë©”ë¼ì—ì„œ ìŠ¤í¬ë¦°ì— ë§ˆìš°ìŠ¤ í´ë¦­ ìœ„ì¹˜ë¥¼ í†µê³¼í•˜ëŠ” ê´‘ì„ ì„ ë°˜í™˜í•©ë‹ˆë‹¤.
             Ray ray = Camera.main.ScreenPointToRay(m_vecMouseDownPos);
             RaycastHit hit;
 
-            // ±¤¼±À¸·Î Ãæµ¹µÈ collider¸¦ hit¿¡ ³Ö½À´Ï´Ù.
+            // ê´‘ì„ ìœ¼ë¡œ ì¶©ëŒëœ colliderë¥¼ hitì— ë„£ìŠµë‹ˆë‹¤.
             if (Physics.Raycast(ray, out hit))
             {
-                // ¾î¶² ¿ÀºêÁ§Æ®ÀÎÁö ·Î±×¸¦ Âï½À´Ï´Ù.
+                // ì–´ë–¤ ì˜¤ë¸Œì íŠ¸ì¸ì§€ ë¡œê·¸ë¥¼ ì°ìŠµë‹ˆë‹¤.
                 if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
                 {
                     Debug.Log(hit.transform.GetComponent<Photo>().id);
@@ -64,7 +64,7 @@ public class PageInvert : MonoBehaviour
                     AlbumButtonClicked();
                 }
 
-                /*// ¿ÀºêÁ§Æ® º°·Î ÄÚµå¸¦ ÀÛ¼ºÇÒ ¼ö ÀÖ½À´Ï´Ù.
+                /*// ì˜¤ë¸Œì íŠ¸ ë³„ë¡œ ì½”ë“œë¥¼ ì‘ì„±í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
                 if (hit.collider.name == "Cube")
                     Debug.Log("Cube Hit");
                 else if (hit.collider.name == "Capsule")
@@ -99,9 +99,14 @@ public class PageInvert : MonoBehaviour
         setActive(new int[] { (int)Panel.album, (int)Panel.main });
     }
 
+    public void PhotoButtonClicked()
+    {
+        setActive(new int[] { (int)Panel.album, (int)Panel.main });
+    }
+
     public void PlusButtonClicked()
     {
-       // ¹èÄ¡ ¹öÆ° 
+       // ë°°ì¹˜ ë²„íŠ¼ 
        for(int i = 0; i< BtnList.transform.childCount; i++)
         {
             if(true)
@@ -114,13 +119,13 @@ public class PageInvert : MonoBehaviour
     private void setActive(int panel){
         if (panel == 0)
         {
-            //PlayerUI È°¼ºÈ­
+            //PlayerUI í™œì„±í™”
             PlayerUI.isActive = true;
             Debug.Log("active");
         }
         else
         {
-            //PlayerUI ºñÈ°¼ºÈ­
+            //PlayerUI ë¹„í™œì„±í™”
             PlayerUI.isActive = false;
             PlayerManager.isPlayerUIVisible = false;
             Debug.Log("deactive");
