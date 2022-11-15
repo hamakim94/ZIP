@@ -17,10 +17,21 @@ public class FurnitureItem : MonoBehaviour
     public TMP_Text priceText;
     private long id;
     private long posId;
-    public int hasItemId; // 0, 1, 2
+    public int hasItemId; // 0,1,2
+    private GameObject buyConfirmPanel;
+    GameObject instan;
 
 
     /*public Transform target;*/
+    /*    public void Start()
+        {
+            this.buyConfirmPanel = GameObject.Find("Canvas").transform.GetChild(7).gameObject;
+            Button cancelBtn = this.buyConfirmPanel.transform.GetChild(7).gameObject.GetComponent<Button>();
+            Button confirmBtn = this.buyConfirmPanel.transform.GetChild(7).gameObject.GetComponent<Button>();
+
+            cancelBtn.onClick.AddListener(OnClickCancelBtn);
+            confirmBtn.onClick.AddListener(OnClickConfirmBtn);
+        }*/
 
     public void Init(long id, long posId, string img, string name, int price, int hasItemId)
     {
@@ -37,6 +48,40 @@ public class FurnitureItem : MonoBehaviour
 
     public void OnClickPriceBtn()
     {
+        Debug.Log("OnClickPriceBtn");
+        GameObject panel = Resources.Load<GameObject>("BuyConfirmPanel");
+        instan = Instantiate(panel);
+        instan.transform.parent = GameObject.Find("Canvas").transform;
+        RectTransform rt = instan.GetComponent<RectTransform>();
+
+        rt.anchoredPosition = Vector2.zero;
+        rt.localScale = Vector3.one;
+        rt.sizeDelta = new Vector2(860, 450);
+
+        instan.transform.GetChild(6).gameObject.GetComponent<Button>().onClick.AddListener(OnClickCancelBtn);
+        instan.transform.GetChild(7).gameObject.GetComponent<Button>().onClick.AddListener(OnClickConfirmBtn);
+
+
+        panel.SetActive(true);
+        
+        /*        // 구매 api 통신 
+                StartCoroutine(DataManager.Instance.BuyFurniture(id, SetState));*/
+    }
+
+    public void OnClickCancelBtn()
+    {
+        Debug.Log("OnClickCancelBtn");
+        Destroy(instan);
+        /*buyConfirmPanel.SetActive(false);*/
+    }
+
+    public void OnClickConfirmBtn()
+    {
+        Debug.Log("OnClickConfirmBtn");
+
+        /*buyConfirmPanel.SetActive(false);*/
+        Destroy(instan);
+
         // 구매 api 통신 
         StartCoroutine(DataManager.Instance.BuyFurniture(id, SetState));
     }
@@ -56,7 +101,6 @@ public class FurnitureItem : MonoBehaviour
         SetState(2);
         FurniturePanel.idx = transform.GetSiblingIndex();
         setFuniture(posId, id);
-
     }
 
     public void setFuniture(long posId, long id)

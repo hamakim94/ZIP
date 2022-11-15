@@ -17,7 +17,7 @@ public class InventoryListItem : MonoBehaviour
 
     public void Init(int idx, long id, string img, long posId, Boolean placed, PlusButton go)
     {
-        // µ¥ÀÌÅÍ ³Ö±â 
+        // ë°ì´í„° ë„£ê¸° 
         var spriteName = atlas.GetSprite(img);
         imgIcon.sprite = spriteName;
         changeBtn(placed);
@@ -25,58 +25,58 @@ public class InventoryListItem : MonoBehaviour
         unplacedItemBtn.GetComponent<Button>().onClick.AddListener(() => OnClickButton(idx, posId, id));
     }
 
-    // ¼±ÅÃÇÑ item¸¸ ¹èÄ¡, ³ª¸ÓÁö ¹èÄ¡X 
+    // ì„ íƒí•œ itemë§Œ ë°°ì¹˜, ë‚˜ë¨¸ì§€ ë°°ì¹˜X 
     private void OnClickButton(int idx, long posId, long id)
     {
         changeBtn(true);
         setFuniture(posId, id);
-        // ÀÌÁ¦ ±âÁ¸¿¡ °Í Ä¡¿ì°í ÇÏ´Â½ÄÀ¸·Î ÇØº¸±â.
+        // ì´ì œ ê¸°ì¡´ì— ê²ƒ ì¹˜ìš°ê³  í•˜ëŠ”ì‹ìœ¼ë¡œ í•´ë³´ê¸°.
     }
     public void setFuniture(long posId, long id)
     {
         var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
         target = GameObject.Find("SelectObject").transform.GetChild((int)posId - 1);
-        // ¼±ÅÃÇÑ item ¹èÄ¡ 
-        if (target.childCount > 1)
+        // ì„ íƒí•œ item ë°°ì¹˜ 
+        if (target.childCount > 1) // ê°€êµ¬ê°€ ìˆì„ ë•Œ 
         {
-            target.GetChild(1).gameObject.SetActive(false);
+            target.GetChild(1).gameObject.SetActive(false); // ì·¨ì†Œ, í™•ì¸ì„ ê±°ì¹˜ê³  ë¶€ì…”ì•¼ 
         }
         else
         {
-            target.GetChild(0).gameObject.SetActive(false);
+            target.GetChild(0).gameObject.SetActive(false); // ì·¨ì†Œ, í™•ì¸ì„ ê±°ì¹˜ê³  ë¶€ì…”ì•¼ 
         }
-        var resource = Resources.Load("Prefabs/" + itemData.img); // ¿©±â¿¡ ÀÌÁ¦ °¡±¸ÀÌ¸§À¸·Î µ¿Àû »ı¼ºÇÏ±â.
+        var resource = Resources.Load("Prefabs/" + itemData.img); // ì—¬ê¸°ì— ì´ì œ ê°€êµ¬ì´ë¦„ìœ¼ë¡œ ë™ì  ìƒì„±í•˜ê¸°.
         GameObject item = Instantiate(resource, target.position, Quaternion.identity) as GameObject;
-        item.transform.parent = target; // ºÎ¸ğ Á¤ÇØ³õ±â
+        item.transform.parent = target; // ë¶€ëª¨ ì •í•´ë†“ê¸°
     }
     private void Update()
     {
         if (target) { 
-        // È®ÀÎ ¹öÆ°ÀÌ¶ó¼­ ±âÁ¸ÀÇ °Í ÅÍÆ®¸®±â
-        // È®ÀÎ ¹öÆ° ´­·¶À» ¶§ »ç¿ëÇÏ±â ¹öÆ° ·ÎÁ÷ ³Ö±â ex changeCurState(idx), changeBtn(true)
-        // ±×·± ÀÇ¹Ì·Î confirm ÆĞ³ÎÀ» ¿©±â¼­ Á» ¸¸Á®¾ßÇÒµí???
+        // í™•ì¸ ë²„íŠ¼ì´ë¼ì„œ ê¸°ì¡´ì˜ ê²ƒ í„°íŠ¸ë¦¬ê¸°
+        // í™•ì¸ ë²„íŠ¼ ëˆŒë €ì„ ë•Œ ì‚¬ìš©í•˜ê¸° ë²„íŠ¼ ë¡œì§ ë„£ê¸° ex changeCurState(idx), changeBtn(true)
+        // ê·¸ëŸ° ì˜ë¯¸ë¡œ confirm íŒ¨ë„ì„ ì—¬ê¸°ì„œ ì¢€ ë§Œì ¸ì•¼í• ë“¯???
         if (Input.GetKeyDown(KeyCode.Q))
         {
                 
 
-            // target.childCount ·Î Ã³¸®ÇÏ±â
+            // target.childCount ë¡œ ì²˜ë¦¬í•˜ê¸°
             Destroy(target.GetChild(1).gameObject);
         }
-        // Ãë¼Ò¹öÆ°ÀÌ¶ó¼­ ±âÁ¸ÀÇ °Í ¾×Æ¼ºê È°¼ºÈ­ÇÏ°í »õ·Î ¸¸µé¾ú´ø °Í ÅÍÆ®¸®±â
+        // ì·¨ì†Œë²„íŠ¼ì´ë¼ì„œ ê¸°ì¡´ì˜ ê²ƒ ì•¡í‹°ë¸Œ í™œì„±í™”í•˜ê³  ìƒˆë¡œ ë§Œë“¤ì—ˆë˜ ê²ƒ í„°íŠ¸ë¦¬ê¸°
         if (Input.GetKeyDown(KeyCode.W))
         {
-            // target.childCount ·Î Ã³¸®ÇÏ±â
+            // target.childCount ë¡œ ì²˜ë¦¬í•˜ê¸°
             target.GetChild(1).gameObject.SetActive(true);
             Destroy(target.GetChild(2).gameObject);
         }
         }
     }
-    /*// ¼±ÅÃÇÑ item¸¸ ¹èÄ¡, ³ª¸ÓÁö ¹èÄ¡X 
+    /*// ì„ íƒí•œ itemë§Œ ë°°ì¹˜, ë‚˜ë¨¸ì§€ ë°°ì¹˜X 
     private void OnClickButton(int idx, long posId)
     {
         var itemList = DataManager.Instance.userItemDicData[posId];
 
-        // ¸ğµç item¿¡ ´ëÇØ ¹èÄ¡X 
+        // ëª¨ë“  itemì— ëŒ€í•´ ë°°ì¹˜X 
         for (int i = 0; i < itemList.Length; i++)
         {
             var item = (UserItemData)itemList[i];
@@ -88,7 +88,7 @@ public class InventoryListItem : MonoBehaviour
             }
         }
 
-        // ¼±ÅÃÇÑ item ¹èÄ¡ 
+        // ì„ íƒí•œ item ë°°ì¹˜ 
         changeBtn(true);
     }*/
 
