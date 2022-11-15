@@ -151,7 +151,7 @@ SSAFY 7기 2학기 자율프로젝트 - ZIP
 - [프로젝트계획서](docs/프로젝트계획서.pdf)
 - [컨벤션&git](doc/컨벤션&Git.md)
 - [API명세서](docs/API명세서.xlsx)
-- [ERD](docs/ERD.jpg)
+- [ERD](docs/ERD.png)
 - [테스트케이스](docs/테스트케이스.xlsx)
 
 ## :heavy_check_mark: 프로젝트 결과물
@@ -173,7 +173,29 @@ SSAFY 7기 2학기 자율프로젝트 - ZIP
 ## :heavy_check_mark: 폴더 구조 - Backend
 
 ```
-
+└─src
+    ├─main
+    │  ├─java
+    │  │  └─com
+    │  │      └─ssafy
+    │  │          └─zip
+    │  │              ├─config
+    │  │              │  └─security
+    │  │              ├─controller
+    │  │              ├─dto
+    │  │              │  ├─request
+    │  │              │  └─response
+    │  │              ├─entity
+    │  │              ├─exception
+    │  │              ├─repository
+    │  │              ├─service
+    │  │              └─util
+    │  └─resources
+    └─test
+        └─java
+            └─com
+                └─ssafy
+                    └─zip
 ```
 
 <br/>
@@ -181,7 +203,11 @@ SSAFY 7기 2학기 자율프로젝트 - ZIP
 ## :heavy_check_mark: CI/CD
 
 ```
-
+Ubuntu
+└─Docker
+   ├─zip-back : 0.0.0.0:8888 -> 8888/tcp
+   ├─redis-container : 0.0.0.0:8379 -> 6379/tcp
+   └─mysql-container : 0.0.0.0:3306 -> 3306/tcp
 ```
 
 <br/>
