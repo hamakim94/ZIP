@@ -165,7 +165,56 @@ SSAFY 7기 2학기 자율프로젝트 - ZIP
 ## :heavy_check_mark: 폴더 구조 - Frontend
 
 ```
-
+─app
+│  └─src
+│      ├─androidTest
+│      │  └─java
+│      │      └─com
+│      │          └─ssafy
+│      │              └─zip
+│      │                  └─android
+│      ├─debug
+│      │  └─res
+│      │      ├─drawable
+│      │      ├─drawable-hdpi
+│      │      ├─drawable-mdpi
+│      │      ├─drawable-xhdpi
+│      │      └─drawable-xxhdpi
+│      ├─main
+│      │  ├─java
+│      │  │  └─com
+│      │  │      └─ssafy
+│      │  │          └─zip
+│      │  │              └─android
+│      │  │                  ├─adapter
+│      │  │                  ├─data
+│      │  │                  │  ├─request
+│      │  │                  │  └─response
+│      │  │                  ├─repository
+│      │  │                  └─viewmodel
+│      │  └─res
+│      │      ├─drawable
+│      │      ├─drawable-v24
+│      │      ├─font
+│      │      ├─layout
+│      │      ├─menu
+│      │      ├─mipmap-hdpi
+│      │      ├─mipmap-mdpi
+│      │      ├─mipmap-xhdpi
+│      │      ├─mipmap-xxhdpi
+│      │      ├─mipmap-xxxhdpi
+│      │      ├─navigation
+│      │      ├─values
+│      │      ├─values-night
+│      │      └─xml
+│      └─test
+│          └─java
+│              └─com
+│                  └─ssafy
+│                      └─zip
+│                          └─android
+└─gradle
+    └─wrapper
 ```
 
 <br/>
