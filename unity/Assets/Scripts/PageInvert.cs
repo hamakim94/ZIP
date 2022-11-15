@@ -21,6 +21,7 @@ public class PageInvert : MonoBehaviour
     public GameObject exitConfirmPanel; 
     public GameObject BtnList;
     public GameObject BuildList;
+    public Camera mainCamera;
     Vector3 m_vecMouseDownPos;
     public static GameObject photoGO;
     private bool toggle = true;
@@ -48,22 +49,27 @@ public class PageInvert : MonoBehaviour
 #else
             m_vecMouseDownPos = Input.GetTouch(0).position;
             if(Input.GetTouch(0).phase != TouchPhase.Began)
-                return;z
+                return;
 #endif
             // 카메라에서 스크린에 마우스 클릭 위치를 통과하는 광선을 반환합니다.
-            Ray ray = Camera.main.ScreenPointToRay(m_vecMouseDownPos);
+            Ray ray = mainCamera.ScreenPointToRay(m_vecMouseDownPos);
             RaycastHit hit;
 
             // 광선으로 충돌된 collider를 hit에 넣습니다.
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("hit.collider.name: " + hit.collider.name);
+                /*Debug.Log("hit.collider.name: " + hit.collider.name);*/
                 // 어떤 오브젝트인지 로그를 찍습니다.
                 if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
                 {
                     Debug.Log(hit.transform.GetComponent<Photo>().id);
                     photoGO = hit.transform.gameObject;
+                    mainCamera.transform.GetComponent<FollowCamera>().enabled = false;
+                    mainCamera.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z - 4f);
+                    mainCamera.transform.LookAt(photoGO.transform);
+                    mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
                     AlbumButtonClicked();
+                    
                 }
 
                 /*// 오브젝트 별로 코드를 작성할 수 있습니다.
@@ -111,9 +117,11 @@ public class PageInvert : MonoBehaviour
        // 배치 버튼 
        for(int i = 0; i< BtnList.transform.childCount; i++)
         {
-            if(true)
-            BtnList.transform.GetChild(i).gameObject.SetActive(toggle);
-            BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(toggle);
+             BtnList.transform.GetChild(i).gameObject.SetActive(toggle);
+            if (BuildList.transform.GetChild(i).childCount == 1)
+            {
+                BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(toggle);
+            }
         }
         toggle = !toggle;
     }

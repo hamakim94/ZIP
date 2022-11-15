@@ -7,6 +7,7 @@ public class FurniturePanel : MonoBehaviour
 {
     public RectTransform contents;
     public GameObject furnitureItem;
+    public Camera mainCamera;
     private long posId;
     private ItemData usedItem; 
     private ArrayList ownedItemList;
@@ -17,6 +18,7 @@ public class FurniturePanel : MonoBehaviour
     void Start()
     {
         isStarted = true;
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -27,10 +29,9 @@ public class FurniturePanel : MonoBehaviour
             usedItem = null;
             ownedItemList = new ArrayList();
             lockedItemList = new ArrayList();
-
-            // ·ÎµåµÈ µ¥ÀÌÅÍ °¡Á®¿È
+            // ë¡œë“œëœ ë°ì´í„° ê°€ì ¸ì˜´
             var totalItemData = DataManager.Instance.totalItemDicData[posId];
-            RawData[] filteredUserItemData; // ÇØ´ç À§Ä¡¿¡ ÀÖ´Â user item list (UserItemData type)
+            RawData[] filteredUserItemData; // í•´ë‹¹ ìœ„ì¹˜ì— ìˆëŠ” user item list (UserItemData type)
 
             if (DataManager.Instance.userItemDicData.ContainsKey(posId))
             {
@@ -42,32 +43,31 @@ public class FurniturePanel : MonoBehaviour
 
 
             // 0, 1, 2 
-            // 0: º¸À¯X 
-            // 1: º¸À¯O, »ç¿ëX 
-            // 2: º¸À¯O, »ç¿ëO
-
-            // µ¥ÀÌÅÍ ¸ğÀ¸±â 
-            for (var i=0; i<totalItemData.Length; i++) // ÇØ´ç À§Ä¡ÀÇ item ´Ù µ¹¸é¼­ 
+            // 0: ë³´ìœ X 
+            // 1: ë³´ìœ O, ì‚¬ìš©X 
+            // 2: ë³´ìœ O, ì‚¬ìš©O
+            // ë°ì´í„° ëª¨ìœ¼ê¸° 
+            for (var i=0; i<totalItemData.Length; i++) // í•´ë‹¹ ìœ„ì¹˜ì˜ item ë‹¤ ëŒë©´ì„œ 
             {
                 var data = (ItemData)totalItemData[i];                
                 int hasItemCode = 0; 
 
-                for (var j = 0; j < filteredUserItemData.Length; j++) // °¡Áö°í ÀÖ´ÂÁö È®ÀÎ
+                for (var j = 0; j < filteredUserItemData.Length; j++) // ê°€ì§€ê³  ìˆëŠ”ì§€ í™•ì¸
                 {
-                    if(data.id == filteredUserItemData[j].id) // °¡Áö°í ÀÖ´Â °æ¿ì 
+                    if(data.id == filteredUserItemData[j].id) // ê°€ì§€ê³  ìˆëŠ” ê²½ìš° 
                     {
                         hasItemCode = ((UserItemData)filteredUserItemData[j]).hasItemCode;
                         break; 
                     }
                 }
 
-                if (hasItemCode == 0) // º¸À¯X 
+                if (hasItemCode == 0) // ë³´ìœ X 
                 {
                     lockedItemList.Add(data);
-                } else if(hasItemCode == 1) // º¸À¯O, »ç¿ëX 
+                } else if(hasItemCode == 1) // ë³´ìœ O, ì‚¬ìš©X 
                 {
                     ownedItemList.Add(data);
-                } else // hasItemCode == 2 // º¸À¯O, »ç¿ëO
+                } else // hasItemCode == 2 // ë³´ìœ O, ì‚¬ìš©O
                 {
                     usedItem = data;
                 }
@@ -76,8 +76,8 @@ public class FurniturePanel : MonoBehaviour
             GameObject listItem;
             FurnitureItem furnitureItem; 
 
-            // ¼øÂ÷ÀûÀ¸·Î °ÔÀÓ ¿ÀºêÁ§Æ® º¹Á¦º» »ı¼º 
-            // »ç¿ëÁßÀÎ °¡±¸ ¾ÆÀÌÅÛ
+            // ìˆœì°¨ì ìœ¼ë¡œ ê²Œì„ ì˜¤ë¸Œì íŠ¸ ë³µì œë³¸ ìƒì„± 
+            // ì‚¬ìš©ì¤‘ì¸ ê°€êµ¬ ì•„ì´í…œ
             if (usedItem != null)
             {
                 listItem = Instantiate(this.furnitureItem, this.contents);
@@ -85,7 +85,7 @@ public class FurniturePanel : MonoBehaviour
                 furnitureItem.Init(usedItem.id, posId, usedItem.img, usedItem.name, usedItem.price, 2);
             }
 
-            // º¸À¯ÁßÀÎ °¡±¸ ¾ÆÀÌÅÛ 
+            // ë³´ìœ ì¤‘ì¸ ê°€êµ¬ ì•„ì´í…œ 
             for(var i=0; i<ownedItemList.Count; i++)
             {
                 listItem = Instantiate(this.furnitureItem, this.contents);
@@ -94,7 +94,7 @@ public class FurniturePanel : MonoBehaviour
                 furnitureItem.Init(ownedItem.id, posId, ownedItem.img, ownedItem.name, ownedItem.price, 1);
             }
 
-            // Àá°ÜÀÖ´Â °¡±¸ ¾ÆÀÌÅÛ 
+            // ì ê²¨ìˆëŠ” ê°€êµ¬ ì•„ì´í…œ 
             for (var i = 0; i < lockedItemList.Count; i++)
             {
                 listItem = Instantiate(this.furnitureItem, this.contents);
@@ -105,10 +105,10 @@ public class FurniturePanel : MonoBehaviour
 
 
 
-            /*var listItem = Instantiate(this.shopItem, this.contents);*/ // °ÔÀÓ ¿ÀºêÁ§Æ®ÀÇ º¹Á¦º» »ı¼º 
+            /*var listItem = Instantiate(this.shopItem, this.contents);*/ // ê²Œì„ ì˜¤ë¸Œì íŠ¸ì˜ ë³µì œë³¸ ìƒì„± 
                                                                           // GameObject UnityEngine.Object.Instantiate<GameObject>(GameObject original, Transform parent)
-                                                                          // Æ¯Á¤ ÇÏÀÌ¾î¶óÅ° À§Ä¡¿¡¼­ »ı¼ºÇÏ±â À§ÇØ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
-                                                                          // ³Ö°í ½ÍÀº ¿ÀºêÁ§Æ®¸¦ µÎ ¹øÂ° ÆÄ¶ó¹ÌÅÍÀÎ parent¿¡ Àû¾îÁÖ¸é º¹Á¦ »ı¼º½Ã ÇÏÀ§ ÀÚ½ÄÀ¸·Î »ı¼ºµÈ´Ù. 
+                                                                          // íŠ¹ì • í•˜ì´ì–´ë¼í‚¤ ìœ„ì¹˜ì—ì„œ ìƒì„±í•˜ê¸° ìœ„í•´ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤.
+                                                                          // ë„£ê³  ì‹¶ì€ ì˜¤ë¸Œì íŠ¸ë¥¼ ë‘ ë²ˆì§¸ íŒŒë¼ë¯¸í„°ì¸ parentì— ì ì–´ì£¼ë©´ ë³µì œ ìƒì„±ì‹œ í•˜ìœ„ ìì‹ìœ¼ë¡œ ìƒì„±ëœë‹¤. 
             /*var shopListItem = listItem.GetComponent<ShopListItem>();*/
             /*var itemData = (ItemData)DataManager.Instance.itemIdToItem(id, data.id);
 
@@ -118,6 +118,7 @@ public class FurniturePanel : MonoBehaviour
 
     private void OnDisable()
     {
+        mainCamera.gameObject.transform.GetComponent<FollowCamera>().enabled = true;
         Transform[] childlist = contents.gameObject.GetComponentsInChildren<Transform>();
         if (childlist != null)
         {

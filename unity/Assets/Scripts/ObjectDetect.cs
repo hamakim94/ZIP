@@ -11,21 +11,21 @@ public class ObjectDetect : MonoBehaviour
     private Camera camera;
 
     private bool check;
-    private void OnDrawGizmos() { 
+ /*   private void OnDrawGizmos() { 
         Gizmos.color = Color.white;
         Gizmos.DrawSphere(transform.position, 2f);
     }
     private void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.25f);
-    }
+    }*/
     private void Update()
     {
         Vector3 screenPos = camera.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
         Btn.transform.position = screenPos;
     }
 
-    private void UpdateTarget()
+   /* private void UpdateTarget()
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, 2f);
         check = false;
@@ -42,16 +42,16 @@ public class ObjectDetect : MonoBehaviour
             }
             if (check)
             {
-         /*       Btn.SetActive(true);
-                transform.GetChild(0).gameObject.SetActive(true);*/
+         *//*       Btn.SetActive(true);
+                transform.GetChild(0).gameObject.SetActive(true);*//*
             }
             else
             {
-                /*Btn.SetActive(false);
-                transform.GetChild(0).gameObject.SetActive(false);*/
+                *//*Btn.SetActive(false);
+                transform.GetChild(0).gameObject.SetActive(false);*//*
                 target = null;
             }
         }
-    }
+    }*/
 
 }

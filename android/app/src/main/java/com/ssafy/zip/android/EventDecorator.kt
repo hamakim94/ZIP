@@ -20,6 +20,6 @@ class EventDecorator(
         for (i in stringProductColor2.indices) {
             colors[i] = Color.parseColor(stringProductColor2[i])
         }
-        view.addSpan(CustomMultipleDotSpan(5f, colors))
+        view.addSpan(CustomMultipleDotSpan(6f, colors))
     }
 }

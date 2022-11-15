@@ -5,7 +5,9 @@ import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.App
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.UserFamily
+import com.ssafy.zip.android.data.request.RequestFamilyroom
 import com.ssafy.zip.android.data.request.RequestLoginData
+import com.ssafy.zip.android.data.request.RequestModify
 import com.ssafy.zip.android.data.request.RequestSignup
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -27,7 +29,14 @@ class UserRepository private constructor(application: Application) {
         } else {
             response.code()
         }
-
+        return returnData
+    }
+    suspend fun postFcmToken(
+        token : String
+    ) : String? {
+        val response = ApiService.getApiService.putFcmToken(token)
+        var returnData : String?
+        returnData = response.code().toString()
         return returnData
     }
 
@@ -64,6 +73,19 @@ class UserRepository private constructor(application: Application) {
         return returnData
     }
 
+    suspend fun createRoom(
+        requestFamilyroom: RequestFamilyroom
+    ) : Any? {
+        val response = ApiService.getApiService.createFamily(requestFamilyroom)
+        var returnData : Any?
+        returnData = if(response.isSuccessful) {
+            response.body() as UserFamily
+        } else{
+            response.code()
+        }
+        return returnData
+    }
+
     suspend fun logout()
     : String?{
         val response = ApiService.getApiService.logoutUser()
@@ -73,16 +95,16 @@ class UserRepository private constructor(application: Application) {
     }
 
     suspend fun modifyUser(
-        profileImg: MultipartBody.Part?,
-        familyName : RequestBody,
-        nickname : RequestBody
+       requestModify: RequestModify
     ) : Any?{
-        val response = ApiService.getApiService.modifyUser(profileImg, familyName, nickname)
+        val response = ApiService.getApiService.modifyUser(requestModify)
+        println("modifyUser response: " + response)
+
         var returnData : Any?
         returnData = if(response.isSuccessful) {
             response.body() as User
         } else {
-            response.code()
+            null
         }
         return returnData
     }

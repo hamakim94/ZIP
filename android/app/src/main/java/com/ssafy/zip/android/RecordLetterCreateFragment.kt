@@ -1,30 +1,25 @@
 package com.ssafy.zip.android
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.MissionModel
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.data.request.RequestLetter
-import com.ssafy.zip.android.databinding.FragmentRecordBoardCreateBinding
 import com.ssafy.zip.android.databinding.FragmentRecordLetterCreateBinding
 import com.ssafy.zip.android.repository.BoardRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
-import okhttp3.RequestBody
 
 class RecordLetterCreateFragment : Fragment() {
 
@@ -73,7 +68,7 @@ class RecordLetterCreateFragment : Fragment() {
         binding.greenBtn.setOnClickListener{
             binding.greenBtn.setImageResource(R.drawable.circle_green_selected)
             binding.yellowBtn.setImageResource(R.drawable.circle_yellow)
-            binding.pinkBtn.setImageResource(R.drawable.circle_green)
+            binding.pinkBtn.setImageResource(R.drawable.circle_pink)
             binding.letterContainer.setBackgroundColor(Color.parseColor("#F4FFDC"))
             letterBackGroundColor = "green"
         }
@@ -106,11 +101,15 @@ class RecordLetterCreateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (user.profileImg == null) {
+        val toolbar: Toolbar = binding.letterCreateAppbar
+        // 앨범명으로 appbar title 지정
+        toolbar.title = "오늘의 편지 작성"
+
+        if (user.character == null) {
             binding.profileImage.setImageResource(R.drawable.ex)
         } else {
             Glide.with(view)
-                .load(user.profileImg)
+                .load(user.character!!.img)
                 .into(binding.profileImage)
         }
         binding.userNickname.text = user.nickname

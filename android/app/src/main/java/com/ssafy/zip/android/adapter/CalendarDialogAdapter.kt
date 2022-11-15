@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.FamilyMember
-import com.ssafy.zip.android.data.User
 
 
 class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?, var link:CalendarFragment.MemberSelectAdapter) : RecyclerView.Adapter<CalendarDialogAdapter.CalendarFamilyViewHolder>() {
@@ -25,11 +23,11 @@ class CalendarDialogAdapter(private val memberList: ArrayList<FamilyMember>?, va
 
     override fun onBindViewHolder(holder: CalendarFamilyViewHolder, position: Int) {
         val member = memberList?.get(position)
-        if (member?.profileImg == null) {
+        if (member?.character == null) {
             holder.familyImage.setImageResource(R.drawable.ex2)
         } else {
             Glide.with(holder.itemView)
-                .load(member.profileImg)
+                .load(member.character!!.img)
                 .into(holder.familyImage)
         }
 

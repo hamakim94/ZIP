@@ -28,11 +28,13 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         dataManager = DataManager.Instance;
     }
     // Start is called before the first frame update
+#if UNITY_EDITOR
     void Start()
     {
         StartCoroutine(StartLoading());
     }
-    #endregion
+#endif
+#endregion
 
     #region MonoBehaviourPunCallbacks Callbacks;
     public override void OnConnectedToMaster()

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,6 +23,7 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
     
     class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val homeImage: CircleImageView = itemView.findViewById(R.id.home_image)
+        val homeText : TextView = itemView.findViewById(R.id.home_nickname)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -34,19 +36,20 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val homeImage = homeList[position]
-        if(homeImage.profileImg==null) {
+        holder.homeText.text = homeImage.nickname
+        if(homeImage.character==null) {
             holder.homeImage.setImageResource(R.drawable.ex)
         } else{
             Glide.with(holder.itemView)
-                .load(homeImage.profileImg)
+                .load(homeImage.character!!.img)
                 .into(holder.homeImage)
         }
-
         holder.homeImage.setOnClickListener {
             val dialog = CustomDialog()
             val args = Bundle()
             args.putParcelable("key", homeImage)
             args.putString("familyName", familyName)
+            args.putLong("familyUserId", homeImage.id) // 가족 구성원 아이디
             dialog.arguments = args
             dialog.show(mFragmentManager, "됐다")
         }

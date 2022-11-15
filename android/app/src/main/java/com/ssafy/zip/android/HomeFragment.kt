@@ -1,16 +1,22 @@
 package com.ssafy.zip.android
 
 import android.app.Application
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.adapter.HomeAdapter
 import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.FamilyMember
@@ -22,6 +28,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +39,6 @@ class HomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         activity = context as MainActivity
     }
 
@@ -54,13 +60,31 @@ class HomeFragment : Fragment() {
             }
         }
         binding.mission1Btn.setOnClickListener{
-            val action = HomeFragmentDirections.actionHomeFragmentToRecordFragment()
-            binding.root.findNavController().navigate(action)
+            var bundle = Bundle()
+            viewModel.missions.value?.qna?.let { it1 -> bundle.putLong("id",  it1.id) }
+            binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordQnaDetailFragment, bundle)
         }
 
         binding.mission2Btn.setOnClickListener{
-            val action = HomeFragmentDirections.actionHomeFragmentToRecordFragment()
-            binding.root.findNavController().navigate(action)
+            var bundle = Bundle()
+            bundle.putParcelable("Letter", viewModel.missions.value?.letter)
+            bundle.putParcelable("User", viewModel.userData.value)
+            if(viewModel.missions.value?.letter?.isSent == true){
+                MaterialAlertDialogBuilder(activity)
+                    .setMessage("이미 작성하셨습니다")
+                    .setPositiveButton("확인") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            } else{
+                binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordLetterCreateFragment, bundle)
+            }
+        }
+        binding.familyCodeCopyContainer.setOnClickListener{
+            val clipboard = requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("label", binding.familyCode.text)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(context, R.string.family_code_clipboard, Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }
@@ -71,6 +95,7 @@ class HomeFragment : Fragment() {
         observeFamily(activity)
         observeMission(activity)
         homeList = ArrayList()
+
     }
 
     private fun observeFamily(activity: MainActivity){
@@ -88,6 +113,8 @@ class HomeFragment : Fragment() {
                 else -> 4
             }
             binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, cnt)
+            binding.familyCode.text = viewModel.familyData.value?.code.toString()
+            binding.familyPoint.text = viewModel.familyData.value?.points.toString()
         }
         viewModel.familyData.observe(viewLifecycleOwner, observer)
     }
@@ -95,13 +122,15 @@ class HomeFragment : Fragment() {
     private fun observeMission(activity: MainActivity){
         val observer = Observer<Missions> { _ ->
             binding.viewmodel = viewModel
-            if(viewModel.familyData.value?.familyList?.size!!>0){
+            if(viewModel.familyData.value?.familyList?.size!!>1){
                 val size = viewModel.familyData.value?.familyList?.size!!.toDouble()
                 binding.mission1Progress.progress = ((viewModel.missions.value?.qna?.answerCnt!!/size)*100).toInt()
                 binding.mission2Progress.progress = ((viewModel.missions.value?.letter?.today!!/size)*100).toInt()
             } else{
+                binding.missionContainer.isGone = true
                 binding.mission1Progress.progress = 0
                 binding.mission2Progress.progress = 0
+                binding.missionContainerFamilyzero.isGone = false
             }
         }
         viewModel.missions.observe(viewLifecycleOwner, observer)

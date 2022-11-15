@@ -19,27 +19,27 @@ class CalendarRepository private constructor(application: Application) {
 
     suspend fun getCalendarMonthList(year: Int, month: Int): Any? {
         val response = ApiService.getApiService.getCalendarMonthList(year, month)
-        println(response)
-        println(response.body())
+//        println(response)
+//        println(response.body())
         return if(response.isSuccessful) response.body() as List<Calendar> else null
     }
 
     suspend fun addCalendar(requestCalendar: RequestCalendar): Calendar? {
         val response = ApiService.getApiService.addCalendarData(requestCalendar)
-        println("일정 추가 response: " + response)
-        println("response.body(): " + response.body())
+//        println("일정 추가 response: " + response)
+//        println("response.body(): " + response.body())
         return if(response.isSuccessful) response.body() as Calendar else null
     }
 
     suspend fun getFamilyData(): ArrayList<FamilyMember>?{
         val response = ApiService.getApiService.getFamily()
-        println("HomeRepository getFamily response: " + response)
+//        println("HomeRepository getFamily response: " + response)
         return if(response.isSuccessful) response.body()?.familyList as ArrayList<FamilyMember> else null
     }
 
     suspend fun deleteCalendar(id: Long): String? {
         val response = ApiService.getApiService.deleteCalendar(id)
-        println("CalendarRepository deleteCalendar response: " + response)
+//        println("CalendarRepository deleteCalendar response: " + response)
 
         return if(response.isSuccessful) response.body() else null
     }
