@@ -2197,7 +2197,7 @@ Transform:
   - {fileID: 2088523960}
   - {fileID: 974508102}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &394502523
 GameObject:
@@ -5272,7 +5272,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1016874953
 GameObject:
@@ -5955,7 +5955,7 @@ RectTransform:
   - {fileID: 1744914157}
   - {fileID: 1844775459}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7443,6 +7443,7 @@ MonoBehaviour:
   albumPanel: {fileID: 53439612}
   photoPanel: {fileID: 264895336}
   furniturePanel: {fileID: 49057138}
+  exitConfirmPanel: {fileID: 1844775460}
   BtnList: {fileID: 697806478}
   BuildList: {fileID: 163361712}
 --- !u!1 &1560374519
@@ -9885,6 +9886,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 181
       objectReference: {fileID: 0}
+    - target: {fileID: 5349853593083536424, guid: b30b827128a84054ca18829b60837e8d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5349853593083536424, guid: b30b827128a84054ca18829b60837e8d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1844775461}
+    - target: {fileID: 5349853593083536424, guid: b30b827128a84054ca18829b60837e8d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickCancelBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 5349853593083536424, guid: b30b827128a84054ca18829b60837e8d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ExitConfirmPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5349853593083536425, guid: b30b827128a84054ca18829b60837e8d,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -9931,6 +9952,26 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontSize
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 8402599988960632653, guid: b30b827128a84054ca18829b60837e8d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402599988960632653, guid: b30b827128a84054ca18829b60837e8d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1844775461}
+    - target: {fileID: 8402599988960632653, guid: b30b827128a84054ca18829b60837e8d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickConfirmBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 8402599988960632653, guid: b30b827128a84054ca18829b60837e8d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ExitConfirmPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8402599988960632654, guid: b30b827128a84054ca18829b60837e8d,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -9975,6 +10016,24 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1844775458}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1844775460 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2573158305752531577, guid: b30b827128a84054ca18829b60837e8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1844775458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1844775461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844775460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1815cd210693b47961ddbf502b4cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1922972480
 GameObject:
   m_ObjectHideFlags: 0
