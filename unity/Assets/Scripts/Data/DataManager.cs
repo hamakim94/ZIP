@@ -61,7 +61,7 @@ private void Awake()
     {
         this.userItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 사용자가구[](사용자가구 list)
         var json = "";
-        UnityWebRequest www = APIManager.GetWWW("GET", "/unity/create", null);
+        using UnityWebRequest www = APIManager.GetWWW("GET", "/unity/create", null);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
         {
@@ -77,6 +77,7 @@ private void Awake()
                 this.userItemDicData.Add(data.id, data.itemList);
             }
         }
+        www.Dispose();
     }
 
     public RawData itemIdToItem(long positionId, long itemId)
@@ -102,7 +103,7 @@ private void Awake()
     {
         string url = "/unity/shop/" + furnitureId.ToString();
         Debug.Log(url);
-        UnityWebRequest www = APIManager.GetWWW("POST", url, null);
+        using UnityWebRequest www = APIManager.GetWWW("POST", url, null);
         yield return www.SendWebRequest();
         if(www.result != UnityWebRequest.Result.Success)
         {
@@ -110,9 +111,16 @@ private void Awake()
         }
         else
         {
-            MainPanel.Instance.UpdatePoint();
+            ExitGames.Client.Photon.Hashtable customProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+            if (customProperties.ContainsKey("action"))
+            {
+                customProperties.Remove("action");
+            }
+            customProperties.Add("action", "buy");
+            PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
             afterBuyFurniture(1);
         }
+        www.Dispose();
     }
 
     public IEnumerator SetFurniture(long positionId, long furnitureId)
@@ -122,7 +130,7 @@ private void Awake()
         unityUseItemRequestDTO.furniturePosition = positionId;
         unityUseItemRequestDTO.furnitureId = furnitureId;
         string json = JsonUtility.ToJson(unityUseItemRequestDTO);
-        UnityWebRequest www = APIManager.GetWWW("POST", "/unity/use", json);
+        using UnityWebRequest www = APIManager.GetWWW("POST", "/unity/use", json);
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
         www.uploadHandler = new UploadHandlerRaw(jsonToSend);
         www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -160,6 +168,7 @@ private void Awake()
             PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
             StartBuild.setFuniture(positionId, furnitureId);
         }
+        www.Dispose();
     }
     #endregion
 

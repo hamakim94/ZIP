@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             LocalPlayerInstance = gameObject;
             FollowCamera.target = gameObject.transform;
             gameObject.tag = "Player";
+            AudioListener.volume = 1;
         }
         DontDestroyOnLoad(gameObject);
     }
