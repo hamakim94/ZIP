@@ -114,8 +114,6 @@ class MainActivity : AppCompatActivity() {
     ) { isGranted: Boolean ->
         if (isGranted) {
             var token = FirebaseMessaging.getInstance().token;
-            println("bbbbbbbbb권한 획득" )
-            // FCM SDK (and your app) can post notifications.
         } else {
             // TODO: Inform user that that your app will not show notifications.
         }

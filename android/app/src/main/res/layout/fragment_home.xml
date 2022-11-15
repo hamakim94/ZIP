@@ -106,6 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp"
+                        android:background="@android:color/transparent"
                         android:src="@drawable/ic_outline_content_copy_20"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
