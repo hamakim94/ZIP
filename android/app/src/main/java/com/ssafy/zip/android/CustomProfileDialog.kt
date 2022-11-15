@@ -6,28 +6,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.FamilyMember
-import com.ssafy.zip.android.databinding.FragmentDialogBinding
+import com.ssafy.zip.android.databinding.FragmentProfileDialogBinding
 import com.ssafy.zip.android.repository.HomeRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CustomDialog : DialogFragment() {
-    private var _binding: FragmentDialogBinding? = null
+class CustomProfileDialog : DialogFragment() {
+    private var _binding: FragmentProfileDialogBinding? = null
     private val binding get() = _binding!!
     private var editflag = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileDialogBinding.inflate(inflater, container, false)
         val data = requireArguments().getParcelable<FamilyMember>("key")
         val familyName = requireArguments().getString("familyName")
         val familyId = requireArguments().getLong("familyUserId")
@@ -35,7 +37,11 @@ class CustomDialog : DialogFragment() {
 
         if (familyId != null) {
             if (familyId != userId) {
-                binding.editBtn.isInvisible = true
+                binding.editBtn.isGone = true
+            } else {
+                val dm = resources.displayMetrics
+                val size = Math.round(20 * dm.density)
+                binding.profileConstraint.setPadding(0, 0, 0, size)
             }
         }
         binding.dialogButton.text = "닫기"

@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="20dp"
+    android:paddingVertical="20dp"
+    android:id="@+id/profile_constraint"
     >
 
     <androidx.constraintlayout.widget.Guideline
@@ -19,7 +20,6 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:background="@color/white"
         android:drawableEnd="@drawable/ic_outline_edit_24"
@@ -28,8 +28,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/dialog_image"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginHorizontal="100dp"
         app:civ_circle_background_color="@color/darkgray"
         app:civ_border_color="@color/grey"
@@ -37,8 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_btn" />
-
-
 
     <TextView
         android:id="@+id/dialog_left_name"
