@@ -20,14 +20,17 @@ public class PlusButton : MonoBehaviour
 
     public void buttonOnClick()
     {
-        furniturePanel.GetComponent<FurniturePanel>().SetPosId(id);
-        furniturePanel.SetActive(false);
-        furniturePanel.SetActive(true);
-        var childObj = obj.transform.GetChild((int)id - 1);
-        childObj.GetChild(0).gameObject.SetActive(true);
-        c.GetComponent<FollowCamera>().enabled = false;
-        c.transform.position = new Vector3(childObj.position.x - 0.52f, c.transform.position.y, childObj.position.z - 6.56f);
-        c.transform.LookAt(childObj);
+        StartCoroutine(DataManager.Instance.LoadUserItemData(id, delegate (long id)
+        {
+            furniturePanel.GetComponent<FurniturePanel>().SetPosId(id);
+            furniturePanel.SetActive(false);
+            furniturePanel.SetActive(true);
+            var childObj = obj.transform.GetChild((int)id - 1);
+            childObj.GetChild(0).gameObject.SetActive(true);
+            c.GetComponent<FollowCamera>().enabled = false;
+            c.transform.position = new Vector3(childObj.position.x - 0.52f, c.transform.position.y, childObj.position.z - 6.56f);
+            c.transform.LookAt(childObj);
+        }));
     }
 }
  

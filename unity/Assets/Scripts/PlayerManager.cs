@@ -42,7 +42,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         // Create the UI
         if (this.playerUiPrefab != null)
         {
+            var target = GameObject.Find("PlayerUIParent");
             GameObject _uiGo = Instantiate(this.playerUiPrefab);
+            _uiGo.transform.parent = target.transform;
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
         else
