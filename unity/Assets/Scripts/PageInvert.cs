@@ -18,6 +18,7 @@ public class PageInvert : MonoBehaviour
     public GameObject albumPanel;
     public GameObject photoPanel;
     public GameObject furniturePanel;
+    public GameObject exitConfirmPanel; 
     public GameObject BtnList;
     public GameObject BuildList;
     Vector3 m_vecMouseDownPos;
@@ -56,6 +57,7 @@ public class PageInvert : MonoBehaviour
             // 광선으로 충돌된 collider를 hit에 넣습니다.
             if (Physics.Raycast(ray, out hit))
             {
+                Debug.Log("hit.collider.name: " + hit.collider.name);
                 // 어떤 오브젝트인지 로그를 찍습니다.
                 if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
                 {
@@ -114,6 +116,11 @@ public class PageInvert : MonoBehaviour
             BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(toggle);
         }
         toggle = !toggle;
+    }
+
+    public void DoorButtonClicked()
+    {
+        exitConfirmPanel.SetActive(true);
     }
 
     private void setActive(int panel){
