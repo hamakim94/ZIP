@@ -32,6 +32,7 @@ public class MainPanel : MonoBehaviour
     void Update()
     {
     }
+    
     void Start()
     {
         StartCoroutine(UpdatePoint());
@@ -49,7 +50,7 @@ public class MainPanel : MonoBehaviour
     #region Private Methods
     public IEnumerator UpdatePoint()
     {
-        UnityWebRequest www = APIManager.GetWWW("GET", "/users/points", null);
+        using UnityWebRequest www = APIManager.GetWWW("GET", "/users/points", null);
 
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
@@ -62,6 +63,7 @@ public class MainPanel : MonoBehaviour
             pointText.text = www.downloadHandler.text.ToString();
             pointLegacy.text = www.downloadHandler.text.ToString();
         }
+        www.Dispose();
     }
     #endregion
 }

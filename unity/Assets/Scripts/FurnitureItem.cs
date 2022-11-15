@@ -38,7 +38,6 @@ public class FurnitureItem : MonoBehaviour
     public void OnClickPriceBtn()
     {
         // 구매 api 통신 
-        Debug.Log(id);
         StartCoroutine(DataManager.Instance.BuyFurniture(id, SetState));
     }
 
@@ -56,17 +55,13 @@ public class FurnitureItem : MonoBehaviour
 
         SetState(2);
         FurniturePanel.idx = transform.GetSiblingIndex();
-        Debug.Log("start");
         setFuniture(posId, id);
-        Debug.Log("end");
 
     }
 
     public void setFuniture(long posId, long id)
     {
-        Debug.Log("set start");
         StartCoroutine(DataManager.Instance.SetFurniture(posId, id));
-        Debug.Log("set end");
         /*var itemData = (ItemData)DataManager.Instance.itemIdToItem(posId, id);
         var target = GameObject.Find("SelectObject").transform.GetChild((int)posId - 1);
         // 선택한 item 배치 

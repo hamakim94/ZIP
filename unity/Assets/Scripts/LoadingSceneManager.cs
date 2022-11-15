@@ -189,7 +189,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     private IEnumerator LoadUserInfo()
     {
         var json = "";
-        UnityWebRequest www = APIManager.GetWWW("GET", "/users/profiles", null);
+        using UnityWebRequest www = APIManager.GetWWW("GET", "/users/profiles", null);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
         {
@@ -200,12 +200,12 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             json = www.downloadHandler.text;
         }
         dataManager.user = JsonConvert.DeserializeObject<UserInfo>(json);
-
+        www.Dispose();
     }
     private IEnumerator LoadAlbumData()
     {
         dataManager.albumDicData = new Dictionary<long, RawData>(); // album id : AlbumData
-        UnityWebRequest www = APIManager.GetWWW("GET", "/album", null);
+        using UnityWebRequest www = APIManager.GetWWW("GET", "/album", null);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
         {
@@ -238,13 +238,13 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
                 dataManager.albumDicData.Add(data.id, data);
             }
         }
-
+        www.Dispose();
     }
 
     private IEnumerator LoadUserAlbumData()
     {
         DataManager.Instance.userAlbumDicData = new Dictionary<long, RawData>(); // 앨범 pos id : UserAlbumData
-        UnityWebRequest www = APIManager.GetWWW("GET", "/unity/album", null);
+        using UnityWebRequest www = APIManager.GetWWW("GET", "/unity/album", null);
         yield return www.SendWebRequest(); // api 통신해서 json 가져오기 
         var json = www.downloadHandler.text;
         var arrData = JsonConvert.DeserializeObject<UserAlbumData[]>(json);
@@ -266,13 +266,15 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             Debug.Log(data);
             DataManager.Instance.userAlbumDicData.Add(data.id, data);
         }
+        www.Dispose();
     }
     private IEnumerator GetTexture(PhotoData picture)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
+        using UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
         yield return www.SendWebRequest();
 
         picture.texture = DownloadHandlerTexture.GetContent(www);
+        www.Dispose();
     }
     #endregion
 }
