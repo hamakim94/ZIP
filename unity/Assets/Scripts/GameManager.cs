@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             case "init":
                 break;
+            case "buy":
+                StartCoroutine(MainPanel.Instance.UpdatePoint());
+                break;
             case "furniture":
                 StartBuild.setFuniture((long)propertiesThatChanged["id"], (long)((Hashtable)propertiesThatChanged["furniture"])[propertiesThatChanged["id"]]);
                 break;

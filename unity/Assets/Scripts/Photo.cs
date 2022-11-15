@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class Photo : MonoBehaviour
 {
-    public int id; // æ◊¿⁄ id 
+    public int id; // Ïï°Ïûê id 
     
     public void SetTexture(PhotoData photoData)
     {
@@ -24,7 +24,6 @@ public class Photo : MonoBehaviour
 
     public void SetTexture(long pictureId)
     {
-        PhotoData photoData = null;
         Dictionary<long, RawData> albumData = DataManager.Instance.albumDicData;
         bool result = false; 
         UserAlbumData userAlbumData = new UserAlbumData();
@@ -60,7 +59,7 @@ public class Photo : MonoBehaviour
 }
     public IEnumerator sendAPI(string json, UserAlbumData userAlbumData)
     {
-        UnityWebRequest www = APIManager.GetWWW("POST", "/unity/album", json);
+        using UnityWebRequest www = APIManager.GetWWW("POST", "/unity/album", json) ;
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
         www.uploadHandler = new UploadHandlerRaw(jsonToSend);
         www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -97,6 +96,7 @@ public class Photo : MonoBehaviour
             PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
             SetTexture(userAlbumData);
         }
+        www.Dispose();
 
     }
 }
