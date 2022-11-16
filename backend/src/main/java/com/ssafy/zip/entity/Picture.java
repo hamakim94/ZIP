@@ -3,8 +3,6 @@ package com.ssafy.zip.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,7 +27,6 @@ public class Picture {
 
     @JsonBackReference
     @ManyToOne
-    @OnDelete(action= OnDeleteAction.CASCADE)
     @JoinColumn(name = "album_id")
     Album album;
 
