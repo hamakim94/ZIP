@@ -125,6 +125,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 
         calendarView = view.findViewById(R.id.calendarView)
         calendarView.setTitleFormatter(TitleFormatter { "${curYear}년 ${curMonth}월" })
+        calendarView.setHeaderTextAppearance(R.style.CustomHeaderTextAppearance)
 
         // 날짜 표시
         val dayText: TextView = view.findViewById(R.id.day_text)

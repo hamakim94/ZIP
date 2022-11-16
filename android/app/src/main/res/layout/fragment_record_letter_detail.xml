@@ -59,7 +59,8 @@
             android:layout_height="22dp"
             android:layout_marginStart="4dp"
             app:layout_constraintStart_toEndOf="@id/letterUserNicknameDetail"
-            app:layout_constraintTop_toTopOf="@id/letterUserNicknameDetail">
+            app:layout_constraintTop_toTopOf="@id/letterUserNicknameDetail"
+            app:layout_constraintBottom_toBottomOf="@id/letterUserNicknameDetail">
         </androidx.constraintlayout.utils.widget.ImageFilterButton>
         <TextView
             android:id="@+id/letterRegDetail"

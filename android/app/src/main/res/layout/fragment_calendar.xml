@@ -2,76 +2,61 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="viewmodel"
             type="com.ssafy.zip.android.viewmodel.CalendarViewModel" />
     </data>
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".CalendarFragment"
         tools:ignore="MissingClass">
-
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
+            android:layout_margin="10dp"
             app:mcv_selectionColor="#6200EE" />
-
         <TextView
             android:id="@+id/day_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="25dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/darkgray2"
             android:textSize="15sp"
-            android:layout_below="@id/calendarView" />
-
+            android:layout_below="@id/calendarView"
+            android:fontFamily="@font/one_mobile_pop"/>
         <TextView
             android:id="@+id/endLayout"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="15dp"
             android:background="@drawable/layout_bottom"
             android:textColor="@color/black"
             android:layout_below="@id/day_text"
             tools:ignore="DuplicateIds" />
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:layout_below="@id/endLayout" >
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:descendantFocusability="blocksDescendants"
                     android:id="@+id/calendar_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/calendar_item" />
-
             </LinearLayout>
-
         </androidx.core.widget.NestedScrollView>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_calendar_fab"
             android:layout_width="wrap_content"
@@ -82,10 +67,6 @@
             app:srcCompat="@drawable/ic_baseline_add_24"
             app:tint="@color/white"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-             />
-
-
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
-
 </layout>
