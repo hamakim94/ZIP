@@ -50,8 +50,10 @@
     </style>
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/one_mobile_pop</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="toolbar_title" parent="@android:style/Widget.Toolbar">
-        <item name="android:fontFamily">@font/onemobilebold</item>
+        <item name="android:fontFamily">@font/one_mobile_pop</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>

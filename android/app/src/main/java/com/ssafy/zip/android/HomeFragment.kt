@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
 
-        binding.topText.setOnClickListener {
+        binding.topLogo.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = UserRepository.getInstance(Application())
                 var response = instance?.logout()
