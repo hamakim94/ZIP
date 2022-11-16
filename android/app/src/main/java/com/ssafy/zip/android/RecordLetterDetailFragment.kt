@@ -42,23 +42,20 @@ class RecordLetterDetailFragment : Fragment() {
         val userId = arguments?.getLong("userId")
         val letterData = arguments?.getParcelable<BoardModel.Letter>("Letter")
 
-        // 누가 썼는지 알려줄게
-
+        // 누가 썼는지
         if (letterData != null) {
             if (letterData.from.id == userId) {
-                binding.mailIcon.setImageResource(R.drawable.ic_baseline_mail_24)
+                binding.mailIcon.setImageResource(R.drawable.ic_outline_email_24)
                 binding.letterUserNicknameDetail.text = (letterData.to.nickname + "에게 쓴 편지")
-
             } else {
-                binding.mailIcon.setImageResource(R.drawable.ic_baseline_mark_email_read_24)
+                binding.mailIcon.setImageResource(R.drawable.ic_outline_mark_email_read_24)
                 binding.letterUserNicknameDetail.text = (letterData.from.nickname + "에게서 온 편지")
-
             }
             if(letterData.from.character != null){
                 Glide.with(view).load(letterData.from.character!!.img)
                     .into(binding.letterImageDetail)
             } else{
-                binding.letterImageDetail.setImageResource(R.drawable.ex)
+                binding.letterImageDetail.setImageResource(R.drawable.album)
             }
 
             when(letterData.stationery) {

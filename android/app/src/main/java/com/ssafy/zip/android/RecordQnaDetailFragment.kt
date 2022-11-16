@@ -146,8 +146,7 @@ class RecordQnaDetailFragment : Fragment() {
             binding.homeRecyclerView.adapter = homeAdapter
 
             val cnt = when (homeAdapter.itemCount) {
-                in 1..4 -> homeAdapter.itemCount
-                in 5..6 -> 3
+                in 1..6 -> homeAdapter.itemCount
                 else -> 4
             }
             binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, cnt)

@@ -56,4 +56,16 @@
         <item name="android:fontFamily">@font/one_mobile_pop</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="radio_btn" >
+        <item name="android:fontFamily">@font/one_mobile_pop</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+    <style name="board_character_name">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="board_reg">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/darkgray</item>
+    </style>
 </resources>

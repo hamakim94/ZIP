@@ -31,6 +31,7 @@
 
     <string name="edittext_hint"><font size="13">댓글 작성하기</font></string>
 
+    <string name="qna_participate">우리 가족 참여</string>
 
     <!-- login && signup  -->
     <string name="signup_text">회원가입</string>

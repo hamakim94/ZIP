@@ -12,27 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
-
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/letter_detail_appbar"
             style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:minHeight="48dp"
-            android:text="백문백답"
             app:maxButtonHeight="48dp"
             app:titleCentered="true"
             app:titleTextAppearance="@style/toolbar_title" />
     </com.google.android.material.appbar.AppBarLayout>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/profileContanier"
+        android:id="@+id/profileContainer2"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/letterImageDetail"
             android:layout_width="40dp"
@@ -42,10 +37,9 @@
             android:background="@color/darkgray"
             app:shapeAppearanceOverlay="@style/circleImageView"
             android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="@id/profileContanier"
+            app:layout_constraintBottom_toBottomOf="@id/profileContainer2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/profileContanier" />
-
+            app:layout_constraintTop_toTopOf="@id/profileContainer2" />
         <TextView
             android:id="@+id/letterUserNicknameDetail"
             android:layout_width="wrap_content"
@@ -59,17 +53,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintVertical_chainStyle="packed"/>
-
         <androidx.constraintlayout.utils.widget.ImageFilterButton
             android:id="@+id/mailIcon"
             android:layout_width="22dp"
-            android:layout_height="20dp"
+            android:layout_height="22dp"
             android:layout_marginStart="4dp"
             app:layout_constraintStart_toEndOf="@id/letterUserNicknameDetail"
             app:layout_constraintTop_toTopOf="@id/letterUserNicknameDetail">
-
         </androidx.constraintlayout.utils.widget.ImageFilterButton>
-
         <TextView
             android:id="@+id/letterRegDetail"
             android:layout_width="wrap_content"
@@ -79,11 +70,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/letterImageDetail"
             app:layout_constraintTop_toBottomOf="@+id/letterUserNicknameDetail"
-
             app:layout_constraintVertical_bias="0.5" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <LinearLayout
         android:id="@+id/letter_container"
         android:layout_width="match_parent"
@@ -96,7 +84,4 @@
             android:layout_height="match_parent"
             android:textColor="@color/black"></TextView>
     </LinearLayout>
-
-
-
 </LinearLayout>
