@@ -62,17 +62,30 @@ public class LetterServiceImpl implements LetterService {
                 .sorted((o1, o2) -> o2.reg().compareTo(o1.reg()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public LetterResponseDTO getLetter(UserDTO userDTO, Long letterId) {
+
+        Optional<Letter> result = letterRepository.findById(letterId);
+        if(result.isPresent()){
+            Letter o = result.get();
+            if(o.getFrom().getId().equals(userDTO.getId())||o.getTo().getId().equals(userDTO.getId()))
+                return LetterDTOMapStruct.INSTANCE.mapToLetterResponseDTO(o);
+            else throw new UnauthorizedRequestException("요청한 편지를 볼 수 없습니다.", ErrorCode.FORBIDDEN);
+        }else throw new ResourceNotFoundException("요청한 편지가 없습니다.", ErrorCode.NOT_FOUND);
+    }
+
     @SneakyThrows
     @Transactional
     @Override
     public void sendLetter(UserDTO userDTO, LetterRequestDTO letterRequestDTO) {
         User toUser = userRepository.getReferenceById(letterRequestDTO.toUserId());
-        letterRepository.save(Letter.builder().content(letterRequestDTO.content())
+        Letter letter = letterRepository.save(Letter.builder().content(letterRequestDTO.content())
                 .reg(LocalDateTime.now()).isRead(false).from(userRepository.getReferenceById(userDTO.getId()))
                 .to(toUser).stationery(letterRequestDTO.stationery())
                 .build()
         );
-        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),NotificationEnum.TodayLetterSentTome.getLink(), userDTO.getProfileImg().getImage(),false,LocalDateTime.now()),
+        notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.TodayLetterSentTome.getMessage(), userDTO.getNickname()),String.format(NotificationEnum.TodayLetterSentTome.getLink(), letter.getId()), userDTO.getProfileImg().getImage(),false,LocalDateTime.now()),
                 List.of(letterRequestDTO.toUserId()));
         pointService.updatePoint(userDTO, CommonCodeEnum.LetterSentForEach.getCode());
         List<Letter> list = letterRepository.findByFrom_FamilyIdAndRegAfter(userDTO.getFamilyId(), LocalDateTime.now().toLocalDate().atTime(0, 0));

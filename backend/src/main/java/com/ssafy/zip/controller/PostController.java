@@ -158,6 +158,12 @@ public class PostController {
         return ResponseEntity.ok(letterService.listLetters(userDTO));
     }
 
+    @GetMapping("/letter/{letterId}")
+    @ApiOperation("편지 조회")
+    ResponseEntity<LetterResponseDTO> getLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long letterId){
+        return ResponseEntity.ok(letterService.getLetter(userDTO,letterId));
+    }
+
     @PostMapping("/letter")
     @ApiOperation("편지 보내기")
     ResponseEntity<?> sendLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @RequestBody LetterRequestDTO letterRequestDTO){
