@@ -46,10 +46,16 @@ class CalendarAdapter(
             // holder.calendarImage.setImageResource(calendar.user)
             holder.calendarTitle.text = calendar.content
             // holder.calendarStart.text = calendar.startDate.toString()
+            // 여기서 0
+            var startHours = if(calendar.startDate.hours < 10) ("0" + calendar.startDate.hours) else calendar.startDate.hours.toString()
+            var startMinute = if(calendar.startDate.minutes < 10) ("0" + calendar.startDate.minutes)else calendar.startDate.minutes.toString()
+            var endHours = if(calendar.endDate.hours < 10) ("0" + calendar.endDate.hours) else calendar.endDate.hours.toString()
+            var endMinute = if(calendar.endDate.minutes < 10) ("0" + calendar.endDate.minutes) else calendar.endDate.minutes.toString()
+
             holder.calendarStart.text =
-                calendar.startDate.hours.toString() + ":" + calendar.startDate.minutes.toString()
+                startHours + ":" + startMinute
             holder.calendarEnd.text =
-                calendar.endDate.hours.toString() + ":" + calendar.endDate.minutes.toString()
+                endHours + ":" + endMinute
             calendarMemberAdapter = CalendarMemberAdapter(calendar.users)
             val cnt2 = when (calendarMemberAdapter.itemCount) {
                 in 1..4 -> calendarMemberAdapter.itemCount

@@ -39,6 +39,10 @@ interface ApiInterface {
         @Query(value = "token") token : String
     ) : Response<String>
 
+    @POST("users/notification/all")
+    suspend fun readNotificationAll(
+    ) : Response<String>
+
 
     @PUT("rooms/enter")
     suspend fun enterRoom(
@@ -180,6 +184,11 @@ interface ApiInterface {
     suspend fun postLetterRead(
         @Path("letterId") id : Long
     ) : Response<String>
+
+    @GET("post/letter/{letterId}")
+    suspend fun getLetterDetail(
+        @Path("letterId") id : Long
+    ) : Response<BoardModel.Letter>
 
     // 알림 관련
     @GET("users/notification")

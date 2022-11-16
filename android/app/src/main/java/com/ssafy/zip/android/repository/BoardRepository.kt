@@ -112,8 +112,14 @@ class BoardRepository private constructor(application: Application) {
         returnData = response.code().toString()
         return returnData
     }
-
-
+    // 편지 상세 상세
+    suspend fun getLetterDetail(
+        id : Long
+    ) : BoardModel.Letter? {
+        val response = ApiService.getApiService.getLetterDetail(id)
+        println("BoardRepository getLetterDetail response: " + response)
+        return if(response.isSuccessful) response.body() as BoardModel.Letter else null
+    }
 
     companion object {
         private var instance: BoardRepository? = null

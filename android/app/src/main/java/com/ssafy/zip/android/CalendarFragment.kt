@@ -247,6 +247,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                     pickedHour = materialTimePicker.hour
                     pickedMinute = materialTimePicker.minute
 
+
                     val formattedTime: String = when {
                         pickedHour > 12 -> {
                             if (pickedMinute < 10) {
