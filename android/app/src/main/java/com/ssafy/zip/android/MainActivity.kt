@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.zip.android.data.User
 import com.ssafy.zip.android.databinding.ActivityMainBinding
 import com.ssafy.zip.android.repository.HomeRepository
+import com.unity3d.player.UnityPlayer
 import com.unity3d.player.UnityPlayerActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,42 +27,41 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var _binding: ActivityMainBinding;
     private val binding get() = _binding!!
-    lateinit var User: User
+    lateinit var mUnityPlayer : UnityPlayer;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT"))
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        mUnityPlayer = UnityPlayer(App.ApplicationContext())
+        val glesMode: Int = mUnityPlayer.getSettings().getInt("gles_mode", 1)
+        val trueColor8888 = false
+        mUnityPlayer.init(glesMode, trueColor8888)
         // 네비게이션 호스트
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         // 네비게이션 컨트롤러 (네비게이션 그래프 정보를 바탕으로 네비게이션 간 이동을 담당)
         val navController = navHostFragment.navController
         binding.fab.setOnClickListener{
-            var Bundle = Bundle()
-            Bundle.putString("token", App.prefs.getString("accesstoken",""))
-            startActivity(Intent(this@MainActivity, UnityPlayerActivity::class.java), Bundle)
+            var intent = Intent(this@MainActivity, UnityPlayerActivity::class.java)
+            intent.putExtra("token", App.prefs.getString("accesstoken",""))
+            startActivity(intent)
         }
         // 자동 로그인
         if (!App.prefs.getString("accesstoken", "").equals("")) {
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = HomeRepository.getInstance(Application())
                 var response = instance?.getUserData()
-                println(response.toString())
                 if (response is User) {
-                    println(response.toString())
                     if (response.hasFamily) {
                         val navGraph =
                             navController.navInflater.inflate(R.navigation.bottom_bar_nav_graph)
                         navGraph.setStartDestination(R.id.homeFragment)
                         navController.setGraph(navGraph, null)
                     }
-
                 }
             }
             //여기에 가족코드 있는지 없는지 검사
@@ -109,8 +110,6 @@ class MainActivity : AppCompatActivity() {
 //        })
 //
 //    }
-
-
     // [START ask_post_notifications]
     // Declare the launcher at the top of your Activity/Fragment:
     private val requestPermissionLauncher = registerForActivityResult(
@@ -144,6 +143,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
     // [END ask_post_notifications]
-
 
 }
