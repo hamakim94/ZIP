@@ -26,6 +26,6 @@ public class Album {
     String name;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE)
     List<Picture> pictures = new ArrayList<>();
 }
