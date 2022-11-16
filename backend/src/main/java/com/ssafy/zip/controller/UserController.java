@@ -215,7 +215,7 @@ public class UserController {
 
         try {
             userService.confirmEmail(email, authToken);
-            response.sendRedirect("https://j7a708.p.ssafy.io/openApp");
+            response.sendRedirect("https://k7a407.p.ssafy.io/openApp");
         } catch (Exception e){
             try {
 //                response.sendRedirect("https://j7a708.p.ssafy.io/fail");
