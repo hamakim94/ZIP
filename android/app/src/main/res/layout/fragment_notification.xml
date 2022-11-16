@@ -26,6 +26,7 @@
                 android:layout_height="48dp"
                 android:minHeight="48dp"
                 android:text="알림"
+                app:menu="@menu/notification_top_app_bar"
                 app:maxButtonHeight="48dp"
                 app:titleCentered="true"
                 app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />

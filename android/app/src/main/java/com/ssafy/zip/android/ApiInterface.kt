@@ -39,6 +39,10 @@ interface ApiInterface {
         @Query(value = "token") token : String
     ) : Response<String>
 
+    @POST("users/notification/all")
+    suspend fun readNotificationAll(
+    ) : Response<String>
+
 
     @PUT("rooms/enter")
     suspend fun enterRoom(
