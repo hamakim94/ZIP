@@ -1,7 +1,9 @@
 package com.ssafy.zip.android
 
 import android.app.Application
-import android.content.*
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +25,7 @@ import com.ssafy.zip.android.data.Missions
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
 import com.ssafy.zip.android.repository.UserRepository
 import com.ssafy.zip.android.viewmodel.HomeViewModel
+import com.unity3d.player.MultiWindowSupport
 import com.unity3d.player.UnityPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,12 +51,7 @@ class HomeFragment : Fragment() {
         mUnityPlayer = (getActivity() as MainActivity).mUnityPlayer
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         var lp = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT)
-        if(mUnityPlayer.view.parent == null) {
-            binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
-        }
-        else{
-            binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
-        }
+        binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
         binding.viewmodel = viewModel
         binding.topText.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
@@ -65,14 +63,12 @@ class HomeFragment : Fragment() {
                 }
             }
 //            UnityPlayer.UnitySendMessage("MainPanel", "Exit","")
-            mUnityPlayer.windowFocusChanged(false)
+
         }
         binding.mission1Btn.setOnClickListener{
             var bundle = Bundle()
             viewModel.missions.value?.qna?.let { it1 -> bundle.putLong("id",  it1.id) }
 //            binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordQnaDetailFragment, bundle)
-            mUnityPlayer.resume()
-            mUnityPlayer.windowFocusChanged(true)
         }
 
         binding.mission2Btn.setOnClickListener{
@@ -97,7 +93,6 @@ class HomeFragment : Fragment() {
             Toast.makeText(context, R.string.family_code_clipboard, Toast.LENGTH_SHORT).show()
         }
 
-
         return binding.root
     }
 
@@ -107,6 +102,7 @@ class HomeFragment : Fragment() {
         observeFamily(activity)
         observeMission(activity)
         homeList = ArrayList()
+        println("완성")
     }
 
     private fun observeFamily(activity: MainActivity){
@@ -147,22 +143,49 @@ class HomeFragment : Fragment() {
         viewModel.missions.observe(viewLifecycleOwner, observer)
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        if (!MultiWindowSupport.getAllowResizableWindow(activity)) return
+        mUnityPlayer.windowFocusChanged(true)
+        mUnityPlayer.resume()
+    }
+    override fun onResume() {
+        super.onResume()
+
+        if (MultiWindowSupport.getAllowResizableWindow(activity) && !MultiWindowSupport.isMultiWindowModeChangedToTrue(
+                activity
+            )
+        ) return
+        mUnityPlayer.windowFocusChanged(true)
+        mUnityPlayer.resume()
+    }
     override fun onPause() {
         super.onPause()
-        println("pause")
-        binding.homeHouse.removeView(binding.homeHouse.getChildAt(0))
+
+        MultiWindowSupport.saveMultiWindowMode(activity)
+
+        if (MultiWindowSupport.getAllowResizableWindow(activity)) return
+        mUnityPlayer.windowFocusChanged(false)
+        mUnityPlayer.pause()
+
     }
 
     override fun onStop() {
         super.onStop()
-        println("stop")
+
+        if (!MultiWindowSupport.getAllowResizableWindow(activity)) return
+        mUnityPlayer.windowFocusChanged(false)
+        mUnityPlayer.pause()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding.homeHouse.removeView(binding.homeHouse.getChildAt(0))
+        mUnityPlayer.windowFocusChanged(false)
         _binding = null
     }
+
 
     // Quit Unity
 //    override fun onDestroy() {

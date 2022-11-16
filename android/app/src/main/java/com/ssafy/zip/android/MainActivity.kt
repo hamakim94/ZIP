@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -29,17 +28,19 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding;
     private val binding get() = _binding!!
-    lateinit var mUnityPlayer : UnityPlayer;
-
+     lateinit var mUnityPlayer : UnityPlayer;
+    var stopCheck : Boolean = false;
     override fun onCreate(savedInstanceState: Bundle?) {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT+9"))
         super.onCreate(savedInstanceState)
+        println("화면생성");
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mUnityPlayer = UnityPlayer(App.ApplicationContext())
         val glesMode: Int = mUnityPlayer.getSettings().getInt("gles_mode", 1)
         val trueColor8888 = false
         mUnityPlayer.init(glesMode, trueColor8888)
+        UnityPlayer.UnitySendMessage("Panel", "Init", App.prefs.getString("accesstoken",""))
         // 네비게이션 호스트
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
@@ -140,6 +141,39 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    // [END ask_post_notifications]
 
+    // Low Memory Unity
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mUnityPlayer.lowMemory()
+    }
+
+    // Trim Memory Unity
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        if (level == TRIM_MEMORY_RUNNING_CRITICAL) {
+            mUnityPlayer.lowMemory()
+        }
+    }
+    // [END ask_post_notifications]
+    fun restart(){
+        finishAffinity()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        System.exit(0)
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopCheck = true
+    }
+    override fun onResume() {
+        super.onResume()
+        if(stopCheck)
+            restart()
+    }
 }
