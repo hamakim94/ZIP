@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.request.RequestModify
@@ -19,11 +19,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ModifyFragment : Fragment() {
-
     private var _binding: FragmentModifyBinding? = null
     private val binding get() = _binding!!
     private lateinit var data: FamilyMember
     private lateinit var familyName: String
+    private lateinit var selectedCharacter : com.ssafy.zip.android.data.Character
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +33,8 @@ class ModifyFragment : Fragment() {
         _binding = FragmentModifyBinding.inflate(inflater, container, false)
         data = requireArguments().getParcelable<FamilyMember>("data")!!
         familyName = requireArguments().getString("familyName").toString()
+        selectedCharacter = data.character
+
         binding.editFamilyName.hint = familyName
         if (data != null) {
             binding.editNickname.hint = data.nickname
@@ -53,15 +57,14 @@ class ModifyFragment : Fragment() {
             }
         }
         if (data != null) {
-            if (data.profileImg == null) {
+            if (data.character == null) {
                 binding.profile.setImageResource(R.drawable.ex)
             } else {
                 Glide.with(binding.root)
-                    .load(data.profileImg!!.img)
+                    .load(data.character!!.img)
                     .into(binding.profile)
             }
         }
-
 
         return binding.root;
     }
@@ -80,10 +83,10 @@ class ModifyFragment : Fragment() {
                     familyName
                 } else binding.editFamilyName.text.toString()
                 var nickName = if (binding.editNickname.text?.isEmpty() == true) data.nickname
-                else binding.editFamilyName.text.toString()
+                else binding.editNickname.text.toString()
                 var response = instance?.modifyUser(
                     // 첫번째 값을 선택한 캐릭터값으로 넣어주기
-                    RequestModify(1, bodyFamilyName, nickName)
+                    RequestModify(selectedCharacter.id, bodyFamilyName, nickName)
                 )
                 if (response != null)
                     it.findNavController()
@@ -93,5 +96,20 @@ class ModifyFragment : Fragment() {
             }
         }
 
+        binding.profile.setOnClickListener{
+            val action = ModifyFragmentDirections.actionModifyFragmentToCharacterFragment(selectedCharacter)
+            binding.root.findNavController().navigate(action)
+            /*binding.root.findNavController().navigate(R.id.action_signupFragment_to_characterFragment)*/
+        }
+
+        findNavController().currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<com.ssafy.zip.android.data.Character>("character")
+            ?.observe(viewLifecycleOwner) {
+                selectedCharacter = it
+                Glide.with(view)
+                    .load(it.img)
+                    .into(binding.profile)
+            }
     }
 }

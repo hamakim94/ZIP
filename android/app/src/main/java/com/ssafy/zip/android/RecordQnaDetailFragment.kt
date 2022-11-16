@@ -60,7 +60,7 @@ class RecordQnaDetailFragment : Fragment() {
         binding.qnaCommentPostBtn.setOnClickListener {
             val id = viewModel.qnaDetail.value?.Id
             //날짜 변환
-            var now = System.currentTimeMillis()
+            var now = System.currentTimeMillis() //+ 32400000
             var nowDate: Date = Date(now)
             var dateFormat = SimpleDateFormat("yyyy-MM-dd")
             var nowTime = dateFormat.format(nowDate) // 현재 시간

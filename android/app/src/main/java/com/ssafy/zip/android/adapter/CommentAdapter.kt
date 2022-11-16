@@ -31,8 +31,8 @@ class CommentAdapter(private val commentList: ArrayList<Comment>) :
         holder.commentUser.text = currentItem.user.nickname
         holder.commentReg.text = DateUtil.txtDate(currentItem.reg)
         holder.commentContent.text = currentItem.content
-        if(currentItem.user.profileImg != null) {
-            Glide.with(holder.itemView).load(currentItem.user.profileImg!!.img)
+        if(currentItem.user.character != null) {
+            Glide.with(holder.itemView).load(currentItem.user.character!!.img)
                 .into(holder.commentUserImage)
         } else{
             holder.commentUserImage.setImageResource(R.drawable.ex)

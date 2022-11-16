@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mUnityPlayer : UnityPlayer;
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        TimeZone.setDefault(TimeZone.getTimeZone("GMT"))
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT+9"))
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // 특정화면에서 하단바 없애기
             if (destination.id == R.id.loginFragment || destination.id == R.id.signupFragment || destination.id == R.id.signUpCompleteFragment || destination.id == R.id.recordBoardCreateFragment || destination.id == R.id.recordLetterCreateFragment || destination.id == R.id.recordQnaDetailFragment || destination.id == R.id.recordBoardDetailFragment
-                || destination.id == R.id.familyEnterFragment || destination.id == R.id.familyCreateFragment) {
+                || destination.id == R.id.familyEnterFragment || destination.id == R.id.familyCreateFragment || destination.id == R.id.characterFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
                 binding.fab.visibility = View.GONE
@@ -117,8 +117,6 @@ class MainActivity : AppCompatActivity() {
     ) { isGranted: Boolean ->
         if (isGranted) {
             var token = FirebaseMessaging.getInstance().token;
-            println("bbbbbbbbb권한 획득")
-            // FCM SDK (and your app) can post notifications.
         } else {
             // TODO: Inform user that that your app will not show notifications.
         }

@@ -81,10 +81,10 @@ class CommentQnaAdapter(private val commentList: ArrayList<Comment>, id: Long?) 
         holder.commentQnaUserNickname.text = currentItem.user.nickname
         holder.commentQnaReg.text = DateUtil.txtDate(currentItem.reg)
         holder.commentQnaContent.text = currentItem.content
-        if (currentItem.user.profileImg == null) {
+        if (currentItem.user.character == null) {
             holder.commentQnaProfileImage.setImageResource(R.drawable.ex)
         } else {
-            Glide.with(holder.itemView).load(currentItem.user.profileImg!!.img)
+            Glide.with(holder.itemView).load(currentItem.user.character!!.img)
                 .into(holder.itemView.findViewById(R.id.commentQnaProfileImage))
         }
 

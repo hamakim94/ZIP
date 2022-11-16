@@ -6,21 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.ssafy.zip.android.data.FamilyMember
-import com.ssafy.zip.android.data.request.RequestModify
 import com.ssafy.zip.android.databinding.FragmentDialogBinding
 import com.ssafy.zip.android.repository.HomeRepository
-import com.ssafy.zip.android.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MediaType
-import okhttp3.RequestBody
 
 class CustomDialog : DialogFragment() {
     private var _binding: FragmentDialogBinding? = null
@@ -45,11 +40,11 @@ class CustomDialog : DialogFragment() {
         }
         binding.dialogButton.text = "닫기"
         if (data != null) {
-            if (data.profileImg == null) {
+            if (data.character == null) {
                 binding.dialogImage.setImageResource(R.drawable.ex)
             } else {
                 Glide.with(binding.root)
-                    .load(data.profileImg!!.img)
+                    .load(data.character!!.img)
                     .into(binding.dialogImage)
             }
             binding.dialogRightName.text = data.name

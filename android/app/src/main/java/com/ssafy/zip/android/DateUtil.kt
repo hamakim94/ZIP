@@ -23,7 +23,7 @@ object DateUtil {
     fun txtDate(tempDate: Date): String {
         val curTime = System.currentTimeMillis()
         val regTime: Long = tempDate.time
-        var diffTime = (curTime - regTime) / 1000 + 32400
+        var diffTime = (curTime - regTime) / 1000 //+ 32400
         var msg: String? = null
         if (diffTime < SEC) {
             msg = "방금 전"
