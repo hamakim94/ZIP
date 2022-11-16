@@ -8,9 +8,10 @@ public class Album : MonoBehaviour
     public Button albumCloseButton;
     public GameObject mainPanel;
     public GameObject albumPanel;
+    public Camera mainCamera;
 
     // Start is called before the first frame update
-    void Start()
+/*    void Start()
     {
         
     }
@@ -20,8 +21,10 @@ public class Album : MonoBehaviour
     {
         
     }
-
+*/
     public void AlbumCloseButtonClicked(){
+        PlayerUI.isActive = true;
+        mainCamera.transform.GetComponent<FollowCamera>().enabled = true;
         mainPanel.SetActive(true);
         albumPanel.SetActive(false);
     }

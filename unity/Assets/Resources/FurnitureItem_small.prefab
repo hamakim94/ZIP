@@ -841,6 +841,7 @@ MonoBehaviour:
   priceBtn: {fileID: 6535012611126452182}
   locked: {fileID: 6535012613003037777}
   priceText: {fileID: 6535012613038927687}
+  hasItemId: 0
 --- !u!114 &6535012612282197239
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ using System;
 public class PageInvert : MonoBehaviour
 {
     enum Panel{
-        main, shop, inventory, album, photo, furniture
+        main, shop, inventory, album, photo, furniture, btnlist
     }
 
     private GameObject[] panels;
@@ -18,16 +18,17 @@ public class PageInvert : MonoBehaviour
     public GameObject albumPanel;
     public GameObject photoPanel;
     public GameObject furniturePanel;
+    public GameObject exitConfirmPanel; 
     public GameObject BtnList;
     public GameObject BuildList;
-    public Vector3 m_vecMouseDownPos;
+    public Camera mainCamera;
+    Vector3 m_vecMouseDownPos;
     public static GameObject photoGO;
-    private bool toggle = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel, furniturePanel};
+        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel, furniturePanel, BtnList};
         MainButtonClicked();
     }
 
@@ -35,10 +36,10 @@ public class PageInvert : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        // ¸¶¿ì½º Å¬¸¯ ½Ã
+        // ë§ˆìš°ìŠ¤ í´ë¦­ ì‹œ
         if (Input.GetMouseButtonDown(0))
 #else
-        // ÅÍÄ¡ ½Ã
+        // í„°ì¹˜ ì‹œ
         if (Input.touchCount > 0)
 #endif
         {
@@ -49,22 +50,40 @@ public class PageInvert : MonoBehaviour
             if(Input.GetTouch(0).phase != TouchPhase.Began)
                 return;
 #endif
-            // Ä«¸Ş¶ó¿¡¼­ ½ºÅ©¸°¿¡ ¸¶¿ì½º Å¬¸¯ À§Ä¡¸¦ Åë°úÇÏ´Â ±¤¼±À» ¹İÈ¯ÇÕ´Ï´Ù.
-            Ray ray = Camera.main.ScreenPointToRay(m_vecMouseDownPos);
+            // ì¹´ë©”ë¼ì—ì„œ ìŠ¤í¬ë¦°ì— ë§ˆìš°ìŠ¤ í´ë¦­ ìœ„ì¹˜ë¥¼ í†µê³¼í•˜ëŠ” ê´‘ì„ ì„ ë°˜í™˜í•©ë‹ˆë‹¤.
+            Ray ray = mainCamera.ScreenPointToRay(m_vecMouseDownPos);
             RaycastHit hit;
 
-            // ±¤¼±À¸·Î Ãæµ¹µÈ collider¸¦ hit¿¡ ³Ö½À´Ï´Ù.
+            // ê´‘ì„ ìœ¼ë¡œ ì¶©ëŒëœ colliderë¥¼ hitì— ë„£ìŠµë‹ˆë‹¤.
             if (Physics.Raycast(ray, out hit))
             {
-                // ¾î¶² ¿ÀºêÁ§Æ®ÀÎÁö ·Î±×¸¦ Âï½À´Ï´Ù.
+                /*Debug.Log("hit.collider.name: " + hit.collider.name);*/
+                // ì–´ë–¤ ì˜¤ë¸Œì íŠ¸ì¸ì§€ ë¡œê·¸ë¥¼ ì°ìŠµë‹ˆë‹¤.
                 if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
                 {
-                    Debug.Log(hit.transform.GetComponent<Photo>().id);
                     photoGO = hit.transform.gameObject;
+                    mainCamera.transform.GetComponent<FollowCamera>().enabled = false;
+                    if (hit.transform.GetComponent<Photo>().id == 2 || hit.transform.GetComponent<Photo>().id == 3)
+                    {
+                        mainCamera.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z - 4f);
+                        mainCamera.transform.LookAt(photoGO.transform);
+                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                    } else if (hit.transform.GetComponent<Photo>().id == 1)
+                    {
+                        mainCamera.transform.position = new Vector3(hit.transform.position.x + 4f, hit.transform.position.y, hit.transform.position.z);
+                        mainCamera.transform.LookAt(photoGO.transform);
+                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                    } else
+                    {
+                        mainCamera.transform.position = new Vector3(hit.transform.position.x - 4f, hit.transform.position.y, hit.transform.position.z);
+                        mainCamera.transform.LookAt(photoGO.transform);
+                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                    }
                     AlbumButtonClicked();
+                    
                 }
 
-                /*// ¿ÀºêÁ§Æ® º°·Î ÄÚµå¸¦ ÀÛ¼ºÇÒ ¼ö ÀÖ½À´Ï´Ù.
+                /*// ì˜¤ë¸Œì íŠ¸ ë³„ë¡œ ì½”ë“œë¥¼ ì‘ì„±í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
                 if (hit.collider.name == "Cube")
                     Debug.Log("Cube Hit");
                 else if (hit.collider.name == "Capsule")
@@ -91,36 +110,53 @@ public class PageInvert : MonoBehaviour
     public void InventoryButtonClicked(){
         DataManager.Instance.LoadUserItemData();
 
-        setActive(new int[]{ (int)Panel.inventory, (int)Panel.main });
+        setActive(new int[]{ (int)Panel.inventory, (int)Panel.main});
     }
 
     public void AlbumButtonClicked()
+    {
+        setActive(new int[] { (int)Panel.album, (int)Panel.main });
+        PlayerUI.isActive = false;
+    }
+
+    public void PhotoButtonClicked()
     {
         setActive(new int[] { (int)Panel.album, (int)Panel.main });
     }
 
     public void PlusButtonClicked()
     {
-       // ¹èÄ¡ ¹öÆ° 
-       for(int i = 0; i< BtnList.transform.childCount; i++)
+        BtnList.SetActive(!BtnList.activeSelf);
+        // ë°°ì¹˜ ë²„íŠ¼ 
+        for (int i = 0; i< BtnList.transform.childCount; i++)
         {
-            if(true)
-            BtnList.transform.GetChild(i).gameObject.SetActive(toggle);
-            BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(toggle);
+             
+            if (BuildList.transform.GetChild(i).childCount == 1)
+            {
+                BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(!BtnList.activeSelf);
+            }
         }
-        toggle = !toggle;
+    }
+    public void PlusCloseButtonClicked()
+    {
+        setActive(new int[] { (int)Panel.main, (int)Panel.btnlist});
+    }
+
+    public void DoorButtonClicked()
+    {
+        exitConfirmPanel.SetActive(true);
     }
 
     private void setActive(int panel){
         if (panel == 0)
         {
-            //PlayerUI È°¼ºÈ­
+            //PlayerUI í™œì„±í™”
             PlayerUI.isActive = true;
             Debug.Log("active");
         }
         else
         {
-            //PlayerUI ºñÈ°¼ºÈ­
+            //PlayerUI ë¹„í™œì„±í™”
             PlayerUI.isActive = false;
             PlayerManager.isPlayerUIVisible = false;
             Debug.Log("deactive");

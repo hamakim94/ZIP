@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             LocalPlayerInstance = gameObject;
             FollowCamera.target = gameObject.transform;
             gameObject.tag = "Player";
+            AudioListener.volume = 1;
         }
         DontDestroyOnLoad(gameObject);
     }
@@ -41,7 +42,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         // Create the UI
         if (this.playerUiPrefab != null)
         {
+            var target = GameObject.Find("PlayerUIParent");
             GameObject _uiGo = Instantiate(this.playerUiPrefab);
+            if (target != null)
+            {
+                _uiGo.transform.parent = target.transform;
+            }
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
         else
@@ -49,16 +55,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             Debug.LogWarning("<Color=Red><b>Missing</b></Color> PlayerUiPrefab reference on player Prefab.", this);
         }
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    #endregion
-
-    #region MonoBehaviourPunCallbacks Callbacks
-    public override void OnDisable()
-    {
-        // Always call the base to remove callbacks
-        base.OnDisable();
-
-        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     #endregion
 
@@ -70,8 +66,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         {
             transform.position = new Vector3(0f, 0f, 0f);
         }
-
+        var target = GameObject.Find("PlayerUIParent");
         playerUI = Instantiate(this.playerUiPrefab);
+        if (target)
+        {
+            playerUI.transform.parent = target.transform;
+        }
         playerUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
     }
     #endregion

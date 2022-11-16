@@ -138,8 +138,8 @@ PlayerSettings:
     Others: 1
   bundleVersion: 1.0.2
   preloadedAssets:
-  - {fileID: -7949054668926840956, guid: dc403dc8ad73a5947ba9160deb161746, type: 2}
-  - {fileID: 11400000, guid: d4e3cce3ce82ffa419af03c3d7e7efa1, type: 2}
+  - {fileID: -2622174273147995990, guid: 09156ca801b509948b8f57e6355192ad, type: 2}
+  - {fileID: 11400000, guid: 553f97ef9b985dc4b8e64516af64b671, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -245,8 +245,8 @@ PlayerSettings:
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   useCustomMainManifest: 0
   useCustomLauncherManifest: 0
-  useCustomMainGradleTemplate: 1
-  useCustomLauncherGradleManifest: 1
+  useCustomMainGradleTemplate: 0
+  useCustomLauncherGradleManifest: 0
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
   useCustomProguardFile: 0
