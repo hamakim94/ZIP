@@ -25,52 +25,53 @@ object ApiService {
 
     class TokenInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
-            println("1토큰인터셉터시작"+ chain.request());
             val request = chain.request().newBuilder()
                 .addHeader("ACCESSTOKEN", App.prefs.getString("accesstoken", ""))
                 .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
                 .addHeader("Connection", "close")
                 .build()
-            println("1리턴값")
             var response = chain.proceed((request));
-            println("2리턴값"+ response)
-            return response
-        }
-    }
-
-    class RefreshInterceptor : Interceptor {
-        override fun intercept(chain: Interceptor.Chain): Response {
-            var request = chain.request();
-            var response = chain.proceed(request);
-            println(request);
-            when (response.code()) {
-                403 -> {
-                    println("3403 시작")
-                    App.prefs.setString("accesstoken", "")
-                    CoroutineScope(Dispatchers.Default).launch {
-                        println("4코루틴 시작")
-                            val responseData = getApiService.tokenReissue()
-                        println("5" + responseData.code())
-                            val headers = responseData.headers()
-                        println("6" + headers)
-                            val accesstoken = headers.get("ACCESSTOKEN").toString()
-                            App.prefs.setString("accesstoken", accesstoken)
-//                            val request = chain.request().newBuilder().addHeader("ACCESSTOKEN", accesstoken)
-//                            .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
-//                                .addHeader("Connection", "close").build()
-//                            response = chain.proceed(request)
-
-                    }
-                }
-                410 -> {
-                    App.prefs.setString("accesstoken", "")
-                    App.prefs.setString("refreshtoken", "")
-//                    return response
-                }
+            if(response.code()==403){
+                App.prefs.setString("accesstoken", "")
+                App.prefs.setString("refreshtoken", "")
             }
             return response
         }
     }
+
+//    class RefreshInterceptor : Interceptor {
+//        override fun intercept(chain: Interceptor.Chain): Response {
+//            var request = chain.request();
+//            var response = chain.proceed(request);
+//            println(request);
+//            when (response.code()) {
+//                403 -> {
+//                    println("3403 시작")
+//                    App.prefs.setString("accesstoken", "")
+//                    CoroutineScope(Dispatchers.Default).launch {
+//                        println("4코루틴 시작")
+//                            val responseData = getApiService.tokenReissue()
+//                        println("5" + responseData.code())
+//                            val headers = responseData.headers()
+//                        println("6" + headers)
+//                            val accesstoken = headers.get("ACCESSTOKEN").toString()
+//                            App.prefs.setString("accesstoken", accesstoken)
+////                            val request = chain.request().newBuilder().addHeader("ACCESSTOKEN", accesstoken)
+////                            .addHeader("REFRESHTOKEN", App.prefs.getString("refreshtoken", ""))
+////                                .addHeader("Connection", "close").build()
+////                            response = chain.proceed(request)
+//
+//                    }
+//                }
+//                410 -> {
+//                    App.prefs.setString("accesstoken", "")
+//                    App.prefs.setString("refreshtoken", "")
+////                    return response
+//                }
+//            }
+//            return response
+//        }
+//    }
 
     //length 0 처리
     private val nullOnEmptyConverterFactory = object : Converter.Factory() {
@@ -99,7 +100,7 @@ object ApiService {
     // 인터셉터 설정을 위한 okhttp3
     val client = OkHttpClient.Builder()
         .addInterceptor(ApiService.TokenInterceptor())
-        .addInterceptor(ApiService.RefreshInterceptor())
+//        .addInterceptor(ApiService.RefreshInterceptor())
         .build()
 
     private val getApi by lazy {
