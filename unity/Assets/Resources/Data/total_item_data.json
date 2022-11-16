@@ -1079,37 +1079,37 @@
         "name": "바나나 안락 의자"
       },
       {
-        "id": 178,
+        "id": 172,
         "img": "1_1X1(office_chair_21)",
         "price": 600,
         "name": "올블랙 안락 의자"
       },
       {
-        "id": 179,
+        "id": 173,
         "img": "1_1X1(ottoman_13)",
         "price": 500,
         "name": "흰구름 오토만"
       },
       {
-        "id": 180,
+        "id": 174,
         "img": "1_1X1(prop_14)",
         "price": 700,
         "name": "나만없어 캣타워"
       },
       {
-        "id": 181,
+        "id": 175,
         "img": "1_1X1(shelf_35)",
         "price": 700,
         "name": "레드 하이 선반"
       },
       {
-        "id": 182,
+        "id": 176,
         "img": "1_1X1(shop_21)",
         "price": 700,
         "name": "시원한 미니 냉장고"
       },
       {
-        "id": 183,
+        "id": 177,
         "img": "1_1X1(toy_10)",
         "price": 600,
         "name": "조던이 갖고 싶은 농구대"
@@ -1120,103 +1120,103 @@
     "id": 12,
     "itemList": [
       {
-        "id": 184,
+        "id": 178,
         "img": "1_4X2(bed_02)",
         "price": 800,
         "name": "초코 바나나 침대"
       },
       {
-        "id": 185,
+        "id": 179,
         "img": "1_4X2(bed_11)",
         "price": 800,
         "name": "개나리 피크닉 침대"
       },
       {
-        "id": 186,
+        "id": 180,
         "img": "1_4X2(kids_04)",
         "price": 900,
         "name": "이바돔 슬라이드"
       },
       {
-        "id": 187,
+        "id": 181,
         "img": "1_4X2(kids_05)",
         "price": 1000,
         "name": "가평 워터 슬라이드"
       },
       {
-        "id": 188,
+        "id": 182,
         "img": "1_4x2(sofa_01)",
         "price": 800,
         "name": "포그니 그레이 소파"
       },
       {
-        "id": 189,
+        "id": 183,
         "img": "1_4X2(sofa_02)",
         "price": 900,
         "name": "롸끈한 소파"
       },
       {
-        "id": 190,
+        "id": 184,
         "img": "1_4X2(sofa_07)",
         "price": 1000,
         "name": "산토리니 대형 소파"
       },
       {
-        "id": 191,
+        "id": 185,
         "img": "1_4X2(sofa_13)",
         "price": 800,
         "name": "카카오 99프로 소파"
       },
       {
-        "id": 192,
+        "id": 186,
         "img": "1_4X2(sofa_16)",
         "price": 900,
         "name": "가나다란 소파"
       },
       {
-        "id": 193,
+        "id": 187,
         "img": "1_4X2(sofa_19)",
         "price": 1000,
         "name": "오렌지 배색 소파"
       },
       {
-        "id": 194,
+        "id": 188,
         "img": "1_4X2(tv_03)",
         "price": 800,
         "name": "락앤롤 스피릿 TV"
       },
       {
-        "id": 195,
+        "id": 189,
         "img": "1_4X2(tv_05)",
         "price": 900,
         "name": "최고급 스피커 TV"
       },
       {
-        "id": 196,
+        "id": 190,
         "img": "1_4X2(tv_10)",
         "price": 1000,
         "name": "장인의 숨결 TV"
       },
       {
-        "id": 197,
+        "id": 191,
         "img": "1_4X2(tv_13)",
         "price": 800,
         "name": "수납 끝판왕 TV"
       },
       {
-        "id": 198,
+        "id": 192,
         "img": "1_4X2(tv_14)",
         "price": 700,
         "name": "무난한 가정집 TV"
       },
       {
-        "id": 199,
+        "id": 193,
         "img": "1_4x2(tv_015)",
         "price": 800,
         "name": "블루 블랙 TV"
       },
       {
-        "id": 200,
+        "id": 194,
         "img": "1_4X2(tv_19)",
         "price": 900,
         "name": "모던 시크 TV"
@@ -1227,85 +1227,85 @@
     "id": 13,
     "itemList": [
       {
-        "id": 201,
+        "id": 195,
         "img": "1_2X2(coffee_06)",
         "price": 600,
         "name": "커피와 초코시럽 사이"
       },
       {
-        "id": 202,
+        "id": 196,
         "img": "1_2X2(coffee_08)",
         "price": 500,
         "name": "책을 읽읍시다 테이블"
       },
       {
-        "id": 203,
+        "id": 197,
         "img": "1_2X2(coffee_11)",
         "price": 600,
         "name": "꾸잉 꾸잉 테이블"
       },
       {
-        "id": 204,
+        "id": 198,
         "img": "1_2X2(coffee_13)",
         "price": 700,
         "name": "손수건 서비스 테이블"
       },
       {
-        "id": 205,
+        "id": 199,
         "img": "1_2X2(coffeetable_05)",
         "price": 600,
         "name": "핼리콥터 착륙 테이블"
       },
       {
-        "id": 206,
+        "id": 200,
         "img": "1_2X2(kids_03)",
         "price": 800,
         "name": "공놀이를 일으켜"
       },
       {
-        "id": 207,
+        "id": 201,
         "img": "1_2X2(kitchentable_09)",
         "price": 600,
         "name": "도토리나무 테이블"
       },
       {
-        "id": 208,
+        "id": 202,
         "img": "1_2X2(kitchentable_11)",
         "price": 500,
         "name": "라운드 블루 테이블"
       },
       {
-        "id": 209,
+        "id": 203,
         "img": "1_2X2(kitchentable_12)",
         "price": 600,
         "name": "디저트 뇸뇸 테이블"
       },
       {
-        "id": 210,
+        "id": 204,
         "img": "1_2X2(music_11)",
         "price": 800,
         "name": "콩쿨 우승 피아노"
       },
       {
-        "id": 211,
+        "id": 205,
         "img": "1_2X2(ottoman_13)",
         "price": 500,
         "name": "오또케 오토만"
       },
       {
-        "id": 212,
+        "id": 206,
         "img": "1_2X2(training_06)",
         "price": 600,
         "name": "바벨 거치대"
       },
       {
-        "id": 213,
+        "id": 207,
         "img": "1_2X2(training_19)",
         "price": 600,
         "name": "암컬 맞을컬"
       },
       {
-        "id": 214,
+        "id": 208,
         "img": "1_2X2(training_26)",
         "price": 600,
         "name": "3대 500 벤치프레스"
@@ -1316,85 +1316,85 @@
     "id": 14,
     "itemList": [
       {
-        "id": 215,
+        "id": 209,
         "img": "3_2X2(coffee_06)",
         "price": 600,
         "name": "커피와 초코시럽 사이"
       },
       {
-        "id": 216,
+        "id": 210,
         "img": "3_2X2(coffee_08)",
         "price": 500,
         "name": "책을 읽읍시다 테이블"
       },
       {
-        "id": 217,
+        "id": 211,
         "img": "3_2X2(coffee_11)",
         "price": 600,
         "name": "꾸잉 꾸잉 테이블"
       },
       {
-        "id": 218,
+        "id": 212,
         "img": "3_2X2(coffee_13)",
         "price": 700,
         "name": "손수건 서비스 테이블"
       },
       {
-        "id": 219,
+        "id": 213,
         "img": "3_2X2(coffeetable_05)",
         "price": 600,
         "name": "핼리콥터 착륙 테이블"
       },
       {
-        "id": 220,
+        "id": 214,
         "img": "3_2X2(kids_03)",
         "price": 800,
         "name": "공놀이를 일으켜"
       },
       {
-        "id": 221,
+        "id": 215,
         "img": "3_2X2(kitchentable_09)",
         "price": 600,
         "name": "도토리나무 테이블"
       },
       {
-        "id": 222,
+        "id": 216,
         "img": "3_2X2(kitchentable_11)",
         "price": 500,
         "name": "라운드 블루 테이블"
       },
       {
-        "id": 223,
+        "id": 217,
         "img": "3_2X2(kitchentable_12)",
         "price": 600,
         "name": "디저트 뇸뇸 테이블"
       },
       {
-        "id": 224,
+        "id": 218,
         "img": "3_2X2(music_11)",
         "price": 800,
         "name": "콩쿨 우승 피아노"
       },
       {
-        "id": 225,
+        "id": 219,
         "img": "3_2X2(ottoman_13)",
         "price": 500,
         "name": "오또케 오토만"
       },
       {
-        "id": 226,
+        "id": 220,
         "img": "3_2X2(training_06)",
         "price": 600,
         "name": "바벨 거치대"
       },
       {
-        "id": 227,
+        "id": 221,
         "img": "3_2X2(training_19)",
         "price": 600,
         "name": "암컬 맞을컬"
       },
       {
-        "id": 228,
+        "id": 222,
         "img": "3_2X2(training_26)",
         "price": 600,
         "name": "3대 500 벤치프레스"
