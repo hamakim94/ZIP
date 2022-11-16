@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using Photon.Voice.Unity;
+using Photon.Voice.PUN;
 
 public class LoadingSceneManager : MonoBehaviourPunCallbacks
 {
@@ -35,12 +37,12 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         dataManager = DataManager.Instance;
     }
     // Start is called before the first frame update
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     void Start()
     {
         StartCoroutine(StartLoading());
     }
-#endif
+    #endif
     void Update()
     {
         taskText.text = task + " (" + ((int)(doneGage / gage * 100))+ "%)";
@@ -153,11 +155,16 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         APIManager.SetAccessToken(token);
         StartCoroutine(StartLoading());
     }
+    public void InitHome(string token)
+    {
+        APIManager.SetAccessToken(token);
+        StartCoroutine(StartHome());
+    }
     #region Private Methods
     private void Connect()
     {
         task = "게임 서버에 접속하는 중";
-        PhotonNetwork.NickName = DataManager.Instance.user.name;
+        PhotonNetwork.NickName = DataManager.Instance.user.nickName;
         Debug.Log("connect");
         if (PhotonNetwork.IsConnected)
         {
@@ -174,20 +181,33 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     private IEnumerator StartLoading()
     {
         StartCoroutine(UpdateLoadingText());
-        StartCoroutine(LoadAsynSceneCoroutine());
+        StartCoroutine(LoadAsynSceneCoroutine(sceneName));
         yield return StartCoroutine(LoadAlbumData());
         yield return StartCoroutine(LoadUserInfo());
         task = "가구 배치 불러오는 중";
         yield return StartCoroutine(dataManager.LoadUserItemData());
         yield return StartCoroutine(LoadUserAlbumData());
         Connect();
-
-        yield return null;
     }
-
-    private IEnumerator LoadAsynSceneCoroutine()
+    private IEnumerator StartHome()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName); // scene을 비동기적으로 로드 시작 
+        StartCoroutine(UpdateLoadingText());
+        StartCoroutine(LoadAsynSceneCoroutine("Home"));
+        GameObject dm = GameObject.Find("DataManager");
+        dm.transform.GetComponent<Recorder>().DestroyUniversal();
+        dm.transform.GetComponent<PunVoiceClient>().DestroyUniversal();
+        Destroy(GameObject.Find("VoiceLogger"));
+        Destroy(GameObject.Find("PhotonMono"));
+        yield return StartCoroutine(LoadAlbumData());
+        yield return StartCoroutine(LoadUserInfo());
+        task = "가구 배치 불러오는 중";
+        yield return StartCoroutine(dataManager.LoadUserItemData());
+        yield return StartCoroutine(LoadUserAlbumData());
+        gage -= 10;
+    }
+    private IEnumerator LoadAsynSceneCoroutine(string scene)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(scene); // scene을 비동기적으로 로드 시작 
         operation.allowSceneActivation = false;  // 로드가 완료되어도 장면 전환 안되도록 
 
         while (!operation.isDone) // 로딩 완료
