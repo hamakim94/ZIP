@@ -32,7 +32,7 @@
                 android:text="게시글 상세"
                 app:maxButtonHeight="48dp"
                 app:titleCentered="true"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+                app:titleTextAppearance="@style/toolbar_title" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView

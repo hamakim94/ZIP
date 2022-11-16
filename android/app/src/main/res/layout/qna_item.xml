@@ -21,12 +21,15 @@
             android:id="@+id/q"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/question"
+            android:src="@drawable/ic_round_question_mark_24"
+            android:tint="@color/darkgray2"
+            app:civ_border_color="@color/darkgray"
+            app:civ_border_width="1dp"
             app:layout_constraintBottom_toBottomOf="@id/qnaInfoContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
+            app:layout_constraintVertical_bias="0.0"
+            />
         <TextView
             android:id="@+id/qna"
             android:layout_width="wrap_content"

@@ -58,18 +58,7 @@ class RecordFragment : Fragment() {
             }
         })
 
-        //여기서 만약 Album을 받으면 그대로, Board를 받으면 1로 가도록 한다면?
         if (arguments?.getString("Board") == "Board") {
-            // arguments 분기 나누기, 게시판, 오늘의 편지(QNA),
-//            val args = Bundle()
-//            args.putString("link", "Board")
-//            when (arguments?.getString("link")) {
-//                "Board" -> {
-//                    val args = Bundle()
-//                    args.putString("link", "Board")
-//                }
-//            }
-
             tabLayout.selectTab(tabLayout.getTabAt(1));
         }
 

@@ -136,7 +136,7 @@ class BoardModelAdapter(
                     itemView.findViewById<TextView>(R.id.letterReg).text =
                         DateUtil.getRegDate(letter.reg)
                     itemView.findViewById<CircleImageView>(R.id.mailIcon)
-                        .setImageResource(R.drawable.ic_outline_email_24)
+                        .setImageResource(R.drawable.ic_baseline_mail_24)
                     itemView.findViewById<TextView>(R.id.letterContent).text =
                         if (letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
 
@@ -150,7 +150,7 @@ class BoardModelAdapter(
                         itemView.findViewById<TextView>(R.id.letterReg).text =
                             DateUtil.getRegDate(letter.reg)
                         itemView.findViewById<CircleImageView>(R.id.mailIcon)
-                            .setImageResource(R.drawable.ic_outline_mark_email_read_24)
+                            .setImageResource(R.drawable.ic_baseline_mark_email_read_24)
                         itemView.findViewById<TextView>(R.id.letterContent).text =
                             if (letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
 
@@ -166,7 +166,7 @@ class BoardModelAdapter(
                         }
 
                         itemView.findViewById<CircleImageView>(R.id.mailIcon)
-                            .setImageResource(R.drawable.ic_outline_mark_email_unread_24)
+                            .setImageResource(R.drawable.ic_baseline_mark_email_unread_24)
                         itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
 
                     }

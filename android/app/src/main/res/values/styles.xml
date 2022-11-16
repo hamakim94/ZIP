@@ -41,12 +41,17 @@
         <item name="titleTextColor">@color/purple_500</item>
         <item name="subtitleTextColor">@color/material_on_surface_emphasis_medium</item>
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Surface</item>
+        <item name="android:fontFamily">@font/one_mobile_pop</item>
     </style>
 
     <style name="circleImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
-
-
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/one_mobile_pop</item>
+    </style>
+    <style name="toolbar_title" parent="@android:style/Widget.Toolbar">
+        <item name="android:fontFamily">@font/onemobilebold</item>
+    </style>
 </resources>

@@ -20,6 +20,9 @@
             android:id="@+id/mailIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:tint="@color/darkgray2"
+            app:civ_border_color="@color/darkgray"
+            app:civ_border_width="1dp"
             app:layout_constraintBottom_toBottomOf="@id/letterInfoContainer"
             app:layout_constraintStart_toStartOf="@id/letterInfoContainer">
 

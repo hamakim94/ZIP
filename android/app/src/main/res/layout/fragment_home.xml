@@ -51,20 +51,23 @@
                 android:layout_height="300dp"
                 android:background="@drawable/house"
                 app:layout_constraintTop_toBottomOf="@+id/familyName">
-
+                <!--<androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.65"/>-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/family_code_copy_container"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/home_button"
                     android:orientation="horizontal"
                     android:padding="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
-
                     <TextView
                         android:id="@+id/text"
                         android:layout_width="wrap_content"
@@ -79,9 +82,7 @@
                         app:layout_constraintEnd_toStartOf="@id/family_code"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
-
                     </TextView>
-
                     <TextView
                         android:id="@+id/family_code"
                         android:layout_width="wrap_content"
@@ -90,14 +91,11 @@
                         android:alpha="1"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/text"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@tools:sample/cities">
-
                     </TextView>
-
                     <androidx.constraintlayout.utils.widget.ImageFilterButton
                         android:id="@+id/copy_button"
                         android:layout_width="wrap_content"
@@ -110,75 +108,64 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/family_code"
                         app:layout_constraintTop_toTopOf="parent">
-
                     </androidx.constraintlayout.utils.widget.ImageFilterButton>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/family_point_container"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/home_button"
-                    android:orientation="horizontal"
-                    android:padding="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/family_code_copy_container"
-                    app:layout_constraintTop_toBottomOf="@+id/family_code_copy_container">
-
-                    <ImageView
-                        android:id="@+id/mission_point"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginBottom="2dp"
-                        android:elevation="15dp"
-                        android:outlineProvider="none"
-                        android:src="@drawable/point"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/family_point_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/home_button"
+                        android:orientation="horizontal"
+                        android:padding="2dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></ImageView>
+                        app:layout_constraintTop_toBottomOf="@+id/family_code_copy_container">
 
-                    <TextView
-                        android:id="@+id/text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/point_name"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        <TextView
+                            android:id="@+id/text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/point_name"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                    </TextView>
+                        </TextView>
 
-                    <TextView
-                        android:id="@+id/family_point"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/mission_point"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/cities">
+                        <TextView
+                            android:id="@+id/family_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:alpha="1"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/mission_point"
+                            app:layout_constraintStart_toEndOf="@id/text2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@tools:sample/cities"></TextView>
 
-                    </TextView>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                        <ImageView
+                            android:id="@+id/mission_point"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:elevation="15dp"
+                            android:outlineProvider="none"
+                            android:src="@drawable/point"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/family_point"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
             <TextView
                 android:id="@+id/familyMember"
                 android:layout_width="match_parent"
@@ -227,7 +214,7 @@
                 <TextView
                     android:id="@+id/mission_top"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:elevation="10dp"
                     android:fontFamily="@font/one_mobile_pop"
                     android:gravity="center_horizontal"

@@ -21,7 +21,7 @@
             app:maxButtonHeight="48dp"
             app:title="@string/modify_fragment"
             app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+            app:titleTextAppearance="@style/toolbar_title" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -22,7 +22,7 @@
             app:maxButtonHeight="48dp"
             app:title="@string/signup_text"
             app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+            app:titleTextAppearance="@style/toolbar_title" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
