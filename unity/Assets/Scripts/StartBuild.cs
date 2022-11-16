@@ -52,7 +52,10 @@ public class StartBuild : MonoBehaviour
         // 선택한 item 배치 
         if (target.childCount > 1)
         {
-            Destroy(target.GetChild(1).gameObject);
+            for (int i = 1; i < target.childCount; i++)
+            {
+                Destroy(target.GetChild(i).gameObject);
+            }
         }
         else
         {

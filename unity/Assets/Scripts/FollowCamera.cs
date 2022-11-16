@@ -10,6 +10,7 @@ public class FollowCamera : MonoBehaviour
     public float y2 = -2.5f;
     public float z = 6;
     private Transform cameraTr;                // 카메라 자신의 Transform
+    private float minX;
     
     void Start()
     {
@@ -24,7 +25,12 @@ public class FollowCamera : MonoBehaviour
  
     void LateUpdate()
     {
-        cameraTr.position = new Vector3(target.position.x - x, target.position.y-y, target.position.z - z);
+        if (target.position.x - x < -5.5f)
+            minX = -5.5f;
+        else
+            minX = target.position.x - x;
+
+        cameraTr.position = new Vector3(minX, target.position.y-y, target.position.z - z);
         
         cameraTr.LookAt(new Vector3(target.position.x, target.position.y - y2, target.position.z));
     }

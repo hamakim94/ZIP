@@ -8,7 +8,7 @@ using System;
 public class PageInvert : MonoBehaviour
 {
     enum Panel{
-        main, shop, inventory, album, photo, furniture
+        main, shop, inventory, album, photo, furniture, btnlist
     }
 
     private GameObject[] panels;
@@ -24,12 +24,11 @@ public class PageInvert : MonoBehaviour
     public Camera mainCamera;
     Vector3 m_vecMouseDownPos;
     public static GameObject photoGO;
-    private bool toggle = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel, furniturePanel};
+        panels = new GameObject[]{mainPanel, shopPanel, inventoryPanel, albumPanel, photoPanel, furniturePanel, BtnList};
         MainButtonClicked();
     }
 
@@ -62,12 +61,24 @@ public class PageInvert : MonoBehaviour
                 // 어떤 오브젝트인지 로그를 찍습니다.
                 if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
                 {
-                    Debug.Log(hit.transform.GetComponent<Photo>().id);
                     photoGO = hit.transform.gameObject;
                     mainCamera.transform.GetComponent<FollowCamera>().enabled = false;
-                    mainCamera.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z - 4f);
-                    mainCamera.transform.LookAt(photoGO.transform);
-                    mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                    if (hit.transform.GetComponent<Photo>().id == 2 || hit.transform.GetComponent<Photo>().id == 3)
+                    {
+                        mainCamera.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z - 4f);
+                        mainCamera.transform.LookAt(photoGO.transform);
+                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                    } else if (hit.transform.GetComponent<Photo>().id == 1)
+                    {
+                        mainCamera.transform.position = new Vector3(hit.transform.position.x + 4f, hit.transform.position.y, hit.transform.position.z);
+                        mainCamera.transform.LookAt(photoGO.transform);
+                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                    } else
+                    {
+                        mainCamera.transform.position = new Vector3(hit.transform.position.x - 4f, hit.transform.position.y, hit.transform.position.z);
+                        mainCamera.transform.LookAt(photoGO.transform);
+                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                    }
                     AlbumButtonClicked();
                     
                 }
@@ -99,12 +110,13 @@ public class PageInvert : MonoBehaviour
     public void InventoryButtonClicked(){
         DataManager.Instance.LoadUserItemData();
 
-        setActive(new int[]{ (int)Panel.inventory, (int)Panel.main });
+        setActive(new int[]{ (int)Panel.inventory, (int)Panel.main});
     }
 
     public void AlbumButtonClicked()
     {
         setActive(new int[] { (int)Panel.album, (int)Panel.main });
+        PlayerUI.isActive = false;
     }
 
     public void PhotoButtonClicked()
@@ -114,16 +126,20 @@ public class PageInvert : MonoBehaviour
 
     public void PlusButtonClicked()
     {
-       // 배치 버튼 
-       for(int i = 0; i< BtnList.transform.childCount; i++)
+        BtnList.SetActive(!BtnList.activeSelf);
+        // 배치 버튼 
+        for (int i = 0; i< BtnList.transform.childCount; i++)
         {
-             BtnList.transform.GetChild(i).gameObject.SetActive(toggle);
+             
             if (BuildList.transform.GetChild(i).childCount == 1)
             {
-                BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(toggle);
+                BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(!BtnList.activeSelf);
             }
         }
-        toggle = !toggle;
+    }
+    public void PlusCloseButtonClicked()
+    {
+        setActive(new int[] { (int)Panel.main, (int)Panel.btnlist});
     }
 
     public void DoorButtonClicked()
