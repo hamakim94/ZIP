@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 public class LoadingSceneManager : MonoBehaviourPunCallbacks
 {
@@ -20,11 +21,17 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     private float doneGage = 0;
     private float tempGage = 0;
     private string gameVersion = "1";
+    [SerializeField]
+    private TMP_Text loadingText;
+    [SerializeField]
+    private TMP_Text taskText;
+    private string task;
     #endregion
 
     #region MonoBehaviour Callbacks
     void Awake()
     {
+        loadingText.text = "우리 모두 ZIP 중 . . .";
         dataManager = DataManager.Instance;
     }
     // Start is called before the first frame update
@@ -34,7 +41,11 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         StartCoroutine(StartLoading());
     }
 #endif
-#endregion
+    void Update()
+    {
+        taskText.text = task + " (" + ((int)(doneGage / gage * 100))+ "%)";
+    }
+    #endregion
 
     #region MonoBehaviourPunCallbacks Callbacks;
     public override void OnConnectedToMaster()
@@ -145,6 +156,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     #region Private Methods
     private void Connect()
     {
+        task = "게임 서버에 접속하는 중";
         PhotonNetwork.NickName = DataManager.Instance.user.name;
         Debug.Log("connect");
         if (PhotonNetwork.IsConnected)
@@ -161,10 +173,11 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     private IEnumerator StartLoading()
     {
-
+        StartCoroutine(UpdateLoadingText());
         StartCoroutine(LoadAsynSceneCoroutine());
         yield return StartCoroutine(LoadAlbumData());
         yield return StartCoroutine(LoadUserInfo());
+        task = "가구 배치 불러오는 중";
         yield return StartCoroutine(dataManager.LoadUserItemData());
         yield return StartCoroutine(LoadUserAlbumData());
         Connect();
@@ -190,6 +203,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     }
     private IEnumerator LoadUserInfo()
     {
+        task = "사용자 정보 불러오는 중";
         var json = "";
         using UnityWebRequest www = APIManager.GetWWW("GET", "/users/profiles", null);
         yield return www.SendWebRequest();
@@ -206,6 +220,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     }
     private IEnumerator LoadAlbumData()
     {
+        task = "앨범 불러오는 중";
         dataManager.albumDicData = new Dictionary<long, RawData>(); // album id : AlbumData
         using UnityWebRequest www = APIManager.GetWWW("GET", "/album", null);
         yield return www.SendWebRequest();
@@ -245,6 +260,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     private IEnumerator LoadUserAlbumData()
     {
+        task = "액자 정보 불러오는 중";
         DataManager.Instance.userAlbumDicData = new Dictionary<long, RawData>(); // 앨범 pos id : UserAlbumData
         using UnityWebRequest www = APIManager.GetWWW("GET", "/unity/album", null);
         yield return www.SendWebRequest(); // api 통신해서 json 가져오기 
@@ -277,6 +293,19 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
         picture.texture = DownloadHandlerTexture.GetContent(www);
         www.Dispose();
+    }
+
+    private IEnumerator UpdateLoadingText()
+    {
+        while (true)
+        {
+            loadingText.text = "Loading · . .";
+            yield return new WaitForSeconds(0.2f);
+            loadingText.text = "Loading . · .";
+            yield return new WaitForSeconds(0.2f);
+            loadingText.text = "Loading . . ·";
+            yield return new WaitForSeconds(0.2f);
+        }
     }
     #endregion
 }
