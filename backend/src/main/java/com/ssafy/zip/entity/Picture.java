@@ -26,7 +26,7 @@ public class Picture {
     User user;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "album_id")
     Album album;
 
