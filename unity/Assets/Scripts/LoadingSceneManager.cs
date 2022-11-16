@@ -40,7 +40,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     #if UNITY_EDITOR
     void Start()
     {
-        StartCoroutine(StartHome());
+        StartCoroutine(StartLoading());
     }
     #endif
     void Update()
