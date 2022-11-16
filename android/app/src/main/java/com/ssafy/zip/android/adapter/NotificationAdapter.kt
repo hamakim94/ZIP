@@ -66,15 +66,14 @@ class NotificationAdapter(private val notificationList: ArrayList<Notification>)
                 instance?.readNotification(notificationList[position].id)
 
             }
-            println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb : " +notification.toString())
-            if(notificationList[position].message?.contains("편지가") == true){
-                val args = Bundle()
-                args.putString("Board", "Board")
-                it.findNavController().navigate(R.id.action_notificationFragment_to_recordFragment, args)
-            } else{
+//            if(notificationList[position].message?.contains("편지가") == true){
+//                val args = Bundle()
+//                args.putString("Board", "Board")
+//                it.findNavController().navigate(R.id.action_notificationFragment_to_recordFragment, args)
+//            } else{
                 val uri = Uri.parse(notification.link)
                 it.findNavController().navigate(uri)
-            }
+//            }
 
         }
 

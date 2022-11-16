@@ -11,6 +11,8 @@ import com.ssafy.zip.android.data.request.RequestModify
 import com.ssafy.zip.android.data.request.RequestSignup
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
+import retrofit2.http.POST
 
 class UserRepository private constructor(application: Application) {
 
@@ -107,6 +109,10 @@ class UserRepository private constructor(application: Application) {
             null
         }
         return returnData
+    }
+    suspend fun readAllNotification() : String? {
+        val response = ApiService.getApiService.readNotificationAll()
+        return response.code().toString()
     }
 
     companion object {
