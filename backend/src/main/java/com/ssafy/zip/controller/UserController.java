@@ -260,6 +260,13 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/notification/all")
+    @ApiOperation(value = "알림 전체 읽음")
+    ResponseEntity<?> readAllNotification(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO){
+        notificationService.readAllNotifications(userDTO);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/points")
     @ApiOperation(value = "가족 보유 포인트 조회")
     ResponseEntity<Integer> getFamilyPoint(@ApiIgnore@AuthenticationPrincipal UserDTO userDTO){

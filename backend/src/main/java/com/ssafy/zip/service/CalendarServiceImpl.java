@@ -112,7 +112,7 @@ public class CalendarServiceImpl implements CalendarServcie {
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.ScheduleRegistered.getMessage(), userDTO.getNickname()),NotificationEnum.ScheduleRegistered.getLink(), userDTO.getProfileImg().getImage(),false,LocalDateTime.now()),
                 userRepository.findByFamily_Id(userDTO.getFamilyId()).stream().filter(o->!o.getId().equals(userDTO.getId())&&!setParticipants.contains(o.getId())).map(o->o.getId()).collect(Collectors.toList()));
         notificationService.sendNotification(new Notification(null,null, String.format(NotificationEnum.ScheduleRegistedForMe.getMessage(), userDTO.getNickname()),NotificationEnum.ScheduleRegistedForMe.getLink(), userDTO.getProfileImg().getImage(),false,LocalDateTime.now()),
-                setParticipants.stream().toList());
+                setParticipants.stream().filter(l->!l.equals(userDTO.getId())).toList());
         calendar.setCalendarUsers(calendarUserList);
         pointService.updatePoint(userDTO, CommonCodeEnum.ScheduleRegistered.getCode());
 

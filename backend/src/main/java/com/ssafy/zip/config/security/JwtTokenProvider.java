@@ -110,7 +110,7 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         try{
             UserDTO userDTO = userService.loadUserByUsername(getUserPk(token));
-            log.info("getAuthentication user: " + userDTO);
+//            log.info("getAuthentication user: " + userDTO);
 
             return new UsernamePasswordAuthenticationToken(userDTO, null, userDTO.getAuthorities()); // 우리는 jwt 사용 -> credentials: null
         } catch (Exception e){

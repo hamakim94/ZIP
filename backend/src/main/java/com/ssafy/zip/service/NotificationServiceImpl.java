@@ -69,6 +69,13 @@ public class NotificationServiceImpl implements NotificationService {
     }
     @Transactional
     @Override
+    public void readAllNotifications(UserDTO userDTO) {
+        notificationRepository.findByUserIdAndIsRead(userDTO.getId(), false).stream()
+                .forEach(n->n.setIsRead(true));
+    }
+
+    @Transactional
+    @Override
     public void setToken(UserDTO userDTO, String token) {
         fcmTokenRepository.save(new FCMToken(userDTO.getId(),token));
         log.info("setting token for : " + userDTO.getNickname() +"\ntoken as : "+token);
