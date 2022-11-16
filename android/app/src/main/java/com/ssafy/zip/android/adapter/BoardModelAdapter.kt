@@ -66,7 +66,9 @@ class BoardModelAdapter(
                 "Letter" -> {
                     val bundle = Bundle()
                     viewModel.userData.value?.let { it1 -> bundle.putLong("userId", it1.id) }
-                    bundle.putParcelable("Letter", adapterData[position].data)
+                    val data = adapterData[position].data as BoardModel.Letter
+                    bundle.putLong("id", data.id)
+//                    bundle.putParcelable("Letter", adapterData[position].data)
                     it.findNavController()
                         .navigate(R.id.action_recordFragment_to_recordLetterDetailFragment, bundle)
                 }
