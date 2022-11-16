@@ -125,7 +125,7 @@ object ApiService {
 
         init {
             dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA)
-            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"))
+            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+9"))
         }
 
         @Synchronized
