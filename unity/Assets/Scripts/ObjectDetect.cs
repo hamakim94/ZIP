@@ -8,7 +8,7 @@ public class ObjectDetect : MonoBehaviour
     [SerializeField]
     private GameObject Btn;
     [SerializeField]
-    private Camera camera;
+    private Camera c;
 
     private bool check;
  /*   private void OnDrawGizmos() { 
@@ -21,7 +21,7 @@ public class ObjectDetect : MonoBehaviour
     }*/
     private void Update()
     {
-        Vector3 screenPos = camera.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
+        Vector3 screenPos = c.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
         Btn.transform.position = screenPos;
     }
 

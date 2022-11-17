@@ -5,17 +5,17 @@ using UnityEngine;
 public class PointLookAt : MonoBehaviour
 {
     public Transform target;
-    Camera camera;
+    Camera c;
 
     void Start()
     {
-        camera = Camera.main;
+        c = Camera.main;
     }
 
     void Update()
     {
-        //targetÀÇ position(3D)À» ½ºÅ©¸° ÁÂÇ¥·Î º¯È¯ÇÏ°í ÁÂÇ¥¸¦ º¯¼ö screenPos¿¡ ÀúÀå
-        Vector3 screenPos = camera.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
+        //targetì˜ position(3D)ì„ ìŠ¤í¬ë¦° ì¢Œí‘œë¡œ ë³€í™˜í•˜ê³  ì¢Œí‘œë¥¼ ë³€ìˆ˜ screenPosì— ì €ì¥
+        Vector3 screenPos = c.WorldToScreenPoint(transform.position + new Vector3(0, 1f, 0));
         target.position = screenPos;
    
     }
