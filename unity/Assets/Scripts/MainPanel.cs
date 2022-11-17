@@ -16,8 +16,6 @@ public class MainPanel : MonoBehaviour
     private TMP_Text peopleNumText;
     [SerializeField]
     private TMP_Text pointText;
-    [SerializeField]
-    private Text pointLegacy;
     #endregion
     #region MonoBehavior Callbacsk
     void Awake()
@@ -61,7 +59,6 @@ public class MainPanel : MonoBehaviour
         {
             Debug.Log("success update point");
             pointText.text = www.downloadHandler.text.ToString();
-            pointLegacy.text = www.downloadHandler.text.ToString();
         }
         www.Dispose();
     }

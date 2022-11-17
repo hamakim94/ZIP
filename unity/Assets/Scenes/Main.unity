@@ -351,7 +351,7 @@ RectTransform:
   - {fileID: 1755897692}
   - {fileID: 1256462670}
   m_Father: {fileID: 1253029479}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5571,8 +5571,8 @@ RectTransform:
   - {fileID: 1541809078}
   - {fileID: 53439613}
   - {fileID: 264895337}
-  - {fileID: 49057139}
   - {fileID: 1844775459}
+  - {fileID: 49057139}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7102,6 +7102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainPanel: {fileID: 1541809077}
+  shopPanel: {fileID: 0}
+  inventoryPanel: {fileID: 0}
   albumPanel: {fileID: 53439612}
   photoPanel: {fileID: 264895336}
   furniturePanel: {fileID: 49057138}
@@ -8864,7 +8866,7 @@ PrefabInstance:
     - target: {fileID: 2573158305752531576, guid: b30b827128a84054ca18829b60837e8d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2573158305752531576, guid: b30b827128a84054ca18829b60837e8d,
         type: 3}
