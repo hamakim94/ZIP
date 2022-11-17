@@ -27,16 +27,18 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var _binding: ActivityMainBinding;
+    private lateinit var _binding: ActivityMainBinding
     private val binding get() = _binding!!
-    lateinit var mUnityPlayer : UnityPlayer;
-    var stopCheck : Boolean = false;
-    lateinit var checkView : ViewGroup;
+    lateinit var mUnityPlayer : UnityPlayer
+    var stopCheck : Boolean = false
+    lateinit var checkView : ViewGroup
+
     override fun onCreate(savedInstanceState: Bundle?) {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT+9"))
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         mUnityPlayer = UnityPlayer(App.ApplicationContext())
         val glesMode: Int = mUnityPlayer.getSettings().getInt("gles_mode", 1)
         val trueColor8888 = false
@@ -155,18 +157,9 @@ class MainActivity : AppCompatActivity() {
         finishAffinity()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        if(stopCheck) {
-            System.exit(0)
-        }
+        System.exit(0)
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
     override fun onResume() {
         super.onResume()
         if(stopCheck) {
