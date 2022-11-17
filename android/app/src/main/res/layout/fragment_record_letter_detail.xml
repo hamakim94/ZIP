@@ -83,7 +83,7 @@
             android:id="@+id/letter_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/textview_border"
+            android:background="@drawable/textview_border_white"
             android:padding="20dp">
             <TextView
                 android:id="@+id/letterContentDetail"
