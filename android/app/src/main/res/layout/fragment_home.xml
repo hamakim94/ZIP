@@ -2,104 +2,87 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="viewmodel"
             type="com.ssafy.zip.android.viewmodel.HomeViewModel" />
     </data>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/home_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="always"
             tools:context=".HomeFragment">
-
-            <TextView
-                android:id="@+id/topText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/one_mobile_pop"
-                android:gravity="center_horizontal"
-                android:text="@string/home_logo"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            <ImageView
+                android:id="@+id/topLogo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:elevation="15dp"
+                android:outlineProvider="none"
+                android:src="@drawable/zip"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
             <TextView
                 android:id="@+id/familyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:paddingBottom="8dp"
                 android:fontFamily="@font/one_mobile_pop"
                 android:gravity="center_horizontal"
                 android:text="@{viewmodel.familyData.familyName}"
-                android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@+id/topText" />
-
+                android:textSize="21dp"
+                android:textColor="@color/darkgray2"
+                app:layout_constraintTop_toBottomOf="@id/topLogo" />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/home_house"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/house"
                 app:layout_constraintTop_toBottomOf="@+id/familyName">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/family_code_copy_container"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/home_button"
                     android:orientation="horizontal"
                     android:padding="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
-
                     <TextView
                         android:id="@+id/text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
+                        android:alpha="1"
                         android:text="@string/room_code_name"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
                         android:textSize="15sp"
-                        android:alpha="1"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/family_code"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
-
                     </TextView>
-
                     <TextView
                         android:id="@+id/family_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
+                        android:alpha="1"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:alpha="1"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/text"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@tools:sample/cities">
-
                     </TextView>
-
                     <androidx.constraintlayout.utils.widget.ImageFilterButton
                         android:id="@+id/copy_button"
                         android:layout_width="wrap_content"
@@ -112,75 +95,60 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/family_code"
                         app:layout_constraintTop_toTopOf="parent">
-
                     </androidx.constraintlayout.utils.widget.ImageFilterButton>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/family_point_container"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:background="@drawable/home_button"
-                    android:orientation="horizontal"
-                    android:padding="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/family_code_copy_container"
-                    app:layout_constraintTop_toBottomOf="@+id/family_code_copy_container">
-
-                    <ImageView
-                        android:id="@+id/mission_point"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="4dp"
-                        android:elevation="15dp"
-                        android:outlineProvider="none"
-                        android:src="@drawable/point"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/family_point_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/home_button"
+                        android:orientation="horizontal"
+                        android:padding="2dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-                    <TextView
-                        android:id="@+id/text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/point_name"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                    </TextView>
-
-                    <TextView
-                        android:id="@+id/family_point"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/mission_point"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/cities">
-
-                    </TextView>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                        app:layout_constraintTop_toBottomOf="@+id/family_code_copy_container">
+                        <TextView
+                            android:id="@+id/text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="@string/point_name"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/family_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:alpha="1"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/mission_point"
+                            app:layout_constraintStart_toEndOf="@id/text2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@tools:sample/cities" />
+                        <ImageView
+                            android:id="@+id/mission_point"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:elevation="15dp"
+                            android:outlineProvider="none"
+                            android:src="@drawable/point"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/family_point"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
             <TextView
                 android:id="@+id/familyMember"
                 android:layout_width="match_parent"
@@ -193,7 +161,6 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/home_house" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_recycler_view"
                 android:layout_width="match_parent"
@@ -204,14 +171,12 @@
                 app:layoutManager="GridLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/familyMember"
                 tools:listitem="@layout/home_item" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/mission_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/home_recycler_view">
-
                 <FrameLayout
                     android:id="@+id/home_mission"
                     android:layout_width="match_parent"
@@ -219,30 +184,28 @@
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/card_background"
+                    android:background="@drawable/card_main_background"
                     android:elevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></FrameLayout>
-
+                    app:layout_constraintTop_toTopOf="parent" />
                 <TextView
                     android:id="@+id/mission_top"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     android:elevation="10dp"
                     android:fontFamily="@font/one_mobile_pop"
                     android:gravity="center_horizontal"
                     android:outlineProvider="none"
                     android:paddingVertical="15dp"
                     android:text="@string/mission_top"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textSize="21dp"
                     app:layout_constraintBottom_toTopOf="@id/mission1"
                     app:layout_constraintEnd_toEndOf="@id/home_mission"
                     app:layout_constraintStart_toStartOf="@id/home_mission"
-                    app:layout_constraintTop_toTopOf="@+id/home_mission"></TextView>
-
+                    app:layout_constraintTop_toTopOf="@+id/home_mission" />
                 <FrameLayout
                     android:id="@+id/mission1"
                     android:layout_width="match_parent"
@@ -255,8 +218,7 @@
                     app:layout_constraintEnd_toEndOf="@id/home_mission"
                     app:layout_constraintStart_toStartOf="@id/home_mission"
                     app:layout_constraintTop_toBottomOf="@id/mission_top"
-                    app:layout_constraintVertical_weight="1"></FrameLayout>
-
+                    app:layout_constraintVertical_weight="1" />
                 <ImageView
                     android:id="@+id/mission1_point"
                     android:layout_width="50dp"
@@ -268,8 +230,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/mission1"
                     app:layout_constraintEnd_toStartOf="@id/mission1_content"
                     app:layout_constraintStart_toStartOf="@id/mission1"
-                    app:layout_constraintTop_toTopOf="@id/mission1"></ImageView>
-
+                    app:layout_constraintTop_toTopOf="@id/mission1" />
                 <TextView
                     android:id="@+id/mission1_title"
                     android:layout_width="0dp"
@@ -281,12 +242,12 @@
                     android:outlineProvider="none"
                     android:text="@string/mission1_title"
                     android:textStyle="bold"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toTopOf="@id/mission1_content"
                     app:layout_constraintEnd_toStartOf="@id/mission1_btn"
                     app:layout_constraintStart_toEndOf="@id/mission1_point"
                     app:layout_constraintTop_toTopOf="@id/mission1"
-                    app:layout_constraintVertical_chainStyle="packed"></TextView>
-
+                    app:layout_constraintVertical_chainStyle="packed" />
                 <TextView
                     android:id="@+id/mission1_btn"
                     android:layout_width="0dp"
@@ -301,8 +262,7 @@
                     android:textSize="12dp"
                     app:layout_constraintBottom_toTopOf="@id/mission1_content"
                     app:layout_constraintEnd_toEndOf="@id/mission1"
-                    app:layout_constraintTop_toTopOf="@id/mission1"></TextView>
-
+                    app:layout_constraintTop_toTopOf="@id/mission1" />
                 <TextView
                     android:id="@+id/mission1_content"
                     android:layout_width="0dp"
@@ -311,13 +271,13 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:elevation="15dp"
+                    android:textSize="14dp"
                     android:outlineProvider="none"
                     android:text="@string/mission1_content"
                     app:layout_constraintBottom_toTopOf="@+id/mission1_progress"
                     app:layout_constraintEnd_toEndOf="@id/mission1"
                     app:layout_constraintStart_toEndOf="@id/mission1_point"
-                    app:layout_constraintTop_toBottomOf="@id/mission1_title"></TextView>
-
+                    app:layout_constraintTop_toBottomOf="@id/mission1_title" />
                 <ProgressBar
                     android:id="@+id/mission1_progress"
                     style="?android:attr/progressBarStyleHorizontal"
@@ -332,8 +292,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/mission1"
                     app:layout_constraintEnd_toEndOf="@id/mission1"
                     app:layout_constraintStart_toEndOf="@id/mission1_point"
-                    app:layout_constraintTop_toBottomOf="@id/mission1_content"></ProgressBar>
-
+                    app:layout_constraintTop_toBottomOf="@id/mission1_content" />
                 <FrameLayout
                     android:id="@+id/mission2"
                     android:layout_width="match_parent"
@@ -344,8 +303,7 @@
                     android:elevation="10dp"
                     app:layout_constraintBottom_toBottomOf="@id/home_mission"
                     app:layout_constraintTop_toBottomOf="@id/mission1"
-                    app:layout_constraintVertical_weight="1"></FrameLayout>
-
+                    app:layout_constraintVertical_weight="1" />
                 <ImageView
                     android:id="@+id/mission2_point"
                     android:layout_width="50dp"
@@ -356,8 +314,7 @@
                     android:src="@drawable/point"
                     app:layout_constraintBottom_toBottomOf="@id/mission2"
                     app:layout_constraintStart_toStartOf="@id/mission2"
-                    app:layout_constraintTop_toTopOf="@id/mission2"></ImageView>
-
+                    app:layout_constraintTop_toTopOf="@id/mission2" />
                 <TextView
                     android:id="@+id/mission2_title"
                     android:layout_width="0dp"
@@ -368,12 +325,12 @@
                     android:outlineProvider="none"
                     android:text="@string/mission2_title"
                     android:textStyle="bold"
+                    android:textSize="16dp"
                     app:layout_constraintBottom_toTopOf="@id/mission2_content"
                     app:layout_constraintEnd_toStartOf="@id/mission2_btn"
                     app:layout_constraintStart_toEndOf="@id/mission2_point"
                     app:layout_constraintTop_toTopOf="@id/mission2"
-                    app:layout_constraintVertical_chainStyle="packed"></TextView>
-
+                    app:layout_constraintVertical_chainStyle="packed" />
                 <TextView
                     android:id="@+id/mission2_btn"
                     android:layout_width="0dp"
@@ -388,8 +345,7 @@
                     android:textSize="12dp"
                     app:layout_constraintBottom_toTopOf="@id/mission2_content"
                     app:layout_constraintEnd_toEndOf="@id/mission2"
-                    app:layout_constraintTop_toTopOf="@id/mission2"></TextView>
-
+                    app:layout_constraintTop_toTopOf="@id/mission2" />
                 <TextView
                     android:id="@+id/mission2_content"
                     android:layout_width="0dp"
@@ -398,13 +354,13 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:elevation="15dp"
+                    android:textSize="14dp"
                     android:outlineProvider="none"
                     android:text="@string/mission2_content"
                     app:layout_constraintBottom_toTopOf="@id/mission2_progress"
                     app:layout_constraintEnd_toEndOf="@id/mission2"
                     app:layout_constraintStart_toEndOf="@id/mission2_point"
-                    app:layout_constraintTop_toBottomOf="@id/mission2_title"></TextView>
-
+                    app:layout_constraintTop_toBottomOf="@id/mission2_title" />
                 <ProgressBar
                     android:id="@+id/mission2_progress"
                     style="?android:attr/progressBarStyleHorizontal"
@@ -419,9 +375,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/mission2"
                     app:layout_constraintEnd_toEndOf="@id/mission2"
                     app:layout_constraintStart_toEndOf="@id/mission2_point"
-                    app:layout_constraintTop_toBottomOf="@id/mission2_content"></ProgressBar>
+                    app:layout_constraintTop_toBottomOf="@id/mission2_content" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/mission_container_familyzero"
                 android:layout_width="match_parent"
@@ -429,7 +384,6 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/home_recycler_view">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -438,12 +392,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
                 </TextView>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.core.widget.NestedScrollView>
 </layout>

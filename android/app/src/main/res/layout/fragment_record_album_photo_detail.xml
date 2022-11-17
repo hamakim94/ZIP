@@ -17,7 +17,7 @@
             android:layout_height="48dp"
             android:minHeight="48dp"
             app:maxButtonHeight="48dp"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:titleTextAppearance="@style/toolbar_title"
             app:titleCentered="true"/>
     </com.google.android.material.appbar.AppBarLayout>
 <!--    <LinearLayout-->

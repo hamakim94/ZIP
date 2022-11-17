@@ -63,7 +63,7 @@ class RecordLetterDetailFragment : Fragment() {
 //        }
 //        println("onViewCreated" + letterData)
 
-        // 누가 썼는지 알려줄게
+        // 누가 썼는지
         observeLetter(activity)
     }
     private fun observeLetter(activity: MainActivity) {
@@ -74,11 +74,11 @@ class RecordLetterDetailFragment : Fragment() {
             val userId = App.prefs.getString("userId", "").toLong()
             if (letterData != null) {
                 if (letterData.from.id == userId) {
-                    binding.mailIcon.setImageResource(R.drawable.ic_baseline_mail_24)
+                    binding.mailIcon.setImageResource(R.drawable.ic_outline_email_24)
                     binding.letterUserNicknameDetail.text = (letterData.to.nickname + "에게 쓴 편지")
 
                 } else {
-                    binding.mailIcon.setImageResource(R.drawable.ic_baseline_mark_email_read_24)
+                    binding.mailIcon.setImageResource(R.drawable.ic_outline_mark_email_read_24)
                     binding.letterUserNicknameDetail.text = (letterData.from.nickname + "에게서 온 편지")
 
                 }

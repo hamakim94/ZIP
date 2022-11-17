@@ -28,7 +28,7 @@ class CommentQnaAdapter(private val commentList: ArrayList<Comment>, id: Long?) 
 //        val editCommentQnaContent: TextInputEditText =
 //            itemView.findViewById(R.id.edit_comment_qna_content)
 
-        val editItem: Button = itemView.findViewById(R.id.edit_btn)
+        /*val editItem: Button = itemView.findViewById(R.id.edit_btn)*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {

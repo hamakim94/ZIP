@@ -9,67 +9,45 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
     android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
-    >
-
+    android:layout_marginVertical="4dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/commentQnaProfileContainer"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="8dp">
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/commentQnaProfileImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:background="@color/darkgray"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/circleImageView"
             android:adjustViewBounds="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/commentQnaProfileContainer" />
-
         <TextView
             android:id="@+id/commentQnaUserNickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/commentQnaReg"
+            android:textAppearance="@style/board_character_name"
+            app:layout_constraintBottom_toTopOf="@id/commentQnaReg"
             app:layout_constraintStart_toEndOf="@id/commentQnaProfileImage"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/commentQnaProfileImage"
             app:layout_constraintVertical_bias="0.5"
-            app:layout_constraintVertical_chainStyle="packed"/>
-
+            app:layout_constraintVertical_chainStyle="packed" />
         <TextView
             android:id="@+id/commentQnaReg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/commentQnaContent"
             app:layout_constraintStart_toEndOf="@id/commentQnaProfileImage"
-            app:layout_constraintTop_toBottomOf="@+id/commentQnaUserNickname"
-
-            app:layout_constraintVertical_bias="0.5" />
-
-<!--        <androidx.constraintlayout.utils.widget.ImageFilterButton-->
-<!--            android:id="@+id/commentButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="4dp"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
-<!--        </androidx.constraintlayout.utils.widget.ImageFilterButton>-->
-
-        <Button
+            app:layout_constraintTop_toBottomOf="@id/commentQnaUserNickname"/>
+        <!--<Button
             android:id="@+id/edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,58 +56,16 @@
             app:layout_constraintTop_toTopOf="parent"
             android:text="수정하기"
             android:visibility="gone">
-
-        </Button>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/commentQnaContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/commentQnaProfileContainer">
-
+        </Button>-->
         <TextView
             android:id="@+id/commentQnaContent"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:padding="4dp"
-            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/edit_comment_qna_content_container"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            android:visibility="gone">-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/edit_comment_qna_content"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:padding="4dp"-->
-<!--                android:paddingStart="4dp"-->
-<!--                android:paddingEnd="4dp"-->
-<!--                android:textSize="12dp"-->
-<!--                android:singleLine="true"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-
+            app:layout_constraintStart_toStartOf="@id/commentQnaReg"
+            app:layout_constraintTop_toBottomOf="@id/commentQnaReg"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
