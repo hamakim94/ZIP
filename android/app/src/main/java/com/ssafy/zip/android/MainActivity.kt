@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         val glesMode: Int = mUnityPlayer.getSettings().getInt("gles_mode", 1)
         val trueColor8888 = false
         mUnityPlayer.init(glesMode, trueColor8888)
-        UnityPlayer.UnitySendMessage("Panel", "Init", App.prefs.getString("accesstoken",""))
+        UnityPlayer.UnitySendMessage("Panel", "HomeInit", App.prefs.getString("accesstoken",""))
         // 네비게이션 호스트
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
