@@ -198,7 +198,7 @@ private void Awake()
     #endregion
 
     #region Private Methods
-    private void LoadTotalItemData()
+    public void LoadTotalItemData()
     {
         this.totalItemDicData = new Dictionary<long, RawData[]>(); // 위치id : 가구[](가구 list)
         var ta = Resources.Load<TextAsset>("Data/total_item_data");

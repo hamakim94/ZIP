@@ -7,4 +7,5 @@ public class UserAlbumData : RawData
     public long albumId;
     public long pictureId;
     public Texture texture;
+    public string url;
 }
