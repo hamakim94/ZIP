@@ -22,12 +22,19 @@ public class PageInvert : MonoBehaviour
     public Camera mainCamera;
     Vector3 m_vecMouseDownPos;
     public static GameObject photoGO;
+    int pointerId;
 
     // Start is called before the first frame update
     void Start()
     {
         panels = new GameObject[]{mainPanel, albumPanel, photoPanel, furniturePanel, BtnList};
         MainButtonClicked();
+#if UNITY_EDITOR
+        pointerId = -1;
+#else
+        pointerId = 0;
+#endif
+
     }
 
     // Update is called once per frame
@@ -53,43 +60,48 @@ public class PageInvert : MonoBehaviour
             RaycastHit hit;
 
             // 광선으로 충돌된 collider를 hit에 넣습니다.
-            if (Physics.Raycast(ray, out hit))
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(pointerId) == false)
             {
-                /*Debug.Log("hit.collider.name: " + hit.collider.name);*/
-                // 어떤 오브젝트인지 로그를 찍습니다.
-                if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
+                if (Physics.Raycast(ray, out hit))
                 {
-                    photoGO = hit.transform.gameObject;
-                    mainCamera.transform.GetComponent<FollowCamera>().enabled = false;
-                    if (hit.transform.GetComponent<Photo>().id == 2 || hit.transform.GetComponent<Photo>().id == 3)
+                    /*Debug.Log("hit.collider.name: " + hit.collider.name);*/
+                    // 어떤 오브젝트인지 로그를 찍습니다.
+                    if (hit.collider.name == "photoImg" && !furniturePanel.activeSelf)
                     {
-                        mainCamera.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z - 4f);
-                        mainCamera.transform.LookAt(photoGO.transform);
-                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
-                    } else if (hit.transform.GetComponent<Photo>().id == 1)
-                    {
-                        mainCamera.transform.position = new Vector3(hit.transform.position.x + 4f, hit.transform.position.y, hit.transform.position.z);
-                        mainCamera.transform.LookAt(photoGO.transform);
-                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
-                    } else
-                    {
-                        mainCamera.transform.position = new Vector3(hit.transform.position.x - 4f, hit.transform.position.y, hit.transform.position.z);
-                        mainCamera.transform.LookAt(photoGO.transform);
-                        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
-                    }
-                    AlbumButtonClicked();
-                    
-                }
+                        photoGO = hit.transform.gameObject;
+                        mainCamera.transform.GetComponent<FollowCamera>().enabled = false;
+                        if (hit.transform.GetComponent<Photo>().id == 2 || hit.transform.GetComponent<Photo>().id == 3)
+                        {
+                            mainCamera.transform.position = new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z - 4f);
+                            mainCamera.transform.LookAt(photoGO.transform);
+                            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                        }
+                        else if (hit.transform.GetComponent<Photo>().id == 1)
+                        {
+                            mainCamera.transform.position = new Vector3(hit.transform.position.x + 4f, hit.transform.position.y, hit.transform.position.z);
+                            mainCamera.transform.LookAt(photoGO.transform);
+                            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                        }
+                        else
+                        {
+                            mainCamera.transform.position = new Vector3(hit.transform.position.x - 4f, hit.transform.position.y, hit.transform.position.z);
+                            mainCamera.transform.LookAt(photoGO.transform);
+                            mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y - 1f, mainCamera.transform.position.z);
+                        }
+                        AlbumButtonClicked();
 
-                /*// 오브젝트 별로 코드를 작성할 수 있습니다.
-                if (hit.collider.name == "Cube")
-                    Debug.Log("Cube Hit");
-                else if (hit.collider.name == "Capsule")
-                    Debug.Log("Capsule Hit");
-                else if (hit.collider.name == "Sphere")
-                    Debug.Log("Sphere Hit");
-                else if (hit.collider.name == "Cylinder")
-                    Debug.Log("Cylinder Hit");*/
+                    }
+
+                    /*// 오브젝트 별로 코드를 작성할 수 있습니다.
+                    if (hit.collider.name == "Cube")
+                        Debug.Log("Cube Hit");
+                    else if (hit.collider.name == "Capsule")
+                        Debug.Log("Capsule Hit");
+                    else if (hit.collider.name == "Sphere")
+                        Debug.Log("Sphere Hit");
+                    else if (hit.collider.name == "Cylinder")
+                        Debug.Log("Cylinder Hit");*/
+                }
             }
         }
     }
@@ -116,10 +128,9 @@ public class PageInvert : MonoBehaviour
         // 배치 버튼 
         for (int i = 0; i< BtnList.transform.childCount; i++)
         {
-             
             if (BuildList.transform.GetChild(i).childCount == 1)
             {
-                BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(!BtnList.activeSelf);
+                BuildList.transform.GetChild(i).GetChild(0).gameObject.SetActive(BtnList.activeSelf);
             }
         }
     }
