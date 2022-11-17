@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -28,25 +29,26 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding;
     private val binding get() = _binding!!
-     lateinit var mUnityPlayer : UnityPlayer;
+    lateinit var mUnityPlayer : UnityPlayer;
     var stopCheck : Boolean = false;
+    lateinit var checkView : ViewGroup;
     override fun onCreate(savedInstanceState: Bundle?) {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT+9"))
         super.onCreate(savedInstanceState)
-        println("화면생성");
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mUnityPlayer = UnityPlayer(App.ApplicationContext())
         val glesMode: Int = mUnityPlayer.getSettings().getInt("gles_mode", 1)
         val trueColor8888 = false
         mUnityPlayer.init(glesMode, trueColor8888)
-        UnityPlayer.UnitySendMessage("Panel", "HomeInit", App.prefs.getString("accesstoken",""))
+        UnityPlayer.UnitySendMessage("Panel", "InitHome", App.prefs.getString("accesstoken",""))
         // 네비게이션 호스트
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         // 네비게이션 컨트롤러 (네비게이션 그래프 정보를 바탕으로 네비게이션 간 이동을 담당)
         val navController = navHostFragment.navController
         binding.fab.setOnClickListener{
+            stopCheck = true;
             var intent = Intent(this@MainActivity, UnityPlayerActivity::class.java)
             intent.putExtra("token", App.prefs.getString("accesstoken",""))
             startActivity(intent)
@@ -169,11 +171,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        stopCheck = true
     }
     override fun onResume() {
         super.onResume()
-        if(stopCheck)
+        if(stopCheck) {
             restart()
+        }
     }
 }

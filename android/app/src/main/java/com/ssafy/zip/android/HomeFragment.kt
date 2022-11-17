@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,19 +40,27 @@ class HomeFragment : Fragment() {
     private lateinit var homeAdapter: HomeAdapter
     private val viewModel by viewModels<HomeViewModel>{HomeViewModel.Factory(Application())}
     private lateinit var mUnityPlayer : UnityPlayer
+    private lateinit var startView : View
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
+        mUnityPlayer = (getActivity() as MainActivity).mUnityPlayer
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mUnityPlayer = (getActivity() as MainActivity).mUnityPlayer
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         var lp = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT)
-        binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
+        if(mUnityPlayer.view.parent == null) {
+            binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
+            (getActivity() as MainActivity).checkView = binding.homeHouse;
+        } else{
+            (getActivity() as MainActivity).checkView.removeView((getActivity() as MainActivity).checkView.getChildAt(0))
+            binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
+            (getActivity() as MainActivity).checkView = binding.homeHouse;
+        }
         binding.viewmodel = viewModel
         binding.topText.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
@@ -102,7 +111,6 @@ class HomeFragment : Fragment() {
         observeFamily(activity)
         observeMission(activity)
         homeList = ArrayList()
-        println("완성")
     }
 
     private fun observeFamily(activity: MainActivity){
@@ -162,10 +170,10 @@ class HomeFragment : Fragment() {
     }
     override fun onPause() {
         super.onPause()
-
         MultiWindowSupport.saveMultiWindowMode(activity)
 
         if (MultiWindowSupport.getAllowResizableWindow(activity)) return
+
         mUnityPlayer.windowFocusChanged(false)
         mUnityPlayer.pause()
 
@@ -173,10 +181,10 @@ class HomeFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-
         if (!MultiWindowSupport.getAllowResizableWindow(activity)) return
         mUnityPlayer.windowFocusChanged(false)
         mUnityPlayer.pause()
+
     }
 
     override fun onDestroyView() {
