@@ -69,7 +69,6 @@
             android:layout_marginTop="8dp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:text="123456"
             android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/frame_profile"/>
 

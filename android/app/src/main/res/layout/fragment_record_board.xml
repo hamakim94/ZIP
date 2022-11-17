@@ -61,7 +61,7 @@
                         android:button="@android:color/transparent"
                         android:elevation="4dp"
                         android:onClick="onRadioButtonClicked"
-                        android:text="게시판"
+                        android:text="게시글"
                         android:textAlignment="center"
                         android:textAppearance="@style/radio_btn"
                         android:textColor="@drawable/text_color" />
