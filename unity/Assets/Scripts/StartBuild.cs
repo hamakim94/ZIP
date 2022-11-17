@@ -64,19 +64,22 @@ public class StartBuild : MonoBehaviour
             if (DataManager.Instance)
             {
                 // 로드된 데이터 가져옴
-                for (int posId = 1; posId <= DataManager.Instance.userItemDicData.Count; posId++) // 전체 위치 아이디 길이??
+                for (int posId = 1; posId <= 14; posId++) // 전체 위치 아이디 길이??
                 {
                     // contains.key 처리하고
-                    var filteredUserItemData = DataManager.Instance.userItemDicData[posId]; // 해당 위치에 있는 user item list (UserItemData type)
-
-                    for (int j = 0; j < filteredUserItemData.Length; j++)
+                    if (DataManager.Instance.userItemDicData.ContainsKey(posId))
                     {
-                        var data = (UserItemData)filteredUserItemData[j];
+                        var filteredUserItemData = DataManager.Instance.userItemDicData[posId]; // 해당 위치에 있는 user item list (UserItemData type)
 
-
-                        if (data.hasItemCode == 2) // 보유, 사용O
+                        for (int j = 0; j < filteredUserItemData.Length; j++)
                         {
-                            setFuniture(posId, data.id);
+                            var data = (UserItemData)filteredUserItemData[j];
+
+
+                            if (data.hasItemCode == 2) // 보유, 사용O
+                            {
+                                setFuniture(posId, data.id);
+                            }
                         }
                     }
                 }
