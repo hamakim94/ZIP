@@ -2,51 +2,56 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewmodel"
             type="com.ssafy.zip.android.viewmodel.CalendarViewModel" />
     </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".CalendarFragment"
         tools:ignore="MissingClass">
+
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             app:mcv_selectionColor="#6200EE" />
+
         <TextView
             android:id="@+id/day_text"
             android:layout_width="wrap_content"
             android:layout_height="26sp"
-            android:layout_marginStart="25dp"
-            android:textColor="@color/darkgray2"
-            android:textSize="15sp"
-            android:fontFamily="@font/one_mobile_pop"
-            android:backgroundTint="@color/purple_500"
             android:layout_below="@id/calendarView"
+            android:layout_marginStart="25dp"
+            android:backgroundTint="@color/purple_500"
+            android:fontFamily="@font/one_mobile_pop"
             android:gravity="center"
-            />
+            android:textColor="@color/darkgray2"
+            android:textSize="15sp" />
+
         <Button
             android:id="@+id/add_calendar_fab"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="26sp"
-            android:text="일정 추가"
-            android:padding="0dp"
-            app:icon="@drawable/ic_round_add_24"
+            android:layout_below="@id/calendarView"
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp"
-            android:layout_below="@id/calendarView"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"            android:fontFamily="@font/one_mobile_pop"
-            android:textSize="15sp"
-            android:textColor="@color/darkgray2"
-            app:iconTint="@color/darkgray2"
+            android:fontFamily="@font/one_mobile_pop"
             android:gravity="center"
-            />
+            android:padding="0dp"
+            android:text="일정 추가"
+            android:textColor="@color/darkgray2"
+            android:textSize="15sp"
+            app:icon="@drawable/ic_round_add_24"
+            app:iconTint="@color/darkgray2" />
         <!--<Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,29 +70,31 @@
             android:id="@+id/endLayout"
             android:layout_width="match_parent"
             android:layout_height="10dp"
+            android:layout_below="@id/day_text"
+            android:background="@drawable/layout_bottom"
             android:paddingStart="15dp"
             android:paddingTop="5dp"
             android:paddingEnd="15dp"
-            android:background="@drawable/layout_bottom"
             android:textColor="@color/black"
-            android:layout_below="@id/day_text"
-            tools:ignore="DuplicateIds"
-            />
+            tools:ignore="DuplicateIds" />
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/calendar_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:layout_below="@id/endLayout" >
+            android:layout_below="@id/endLayout"
+            android:fillViewport="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:descendantFocusability="blocksDescendants"
                     android:id="@+id/calendar_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"
                     tools:listitem="@layout/calendar_item" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
