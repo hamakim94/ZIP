@@ -14,4 +14,5 @@ public interface LetterService {
     LetterResponseDTO getLetter(UserDTO userDTO, Long letterId);
     void sendLetter(UserDTO userDTO, LetterRequestDTO letterRequestDTO);
     LetterTodayResponseDTO getTodayLetter(UserDTO userDTO);
+    void resetLetterList();
 }

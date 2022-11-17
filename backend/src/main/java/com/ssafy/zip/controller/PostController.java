@@ -159,7 +159,7 @@ public class PostController {
     }
 
     @GetMapping("/letter/{letterId}")
-    @ApiOperation("편지 조회")
+    @ApiOperation("편지 개별 조회")
     ResponseEntity<LetterResponseDTO> getLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO, @PathVariable Long letterId){
         return ResponseEntity.ok(letterService.getLetter(userDTO,letterId));
     }
@@ -177,5 +177,12 @@ public class PostController {
     ResponseEntity<LetterTodayResponseDTO> todayLetter(@ApiIgnore @AuthenticationPrincipal UserDTO userDTO){
 
         return ResponseEntity.ok(letterService.getTodayLetter(userDTO));
+    }
+
+    @PostMapping("/letter/reset")
+    @ApiOperation("오늘의 편지 리셋")
+    ResponseEntity<?> resetLetter(){
+        letterService.resetLetterList();
+        return ResponseEntity.ok().build();
     }
 }

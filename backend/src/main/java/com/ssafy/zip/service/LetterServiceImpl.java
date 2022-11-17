@@ -112,6 +112,12 @@ public class LetterServiceImpl implements LetterService {
         }else throw new ResourceNotFoundException("편지를 보낼 수 있는 가족이 없습니다.", ErrorCode.NOT_FOUND);
         return null;
     }
+
+    @Override
+    public void resetLetterList() {
+        scheduleLetterFromAndTo();
+    }
+
     @Scheduled(cron = "1 0 0 * * *",zone = "Asia/Seoul")
     public void onSchedule(){
         scheduleLetterFromAndTo();
