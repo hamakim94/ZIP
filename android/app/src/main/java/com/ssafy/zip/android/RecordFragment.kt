@@ -38,7 +38,7 @@ class RecordFragment : Fragment() {
 
         viewPager.adapter = RecordFragmentViewPagerAdapter(this)
 
-        val tabName = arrayOf<String>("앨범", "게시글")
+        val tabName = arrayOf<String>("앨범", "게시판")
 
         // 슬라이드로 이동했을 때, 탭이 같이 변경되도록 (TabLayout과 ViewPager2를 연동을 도와주는 객체)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
