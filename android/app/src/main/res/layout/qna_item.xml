@@ -7,48 +7,46 @@
     android:layout_height="wrap_content"
     android:background="@drawable/layout_bottom"
     android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="vertical"
-    android:padding="8dp">
-
+    android:orientation="vertical">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/qnaInfoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/q"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/question"
+            android:src="@drawable/ic_round_question_mark_24"
+            android:tint="@color/darkgray2"
+            app:civ_border_color="@color/darkgray"
+            app:civ_border_width="1dp"
             app:layout_constraintBottom_toBottomOf="@id/qnaInfoContainer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
+            app:layout_constraintTop_toTopOf="@id/qnaInfoContainer"
+            android:scaleType="centerCrop"
+            />
         <TextView
             android:id="@+id/qna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="오늘의 백문백답"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/board_character_name"
             app:layout_constraintBottom_toTopOf="@+id/qnaReg"
             app:layout_constraintStart_toEndOf="@+id/q"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintVertical_chainStyle="packed" />
-
         <TextView
             android:id="@+id/qnaReg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="22/10/30"
-            android:textSize="10sp"
+            android:textAppearance="@style/board_reg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/q"
             app:layout_constraintTop_toBottomOf="@+id/qna"
@@ -98,14 +96,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="233"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/container"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/container"
-            app:layout_constraintTop_toTopOf="@id/container"
-            app:layout_constraintVertical_bias="0.0">>
-
-        </TextView>
+            app:layout_constraintTop_toTopOf="@id/container"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

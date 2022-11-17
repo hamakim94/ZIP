@@ -53,11 +53,9 @@ class RecordBoardDetailFragment : Fragment() {
         )
         binding.viewmodel = viewModel
         // 순수하게, id만 가져오고 싶어서 이거 쓰는거
-
-        val boardData = arguments?.getParcelable<BoardModel.Board>("Board")
+        val id = arguments?.getLong("id")
         // 이제 여기서 post 관련
         binding.commentPostBtn.setOnClickListener {
-            val id = boardData?.id
             if (id != null && binding.commentContent.text.isNotEmpty()) {
                 MaterialAlertDialogBuilder(activity).setMessage("댓글을 작성하시겠습니까?")
                     .setPositiveButton("확인") { dialog, which ->

@@ -18,14 +18,13 @@ class QnaProfileAdapter(
 ) : RecyclerView.Adapter<QnaProfileAdapter.QnaProfileViewHolder>() {
 
     class QnaProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val homeImage: CircleImageView = itemView.findViewById(R.id.home_image)
+        val homeImage: CircleImageView = itemView.findViewById(R.id.home_image2)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QnaProfileViewHolder {
-
         return QnaProfileViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.home_item, parent, false)
+                .inflate(R.layout.qna_participate_item, parent, false)
         )
     }
 
@@ -44,6 +43,8 @@ class QnaProfileAdapter(
         }
         holder.homeImage.borderWidth = 1
         holder.homeImage.borderColor = R.color.lightgray
+        /*holder.homeText.text = homeImage.nickname*/
+
         // 조건넣기
         var answerList = viewModel.qnaDetail.value?.answers
         var familyMemberId = homeList[position].id

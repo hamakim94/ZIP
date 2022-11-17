@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeAdapter: HomeAdapter
     private val viewModel by viewModels<HomeViewModel>{HomeViewModel.Factory(Application())}
     private lateinit var mUnityPlayer : UnityPlayer
-    private lateinit var startView : View
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
@@ -62,22 +62,21 @@ class HomeFragment : Fragment() {
             (getActivity() as MainActivity).checkView = binding.homeHouse;
         }
         binding.viewmodel = viewModel
-        binding.topText.setOnClickListener {
+
+        binding.topLogo.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = UserRepository.getInstance(Application())
                 var response = instance?.logout()
                 if(response.equals("200")){
                     val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-//                    binding.root.findNavController().navigate(action)
+                    binding.root.findNavController().navigate(action)
                 }
             }
-//            UnityPlayer.UnitySendMessage("MainPanel", "Exit","")
-
         }
         binding.mission1Btn.setOnClickListener{
             var bundle = Bundle()
             viewModel.missions.value?.qna?.let { it1 -> bundle.putLong("id",  it1.id) }
-//            binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordQnaDetailFragment, bundle)
+            binding.root.findNavController().navigate(R.id.action_homeFragment_to_recordQnaDetailFragment, bundle)
         }
 
         binding.mission2Btn.setOnClickListener{
@@ -101,7 +100,6 @@ class HomeFragment : Fragment() {
             clipboard.setPrimaryClip(clip)
             Toast.makeText(context, R.string.family_code_clipboard, Toast.LENGTH_SHORT).show()
         }
-
         return binding.root
     }
 
@@ -195,71 +193,5 @@ class HomeFragment : Fragment() {
     }
 
 
-    // Quit Unity
-//    override fun onDestroy() {
-//        mUnityPlayer.destroy()
-//        super.onDestroy()
-//    }
-
-    // If the activity is in multi window mode or resizing the activity is allowed we will use
-    // onStart/onStop (the visibility callbacks) to determine when to pause/resume.
-    // Otherwise it will be done in onPause/onResume as Unity has done historically to preserve
-    // existing behavior.
-//    override fun onStop() {
-//        super.onStop()
-//        if (!MultiWindowSupport.getAllowResizableWindow(activity)) return
-//        mUnityPlayer.pause()
-//        mUnityPlayer.windowFocusChanged(false)
-//    }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        if (!MultiWindowSupport.getAllowResizableWindow(activity)) return
-//        mUnityPlayer.resume()
-//        mUnityPlayer.windowFocusChanged(true)
-//    }
-//
-//    // Pause Unity
-//    override fun onPause() {
-//        super.onPause()
-//        MultiWindowSupport.saveMultiWindowMode(activity)
-//        if (MultiWindowSupport.getAllowResizableWindow(activity)) return
-//        mUnityPlayer.pause()
-//        mUnityPlayer.windowFocusChanged(false)
-//    }
-//
-//    // Resume Unity
-//    override fun onResume() {
-//        super.onResume()
-//        if (MultiWindowSupport.getAllowResizableWindow(activity) && !MultiWindowSupport.isMultiWindowModeChangedToTrue(
-//                activity
-//            )
-//        ) return
-//        mUnityPlayer.resume()
-//    }
-//
-//    // Low Memory Unity
-//    override fun onLowMemory() {
-//        super.onLowMemory()
-//        mUnityPlayer.lowMemory()
-//        mUnityPlayer.windowFocusChanged(false)
-//    }
-
-    // Trim Memory Unity
-
-
-/*    override fun onStop() {
-        super.onStop()
-        if (!MultiWindowSupport.getAllowResizableWindow(activity)) return
-        println("정지")
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        mUnityPlayer.windowFocusChanged(false)
-        mUnityPlayer.destroy()
-        println("종료")
-
-    }*/
 
 }

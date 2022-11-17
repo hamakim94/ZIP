@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ssafy.zip.android.CustomDialog
+import com.ssafy.zip.android.CustomProfileDialog
 import com.ssafy.zip.android.R
 import com.ssafy.zip.android.data.FamilyMember
 import de.hdodenhof.circleimageview.CircleImageView
@@ -45,7 +45,7 @@ class HomeAdapter(private val homeList:ArrayList<FamilyMember>, private val fami
                 .into(holder.homeImage)
         }
         holder.homeImage.setOnClickListener {
-            val dialog = CustomDialog()
+            val dialog = CustomProfileDialog()
             val args = Bundle()
             args.putParcelable("key", homeImage)
             args.putString("familyName", familyName)

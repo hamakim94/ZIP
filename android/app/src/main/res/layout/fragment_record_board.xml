@@ -31,14 +31,14 @@
                     android:layout_height="match_parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:paddingHorizontal="10dp"
                     android:orientation="horizontal">
-
                     <RadioButton
                         android:id="@+id/allButton"
-                        android:layout_width="30dp"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_marginVertical="10dp"
-                        android:layout_marginHorizontal="4dp"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
@@ -47,14 +47,15 @@
                         android:onClick="onRadioButtonClicked"
                         android:text="전체"
                         android:textAlignment="center"
+                        android:textAppearance="@style/radio_btn"
                         android:textColor="@drawable/text_color" />
 
                     <RadioButton
                         android:id="@+id/boardButton"
-                        android:layout_width="30dp"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_marginVertical="10dp"
-                        android:layout_marginHorizontal="4dp"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
@@ -62,14 +63,15 @@
                         android:onClick="onRadioButtonClicked"
                         android:text="게시판"
                         android:textAlignment="center"
+                        android:textAppearance="@style/radio_btn"
                         android:textColor="@drawable/text_color" />
 
                     <RadioButton
                         android:id="@+id/qnaButton"
-                        android:layout_width="30dp"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_marginVertical="10dp"
-                        android:layout_marginHorizontal="4dp"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
@@ -77,14 +79,15 @@
                         android:onClick="onRadioButtonClicked"
                         android:text="백문백답"
                         android:textAlignment="center"
+                        android:textAppearance="@style/radio_btn"
                         android:textColor="@drawable/text_color" />
 
                     <RadioButton
                         android:id="@+id/letterButton"
-                        android:layout_width="30dp"
+                        android:layout_width="20dp"
                         android:layout_height="match_parent"
                         android:layout_marginVertical="10dp"
-                        android:layout_marginHorizontal="4dp"
+                        android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
@@ -92,22 +95,16 @@
                         android:onClick="onRadioButtonClicked"
                         android:text="오늘의 편지"
                         android:textAlignment="center"
+                        android:textAppearance="@style/radio_btn"
                         android:textColor="@drawable/text_color" />
-
                 </RadioGroup>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!--    조건을 넣어서 , 어떤걸 보여줄지 정하는 느낌?-->
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/board_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/board_item" />
-
         </LinearLayout>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/board_fab"
             android:layout_width="wrap_content"
@@ -115,10 +112,7 @@
             android:layout_gravity="bottom|right"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="20dp"
-            app:srcCompat="@drawable/ic_baseline_add_24"
+            app:srcCompat="@drawable/ic_round_add_24"
             app:tint="@color/white"/>
-
-
-
     </FrameLayout>
 </layout>

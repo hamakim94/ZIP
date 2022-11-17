@@ -45,7 +45,7 @@ class BoardModelAdapter(
         holder: BoardModelAdapterViewHolder, position: Int
     ) {
         holder.bind(adapterData[position], viewModel)
-        // 게시글 바인딩 시켜야함
+        // 게시글 바인딩
         holder.itemView.setOnClickListener {
             when (adapterData[position].data.javaClass.simpleName.toString()) {
                 "Board" -> {
@@ -66,7 +66,9 @@ class BoardModelAdapter(
                 "Letter" -> {
                     val bundle = Bundle()
                     viewModel.userData.value?.let { it1 -> bundle.putLong("userId", it1.id) }
-                    bundle.putParcelable("Letter", adapterData[position].data)
+                    val data = adapterData[position].data as BoardModel.Letter
+                    bundle.putLong("id", data.id)
+//                    bundle.putParcelable("Letter", adapterData[position].data)
                     it.findNavController()
                         .navigate(R.id.action_recordFragment_to_recordLetterDetailFragment, bundle)
                 }
@@ -87,7 +89,6 @@ class BoardModelAdapter(
     }
 
     class BoardModelAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         private fun bindBoard(item: ResponseBoardAll) {
             var board: BoardModel.Board = item.data as BoardModel.Board
             if (board != null) {
@@ -100,7 +101,6 @@ class BoardModelAdapter(
                 }
                 itemView.findViewById<TextView>(R.id.userNickname).text = board.user.nickname
                 itemView.findViewById<TextView>(R.id.boardReg).text = DateUtil.getRegDate(board.reg)
-                //Glide 쓰기..
                 if (board.image != null) {
                     itemView.findViewById<ImageView>(R.id.boardImage)
                         .setBackgroundResource(R.drawable.layout_vertical)
@@ -111,7 +111,6 @@ class BoardModelAdapter(
                 itemView.findViewById<TextView>(R.id.boardContent).text = board.content
                 itemView.findViewById<TextView>(R.id.commentCnt).text = board.commentCnt.toString()
             }
-
         }
 
         private fun bindQna(item: ResponseBoardAll) {
@@ -121,11 +120,9 @@ class BoardModelAdapter(
                 itemView.findViewById<TextView>(R.id.qnaContent).text = qna.question
                 itemView.findViewById<TextView>(R.id.qnaCommentCount).text = "" + qna.answerCnt
             }
-
         }
 
         private fun bindLetter(item: ResponseBoardAll, viewModel: BoardViewModel) {
-
             var letter: BoardModel.Letter? = item.data as? BoardModel.Letter
             var userId = viewModel.userData.value?.id
             if (userId != null) {
@@ -139,8 +136,6 @@ class BoardModelAdapter(
                         .setImageResource(R.drawable.ic_outline_email_24)
                     itemView.findViewById<TextView>(R.id.letterContent).text =
                         if (letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
-
-
                 }// 2. 받은 편지인지
                 else {
                     // 2-1. 읽었는지(isRead == true?) mark_email_read
@@ -153,7 +148,6 @@ class BoardModelAdapter(
                             .setImageResource(R.drawable.ic_outline_mark_email_read_24)
                         itemView.findViewById<TextView>(R.id.letterContent).text =
                             if (letter.content.length > 8) letter.content.substring(0 until 8) + "..." else letter.content
-
                     }
                     // 2-2. 안 읽었는지 mark_email_unread
                     else {
@@ -164,17 +158,12 @@ class BoardModelAdapter(
                                 DateUtil.getRegDate(letter.reg)
                             itemView.findViewById<TextView>(R.id.letterContent).isGone = true
                         }
-
                         itemView.findViewById<CircleImageView>(R.id.mailIcon)
                             .setImageResource(R.drawable.ic_outline_mark_email_unread_24)
                         itemView.findViewById<TextView>(R.id.letterContent).text = letter?.content
-
                     }
-
                 }
             }
-
-
         }
 
         fun bind(boardModel: ResponseBoardAll, viewModel: BoardViewModel) {
@@ -184,8 +173,5 @@ class BoardModelAdapter(
                 2 -> bindLetter(boardModel, viewModel)
             }
         }
-
-
     }
-
 }

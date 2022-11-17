@@ -71,7 +71,8 @@ class LoginFragment : Fragment() {
                             var response = instance?.postFcmToken(token)
                             if (response.equals("200")) {
                                 if (loginData.hasFamily) {
-                                    binding.root.findNavController().navigate(action)
+                                    /*binding.root.findNavController().navigate(action)*/
+                                    (getActivity() as MainActivity).restart()
                                 } else {
                                     action =
                                         LoginFragmentDirections.actionLoginFragmentToFamilyEnterFragment()

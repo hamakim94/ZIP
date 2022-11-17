@@ -7,18 +7,15 @@
             name="viewmodel"
             type="com.ssafy.zip.android.viewmodel.NotificationViewModel" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".NotificationFragment">
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/notification_detail_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
-
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/notification_detail_appbar"
                 style="@style/Widget.MaterialComponents.Toolbar.Surface"
@@ -26,20 +23,20 @@
                 android:layout_height="48dp"
                 android:minHeight="48dp"
                 android:text="알림"
+                app:menu="@menu/notification_top_app_bar"
                 app:maxButtonHeight="48dp"
                 app:titleCentered="true"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+                app:titleTextAppearance="@style/toolbar_title" />
         </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/notification_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:paddingBottom="56dp"
             app:layoutManager="GridLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/notification_detail_layout"
-            tools:listitem="@layout/notification_item" />
-
+            tools:listitem="@layout/notification_item"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/notification_zero"
             android:layout_width="match_parent"
@@ -47,37 +44,18 @@
             android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/zip_app_circle"
-               android:layout_marginTop="150dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5">
-
-            </androidx.constraintlayout.utils.widget.ImageFilterView>
-
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/none_noti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="받은 알림이 없습니다."
-                android:textSize="15sp"
+                android:text="도착한 알림이 없습니다."
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logo"
-                app:layout_constraintVertical_bias="0.5">
-
+                app:layout_constraintTop_toTopOf="parent">
             </TextView>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

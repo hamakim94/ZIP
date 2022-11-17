@@ -8,50 +8,44 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
     android:padding="8dp">
-    <!--    -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/letterInfoContainer"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mailIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:tint="@color/darkgray2"
             app:layout_constraintBottom_toBottomOf="@id/letterInfoContainer"
-            app:layout_constraintStart_toStartOf="@id/letterInfoContainer">
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/letterInfoContainer"
+            android:scaleType="centerCrop">
         </de.hdodenhof.circleimageview.CircleImageView>
-
         <TextView
             android:id="@+id/letterTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/board_character_name"
             app:layout_constraintBottom_toTopOf="@+id/letterReg"
             app:layout_constraintStart_toEndOf="@id/mailIcon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
             app:layout_constraintVertical_chainStyle="packed" />
-
         <TextView
             android:id="@+id/letterReg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textSize="10sp"
+            android:textAppearance="@style/board_reg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/mailIcon"
             app:layout_constraintTop_toBottomOf="@+id/letterTitle"
             app:layout_constraintVertical_bias="0.5" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/letterContentContainer"
         android:layout_width="match_parent"
@@ -59,7 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:padding="4dp"
         app:layout_constraintTop_toBottomOf="@id/letterInfoContainer">
-
         <TextView
             android:id="@+id/letterContent"
             android:layout_width="wrap_content"
@@ -70,10 +63,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

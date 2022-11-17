@@ -158,7 +158,14 @@
     <fragment
         android:id="@+id/recordLetterDetailFragment"
         android:name="com.ssafy.zip.android.RecordLetterDetailFragment"
-        android:label="RecordLetterDetailFragment" />
+        android:label="RecordLetterDetailFragment">
+        <deepLink
+            android:id="@+id/deepLink7"
+            app:uri="myapp://zip.com/letter/{id}" />
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/familyEnterFragment"
         android:name="com.ssafy.zip.android.FamilyEnterFragment"
