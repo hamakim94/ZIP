@@ -33,7 +33,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     #region MonoBehaviour Callbacks
     void Awake()
     {
-        loadingText.text = "우리 모두 ZIP 중 . . .";
         dataManager = DataManager.Instance;
     }
     // Start is called before the first frame update
@@ -191,19 +190,22 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     }
     private IEnumerator StartHome()
     {
-        StartCoroutine(UpdateLoadingText());
-        StartCoroutine(LoadAsynSceneCoroutine("Home"));
         GameObject dm = GameObject.Find("DataManager");
         dm.transform.GetComponent<Recorder>().DestroyUniversal();
         dm.transform.GetComponent<PunVoiceClient>().DestroyUniversal();
         Destroy(GameObject.Find("VoiceLogger"));
         Destroy(GameObject.Find("PhotonMono"));
-        yield return StartCoroutine(LoadAlbumData());
+        GameObject.Find("Slider").SetActive(false);
+        /*SceneManager.LoadScene("Home");*/
+        yield return null;
+        StartCoroutine(UpdateLoadingText());
+        StartCoroutine(LoadAsynSceneCoroutine("Home"));
+        /*yield return StartCoroutine(LoadAlbumData());*/
         yield return StartCoroutine(LoadUserInfo());
         task = "가구 배치 불러오는 중";
         yield return StartCoroutine(dataManager.LoadUserItemData());
         yield return StartCoroutine(LoadUserAlbumData());
-        gage -= 10;
+        gage = doneGage;
     }
     private IEnumerator LoadAsynSceneCoroutine(string scene)
     {
@@ -286,27 +288,22 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest(); // api 통신해서 json 가져오기 
         var json = www.downloadHandler.text;
         var arrData = JsonConvert.DeserializeObject<UserAlbumData[]>(json);
-        var albums = DataManager.Instance.albumDicData;
         foreach (UserAlbumData data in arrData)
         {
-            foreach (AlbumData Value in albums.Values)
-            {
-                foreach (PhotoData photo in Value.pictures)
-                /*foreach(var photo in ((AlbumData)albums[albumId]).pictures)*/
-                {
-                    if (photo.id == data.pictureId)
-                    {
-                        data.texture = photo.texture;
-                        break;
-                    }
-                }
-            }
-            Debug.Log(data);
+            yield return StartCoroutine(GetTexture(data));
             DataManager.Instance.userAlbumDicData.Add(data.id, data);
         }
         www.Dispose();
     }
     private IEnumerator GetTexture(PhotoData picture)
+    {
+        using UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
+        yield return www.SendWebRequest();
+
+        picture.texture = DownloadHandlerTexture.GetContent(www);
+        www.Dispose();
+    }
+    private IEnumerator GetTexture(UserAlbumData picture)
     {
         using UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
         yield return www.SendWebRequest();

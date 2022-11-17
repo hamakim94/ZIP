@@ -2212,6 +2212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectObject: {fileID: 2116092289}
   albumPhoto: {fileID: 569902363}
+  homeAlbumPhoto: {fileID: 569902365}
 --- !u!4 &1313904714
 Transform:
   m_ObjectHideFlags: 0
