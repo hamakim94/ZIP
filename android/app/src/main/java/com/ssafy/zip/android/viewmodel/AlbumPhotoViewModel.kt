@@ -5,6 +5,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import androidx.exifinterface.media.ExifInterface
 import androidx.lifecycle.*
@@ -88,58 +89,34 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
                 if (inputStream != null) {
                     inputStream.close()
                 }
+                val matrix = Matrix()
+                val orientation: Int? =
+                    exif?.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+                val angle = when(orientation) {
+                    ExifInterface.ORIENTATION_ROTATE_90 -> 90f
+                    ExifInterface.ORIENTATION_ROTATE_180 -> 180f
+                    ExifInterface.ORIENTATION_ROTATE_270 -> 270f
+                    else -> 0f
+                }
+                matrix.postRotate(angle);
+                val rotateBitmap = pictureBitmap?.let { Bitmap.createBitmap(it, 0, 0, pictureBitmap.width, pictureBitmap.height, matrix, true) };
 
-//                val options = BitmapFactory.Options()
-//                options.inSampleSize = 4
-//                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, images[index]);
-//
-//                val width = 1024 // 축소시킬 너비
-//                val height = 1024 // 축소시킬 높이
-//
-//                var bmpWidth = bitmap.width.toFloat()
-//                var bmpHeight = bitmap.height.toFloat()
-//
-//                if (bmpWidth > width) {
-//                    // 원하는 너비보다 클 경우의 설정
-//                    val mWidth = bmpWidth / 100
-//                    val scale = width / mWidth
-//                    bmpWidth *= scale / 100
-//                    bmpHeight *= scale / 100
-//                } else if (bmpHeight > height) {
-//                    // 원하는 높이보다 클 경우의 설정
-//                    val mHeight = bmpHeight / 100
-//                    val scale = height / mHeight
-//                    bmpWidth *= scale / 100
-//                    bmpHeight *= scale / 100
-//                }
-//                val pictureBitmap = Bitmap.createScaledBitmap(
-//                    bitmap,
-//                    bmpWidth.toInt(), bmpHeight.toInt(), true
-//                )
-
-                if (pictureBitmap != null) {
-                    pictureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                if (rotateBitmap != null) {
+                    rotateBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
                 };
-               /* val buf = ByteArray(1024)
-                var len : Int
-                if (inputStream != null) {
-                    while(inputStream.read(buf).also { len = it } > 0)
-                        outputStream.write(buf, 0, len)
-                    inputStream.close()
-                }*/
+
                 outputStream.close()
 
-                val newExif = filePath?.let {
-                    ExifInterface(it)
-                }
-                if (exif != null) {
-                    newExif?.setAttribute(ExifInterface.TAG_ORIENTATION, exif.getAttribute(ExifInterface.TAG_ORIENTATION))
-                }
-                newExif?.saveAttributes()
+//                val newExif = filePath?.let {
+//                    ExifInterface(it)
+//                }
+//                if (exif != null) {
+//                    newExif?.setAttribute(ExifInterface.TAG_ORIENTATION, exif.getAttribute(ExifInterface.TAG_ORIENTATION))
+//                }
+//                newExif?.saveAttributes()
 
                 val requestBody = RequestBody.create(MediaType.parse("image/*"), file)
                 val body = MultipartBody.Part.createFormData("files", fileName, requestBody)
-//                println("파일입니다"+ index + "  "+ file.length())
                 imageList.add(body)
             } catch (ignore : IOException){
             }
