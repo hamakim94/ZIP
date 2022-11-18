@@ -29,6 +29,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private TMP_Text taskText;
     private string task;
+    [SerializeField]
+    private TMP_Text tip;
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -321,14 +323,36 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     private IEnumerator UpdateLoadingText()
     {
+        int tipNum = 0;
         while (true)
         {
-            loadingText.text = "Loading · . .";
-            yield return new WaitForSeconds(0.2f);
-            loadingText.text = "Loading . · .";
-            yield return new WaitForSeconds(0.2f);
-            loadingText.text = "Loading . . ·";
-            yield return new WaitForSeconds(0.2f);
+            switch (tipNum)
+            {
+                case 0:
+                    tip.text = "tip) 가구의 이름은 보나에게서 나온 아이디어입니다.";
+                    break;
+                case 1:
+                    tip.text = "tip) 액자를 눌러서 우리의 추억을 담을 수 있어요.";
+                    break;
+                case 2:
+                    tip.text = "tip) 가구를 구매하면 환불은 안돼요! 신중하게 골라주세요.";
+                    break;
+                default:
+                    tipNum = 0;
+                    break;
+            }
+            tipNum++;
+            tipNum %= 3;
+
+            for (int i = 0; i < 5; i++)
+            {
+                loadingText.text = "Loading · . .";
+                yield return new WaitForSeconds(0.2f);
+                loadingText.text = "Loading . · .";
+                yield return new WaitForSeconds(0.2f);
+                loadingText.text = "Loading . . ·";
+                yield return new WaitForSeconds(0.2f);
+            }
         }
     }
     #endregion
