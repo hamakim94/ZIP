@@ -57,7 +57,11 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
-
+        } else{
+            val navGraph =
+                navController.navInflater.inflate(R.navigation.bottom_bar_nav_graph)
+            navGraph.setStartDestination(R.id.loginFragment)
+            navController.setGraph(navGraph, null)
         }
         // 바인딩
         binding.bottomNavigationView.setupWithNavController(navController)
@@ -66,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // 특정화면에서 하단바 없애기
             if (destination.id == R.id.loginFragment || destination.id == R.id.signupFragment || destination.id == R.id.signUpCompleteFragment || destination.id == R.id.recordBoardCreateFragment || destination.id == R.id.recordLetterCreateFragment || destination.id == R.id.recordQnaDetailFragment || destination.id == R.id.recordBoardDetailFragment
-                || destination.id == R.id.familyEnterFragment || destination.id == R.id.familyCreateFragment || destination.id == R.id.characterFragment) {
+                || destination.id == R.id.familyEnterFragment || destination.id == R.id.familyCreateFragment || destination.id == R.id.characterFragment || destination.id == R.id.startFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
                 binding.fab.visibility = View.GONE
