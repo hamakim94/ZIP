@@ -29,7 +29,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
     private val binding get() = _binding!!
-    lateinit var mUnityPlayer : UnityPlayer
+    var mUnityPlayer : UnityPlayer = UnityPlayer(App.ApplicationContext())
     var stopCheck : Boolean = false
     lateinit var checkView : ViewGroup
 
@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mUnityPlayer = UnityPlayer(App.ApplicationContext())
         val glesMode: Int = mUnityPlayer.getSettings().getInt("gles_mode", 1)
         val trueColor8888 = false
         mUnityPlayer.init(glesMode, trueColor8888)

@@ -22,6 +22,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     private float gage = 10000;
     private float doneGage = 0;
     private float tempGage = 0;
+    private int coroutineNum = 0;
     private string gameVersion = "1";
     [SerializeField]
     private TMP_Text loadingText;
@@ -36,15 +37,15 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         dataManager = DataManager.Instance;
     }
     // Start is called before the first frame update
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     void Start()
     {
         StartCoroutine(StartLoading());
     }
-    #endif
+#endif
     void Update()
     {
-        taskText.text = task + " (" + ((int)(doneGage / gage * 100))+ "%)";
+        taskText.text = task + " (" + ((int)(doneGage / gage * 100)) + "%)";
     }
     #endregion
 
@@ -108,11 +109,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.LogFormat("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room. room name {0}", PhotonNetwork.CurrentRoom.Name);
-        for (int k = 0; k < 10000; k++)
-        {
-            doneGage += 0.001f;
-        }
-        doneGage = Mathf.Round(doneGage);
+        doneGage += 10f;
 
     }
     public override void OnCreatedRoom()
@@ -179,6 +176,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     private IEnumerator StartLoading()
     {
+        slider.transform.gameObject.SetActive(true);
         StartCoroutine(UpdateLoadingText());
         StartCoroutine(LoadAsynSceneCoroutine(sceneName));
         yield return StartCoroutine(LoadAlbumData());
@@ -195,7 +193,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         dm.transform.GetComponent<PunVoiceClient>().DestroyUniversal();
         Destroy(GameObject.Find("VoiceLogger"));
         Destroy(GameObject.Find("PhotonMono"));
-        GameObject.Find("Slider").SetActive(false);
         /*SceneManager.LoadScene("Home");*/
         yield return null;
         StartCoroutine(UpdateLoadingText());
@@ -239,6 +236,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         }
         dataManager.user = JsonConvert.DeserializeObject<UserInfo>(json);
         www.Dispose();
+        yield return null;
     }
     private IEnumerator LoadAlbumData()
     {
@@ -258,17 +256,22 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             {
                 tempGage += arrData[i].pictures.Length;
             }
-            gage = tempGage + 10;
+            gage = tempGage + 14;
             for (int i = 0; i < arrData.Length; i++) // album 수
             {
                 for (int j = 0; j < arrData[i].pictures.Length; j++) // 해당 앨범의 사진 수 
                 {
-                    yield return StartCoroutine(GetTexture(arrData[i].pictures[j]));
-                    for (int k = 0; k < 10000; k++)
+                    while (coroutineNum > 2)
+                    {
+                        yield return new WaitForSeconds(0.5f);
+                    }
+                    coroutineNum++;
+                    StartCoroutine(GetTexture(arrData[i].pictures[j]));
+                    /*for (int k = 0; k < 10000; k++)
                     {
                         doneGage += 0.0001f;
                     }
-                    doneGage = Mathf.Round(doneGage);
+                    doneGage = Mathf.Round(doneGage);*/
                 }
             }
 
@@ -278,6 +281,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             }
         }
         www.Dispose();
+        yield return null;
     }
 
     private IEnumerator LoadUserAlbumData()
@@ -294,22 +298,28 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             DataManager.Instance.userAlbumDicData.Add(data.id, data);
         }
         www.Dispose();
+        yield return null;
     }
     private IEnumerator GetTexture(PhotoData picture)
     {
         using UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
         yield return www.SendWebRequest();
 
-        picture.texture = DownloadHandlerTexture.GetContent(www);
+        yield return picture.texture = DownloadHandlerTexture.GetContent(www);
+        doneGage += 1;
+        coroutineNum--;
         www.Dispose();
+        yield return null;
     }
     private IEnumerator GetTexture(UserAlbumData picture)
     {
         using UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
         yield return www.SendWebRequest();
 
-        picture.texture = DownloadHandlerTexture.GetContent(www);
+        yield return picture.texture = DownloadHandlerTexture.GetContent(www);
+        doneGage += 1;
         www.Dispose();
+        yield return null;
     }
 
     private IEnumerator UpdateLoadingText()
