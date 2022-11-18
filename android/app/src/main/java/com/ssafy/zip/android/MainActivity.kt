@@ -59,7 +59,9 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = HomeRepository.getInstance(Application())
                 var response = instance?.getUserData()
+//                println(response.toString())
                 if (response is User) {
+//                    println(response.toString())
                     if (response.hasFamily) {
 //                        Handler(Looper.getMainLooper()).postDelayed({}, 2000) 딜레이로 시작화면 다르게 해보기
                         val navGraph =
@@ -96,19 +98,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-//    private fun test() {
-//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-//            if (!task.isSuccessful) {
-//                Log.w("A", "Fetching FCM registration token failed", task.exception)
-//                return@OnCompleteListener
-//            }
-//
-//            // Get new FCM registration token
-//            val token = task.result
-//            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"+token)
-//        })
-//
-//    }
 
 
     // [START ask_post_notifications]

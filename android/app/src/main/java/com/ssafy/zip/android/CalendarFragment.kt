@@ -19,26 +19,23 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
-import com.prolificinteractive.materialcalendarview.*
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import com.ssafy.zip.android.data.Calendar
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.request.RequestCalendar
-import com.ssafy.zip.android.databinding.DialogAddCalendarBinding
 import com.ssafy.zip.android.databinding.FragmentCalendarBinding
 import com.ssafy.zip.android.viewmodel.CalendarViewModel
-import java.lang.IllegalArgumentException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
-import java.util.Calendar.getInstance
-import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
 
@@ -427,10 +424,10 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 
 
     private fun textToLocalDate (text : String) : LocalDate{
-        println("textToLocalDate: " + text) // textToLocalDate: 2022년 11월 3일
+//        println("textToLocalDate: " + text) // textToLocalDate: 2022년 11월 3일
 
         val textArray = text.split(" ")
-        println("aaaaaaaaaaaaaaaaaaaa" + textArray)
+//        println("aaaaaaaaaaaaaaaaaaaa" + textArray)
         val year : Int = textArray[0].substring(0, textArray[0].length-1).toInt()
         val month : Int = textArray[1].substring(0, textArray[1].length-1).toInt()
         var day : Int = textArray[2].substring(0, textArray[2].length-1).toInt()
@@ -463,7 +460,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
     private fun observeCalendarList(activity: MainActivity) {
         val observer =
             Observer<List<Calendar>> {
-                println("observeViewModel 불림")
+//                println("observeViewModel 불림")
 //                // 처음에 현재 날짜 선택
 //                calendarView.setSelectedDate(CalendarDay.today())
                 if(!calendarView.isSelected){
@@ -497,7 +494,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
 
                     binding.calendarRecyclerView.setHasFixedSize(true)
                     binding.calendarRecyclerView.layoutManager = GridLayoutManager(activity, 1)
-                    println("dayCalendarList: " + dayCalendarList)
+//                    println("dayCalendarList: " + dayCalendarList)
 
                     var adapter = CalendarAdapter(dayCalendarList, link, activity)
                     binding.calendarRecyclerView.adapter = adapter
@@ -576,7 +573,7 @@ class CalendarFragment : Fragment(), OnDateSelectedListener {
                 selectedMemberList.add(id)
             }
             selectedMemberList.sort()
-            println("selectedMemberList: " + selectedMemberList)
+//            println("selectedMemberList: " + selectedMemberList)
         }
 
         fun deleteCalendar(calendar : Calendar){

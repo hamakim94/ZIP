@@ -50,9 +50,9 @@ class CharacterAdapter(private val characterItemList:ArrayList<CharacterItem>, v
         if (position != RecyclerView.NO_POSITION) {
             holder.characterImage.setOnClickListener { view ->
                 listener?.onItemClick(view, position)
-                println(characterItem.isSelected)
+//                println(characterItem.isSelected)
                 characterItem.isSelected = !characterItem.isSelected
-                println(characterItem.isSelected)
+//                println(characterItem.isSelected)
             }
         }
 

@@ -4,14 +4,11 @@ import android.app.Application
 import com.ssafy.zip.android.ApiService
 import com.ssafy.zip.android.data.*
 import com.ssafy.zip.android.data.request.RequestLetter
-import com.ssafy.zip.android.data.request.RequestPhoto
 import com.ssafy.zip.android.data.request.RequestQnaAnswer
 import com.ssafy.zip.android.data.request.RequestQnaComment
 import com.ssafy.zip.android.data.response.ResponseBoardAll
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Response
-import retrofit2.http.*
 
 class BoardRepository private constructor(application: Application) {
 
@@ -117,7 +114,7 @@ class BoardRepository private constructor(application: Application) {
         id : Long
     ) : BoardModel.Letter? {
         val response = ApiService.getApiService.getLetterDetail(id)
-        println("BoardRepository getLetterDetail response: " + response)
+//        println("BoardRepository getLetterDetail response: " + response)
         return if(response.isSuccessful) response.body() as BoardModel.Letter else null
     }
 
