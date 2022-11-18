@@ -11,7 +11,7 @@ public class AlbumPanel : MonoBehaviour
     public Transform viewPort;
     private List<GameObject> albumContentList;
 
-    private void Start()
+    private void Awake()
     {
         var albumDicData = DataManager.Instance.albumDicData;
         var i = 0;
@@ -21,16 +21,16 @@ public class AlbumPanel : MonoBehaviour
         {
             var albumDataValue = (AlbumData)albumData.Value;
 
-            // ¾Ù¹ü item 
-            var albumItemOj = Instantiate(this.albumItem, this.contents); // °ÔÀÓ ¿ÀºêÁ§Æ®ÀÇ º¹Á¦º» »ı¼º 
+            // ì•¨ë²” item 
+            var albumItemOj = Instantiate(this.albumItem, this.contents); // ê²Œì„ ì˜¤ë¸Œì íŠ¸ì˜ ë³µì œë³¸ ìƒì„± 
             var albumScript = albumItemOj.GetComponent<AlbumListItem>();
             albumScript.Init(i, albumDataValue.id, albumDataValue.name, albumDataValue.pictures, albumContentList);
 
-            // ¾Ù¹ü content item 
+            // ì•¨ë²” content item 
             var albumPicturesOj = Instantiate(albumPhotosContent, viewPort);
-            var albumPictures = albumPicturesOj.GetComponent<PhotoContent>(); 
+            var albumPictures = albumPicturesOj.GetComponent<PhotoContent>();
             albumPictures.Init(i, albumDataValue.pictures);
-            albumContentList[i] = albumPicturesOj; // ³ªÁß¿¡ ÇÏ³ª¸¸ È°¼ºÈ­ÇÏ±â À§ÇÔ 
+            albumContentList[i] = albumPicturesOj; // ë‚˜ì¤‘ì— í•˜ë‚˜ë§Œ í™œì„±í™”í•˜ê¸° ìœ„í•¨ 
 
             i++;
         }

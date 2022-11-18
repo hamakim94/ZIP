@@ -52,18 +52,17 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     #region MonoBehaviourPunCallbacks Callbacks;
     public override void OnConnectedToMaster()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
-        Debug.Log("join room");
+        /*Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+        Debug.Log("join room");*/
         /*PhotonNetwork.JoinOrCreateRoom(dataManager.user.family.id.ToString(), new RoomOptions { MaxPlayers = (byte)dataManager.user.family.memberNum }, TypedLobby.Default);*/
         PhotonNetwork.JoinRoom(dataManager.user.family.id.ToString());
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
+        /*Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);*/
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("Join failed");
         Dictionary<long, RawData[]> furnitureData = DataManager.Instance.userItemDicData;
         ExitGames.Client.Photon.Hashtable setValue = new ExitGames.Client.Photon.Hashtable();
         ExitGames.Client.Photon.Hashtable furnitureSet = new ExitGames.Client.Photon.Hashtable();
@@ -100,7 +99,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         }
         setValue.Add("photo", photoSet);
         setValue.Add("action", "init");
-        Debug.Log(photoSet);
         //photon에 저장
         /*PhotonNetwork.CurrentRoom.SetCustomProperties(setValue);*/
         PhotonNetwork.CreateRoom(dataManager.user.family.id.ToString(), new RoomOptions { MaxPlayers = (byte)dataManager.user.family.memberNum, CustomRoomProperties = setValue });
@@ -108,13 +106,12 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.LogFormat("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room. room name {0}", PhotonNetwork.CurrentRoom.Name);
+        /*Debug.LogFormat("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room. room name {0}", PhotonNetwork.CurrentRoom.Name);*/
         doneGage += 10f;
 
     }
     public override void OnCreatedRoom()
     {
-        Debug.Log("Create Success");
         //가구 정보 저장
 
     }
@@ -161,10 +158,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     {
         task = "게임 서버에 접속하는 중";
         PhotonNetwork.NickName = DataManager.Instance.user.nickName;
-        Debug.Log("connect");
         if (PhotonNetwork.IsConnected)
         {
-            Debug.Log("JoinRoom");
             PhotonNetwork.JoinRoom(dataManager.user.family.id.ToString());
         }
         else
@@ -246,7 +241,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log(www.error);
+            Debug.LogError(www.error);
         }
         else
         {
@@ -261,7 +256,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             {
                 for (int j = 0; j < arrData[i].pictures.Length; j++) // 해당 앨범의 사진 수 
                 {
-                    while (coroutineNum > 2)
+                    while (coroutineNum > 3)
                     {
                         yield return new WaitForSeconds(0.5f);
                     }
@@ -292,11 +287,14 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest(); // api 통신해서 json 가져오기 
         var json = www.downloadHandler.text;
         var arrData = JsonConvert.DeserializeObject<UserAlbumData[]>(json);
+        if (arrData.Length == 0) doneGage += 4;
         foreach (UserAlbumData data in arrData)
         {
             yield return StartCoroutine(GetTexture(data));
+            doneGage += 4.0f / arrData.Length;
             DataManager.Instance.userAlbumDicData.Add(data.id, data);
         }
+        doneGage = Mathf.Round(doneGage);
         www.Dispose();
         yield return null;
     }
@@ -317,7 +315,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest();
 
         yield return picture.texture = DownloadHandlerTexture.GetContent(www);
-        doneGage += 1;
         www.Dispose();
         yield return null;
     }

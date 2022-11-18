@@ -18,16 +18,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     #region MonoBehavior Callbacsk
     void Awake()
     {
-        if(GMInstance == null)
+        if (GMInstance == null)
         {
             playerPrefab = DataManager.Instance.user.profileImg.assetName;
             Instance = DataManager.Instance;
             GMInstance = this;
         }
-
-    }
-    void Start()
-    {
         Init();
         if (playerPrefab == null)
         {
@@ -48,6 +44,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
         DontDestroyOnLoad(gameObject);
+
+    }
+    void Start()
+    {
     }
     #endregion
 
