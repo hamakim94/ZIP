@@ -290,58 +290,58 @@ Ubuntu
 
 - 홈
 
-  <img src="/docs/img/1.홈.gif" width='220' height="450" />
+  <img src="/uploads/842892cb3d1d253e070e4af7e4f19156/1.홈.gif" width='220' height="450" />
 
   
 
 - 홈 - 미션
 
-  <img src="/docs/img/2.홈_미션.gif" width='220' height="450" />
+  <img src="/uploads/738f2f3e114a746dbe7055adfe2ea5b1/2.홈_미션.gif" width='220' height="450" />
 
 - 기록 탭 - 앨범
 
-  <img src="/docs/img/3.앨범.gif" width='220' height="450" />
+  <img src=/uploads/db6c30fdc0e3ba1a56a5111e1b9f1f84/3.앨범.gif" width='220' height="450" />
 
 - 기록 탭 - 게시판 전체
 
-  <img src="/docs/img/4.게시판_전체.gif" width='220' height="450" />
+  <img src="/uploads/c5a04e554b5e7c656db8845f1c06d575/4.게시판_전체.gif" width='220' height="450" />
 
 - 기록 탭 - 게시판 상세
 
-  <img src="/docs/img/5.게시글_상세.gif" width='220' height="450" />
+  <img src="/uploads/c73397c7a9d1c3f002977e841f229a4f/5.게시글_상세.gif" width='220' height="450" />
 
 - 기록 탭 - 백문백답 상세
 
-  <img src="/docs/img/6.백문백답_상세.gif" width='220' height="450" />
+  <img src="/uploads/161230a6a3b096470b1044296a3c4d59/6.백문백답_상세.gif" width='220' height="450" />
 
 - 기록 탭 - 오늘의 편지 상세
 
-  <img src="/docs/img/7.오늘의_편지_상세.gif" width='220' height="450" />
+  <img src="/uploads/7b86835da3f7f2fcd6223a514ac41dfd/7.오늘의_편지_상세.gif" width='220' height="450" />
 
 - 일정 탭 - 일정 확인 및 등록
 
-  <img src="/docs/img/8.일정.gif" width='220' height="450" />
+  <img src="/uploads/116d380e4173797953d7c40373b5aaa3/8.일정.gif" width='220' height="450" />
 
 - 푸시 알림
 
-  <img src="/docs/img/9.푸시알림.gif" width='220' height="450" />
+  <img src="/uploads/ea38ae6a22601f8ed09e4809dc885818/9.푸시알림.gif" width='220' height="450" />
 
 - 알림 탭
 
-  <img src="/docs/img/10.알림페이지.gif" width='220' height="450" />
+  <img src="/uploads/9dd482e47d093d86376a3ceb43764f57/10.알림페이지.gif" width='220' height="450" />
 
 - 메타버스 - 입장(로딩)
 
-  <img src="/docs/img/11.로딩.gif" width='600' height="300" />
+  <img src="/uploads/9eb92c1bdfc1af08d6da3fc26534eb9b/11.로딩.gif" width='600' height="300" />
 
 - 메타버스 - 사진
 
-- <img src="/docs/img/12.사진.gif" width='600' height="300" />
+- <img src="/uploads/216d98d5503905225ffec5e7dcf8925a/12.사진.gif" width='600' height="300" />
 
 - 메타버스 - 가구배치
 
-  <img src="/docs/img/13.가구배치.gif" width='600' height="300" />
+  <img src=/uploads/374bdabc6e7242f6765f175293c59494/13.가구배치.gif" width='600' height="300" />
 
 - 메타버스 - 음성채팅
 
-  <img src="/docs/img/14.음성채팅.gif" width='600' height="300" />
+  <img src="/uploads/08fb5134febc1520eed35bb690a818e3/14.메타버스-음성채팅.gif" width='600' height="300" />
