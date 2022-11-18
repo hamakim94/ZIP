@@ -300,7 +300,7 @@ Ubuntu
 
 - 기록 탭 - 앨범
 
-  <img src=/uploads/db6c30fdc0e3ba1a56a5111e1b9f1f84/3.앨범.gif" width='220' height="450" />
+  <img src="/uploads/db6c30fdc0e3ba1a56a5111e1b9f1f84/3.앨범.gif" width='220' height="450" />
 
 - 기록 탭 - 게시판 전체
 
@@ -340,7 +340,7 @@ Ubuntu
 
 - 메타버스 - 가구배치
 
-  <img src=/uploads/374bdabc6e7242f6765f175293c59494/13.가구배치.gif" width='600' height="300" />
+  <img src="/uploads/374bdabc6e7242f6765f175293c59494/13.가구배치.gif" width='600' height="300" />
 
 - 메타버스 - 음성채팅
 
