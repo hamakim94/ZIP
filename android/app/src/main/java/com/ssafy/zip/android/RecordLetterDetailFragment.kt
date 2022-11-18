@@ -11,15 +11,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.ssafy.zip.android.adapter.HomeAdapter
 import com.ssafy.zip.android.data.BoardModel
-import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.databinding.FragmentRecordLetterDetailBinding
 import com.ssafy.zip.android.repository.BoardRepository
 import com.ssafy.zip.android.viewmodel.LetterDetailViewModel
-import com.ssafy.zip.android.viewmodel.QnaDetailViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -70,7 +66,7 @@ class RecordLetterDetailFragment : Fragment() {
         val observer = Observer<BoardModel.Letter> { _ ->
             binding.viewmodel = viewModel
             letterData = viewModel.qnaDetail.value!!
-            println("aaaaaaaaaaaaaa =+ observing!!!!")
+//            println("aaaaaaaaaaaaaa =+ observing!!!!")
             val userId = App.prefs.getString("userId", "").toLong()
             if (letterData != null) {
                 if (letterData.from.id == userId) {

@@ -9,10 +9,6 @@ import com.ssafy.zip.android.data.request.RequestFamilyroom
 import com.ssafy.zip.android.data.request.RequestLoginData
 import com.ssafy.zip.android.data.request.RequestModify
 import com.ssafy.zip.android.data.request.RequestSignup
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import retrofit2.Response
-import retrofit2.http.POST
 
 class UserRepository private constructor(application: Application) {
 
@@ -46,7 +42,7 @@ class UserRepository private constructor(application: Application) {
         requestSignup: RequestSignup,
     ): String?{
         val response = ApiService.getApiService.userSignup(requestSignup)
-        println("UserRepository signUp response: " + response)
+//        println("UserRepository signUp response: " + response)
         var returnData : String?
         returnData = response.code().toString()
         return returnData
@@ -100,7 +96,7 @@ class UserRepository private constructor(application: Application) {
        requestModify: RequestModify
     ) : Any?{
         val response = ApiService.getApiService.modifyUser(requestModify)
-        println("modifyUser response: " + response)
+//        println("modifyUser response: " + response)
 
         var returnData : Any?
         returnData = if(response.isSuccessful) {

@@ -7,15 +7,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.ssafy.zip.android.R
 import com.ssafy.zip.android.databinding.FragmentRecordBoardCreateBinding
 import com.ssafy.zip.android.repository.BoardRepository
 import kotlinx.coroutines.CoroutineScope
@@ -101,7 +100,7 @@ class RecordBoardCreateFragment : Fragment() {
             val body = MultipartBody.Part.createFormData("image", fileName, requestBody)
             return body
         } catch (ignore: IOException) {
-            println("제발이것만은아니길")
+//            println("제발이것만은아니길")
             return null
         }
 

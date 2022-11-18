@@ -1,7 +1,6 @@
 package com.ssafy.zip.android.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.ssafy.zip.android.App
 import com.ssafy.zip.android.data.Family

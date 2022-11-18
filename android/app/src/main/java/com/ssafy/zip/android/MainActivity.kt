@@ -44,9 +44,9 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = HomeRepository.getInstance(Application())
                 var response = instance?.getUserData()
-                println(response.toString())
+//                println(response.toString())
                 if (response is User) {
-                    println(response.toString())
+//                    println(response.toString())
                     if (response.hasFamily) {
 //                        Handler(Looper.getMainLooper()).postDelayed({}, 2000) 딜레이로 시작화면 다르게 해보기
                         val navGraph =

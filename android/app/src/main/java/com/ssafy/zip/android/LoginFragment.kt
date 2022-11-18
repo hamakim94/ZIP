@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,12 +51,12 @@ class LoginFragment : Fragment() {
                         password = binding.editPassword.text.toString()
                     )
                 )
-                println(loginData)
+//                println(loginData)
                 if (loginData is User) {
                     var action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                     FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
                         if (!task.isSuccessful) {
-                            Log.w("A", "Fetching FCM registration token failed", task.exception)
+//                            Log.w("A", "Fetching FCM registration token failed", task.exception)
                             return@OnCompleteListener
                         }
 

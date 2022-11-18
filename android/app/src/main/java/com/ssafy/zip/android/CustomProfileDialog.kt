@@ -92,7 +92,7 @@ class CustomProfileDialog : DialogFragment() {
         CoroutineScope(Dispatchers.Main).launch {
             val instance = HomeRepository.getInstance(Application())
             var response = instance?.getFamily()
-            println("response in Dialog :  " + response.toString())
+//            println("response in Dialog :  " + response.toString())
         }
 
 
