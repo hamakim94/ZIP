@@ -39,7 +39,7 @@ class FamilyCreateFragment : Fragment() {
                 if(familyCreateData is UserFamily){
                     binding.root.findNavController().navigate(R.id.action_familyCreateFragment_to_homeFragment)
                 } else{
-                    println(familyCreateData)
+//                    println(familyCreateData)
                 }
             }
         }

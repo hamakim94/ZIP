@@ -1,15 +1,12 @@
 package com.ssafy.zip.android
 
-import android.R
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.TaskStackBuilder
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
@@ -27,11 +24,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
-        // TODO(developer): Handle FCM messages here.
         super.onMessageReceived(remoteMessage)
 
         if (remoteMessage.data.isNotEmpty()) {
-            Log.d(TAG, "Message data payload: ${remoteMessage.data}")
+//            Log.d(TAG, "Message data payload: ${remoteMessage.data}")
 
             if (/* Check if data needs to be processed by long running job */ true) {
                 // For long-running tasks (10 seconds or more) use WorkManager.
@@ -43,11 +39,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
-            Log.d(TAG, "Message Notification title: ${it.title}")
-            Log.d(TAG, "Message Notification Body: ${it.body}")
-            Log.d(TAG, "Message Notification image: ${it.imageUrl}")
+//            Log.d(TAG, "Message Notification title: ${it.title}")
+//            Log.d(TAG, "Message Notification Body: ${it.body}")
+//            Log.d(TAG, "Message Notification image: ${it.imageUrl}")
         }
-        Log.d(TAG, "Message Notification data: " + remoteMessage.data.toString())
+//        Log.d(TAG, "Message Notification data: " + remoteMessage.data.toString())
 
         // 채널 생성
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -104,7 +100,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * FCM registration token is initially generated so this is where you would retrieve the token.
      */
     override fun onNewToken(token: String) {
-        Log.d(TAG, "Refreshed token: $token")
+//        Log.d(TAG, "Refreshed token: $token")
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
@@ -114,8 +110,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement this method to send token to your app server.
-        Log.d(TAG, "sendRegistrationTokenToServer($token)")
+//        Log.d(TAG, "sendRegistrationTokenToServer($token)")
     }
 
 

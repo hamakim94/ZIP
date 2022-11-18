@@ -1,13 +1,9 @@
 package com.ssafy.zip.android.viewmodel
 
 import android.app.Application
-import android.service.controls.ControlsProviderService
-import android.util.Log
 import androidx.lifecycle.*
-import com.ssafy.zip.android.R
-import com.ssafy.zip.android.repository.CharacterRepository
-import com.ssafy.zip.android.repository.HomeRepository
 import com.ssafy.zip.android.data.Character
+import com.ssafy.zip.android.repository.CharacterRepository
 import kotlinx.coroutines.launch
 
 
@@ -16,11 +12,11 @@ class CharacterViewModel(private val repository: CharacterRepository): ViewModel
     val characterList: LiveData<ArrayList<Character>> get() = _characterList
 
     init { // 초기화 시 서버에서 데이터를 받아옴
-        Log.d(ControlsProviderService.TAG, "CharacterViewModel 생성자 호출")
+//        Log.d(ControlsProviderService.TAG, "CharacterViewModel 생성자 호출")
         viewModelScope.launch {
             // .value : livedata가 가지고 있는 값으로 접근
             _characterList.value = repository.getCharacterList()
-            println("CharacterViewModel: " + _characterList.value)
+//            println("CharacterViewModel: " + _characterList.value)
         }
         /*var arrList : ArrayList<Character> = arrayListOf()
         arrList.add(Character(1, R.drawable.f_1, "asset1"))

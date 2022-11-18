@@ -10,7 +10,7 @@ class HomeRepository private constructor(application: Application) {
 
     suspend fun getFamily():Family?{
         val response = ApiService.getApiService.getFamily()
-        println("HomeRepository getFamily response: " + response)
+//        println("HomeRepository getFamily response: " + response)
         return if(response.isSuccessful) response.body() as Family else null
     }
 
