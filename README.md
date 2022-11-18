@@ -288,3 +288,60 @@ Ubuntu
 
 ## :heavy_check_mark: 페이지 기능 소개 
 
+- 홈
+
+  <img src="/docs/img/1.홈.gif" width='220' height="450" />
+
+  
+
+- 홈 - 미션
+
+  <img src="/docs/img/2.홈_미션.gif" width='220' height="450" />
+
+- 기록 탭 - 앨범
+
+  <img src="/docs/img/3.앨범.gif" width='220' height="450" />
+
+- 기록 탭 - 게시판 전체
+
+  <img src="/docs/img/4.게시판_전체.gif" width='220' height="450" />
+
+- 기록 탭 - 게시판 상세
+
+  <img src="/docs/img/5.게시글_상세.gif" width='220' height="450" />
+
+- 기록 탭 - 백문백답 상세
+
+  <img src="/docs/img/6.백문백답_상세.gif" width='220' height="450" />
+
+- 기록 탭 - 오늘의 편지 상세
+
+  <img src="/docs/img/7.오늘의_편지_상세.gif" width='220' height="450" />
+
+- 일정 탭 - 일정 확인 및 등록
+
+  <img src="/docs/img/8.일정.gif" width='220' height="450" />
+
+- 푸시 알림
+
+  <img src="/docs/img/9.푸시알림.gif" width='220' height="450" />
+
+- 알림 탭
+
+  <img src="/docs/img/10.알림페이지.gif" width='220' height="450" />
+
+- 메타버스 - 입장(로딩)
+
+  <img src="/docs/img/11.로딩.gif" width='600' height="300" />
+
+- 메타버스 - 사진
+
+- <img src="/docs/img/12.사진.gif" width='600' height="300" />
+
+- 메타버스 - 가구배치
+
+  <img src="/docs/img/13.가구배치.gif" width='600' height="300" />
+
+- 메타버스 - 음성채팅
+
+  <img src="/docs/img/14.음성채팅.gif" width='600' height="300" />
