@@ -59,18 +59,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
         // 이건 클릭시 해당 페이지로 가주세연
-        val clickIntent = Intent(Intent.ACTION_VIEW,
-            remoteMessage.data["link"].toString().toUri(), baseContext, MainActivity::class.java)
-        val clickPendingIntent: PendingIntent = TaskStackBuilder.create(baseContext).run{
-            addNextIntentWithParentStack(clickIntent)
-            getPendingIntent(1, PendingIntent.FLAG_IMMUTABLE)
-        }
+//        val clickIntent = Intent(Intent.ACTION_VIEW,
+//            remoteMessage.data["link"].toString().toUri(), baseContext, MainActivity::class.java)
+//        val clickPendingIntent: PendingIntent = TaskStackBuilder.create(baseContext).run{
+//            addNextIntentWithParentStack(clickIntent)
+//            getPendingIntent(1, PendingIntent.FLAG_IMMUTABLE)
+//        }
 
+        val clickIntent = Intent(this, MainActivity::class.java);
+        clickIntent.putExtra("link", remoteMessage.data["link"].toString())
+        val clickPendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, clickIntent,
+            PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         // 그냥 열어주세연
-        val intent = Intent(baseContext, FragmentRecordBoardDetailBinding::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        val fullScreenPendingIntent = PendingIntent.getActivity(baseContext, 0,
-            intent, PendingIntent.FLAG_IMMUTABLE)
+//        val intent = Intent(baseContext, FragmentRecordBoardDetailBinding::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        val fullScreenPendingIntent = PendingIntent.getActivity(baseContext, 0,
+//            intent, PendingIntent.FLAG_IMMUTABLE)
 
 
 
@@ -82,7 +86,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setContentText(remoteMessage.notification?.body)
             .setAutoCancel(true)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .setFullScreenIntent(fullScreenPendingIntent, true)
+//            .setFullScreenIntent(fullScreenPendingIntent, true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(clickPendingIntent)
 
