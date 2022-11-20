@@ -36,7 +36,6 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
 
         String cmdLine = updateUnityCommandLineArguments(getIntent().getStringExtra("unity"));
         getIntent().putExtra("unity", cmdLine);
-
         mUnityPlayer = new UnityPlayer(this, this);
         String tok = getIntent().getStringExtra("token");
         mUnityPlayer.UnitySendMessage("Panel", "Init", tok);
