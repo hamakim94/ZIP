@@ -1,13 +1,15 @@
 package com.ssafy.zip.android
 
+//import androidx.recyclerview.widget.LinearLayoutManager
+//import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
 import android.graphics.Point
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-//import androidx.recyclerview.widget.LinearLayoutManager
-//import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.zip.android.adapter.PhotoSlideAdapter
 import com.ssafy.zip.android.adapter.PhotoThumbnailAdapter
@@ -70,7 +72,7 @@ class RecordAlbumPhotoDetailFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 //                recyclerView.scrollToPosition(position)
-                println("Page ${position+1}")
+//                println("Page ${position+1}")
             }
         })
 //        viewPager.setCurrentItem(position, false)

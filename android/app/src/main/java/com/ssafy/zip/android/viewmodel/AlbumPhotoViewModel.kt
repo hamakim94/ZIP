@@ -3,26 +3,23 @@ package com.ssafy.zip.android.viewmodel
 import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
-import android.os.FileUtils
-import android.service.controls.ControlsProviderService
-import android.util.Log
+import androidx.exifinterface.media.ExifInterface
 import androidx.lifecycle.*
 import com.ssafy.zip.android.data.Album
-import com.ssafy.zip.android.data.Photo
-import com.ssafy.zip.android.data.request.RequestPhoto
 import com.ssafy.zip.android.repository.AlbumRepository
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Multipart
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.IOError
 import java.io.IOException
-import java.util.*
-import kotlin.collections.ArrayList
+
 
 class AlbumPhotoViewModel(private val repository: AlbumRepository, private val id: Long?) : ViewModel() {
     private val _album = MutableLiveData<Album>()
@@ -51,20 +48,75 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
                 val filePath : String = context.applicationInfo.dataDir + File.separator + fileName
                 val file = File(filePath)
                 // 매개변수로 받은 uri를 통해 이미지에 필요한 데이터를 불러들임
-                val inputStream = contentResolver.openInputStream(images[index])
+                /*val inputStream = contentResolver.openInputStream(images[index])*/
                 // 이미지 데이터를 다시 내보내면서 file 객체에 만들었던 경로를 이용
+
+                // 회전값 저장해서 넣어놓기
+                val inputStream = contentResolver.openInputStream(images[index])
+                val exif = inputStream?.let { ExifInterface(it) }
+
                 val outputStream = FileOutputStream(file) // 파일을 쓸 수 있는 스트림 생성
-                val buf = ByteArray(1024)
-                var len : Int
+
+                var pictureBitmap: Bitmap? = null
+
+                val options = BitmapFactory.Options()
+                try {
+                    BitmapFactory.decodeStream(
+                        context.contentResolver.openInputStream(images[index]),
+                        null,
+                        options
+                    ) // 1번
+                    var width = options.outWidth
+                    var height = options.outHeight
+
+                    var samplesize = 1
+                    while (true) { //2번
+                        if (width / 2 < 512 || height / 2 < 512) break
+                        width /= 2
+                        height /= 2
+                        samplesize *= 2
+                    }
+                    options.inSampleSize = samplesize
+                    val bitmap = BitmapFactory.decodeStream(
+                        context.contentResolver.openInputStream(images[index]),
+                        null,
+                        options
+                    ) //3번
+                    pictureBitmap = bitmap
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                }
                 if (inputStream != null) {
-                    while(inputStream.read(buf).also { len = it } > 0)
-                        outputStream.write(buf, 0, len)
                     inputStream.close()
                 }
+                val matrix = Matrix()
+                val orientation: Int? =
+                    exif?.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+                val angle = when(orientation) {
+                    ExifInterface.ORIENTATION_ROTATE_90 -> 90f
+                    ExifInterface.ORIENTATION_ROTATE_180 -> 180f
+                    ExifInterface.ORIENTATION_ROTATE_270 -> 270f
+                    else -> 0f
+                }
+                matrix.postRotate(angle);
+                val rotateBitmap = pictureBitmap?.let { Bitmap.createBitmap(it, 0, 0, pictureBitmap.width, pictureBitmap.height, matrix, true) };
+
+                if (rotateBitmap != null) {
+                    rotateBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                };
+
                 outputStream.close()
+
+//                val newExif = filePath?.let {
+//                    ExifInterface(it)
+//                }
+//                if (exif != null) {
+//                    newExif?.setAttribute(ExifInterface.TAG_ORIENTATION, exif.getAttribute(ExifInterface.TAG_ORIENTATION))
+//                }
+//                newExif?.saveAttributes()
+
                 val requestBody = RequestBody.create(MediaType.parse("image/*"), file)
                 val body = MultipartBody.Part.createFormData("files", fileName, requestBody)
-
                 imageList.add(body)
             } catch (ignore : IOException){
             }
@@ -83,4 +135,5 @@ class AlbumPhotoViewModel(private val repository: AlbumRepository, private val i
             }
         }
     }
+
 }

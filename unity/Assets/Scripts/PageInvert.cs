@@ -8,7 +8,7 @@ using System;
 public class PageInvert : MonoBehaviour
 {
     enum Panel{
-        main, album, photo, furniture, btnlist
+        main, album, photo, furniture, btnlist, help
     }
 
     private GameObject[] panels;
@@ -16,6 +16,7 @@ public class PageInvert : MonoBehaviour
     public GameObject albumPanel;
     public GameObject photoPanel;
     public GameObject furniturePanel;
+    public GameObject HelpPanel;
     public GameObject exitConfirmPanel; 
     public GameObject BtnList;
     public GameObject BuildList;
@@ -27,7 +28,7 @@ public class PageInvert : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        panels = new GameObject[]{mainPanel, albumPanel, photoPanel, furniturePanel, BtnList};
+        panels = new GameObject[]{mainPanel, albumPanel, photoPanel, furniturePanel, BtnList, HelpPanel};
         MainButtonClicked();
 #if UNITY_EDITOR
         pointerId = -1;
@@ -109,6 +110,7 @@ public class PageInvert : MonoBehaviour
     public void MainButtonClicked()
     {
         setActive((int)Panel.main);
+        mainCamera.transform.GetComponent<FollowCamera>().enabled = true;
     }
 
     public void AlbumButtonClicked()
@@ -143,6 +145,11 @@ public class PageInvert : MonoBehaviour
     {
         exitConfirmPanel.SetActive(true);
     }
+
+    public void HelpButtonClicked()
+    {
+        setActive(new int[] { (int)Panel.main, (int)Panel.help });
+    }   
 
     private void setActive(int panel){
         if (panel == 0)

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,12 +23,9 @@ import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.Missions
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
-import com.ssafy.zip.android.repository.UserRepository
 import com.ssafy.zip.android.viewmodel.HomeViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-
+import com.unity3d.player.MultiWindowSupport
+import com.unity3d.player.UnityPlayer
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -36,10 +34,12 @@ class HomeFragment : Fragment() {
     private lateinit var homeList: ArrayList<FamilyMember>
     private lateinit var homeAdapter: HomeAdapter
     private val viewModel by viewModels<HomeViewModel>{HomeViewModel.Factory(Application())}
+    private lateinit var mUnityPlayer : UnityPlayer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
+        mUnityPlayer = (getActivity() as MainActivity).mUnityPlayer
     }
 
     override fun onCreateView(
@@ -47,18 +47,27 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        var lp = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT)
+        if(mUnityPlayer.view.parent == null) {
+            binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
+            (getActivity() as MainActivity).checkView = binding.homeHouse;
+        } else{
+            (getActivity() as MainActivity).checkView.removeView((getActivity() as MainActivity).checkView.getChildAt(0))
+            binding.homeHouse.addView(mUnityPlayer.view, 0, lp)
+            (getActivity() as MainActivity).checkView = binding.homeHouse;
+        }
         binding.viewmodel = viewModel
 
-        binding.topText.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                val instance = UserRepository.getInstance(Application())
-                var response = instance?.logout()
-                if(response.equals("200")){
-                    val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-                    binding.root.findNavController().navigate(action)
-                }
-            }
-        }
+//        binding.topLogo.setOnClickListener {
+//            CoroutineScope(Dispatchers.Main).launch {
+//                val instance = UserRepository.getInstance(Application())
+//                var response = instance?.logout()
+//                if(response.equals("200")){
+//                    val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+//                    binding.root.findNavController().navigate(action)
+//                }
+//            }
+//        }
         binding.mission1Btn.setOnClickListener{
             var bundle = Bundle()
             viewModel.missions.value?.qna?.let { it1 -> bundle.putLong("id",  it1.id) }
@@ -95,7 +104,6 @@ class HomeFragment : Fragment() {
         observeFamily(activity)
         observeMission(activity)
         homeList = ArrayList()
-
     }
 
     private fun observeFamily(activity: MainActivity){
@@ -135,5 +143,50 @@ class HomeFragment : Fragment() {
         }
         viewModel.missions.observe(viewLifecycleOwner, observer)
     }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (!MultiWindowSupport.getAllowResizableWindow(activity)) return
+        mUnityPlayer.windowFocusChanged(true)
+        mUnityPlayer.resume()
+    }
+    override fun onResume() {
+        super.onResume()
+
+        if (MultiWindowSupport.getAllowResizableWindow(activity) && !MultiWindowSupport.isMultiWindowModeChangedToTrue(
+                activity
+            )
+        ) return
+        mUnityPlayer.windowFocusChanged(true)
+        mUnityPlayer.resume()
+    }
+    override fun onPause() {
+        super.onPause()
+        MultiWindowSupport.saveMultiWindowMode(activity)
+
+        if (MultiWindowSupport.getAllowResizableWindow(activity)) return
+
+        mUnityPlayer.windowFocusChanged(false)
+        mUnityPlayer.pause()
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (!MultiWindowSupport.getAllowResizableWindow(activity)) return
+        mUnityPlayer.windowFocusChanged(false)
+        mUnityPlayer.pause()
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.homeHouse.removeView(binding.homeHouse.getChildAt(0))
+        mUnityPlayer.windowFocusChanged(false)
+        _binding = null
+    }
+
+
 
 }

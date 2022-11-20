@@ -20,11 +20,9 @@ interface ApiInterface {
     @POST("users/reissue")
     suspend fun tokenReissue(): Response<String>
 
-    @Multipart
     @POST("users/signup")
     suspend fun userSignup(
-        @Part profileImg : MultipartBody.Part?,
-        @Part("userDTO") userDTO : RequestSignup
+        @Body userDTO : RequestSignup
     ):Response<String>
 
     @GET("users/duplication-check")
@@ -39,6 +37,10 @@ interface ApiInterface {
     @POST("users/notification")
     suspend fun putFcmToken(
         @Query(value = "token") token : String
+    ) : Response<String>
+
+    @POST("users/notification/all")
+    suspend fun readNotificationAll(
     ) : Response<String>
 
 
@@ -182,6 +184,11 @@ interface ApiInterface {
     suspend fun postLetterRead(
         @Path("letterId") id : Long
     ) : Response<String>
+
+    @GET("post/letter/{letterId}")
+    suspend fun getLetterDetail(
+        @Path("letterId") id : Long
+    ) : Response<BoardModel.Letter>
 
     // 알림 관련
     @GET("users/notification")

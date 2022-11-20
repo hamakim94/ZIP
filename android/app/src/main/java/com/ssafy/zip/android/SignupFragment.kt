@@ -47,10 +47,10 @@ class SignupFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        println("signup create")
+//        println("signup create")
 
         _binding = FragmentSignupBinding.inflate(inflater,container,false)
-        println("binding.editEmail.text: " + binding.editEmail.text)
+//        println("binding.editEmail.text: " + binding.editEmail.text)
 
         // 캐릭터 선택
         binding.profile.setOnClickListener{
@@ -95,16 +95,22 @@ class SignupFragment : Fragment() {
         binding.btnSignup.setOnClickListener{
             CoroutineScope(Dispatchers.Main).launch {
                 val instance = UserRepository.getInstance(Application())
-                var response = instance?.signUp(
-                    img = null,
-                    RequestSignup(
-                        /*characterId = selectedCharacter?.id,*/
-                        email = binding.editEmail.text.toString(),
-                        password = binding.editPassword.text.toString(),
-                        name = binding.editName.text.toString(),
-                        nickname = binding.editNickname.text.toString()
+                var response : String? = ""
+
+                if(selectedCharacter != null){
+//                    println("selectedCharacter: " + selectedCharacter)
+//                    println("selectedCharacter!!.id: " + selectedCharacter!!.id)
+                    response = instance?.signUp(
+                        RequestSignup(
+                            characterId = selectedCharacter!!.id,
+                            email = binding.editEmail.text.toString(),
+                            password = binding.editPassword.text.toString(),
+                            name = binding.editName.text.toString(),
+                            nickname = binding.editNickname.text.toString()
+                        )
                     )
-                )
+                }
+
                 if(response.equals("200")){
                     val action = SignupFragmentDirections.actionSignupFragmentToSignUpCompleteFragment()
                     binding.root.findNavController().navigate(action)
@@ -342,7 +348,7 @@ class SignupFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        println("signup destroy")
+//        println("signup destroy")
         super.onDestroyView()
         _binding = null
     }

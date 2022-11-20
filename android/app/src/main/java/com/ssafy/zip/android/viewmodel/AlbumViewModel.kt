@@ -1,8 +1,6 @@
 package com.ssafy.zip.android.viewmodel
 
 import android.app.Application
-import android.service.controls.ControlsProviderService.TAG
-import android.util.Log
 import androidx.lifecycle.*
 import com.ssafy.zip.android.data.Album
 import com.ssafy.zip.android.repository.AlbumRepository
@@ -16,7 +14,7 @@ class AlbumViewModel(private val repository: AlbumRepository) : ViewModel() {
     val albumList: LiveData<ArrayList<Album>> get() = _albumList
 
     init { // 초기화 시 서버에서 데이터를 받아옴
-        Log.d(TAG, "AlbumViewModel 생성자 호출")
+//        Log.d(TAG, "AlbumViewModel 생성자 호출")
         viewModelScope.launch {
             // .value : livedata가 가지고 있는 값으로 접근
             _albumList.value = repository.getAllAlbumList()

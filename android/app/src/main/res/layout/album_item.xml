@@ -24,20 +24,24 @@
                 android:scaleType="centerCrop"
                 android:background="@android:color/transparent"
                 android:alpha=".8"/>
-            <TextView
+            <com.ssafy.zip.android.OutlineTextView
                 android:id="@+id/album_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/one_mobile_pop"
                 android:layout_gravity="center"
                 android:textSize="16sp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
+                app:outlineColor="@color/darkgray2"
+                app:outlineWidth="1dp"
                 android:clickable="false">
-            </TextView>
+            </com.ssafy.zip.android.OutlineTextView>
             <TextView
                 android:id="@+id/album_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/one_mobile_pop"
                 android:layout_gravity="center_horizontal"
                 android:textSize="12sp"
                 android:textStyle="bold"

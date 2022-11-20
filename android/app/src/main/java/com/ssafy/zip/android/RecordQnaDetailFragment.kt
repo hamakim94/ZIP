@@ -60,7 +60,7 @@ class RecordQnaDetailFragment : Fragment() {
         binding.qnaCommentPostBtn.setOnClickListener {
             val id = viewModel.qnaDetail.value?.Id
             //날짜 변환
-            var now = System.currentTimeMillis()
+            var now = System.currentTimeMillis() //+ 32400000
             var nowDate: Date = Date(now)
             var dateFormat = SimpleDateFormat("yyyy-MM-dd")
             var nowTime = dateFormat.format(nowDate) // 현재 시간
@@ -146,8 +146,7 @@ class RecordQnaDetailFragment : Fragment() {
             binding.homeRecyclerView.adapter = homeAdapter
 
             val cnt = when (homeAdapter.itemCount) {
-                in 1..4 -> homeAdapter.itemCount
-                in 5..6 -> 3
+                in 1..6 -> homeAdapter.itemCount
                 else -> 4
             }
             binding.homeRecyclerView.layoutManager = GridLayoutManager(activity, cnt)

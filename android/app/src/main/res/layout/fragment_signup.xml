@@ -22,7 +22,7 @@
             app:maxButtonHeight="48dp"
             app:title="@string/signup_text"
             app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
+            app:titleTextAppearance="@style/toolbar_title" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -94,7 +94,7 @@
                 android:layout_marginStart="8dp"
                 app:errorIconDrawable="@null"
                 app:layout_constraintEnd_toStartOf="@id/btn_duplicate"
-                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintHorizontal_weight="5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/label_email">
 
@@ -118,7 +118,7 @@
                 android:text="@string/duplicate_check"
                 android:textSize="13dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toEndOf="@id/signup_email"
                 app:layout_constraintTop_toTopOf="@id/signup_email" />
 

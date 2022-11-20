@@ -83,7 +83,7 @@ class RecordAlbumFragment : Fragment() {
 
 //        albumList = ArrayList()
 //        addDataToList()
-        println("RecordAlbumFragment onViewCreated viewModel.albumList.value " + viewModel.albumList)
+//        println("RecordAlbumFragment onViewCreated viewModel.albumList.value " + viewModel.albumList)
 //        albumAdapter = viewModel.albumList.value?.let { AlbumAdapter(it) }!!
 ////        albumAdapter = viewModel.albumList.observe(this, Observer {  })
 //        recyclerView.adapter = albumAdapter

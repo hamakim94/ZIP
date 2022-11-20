@@ -74,7 +74,7 @@ class RecordLetterCreateFragment : Fragment() {
         }
 
         binding.letterSendBtn.setOnClickListener {
-            println("ButtonClicked")
+//            println("ButtonClicked")
             if (binding.letterContent.text.toString().isNotEmpty()) {
                 CoroutineScope(Dispatchers.Main).launch {
                     val instance = BoardRepository.getInstance(Application())
@@ -83,7 +83,7 @@ class RecordLetterCreateFragment : Fragment() {
                         letterBackGroundColor,
                         letter.user.id
                     )
-                    println(requestLetter.toString())
+//                    println(requestLetter.toString())
                     var response = instance?.postLetter(requestLetter)
                     if (response.equals("200")) {
                         binding.root.findNavController()

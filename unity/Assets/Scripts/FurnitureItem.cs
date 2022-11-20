@@ -48,10 +48,12 @@ public class FurnitureItem : MonoBehaviour
 
     public void OnClickPriceBtn()
     {
-        Debug.Log("OnClickPriceBtn");
+        
         GameObject panel = Resources.Load<GameObject>("BuyConfirmPanel");
+        Debug.Log("생성전"+GameObject.Find("Canvas").transform.childCount);
         instan = Instantiate(panel);
         instan.transform.parent = GameObject.Find("Canvas").transform;
+        Debug.Log("생성후" + GameObject.Find("Canvas").transform.childCount);
         RectTransform rt = instan.GetComponent<RectTransform>();
 
         rt.anchoredPosition = Vector2.zero;

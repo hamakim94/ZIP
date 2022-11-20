@@ -34,7 +34,7 @@ class ModifyFragment : Fragment() {
         data = requireArguments().getParcelable<FamilyMember>("data")!!
         familyName = requireArguments().getString("familyName").toString()
         selectedCharacter = data.character
-
+        binding.modifyName.text = data.name
         binding.editFamilyName.hint = familyName
         if (data != null) {
             binding.editNickname.hint = data.nickname

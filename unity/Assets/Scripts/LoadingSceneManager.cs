@@ -22,12 +22,15 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     private float gage = 10000;
     private float doneGage = 0;
     private float tempGage = 0;
+    private int coroutineNum = 0;
     private string gameVersion = "1";
     [SerializeField]
     private TMP_Text loadingText;
     [SerializeField]
     private TMP_Text taskText;
     private string task;
+    [SerializeField]
+    private TMP_Text tip;
     #endregion
 
     #region MonoBehaviour Callbacks
@@ -36,33 +39,32 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         dataManager = DataManager.Instance;
     }
     // Start is called before the first frame update
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     void Start()
     {
         StartCoroutine(StartLoading());
     }
-    #endif
+#endif
     void Update()
     {
-        taskText.text = task + " (" + ((int)(doneGage / gage * 100))+ "%)";
+        taskText.text = task + " (" + ((int)(doneGage / gage * 100)) + "%)";
     }
     #endregion
 
     #region MonoBehaviourPunCallbacks Callbacks;
     public override void OnConnectedToMaster()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
-        Debug.Log("join room");
+        /*Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+        Debug.Log("join room");*/
         /*PhotonNetwork.JoinOrCreateRoom(dataManager.user.family.id.ToString(), new RoomOptions { MaxPlayers = (byte)dataManager.user.family.memberNum }, TypedLobby.Default);*/
         PhotonNetwork.JoinRoom(dataManager.user.family.id.ToString());
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
+        /*Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);*/
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("Join failed");
         Dictionary<long, RawData[]> furnitureData = DataManager.Instance.userItemDicData;
         ExitGames.Client.Photon.Hashtable setValue = new ExitGames.Client.Photon.Hashtable();
         ExitGames.Client.Photon.Hashtable furnitureSet = new ExitGames.Client.Photon.Hashtable();
@@ -99,7 +101,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         }
         setValue.Add("photo", photoSet);
         setValue.Add("action", "init");
-        Debug.Log(photoSet);
         //photon에 저장
         /*PhotonNetwork.CurrentRoom.SetCustomProperties(setValue);*/
         PhotonNetwork.CreateRoom(dataManager.user.family.id.ToString(), new RoomOptions { MaxPlayers = (byte)dataManager.user.family.memberNum, CustomRoomProperties = setValue });
@@ -107,17 +108,12 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.LogFormat("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room. room name {0}", PhotonNetwork.CurrentRoom.Name);
-        for (int k = 0; k < 10000; k++)
-        {
-            doneGage += 0.001f;
-        }
-        doneGage = Mathf.Round(doneGage);
+        /*Debug.LogFormat("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room. room name {0}", PhotonNetwork.CurrentRoom.Name);*/
+        doneGage += 10f;
 
     }
     public override void OnCreatedRoom()
     {
-        Debug.Log("Create Success");
         //가구 정보 저장
 
     }
@@ -164,10 +160,8 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
     {
         task = "게임 서버에 접속하는 중";
         PhotonNetwork.NickName = DataManager.Instance.user.nickName;
-        Debug.Log("connect");
         if (PhotonNetwork.IsConnected)
         {
-            Debug.Log("JoinRoom");
             PhotonNetwork.JoinRoom(dataManager.user.family.id.ToString());
         }
         else
@@ -179,6 +173,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
 
     private IEnumerator StartLoading()
     {
+        slider.transform.gameObject.SetActive(true);
         StartCoroutine(UpdateLoadingText());
         StartCoroutine(LoadAsynSceneCoroutine(sceneName));
         yield return StartCoroutine(LoadAlbumData());
@@ -195,7 +190,6 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         dm.transform.GetComponent<PunVoiceClient>().DestroyUniversal();
         Destroy(GameObject.Find("VoiceLogger"));
         Destroy(GameObject.Find("PhotonMono"));
-        GameObject.Find("Slider").SetActive(false);
         /*SceneManager.LoadScene("Home");*/
         yield return null;
         StartCoroutine(UpdateLoadingText());
@@ -239,6 +233,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         }
         dataManager.user = JsonConvert.DeserializeObject<UserInfo>(json);
         www.Dispose();
+        yield return null;
     }
     private IEnumerator LoadAlbumData()
     {
@@ -248,7 +243,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log(www.error);
+            Debug.LogError(www.error);
         }
         else
         {
@@ -258,17 +253,22 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             {
                 tempGage += arrData[i].pictures.Length;
             }
-            gage = tempGage + 10;
+            gage = tempGage + 14;
             for (int i = 0; i < arrData.Length; i++) // album 수
             {
                 for (int j = 0; j < arrData[i].pictures.Length; j++) // 해당 앨범의 사진 수 
                 {
-                    yield return StartCoroutine(GetTexture(arrData[i].pictures[j]));
-                    for (int k = 0; k < 10000; k++)
+                    while (coroutineNum > 3)
+                    {
+                        yield return new WaitForSeconds(0.5f);
+                    }
+                    coroutineNum++;
+                    StartCoroutine(GetTexture(arrData[i].pictures[j]));
+                    /*for (int k = 0; k < 10000; k++)
                     {
                         doneGage += 0.0001f;
                     }
-                    doneGage = Mathf.Round(doneGage);
+                    doneGage = Mathf.Round(doneGage);*/
                 }
             }
 
@@ -278,6 +278,7 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
             }
         }
         www.Dispose();
+        yield return null;
     }
 
     private IEnumerator LoadUserAlbumData()
@@ -288,40 +289,70 @@ public class LoadingSceneManager : MonoBehaviourPunCallbacks
         yield return www.SendWebRequest(); // api 통신해서 json 가져오기 
         var json = www.downloadHandler.text;
         var arrData = JsonConvert.DeserializeObject<UserAlbumData[]>(json);
+        if (arrData.Length == 0) doneGage += 4;
         foreach (UserAlbumData data in arrData)
         {
             yield return StartCoroutine(GetTexture(data));
+            doneGage += 4.0f / arrData.Length;
             DataManager.Instance.userAlbumDicData.Add(data.id, data);
         }
+        doneGage = Mathf.Round(doneGage);
         www.Dispose();
+        yield return null;
     }
     private IEnumerator GetTexture(PhotoData picture)
     {
         using UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
         yield return www.SendWebRequest();
 
-        picture.texture = DownloadHandlerTexture.GetContent(www);
+        yield return picture.texture = DownloadHandlerTexture.GetContent(www);
+        doneGage += 1;
+        coroutineNum--;
         www.Dispose();
+        yield return null;
     }
     private IEnumerator GetTexture(UserAlbumData picture)
     {
         using UnityWebRequest www = UnityWebRequestTexture.GetTexture(picture.url);
         yield return www.SendWebRequest();
 
-        picture.texture = DownloadHandlerTexture.GetContent(www);
+        yield return picture.texture = DownloadHandlerTexture.GetContent(www);
         www.Dispose();
+        yield return null;
     }
 
     private IEnumerator UpdateLoadingText()
     {
+        int tipNum = 0;
         while (true)
         {
-            loadingText.text = "Loading · . .";
-            yield return new WaitForSeconds(0.2f);
-            loadingText.text = "Loading . · .";
-            yield return new WaitForSeconds(0.2f);
-            loadingText.text = "Loading . . ·";
-            yield return new WaitForSeconds(0.2f);
+            switch (tipNum)
+            {
+                case 0:
+                    tip.text = "tip) 가구의 이름은 보나에게서 나온 아이디어입니다.";
+                    break;
+                case 1:
+                    tip.text = "tip) 액자를 눌러서 우리의 추억을 담을 수 있어요.";
+                    break;
+                case 2:
+                    tip.text = "tip) 가구를 구매하면 환불은 안돼요! 신중하게 골라주세요.";
+                    break;
+                default:
+                    tipNum = 0;
+                    break;
+            }
+            tipNum++;
+            tipNum %= 3;
+
+            for (int i = 0; i < 5; i++)
+            {
+                loadingText.text = "Loading · . .";
+                yield return new WaitForSeconds(0.2f);
+                loadingText.text = "Loading . · .";
+                yield return new WaitForSeconds(0.2f);
+                loadingText.text = "Loading . . ·";
+                yield return new WaitForSeconds(0.2f);
+            }
         }
     }
     #endregion

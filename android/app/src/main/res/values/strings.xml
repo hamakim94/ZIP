@@ -12,7 +12,7 @@
     <string name="home_logo">ZIP</string>
     <string name="home_family_title">행복한 우리 가조쿠</string>
     <string name="home_member">우리 가족 구성원</string>
-    <string name="mission_top">매일 가족과 함께 친목도 포인트도!!</string>
+    <string name="mission_top">매일 가족과 함께 소통도 포인트도!!</string>
     <string name="room_code_name"> 방코드 </string>
     <string name="point_name"> 포인트 </string>
     <string name="mission_btn">참여하러가기</string>
@@ -31,6 +31,7 @@
 
     <string name="edittext_hint"><font size="13">댓글 작성하기</font></string>
 
+    <string name="qna_participate">우리 가족 참여</string>
 
     <!-- login && signup  -->
     <string name="signup_text">회원가입</string>
@@ -69,4 +70,5 @@
     <string name="room_message"><u>아직 초대된 방이 없으신가요?</u></string>
     <string name="notification_channel_id">ZIP_ID</string>
     <string name="msg_token_fmt" translatable="false">토큰 : %s</string>
+    <string name="game_view_content_description">Game View</string>
 </resources>

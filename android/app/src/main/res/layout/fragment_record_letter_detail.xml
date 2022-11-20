@@ -1,102 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/board_recycler_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RecordBoardFragment"
-    android:orientation="vertical">
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/letter_detail_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/letter_detail_appbar"
-            style="@style/Widget.MaterialComponents.Toolbar.Surface"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:minHeight="48dp"
-            android:text="백문백답"
-            app:maxButtonHeight="48dp"
-            app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/profileContanier"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/letterImageDetail"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:scaleType="centerCrop"
-            android:background="@color/darkgray"
-            app:shapeAppearanceOverlay="@style/circleImageView"
-            android:adjustViewBounds="true"
-            app:layout_constraintBottom_toBottomOf="@id/profileContanier"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/profileContanier" />
-
-        <TextView
-            android:id="@+id/letterUserNicknameDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/letterRegDetail"
-            app:layout_constraintStart_toEndOf="@id/letterImageDetail"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:layout_constraintVertical_chainStyle="packed"/>
-
-        <androidx.constraintlayout.utils.widget.ImageFilterButton
-            android:id="@+id/mailIcon"
-            android:layout_width="22dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="4dp"
-            app:layout_constraintStart_toEndOf="@id/letterUserNicknameDetail"
-            app:layout_constraintTop_toTopOf="@id/letterUserNicknameDetail">
-
-        </androidx.constraintlayout.utils.widget.ImageFilterButton>
-
-        <TextView
-            android:id="@+id/letterRegDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/letterImageDetail"
-            app:layout_constraintTop_toBottomOf="@+id/letterUserNicknameDetail"
-
-            app:layout_constraintVertical_bias="0.5" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.ssafy.zip.android.viewmodel.LetterDetailViewModel" />
+    </data>
     <LinearLayout
-        android:id="@+id/letter_container"
+        android:id="@+id/board_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/textview_border"
-        android:padding="20dp">
-        <TextView
-            android:id="@+id/letterContentDetail"
+        tools:context=".RecordBoardFragment"
+        android:orientation="vertical">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/letter_detail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/letter_detail_appbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Surface"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                app:maxButtonHeight="48dp"
+                app:titleCentered="true"
+                app:titleTextAppearance="@style/toolbar_title" />
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profileContanier"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/letterImageDetail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="centerCrop"
+                android:background="@color/darkgray"
+                app:shapeAppearanceOverlay="@style/circleImageView"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="@id/profileContanier"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/profileContanier" />
+            <TextView
+                android:id="@+id/letterUserNicknameDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/letterRegDetail"
+                app:layout_constraintStart_toEndOf="@id/letterImageDetail"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintVertical_chainStyle="packed"/>
+            <androidx.constraintlayout.utils.widget.ImageFilterButton
+                android:id="@+id/mailIcon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintStart_toEndOf="@id/letterUserNicknameDetail"
+                app:layout_constraintTop_toTopOf="@id/letterUserNicknameDetail"
+                app:layout_constraintBottom_toBottomOf="@id/letterUserNicknameDetail">
+            </androidx.constraintlayout.utils.widget.ImageFilterButton>
+            <TextView
+                android:id="@+id/letterRegDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/letterImageDetail"
+                app:layout_constraintTop_toBottomOf="@+id/letterUserNicknameDetail"
+                app:layout_constraintVertical_bias="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/letter_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/black"></TextView>
+            android:background="@drawable/textview_border_white"
+            android:padding="20dp">
+            <TextView
+                android:id="@+id/letterContentDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black" />
+        </LinearLayout>
     </LinearLayout>
-
-
-
-</LinearLayout>
+</layout>
