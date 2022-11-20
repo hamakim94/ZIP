@@ -22,11 +22,7 @@ import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.Missions
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
-import com.ssafy.zip.android.repository.UserRepository
 import com.ssafy.zip.android.viewmodel.HomeViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -49,16 +45,16 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
 
-        binding.topLogo.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                val instance = UserRepository.getInstance(Application())
-                var response = instance?.logout()
-                if(response.equals("200")){
-                    val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-                    binding.root.findNavController().navigate(action)
-                }
-            }
-        }
+//        binding.topLogo.setOnClickListener {
+//            CoroutineScope(Dispatchers.Main).launch {
+//                val instance = UserRepository.getInstance(Application())
+//                var response = instance?.logout()
+//                if(response.equals("200")){
+//                    val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+//                    binding.root.findNavController().navigate(action)
+//                }
+//            }
+//        }
         binding.mission1Btn.setOnClickListener{
             var bundle = Bundle()
             viewModel.missions.value?.qna?.let { it1 -> bundle.putLong("id",  it1.id) }
