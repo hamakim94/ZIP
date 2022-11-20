@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+        <data>
+                <variable
+                    name="viewmodel"
+                    type="com.ssafy.zip.android.viewmodel.AlbumViewModel" />
+        </data>
+        <FrameLayout
+            android:id="@+id/album_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".RecordAlbumFragment">
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_margin="1dp"
+                    >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/album_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="GridLayoutManager"
+                    tools:listitem="@layout/album_item"/>
+                </androidx.core.widget.NestedScrollView>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_album_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="20dp"
+                    app:srcCompat="@drawable/ic_round_add_24"
+                    app:tint="@color/white"/>
+        </FrameLayout>
+</layout>

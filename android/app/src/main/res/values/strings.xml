@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">ZIP</string>
+    <string name="home">홈</string>
+    <string name="record">기록</string>
+    <string name="calendar">캘린더</string>
+    <string name="notification">알림</string>
+    <string name="album">앨범</string>
+    <string name="board">게시판</string>
+    <string name="new_calendar">할 일 추가</string>
+    <string name="start_calendar">시작 날짜</string>
+    <string name="add_calendar_hint">"일정을 입력하세요"</string>
+    <string name="home_logo">ZIP</string>
+    <string name="home_family_title">행복한 우리 가조쿠</string>
+    <string name="home_member">우리 가족 구성원</string>
+    <string name="mission_top">매일 가족과 함께 소통도 포인트도!!</string>
+    <string name="room_code_name"> 방코드 </string>
+    <string name="point_name"> 포인트 </string>
+    <string name="mission_btn">참여하러가기</string>
+    <string name="mission1_title">오늘의 백문백답</string>
+    <string name="mission1_content">백문백답 미션에 참여해보세요!</string>
+    <string name="mission2_title">오늘의 편지</string>
+    <string name="mission2_content">편지쓰기 미션에 참여해보세요!</string>
+    <string name="dialog_name">이름</string>
+    <string name="dialog_family">가족명</string>
+    <string name="dialog_nickname">나의 애칭</string>
+    <string name="new_album">새로운 앨범</string>
+    <string name="cancel">취소</string>
+    <string name="confirm">확인</string>
+    <string name="add_album_msg">새로운 앨범의 이름을 입력해주세요.</string>
+    <string name="add_album_hint">앨범명을 입력해주세요.</string>
+
+    <string name="edittext_hint"><font size="13">댓글 작성하기</font></string>
+
+    <string name="qna_participate">우리 가족 참여</string>
+
+    <!-- login && signup  -->
+    <string name="signup_text">회원가입</string>
+    <string name="login_text">로그인</string>
+    <string name="email">이메일</string>
+    <string name="email_hint">이메일</string>
+    <string name="passwordfind_text">비밀번호 찾기</string>
+    <string name="password">비밀번호</string>
+    <string name="password_hint">비밀번호 입력</string>
+    <string name="password_check">비밀번호 확인</string>
+    <string name="duplicate_check">중복확인</string>
+    <string name="name">이름</string>
+    <string name="name_hint">이름</string>
+    <string name="nickname">애칭</string>
+    <string name="nickname_hint">애칭</string>
+    <string name="family_code_clipboard">클립보드에 복사되었습니다.</string>
+    <string name="select_character_header">캐릭터 선택</string>
+    <string name="select_character">선택하기</string>
+
+    <!-- modify -->
+    <string name="modify_fragment">회원정보 수정</string>
+    <string name="modify_familyName">가족명</string>
+    <string name="modify_btn">수정하기</string>
+
+    <!-- spinner    -->
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="spinner_letter_to">
+        <item>엄마</item>
+        <item>아빠</item>
+        <item>형</item>
+    </string-array>
+    <string name="room_code">가족방 코드</string>
+    <string name="enter_text">입장하기</string>
+    <string name="room_hint">방 코드를 입력해주세요.</string>
+    <string name="room_message"><u>아직 초대된 방이 없으신가요?</u></string>
+    <string name="notification_channel_id">ZIP_ID</string>
+    <string name="msg_token_fmt" translatable="false">토큰 : %s</string>
+    <string name="game_view_content_description">Game View</string>
+</resources>

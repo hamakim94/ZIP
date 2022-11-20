@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "albumId": 12,
+    "pictureId": 4
+  },
+  {
+    "id": 3,
+    "albumId": 50,
+    "pictureId": 3
+  },
+  {
+    "id": 4,
+    "albumId": 12,
+    "pictureId": 95
+  }
+]

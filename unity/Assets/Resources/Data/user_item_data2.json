@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "itemList": [
+      {
+        "id": 2,
+        "hasItemCode": 1
+      },
+      {
+        "id": 3,
+        "hasItemCode": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "itemList": [
+      {
+        "id": 5,
+        "hasItemCode": 1
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "itemList": [
+      {
+        "id": 6,
+        "hasItemCode": 2
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "itemList": [
+      {
+        "id": 9,
+        "hasItemCode": 1
+      },
+      {
+        "id": 10,
+        "hasItemCode": 1
+      },
+      {
+        "id": 11,
+        "hasItemCode": 1
+      },
+      {
+        "id": 12,
+        "hasItemCode": 2
+      },
+      {
+        "id": 14,
+        "hasItemCode": 1
+      }
+    ]
+  }
+]

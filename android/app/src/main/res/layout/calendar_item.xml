@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp"
+    >
+    <LinearLayout
+        android:background="@drawable/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingVertical="5dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+                <TextView
+                    android:id="@+id/calendar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:text="일정 제목"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+                    <TextView
+                        android:id="@+id/calendar_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="일정 시작 시간"
+                        android:textColor="#666666"
+                        android:textSize="10sp"
+                        android:layout_marginStart="15dp"/>
+                    <TextView
+                        android:id="@+id/calendar_between_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="~"
+                        android:textColor="#666666"
+                        android:textSize="10sp"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="3dp"/>
+                    <TextView
+                        android:id="@+id/calendar_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="일정 종료 시간"
+                        android:textSize="10sp"
+                        android:textColor="#666666" />
+                </LinearLayout>
+        </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBackgroundView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            android:layout_gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text"
+            android:layout_marginEnd="25dp"
+            android:backgroundTint="@android:color/transparent">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:context=".CalendarFragment"
+                android:layout_gravity="center_vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/calendar_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/calendar"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical"
+                    tools:listitem="@layout/calendar_member_item" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+</layout>

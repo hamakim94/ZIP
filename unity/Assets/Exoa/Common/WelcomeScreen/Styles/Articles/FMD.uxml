@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
+>
+  <engine:Label class="box" text="Home Designer - Full Suite Bundle" />
+  <engine:Article>
+    <engine:Label text="Floor Map Designer is an easy to use realtime room designer! It could be used for architectural/real estate projects, or as a level editor for any kind of game!" />
+
+    <editor:BindableButton class="list" text="Asset Store Page" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/fmd-store" />
+    <editor:BindableButton class="list" text="Manual" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/fmd-manual" />
+    <editor:BindableButton class="list" text="Video Intro" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/fmd-video" />
+    <editor:BindableButton class="list" text="Support Forums" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/fmd-forum" />
+        
+  </engine:Article>
+    
+</engine:UXML>

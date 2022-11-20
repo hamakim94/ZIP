@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd"
+>
+  <engine:Label class="box" text="Home Designer" />
+  <engine:Article>
+    <engine:Label text="Home Designer allows you or your players to design their own room(s). These rooms are then accessible directly to be played in-game! This plugin comes with an example Kitchen asset folder." />
+
+    <editor:BindableButton class="list" text="Asset Store Page" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/id-store" />
+    <editor:BindableButton class="list" text="Manual" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/id-manual" />
+    <editor:BindableButton class="list" text="Video Intro" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/id-video" />
+    <editor:BindableButton class="list" text="Support Forums" assembly="UnityEngine" type="Application" method="OpenURL" value="http://monitor.exoa.fr/id-forum" />
+         
+  </engine:Article>
+    
+</engine:UXML>
