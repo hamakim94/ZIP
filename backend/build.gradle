@@ -1,0 +1,109 @@
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0" // queryDsl version 정보 추가
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'org.asciidoctor.convert' version '1.5.8'
+	id 'java'
+	// querydsl 플러그인 추가
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+group = 'com.ssafy.zip'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	// querydsl이 compileClassPath를 상속하도록 설정
+	querydsl.extendsFrom compileClasspath
+}
+// queryDSL 설정 추가
+// querydsl에서 사용할 경로 설정
+def querydslDir = "$buildDir/generated/querydsl"
+// JPA 사용 여부와 사용할 경로를 설정
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+// build 시 사용할 sourceSet 추가
+sourceSets {
+	main.java.srcDir querydslDir
+}
+// querydsl 컴파일시 사용할 옵션 설정
+compileQuerydsl{
+	options.annotationProcessorPath = configurations.querydsl
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+	set('springShellVersion', "2.1.1")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.webjars.npm:firebase__messaging:0.9.16'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//MySQL
+	runtimeOnly 'mysql:mysql-connector-java'
+	//Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+//	testImplementation 'org.springframework.security:spring-security-test'
+	//Swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	//jjwt (JWT 생성 및 파싱, 검증)
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	//유효성 검사
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//SMTP
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//Gson - MM webhook
+	implementation 'com.google.code.gson:gson:2.9.0'
+	// queryDsl
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+	// https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+	// https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
+	implementation 'com.google.firebase:firebase-admin:9.1.0'
+	//s3
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.shell:spring-shell-dependencies:${springShellVersion}"
+	}
+}
+
+tasks.named('test') {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+	inputs.dir snippetsDir
+	dependsOn test
+}
