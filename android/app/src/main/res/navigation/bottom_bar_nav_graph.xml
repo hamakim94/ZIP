@@ -239,6 +239,8 @@
     </fragment>
     <action
         android:id="@+id/action_to_modify" app:destination="@id/modifyFragment"/>
+    <action
+        android:id="@+id/action_to_login" app:destination="@id/loginFragment"/>
     <fragment
         android:id="@+id/startFragment"
         android:name="com.ssafy.zip.android.StartFragment"

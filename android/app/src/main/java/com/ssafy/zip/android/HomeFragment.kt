@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.get
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,13 +23,9 @@ import com.ssafy.zip.android.data.Family
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.data.Missions
 import com.ssafy.zip.android.databinding.FragmentHomeBinding
-import com.ssafy.zip.android.repository.UserRepository
 import com.ssafy.zip.android.viewmodel.HomeViewModel
 import com.unity3d.player.MultiWindowSupport
 import com.unity3d.player.UnityPlayer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -63,16 +58,16 @@ class HomeFragment : Fragment() {
         }
         binding.viewmodel = viewModel
 
-        binding.topLogo.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                val instance = UserRepository.getInstance(Application())
-                var response = instance?.logout()
-                if(response.equals("200")){
-                    val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-                    binding.root.findNavController().navigate(action)
-                }
-            }
-        }
+//        binding.topLogo.setOnClickListener {
+//            CoroutineScope(Dispatchers.Main).launch {
+//                val instance = UserRepository.getInstance(Application())
+//                var response = instance?.logout()
+//                if(response.equals("200")){
+//                    val action = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+//                    binding.root.findNavController().navigate(action)
+//                }
+//            }
+//        }
         binding.mission1Btn.setOnClickListener{
             var bundle = Bundle()
             viewModel.missions.value?.qna?.let { it1 -> bundle.putLong("id",  it1.id) }

@@ -1,19 +1,18 @@
 package com.ssafy.zip.android
 
 import android.app.Application
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
-import androidx.core.view.isInvisible
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ssafy.zip.android.data.FamilyMember
 import com.ssafy.zip.android.databinding.FragmentProfileDialogBinding
-import com.ssafy.zip.android.repository.HomeRepository
+import com.ssafy.zip.android.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,6 +37,7 @@ class CustomProfileDialog : DialogFragment() {
         if (familyId != null) {
             if (familyId != userId) {
                 binding.editBtn.isGone = true
+                binding.logout.isGone = true
             } else {
                 val dm = resources.displayMetrics
                 val size = Math.round(20 * dm.density)
@@ -81,21 +81,29 @@ class CustomProfileDialog : DialogFragment() {
 //                binding.dialogRightEditnicknameLayout.isGone = true
 //                binding.dialogButton.text = "닫기"
 //            }
-
         }
+        binding.logout.setOnClickListener {
+            MaterialAlertDialogBuilder(context as MainActivity)
+                .setMessage("로그아웃하시겠습니까?")
+                .setPositiveButton("확인") { dialog, which ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val instance = UserRepository.getInstance(Application())
+                        var response = instance?.logout()
+                        if(response.equals("200")){
+                            findNavController().popBackStack()
+                            findNavController().navigate(R.id.action_to_login)
+                        }
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
 
         return binding.root
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        CoroutineScope(Dispatchers.Main).launch {
-            val instance = HomeRepository.getInstance(Application())
-            var response = instance?.getFamily()
-//            println("response in Dialog :  " + response.toString())
-        }
-
-
     }
 
     override fun onDestroyView() {
